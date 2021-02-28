@@ -1,0 +1,52 @@
+cau truc thu muc:
++ src: source code
+    + main.js => file goc
+    + App.vue => Component goc
+    + assets => hinh anh, font
++ Component:
+    + 3 thanh phan:
+        + Template: html
+        + Script: js
+        + Style: css
++ Root element:
+    + Bat buoc
+
++ Two ways binding:
+    + Bind data in 2 ways
+    DEPENCE ON DATA TYPE
+    + Binding:
+        + Value binding: {{}}
+        + Property binding:
+            + v-bind:[ten thuoc tinh] = "something"
+                + stand: :[ten thuoc tinh] = "something"
+        + Style and Class binding:
+            + class:
+        + Model:
+            + v-model: link the element with the property
+        + Event handling: handle event from element
+            + v-on:[ten su kien]  = "something()"
+                + stand: @[ten su kien]  = "something()"
++ Prevent default event
+
++ ref: 
+    - Ánh xạ đến chính element đó
++ Conditional rendering:
+    + v-show:
+    + v-if:
+    + v-else:
+    + v-else-if:
++ List rendering:
+    + v-for:
+
++ methods:
+    - ham cua vue Object
++ watch:
+    - theo doi su thay doi cua data
++hook:
+    -mounted, updateBefore,...
++ Props:
+    - Du lieu tu component cha sang component con
+    - Props giong data() - data được lấy từ bên ngoài vào - state bên React
+
+npm i uuid: auto increment id
+npm i axios: http request call api
