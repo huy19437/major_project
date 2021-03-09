@@ -18,7 +18,7 @@ import '@/assets/asset_item/css/slicknav.min.css'
 import '@/assets/asset_item/css/font-awesome.css'
 import '@/assets/asset_item/css/themify-icons.css'
 import '@/assets/asset_item/css/responsive.css'
-// import '@/assets/asset_item/js/owl-carousel.js'
+import 'vue-scroll-up/dist/style.css'
 
 library.add(faCoffee, faAnchor)
 
