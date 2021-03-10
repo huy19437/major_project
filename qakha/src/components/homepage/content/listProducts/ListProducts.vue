@@ -564,6 +564,10 @@ export default {};
 
 <style lang="scss">
 /* -------------------------------------------------------------- Box Product -------------------------------------------------------------- */
+
+.section-title {
+  padding: 50px 0 10px;
+}
 .box-product-outer {
   margin-bottom: 5px;
   padding-top: 15px;
