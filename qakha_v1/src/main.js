@@ -19,7 +19,7 @@ import '@/assets/asset_item/css/font-awesome.css'
 import '@/assets/asset_item/css/themify-icons.css'
 import '@/assets/asset_item/css/responsive.css'
 import 'vue-scroll-up/dist/style.css'
-import '@/assets/asset_item/js/scrollup.js'
+// import '@/assets/asset_item/js/scrollup.js'
 
 
 library.add(faCoffee, faAnchor)
