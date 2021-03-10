@@ -7,6 +7,12 @@
 <script>
 export default {
   name: "App",
+  // mounted() {
+  //   const plugin = document.createElement("script");
+  //   plugin.setAttribute("src", "./src/assets/asset_item/js/scrollup.js");
+  //   plugin.async = true;
+  //   document.head.appendChild(plugin);
+  // },
 };
 </script>
 
