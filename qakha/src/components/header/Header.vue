@@ -355,6 +355,7 @@ export default {
 .header-inner {
   .cat-heading {
     margin-bottom: 0;
+    margin-top: 0;
   }
   .main-category {
     padding-left: 0;
@@ -369,6 +370,10 @@ export default {
       display: block;
     }
   }
+}
+
+.navbar {
+  margin-bottom: 0 !important;
 }
 
 // .header-inner .cat-heading {

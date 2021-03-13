@@ -3,13 +3,15 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <Header />
     <Content />
+    <Footer />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-import Header from "@/components/homepage/header/Header";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
 import Content from "@/components/homepage/content/Content";
 
 export default {
@@ -17,6 +19,7 @@ export default {
   components: {
     Header,
     Content,
+    Footer,
   },
 };
 </script>
