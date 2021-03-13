@@ -48,11 +48,12 @@
           </div>
           <div class="col-lg-6">
             <div class="about-avatar">
-              <img
+              <!-- <img
                 src="https://bootdey.com/img/Content/avatar/avatar7.png"
                 title=""
                 alt=""
-              />
+              /> -->
+              <img src="@/assets/logo.png" title="" alt="" />
             </div>
           </div>
         </div>
