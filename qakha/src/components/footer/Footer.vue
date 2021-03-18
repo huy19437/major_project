@@ -114,7 +114,7 @@
         </div>
       </div>
     </footer>
-    <ScrollUp :scroll-duration="1000" scroll-y="250" />
+    <ScrollUp :scroll-duration="1000" />
     <!-- <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647"
       ><span><i class="fa fa-angle-up"></i></span
     ></a> -->

@@ -41,9 +41,18 @@
                       />
                     </a>
                   </li>
-                  <li><i class="ti-user"></i> <a href="#">My account</a></li>
-                  <li>
-                    <i class="ti-power-off"></i><a href="login.html#">Login</a>
+                  <li v-if="!userName">
+                    <i class="ti-user"></i><a href="profile">My account</a>
+                  </li>
+                  <li v-else>
+                    <i class="ti-user"></i><a href="profile">{{ userName }}</a>
+                  </li>
+                  <li v-if="!userName">
+                    <i class="ti-power-off"></i><a href="login">Login</a>
+                  </li>
+                  <li v-else>
+                    <i class="ti-power-off"></i
+                    ><a @click.prevent="logoutFuction" href="login">Logout</a>
                   </li>
                 </ul>
               </div>
@@ -150,7 +159,7 @@
                   <div class="shopping-item">
                     <div class="dropdown-cart-header">
                       <span>2 Items</span>
-                      <a href="#">View Cart</a>
+                      <a href="cart">View Cart</a>
                     </div>
                     <ul class="shopping-list">
                       <li>
@@ -183,7 +192,7 @@
                         <span>Total</span>
                         <span class="total-amount">$134.00</span>
                       </div>
-                      <a href="checkout.html" class="btn animate">Checkout</a>
+                      <a href="checkout" class="btn animate">Checkout</a>
                     </div>
                   </div>
                   <!--/ End Shopping Item -->
@@ -331,13 +340,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
+  name: "Header",
   data() {
     return {
       isOpen: false,
       isOpen2: false,
       isChanged: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      userName: "auth/getUserName",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      logoutFuction: "auth/logout",
+      getUserInfoFromLocal: "auth/getUserInfoFromLocal",
+    }),
+
+    showProfile() {
+      this.$router.push({ path: "/profile" });
+    },
+  },
+  created() {
+    this.getUserInfoFromLocal();
   },
 };
 </script>
@@ -375,23 +404,6 @@ export default {
 .navbar {
   margin-bottom: 0 !important;
 }
-
-// .header-inner .cat-heading {
-//   margin-bottom: 0;
-// }
-
-// .header-inner .all-category:hover .main-category {
-//   display: block;
-// }
-
-// .header-inner .main-category {
-//   padding-left: 0;
-//   display: none;
-// }
-
-// .header-inner .main-category a {
-//   text-align: left;
-// }
 
 .header.shop {
   .logo {
@@ -439,41 +451,6 @@ export default {
   }
 }
 
-// .header.shop .nav li.active a {
-//   height: 64px;
-// }
-
-// .header.shop .right-bar .list {
-//   border: none;
-// }
-
-// .header.shop .nav-inner .dropdown {
-//   margin-right: 188px;
-//   list-style: none;
-// }
-
-// .header.shop .nav-inner .hasDropDown a {
-//   text-align: left;
-// }
-// .header.shop .logo {
-//   margin: 9px 0 0;
-//   padding-left: 50px;
-// }
-
-// .header.shop .right-bar {
-//   display: flex !important;
-//   align-items: center;
-//   top: 8px;
-// }
-
-// .header.shop .right-bar .nice-select {
-//   border-right: none;
-// }
-
-// .header.shop .right-bar .nice-select::after {
-//   right: 39px;
-// }
-
 .middle-inner .logo .header-logo {
   width: 153px;
   height: 50px;
@@ -483,7 +460,7 @@ export default {
   background-color: #fff;
   color: #000;
   border: none;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 .language-flag {
@@ -498,7 +475,6 @@ export default {
   content: " | ";
   display: block;
   position: absolute;
-  /* border-left: 1px solid #a9a2a2; */
   top: -4px;
   right: -4.1px;
 }

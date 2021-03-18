@@ -99,7 +99,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -137,9 +137,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Women Hot Collection</a
-                          >
+                          <a href="product-details">Women Hot Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -150,7 +148,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -188,7 +186,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html">Awesome Pink Show</a>
+                          <a href="product-details">Awesome Pink Show</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -199,7 +197,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -237,9 +235,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Awesome Bags Collection</a
-                          >
+                          <a href="product-details">Awesome Bags Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -258,7 +254,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -296,9 +292,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Women Hot Collection</a
-                          >
+                          <a href="product-details">Women Hot Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -317,7 +311,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -355,9 +349,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Women Hot Collection</a
-                          >
+                          <a href="product-details">Women Hot Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -376,7 +368,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -414,9 +406,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Women Hot Collection</a
-                          >
+                          <a href="product-details">Women Hot Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -435,7 +425,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -473,9 +463,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Women Hot Collection</a
-                          >
+                          <a href="product-details">Women Hot Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -494,7 +482,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details.html">
+                        <a href="product-details">
                           <img
                             class="default-img"
                             src="https://via.placeholder.com/550x750"
@@ -534,9 +522,7 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details.html"
-                            >Women Hot Collection</a
-                          >
+                          <a href="product-details">Women Hot Collection</a>
                         </h3>
                         <div class="product-price">
                           <span>$29.00</span>
@@ -628,42 +614,6 @@ export default {};
     }
   }
 }
-
-// .box-product .img-wrapper {
-//   position: relative;
-//   overflow: hidden;
-//   margin-bottom: 8px;
-// }
-
-// .box-product .img-wrapper > :first-child {
-//   position: relative;
-//   display: block;
-// }
-
-// .box-product .img-wrapper > a > img {
-//   width: 100%;
-// }
-
-// .box-product .img-wrapper .tags {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   display: inline-block;
-//   overflow: visible;
-//   width: auto;
-//   height: auto;
-//   margin: 0;
-//   padding: 0;
-//   vertical-align: inherit;
-//   border-width: 0;
-//   background-color: transparent;
-//   direction: rtl;
-// }
-
-// .box-product .img-wrapper .tags-left {
-//   left: 0;
-//   direction: ltr;
-// }
 
 .box-product .img-wrapper .tags > .label-tags {
   display: table;
@@ -782,7 +732,7 @@ export default {};
     padding: 0 160px !important;
     border: none;
     padding: 12px 0;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     margin-top: 20px;
     font-weight: 600;
   }
