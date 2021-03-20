@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const baseDomain = "http://127.0.0.1:8000";
-const baseDomain = "https://354d0dbb2a15.ngrok.io";
+const baseDomain = "https://bbcd856a2ec5.ngrok.io";
 
 const baseURL = `${baseDomain}/api`;
 

@@ -6,6 +6,7 @@ const state = {
     userInfo: null,
     token: null,
     loginError: null,
+    registerError: null,
 }
 
 const getters = {
@@ -20,31 +21,53 @@ const getters = {
     },
     getLoginError(state) {
         return state.loginError;
+    },
+    getRegisterError(state) {
+        return state.registerError;
     }
 }
 
 const mutations = {
-    setUserInfor(state, data) {
-        // state.userInfo = userInformation.getUserName(localStorage.getItem('token'));
-        state.userInfo = data;
+    setUserInfor(state) {
+        state.userInfo = userInformation.getUserName(localStorage.getItem('token'));
+        // state.userInfo = data;
     },
     setToken(state) {
         state.token = localStorage.getItem('token');;
     },
     setLoginError(state, data) {
         state.loginError = data;
+    },
+    setRegisterError(state, data) {
+        state.registerError = data;
     }
 }
 
 const actions = {
+    register({ commit }, params) {
+        return new Promise((res, rej) => {
+            console.log(params);
+            httpRequest.post('/v1/sign-up', params)
+                .then(respone => {
+                    console.log(respone.data);
+                    // localStorage.setItem('token', respone.data.token);
+                    // localStorage.setItem('user', respone.data.name);
+                    router.push({ path: "/" });
+                }).catch(err => {
+                    console.log(err.respone);
+                    commit('setRegisterError', err.response.data.message);
+                    rej(err.response.data.message);
+                })
+        })
+    },
     login({ commit }, params) {
         return new Promise((res, rej) => {
-            // console.log(params);
+            console.log(params);
             httpRequest.post('/v1/sign_in', params)
                 .then(respone => {
                     console.log(respone.data);
-                    localStorage.setItem('token', respone.data.authentication_token);
-                    localStorage.setItem('user', respone.data.name);
+                    localStorage.setItem('token', respone.data.token);
+                    // localStorage.setItem('user', respone.data.name);
                     router.push({ path: "/" });
                 }).catch(err => {
                     console.log(err.respone);
@@ -59,7 +82,7 @@ const actions = {
         //     httpRequest.post('/logout', params)
         //         .then(result => {
                     localStorage.removeItem('token');
-                    localStorage.removeItem('user');
+                    // localStorage.removeItem('user');
                     commit('setUserInfor', null);
                     router.push({ path: "/login" });
                     // state.userInfo = null;
@@ -70,7 +93,7 @@ const actions = {
 
     },
     getUserInfoFromLocal({ commit }) {
-        commit('setUserInfor', localStorage.getItem('user'));
+        commit('setUserInfor');
     },
     isAuthenticated() {
         return new Promise((res, rej) => {

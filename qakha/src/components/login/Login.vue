@@ -34,8 +34,14 @@
             >
           </p>
           <br />
-          <form action="/" method="post">
-            <div class="top-row">
+          <!-- <form @submit.prevent="register" @change="reFillRegister"> -->
+          <form @submit.prevent="register">
+            <div>
+              <div v-if="loginError" class="alert alert-danger" role="alert">
+                {{ loginError }}
+              </div>
+            </div>
+            <!-- <div class="top-row">
               <div class="field-wrap">
                 <input
                   type="text"
@@ -53,6 +59,21 @@
                   placeholder="Last Name*"
                 />
               </div>
+            </div> -->
+            <div class="field-wrap">
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                placeholder="User Name*"
+                v-model="userSignup.username"
+                @blur="$v.userSignup.username.$touch()"
+              />
+              <div v-if="$v.userSignup.username.$error">
+                <p class="errorMessage" v-if="!$v.userSignup.username.required">
+                  Username is required
+                </p>
+              </div>
             </div>
 
             <div class="field-wrap">
@@ -60,29 +81,55 @@
                 type="email"
                 required
                 autocomplete="off"
-                placeholder="Email Address*"
+                v-model="userSignup.email"
+                @blur="$v.userSignup.email.$touch()"
+                placeholder="Email*"
               />
+              <div v-if="$v.userSignup.email.$error">
+                <p class="errorMessage" v-if="!$v.userSignup.email.required">
+                  Email is required
+                </p>
+                <p class="errorMessage" v-if="!$v.userSignup.email.email">
+                  Email is invalid
+                </p>
+              </div>
             </div>
 
             <div class="field-wrap">
               <input
-                type="password"
                 required
                 autocomplete="off"
-                placeholder="Set A Password*"
+                v-model="userSignup.password"
+                @blur="$v.userSignup.password.$touch()"
+                placeholder="Password*"
               />
+              <div v-if="$v.userSignup.password.$error">
+                <p class="errorMessage" v-if="!$v.userSignup.password.required">
+                  Password is required
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.password.minLength"
+                >
+                  Password must be at least 8 characters
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.password.maxLength"
+                >
+                  Password must be at least 20 characters
+                </p>
+              </div>
             </div>
 
-            <button type="submit" class="button button-block">
-              Get Started
-            </button>
+            <button class="button button-block">Sign up</button>
           </form>
         </div>
 
         <div id="login" v-bind:style="{ display: status ? 'none' : 'block' }">
           <h1>Welcome Back!</h1>
 
-          <form @submit.prevent="authenticate" @change="reFill">
+          <form @submit.prevent="authenticate" @change="reFillLogin">
             <div>
               <div v-if="loginError" class="alert alert-danger" role="alert">
                 {{ loginError }}
@@ -93,15 +140,15 @@
                 type="email"
                 required
                 autocomplete="off"
-                v-model="user.email"
-                @blur="$v.user.email.$touch()"
                 placeholder="Email*"
+                v-model="userLogin.email"
+                @blur="$v.userLogin.email.$touch()"
               />
-              <div v-if="$v.user.email.$error">
-                <p class="errorMessage" v-if="!$v.user.email.required">
+              <div v-if="$v.userLogin.email.$error">
+                <p class="errorMessage" v-if="!$v.userLogin.email.required">
                   Email is required
                 </p>
-                <p class="errorMessage" v-if="!$v.user.email.email">
+                <p class="errorMessage" v-if="!$v.userLogin.email.email">
                   Email is invalid
                 </p>
               </div>
@@ -111,18 +158,18 @@
               <input
                 required
                 autocomplete="off"
-                v-model="user.password"
-                @blur="$v.user.password.$touch()"
+                v-model="userLogin.password"
+                @blur="$v.userLogin.password.$touch()"
                 placeholder="Password*"
               />
-              <div v-if="$v.user.password.$error">
-                <p class="errorMessage" v-if="!$v.user.password.required">
+              <div v-if="$v.userLogin.password.$error">
+                <p class="errorMessage" v-if="!$v.userLogin.password.required">
                   Password is required
                 </p>
-                <p class="errorMessage" v-if="!$v.user.password.minLength">
+                <p class="errorMessage" v-if="!$v.userLogin.password.minLength">
                   Password must be at least 8 characters
                 </p>
-                <p class="errorMessage" v-if="!$v.user.password.maxLength">
+                <p class="errorMessage" v-if="!$v.userLogin.password.maxLength">
                   Password must be at least 20 characters
                 </p>
               </div>
@@ -153,15 +200,33 @@ export default {
     return {
       isLogin: false,
       status: false,
-      user: {
+      userLogin: {
         email: "",
         password: "",
       },
-      // errorMessage: "",
+      userSignup: {
+        username: "",
+        email: "",
+        password: "",
+      },
     };
   },
   validations: {
-    user: {
+    userLogin: {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        minLength: minLength(5),
+        maxLength: maxLength(20),
+      },
+    },
+    userSignup: {
+      username: {
+        required,
+      },
       email: {
         required,
         email,
@@ -176,6 +241,7 @@ export default {
   computed: {
     ...mapGetters({
       loginError: "auth/getLoginError",
+      // registerError: "auth/registerError",
     }),
   },
   methods: {
@@ -184,22 +250,38 @@ export default {
     },
     ...mapActions({
       loginFuction: "auth/login",
+      registerFuction: "auth/register",
     }),
     ...mapMutations({
       setLoginError: "auth/setLoginError",
+      // setRegisterError: "auth/setRegisterError",
     }),
     authenticate() {
       if (this.loginError == null) {
-        this.$v.$touch();
-        if (!this.$v.$invalid) {
-          this.loginFuction(this.$data.user);
+        this.$v.userLogin.$touch();
+        if (!this.$v.userLogin.$invalid) {
+          // this.loginFuction(this.$data.userLogin);
+          console.log(this.$data.userLogin);
         }
         return true;
       }
     },
-    reFill() {
+    register() {
+      // if (this.registerError == null) {
+      this.$v.userSignup.$touch();
+      if (!this.$v.userSignup.$invalid) {
+        // this.registerFuction(this.$data.userSignup);
+        console.log(this.$data.userSignup);
+      }
+      return true;
+      // }
+    },
+    reFillLogin() {
       this.setLoginError(null);
     },
+    // reFillRegister() {
+    //   // this.setRegisterError(null);
+    // },
   },
 };
 </script>
@@ -256,6 +338,7 @@ a {
     a {
       padding: 15px 0;
       background: rgba(160, 179, 176, 0.25);
+      border-radius: 10px;
       .login-option-icon {
         margin-left: 30px;
       }
@@ -263,6 +346,19 @@ a {
         background: #f7941d;
         color: #fff;
       }
+    }
+  }
+  form {
+    div {
+      input {
+        border-radius: 10px;
+      }
+    }
+  }
+  button {
+    border-radius: 10px;
+    &:hover {
+      background: rgb(228, 186, 95);
     }
   }
 }
@@ -276,21 +372,36 @@ a {
     display: table;
     clear: both;
   }
-  li a {
-    display: block;
-    text-decoration: none;
-    padding: 15px;
-    background: rgba($gray-light, 0.25);
-    color: $gray-light;
-    font-size: 20px;
-    float: left;
-    width: 50%;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.5s ease;
-    &:hover {
-      background: $main-dark;
-      color: $white;
+  li {
+    &:nth-child(1) {
+      a {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+    }
+    &:nth-child(2) {
+      a {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      padding: 15px;
+      background: rgba($gray-light, 0.25);
+      color: $gray-light;
+      font-size: 20px;
+      float: left;
+      width: 50%;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.5s ease;
+      // border-radius: 10px;
+      &:hover {
+        background: $main-dark;
+        color: $white;
+      }
     }
   }
   .active a {
@@ -299,10 +410,12 @@ a {
   }
 }
 
-.tab-content div h1 {
-  color: #000;
-  padding-bottom: 26px;
-  padding-top: 20px;
+.tab-content {
+  div h1 {
+    color: #000;
+    padding-bottom: 26px;
+    padding-top: 20px;
+  }
 }
 
 h1 {
