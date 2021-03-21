@@ -448,8 +448,8 @@ a {
   // max-width: 600px;
   width: 500px;
   margin: 40px auto;
-  border-radius: $br;
-  box-shadow: 0 4px 10px 4px rgba($form-bg, 0.3);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   p {
     a {
       padding: 15px 0;
@@ -476,11 +476,15 @@ a {
       input {
         border-radius: 10px;
         color: #000;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+          rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
       }
     }
   }
   button {
     border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     &:hover {
       background: rgb(228, 186, 95);
     }
@@ -681,10 +685,12 @@ textarea {
     font-size: 2rem;
     font-weight: 600;
     width: 200px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 }
 .social-btn .btn:hover {
-  opacity: 0.9;
+  opacity: 0.5;
 }
 .social-btn .btn-secondary,
 .social-btn .btn-secondary:active {
