@@ -469,6 +469,10 @@ a {
   p[class="forgot"] {
     a {
       background: none;
+      &:hover {
+        border: none;
+        color: #fff;
+      }
     }
   }
   form {
