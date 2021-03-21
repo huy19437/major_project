@@ -49,8 +49,9 @@ const actions = {
             console.log(params);
             httpRequest.post('/v1/sign_up', params)
                 .then(response => {
+                    res(response.data);
                     console.log(response.data);
-                    router.push({ path: "/login" });
+                    // router.push({ path: "/login" });
                 }).catch(err => {
                     console.log(err);
                     commit('setRegisterError', err.response.data.message);

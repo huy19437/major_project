@@ -1,6 +1,16 @@
 <template>
   <div class="login">
     <div class="form">
+      <div>
+        <div
+          id="successSignup"
+          v-if="registerSucess"
+          class="alert alert-success"
+          role="alert"
+        >
+          {{ registerSucess }}
+        </div>
+      </div>
       <ul class="tab-group">
         <li
           class="tab"
@@ -284,6 +294,7 @@ export default {
     return {
       isLogin: false,
       status: false,
+      registerSucess: "",
       userLogin: {
         email: "",
         password: "",
@@ -369,10 +380,15 @@ export default {
       if (this.registerError == null) {
         this.$v.userSignup.$touch();
         if (!this.$v.userSignup.$invalid) {
-          this.registerFuction(this.$data.userSignup);
-          console.log(this.$data.userSignup);
+          var messageRegiser = this.registerFuction(this.$data.userSignup);
+          messageRegiser.then((response) => {
+            console.log(response);
+            if (response) {
+              this.registerSucess = "Sign up success!";
+            }
+            // this.$router.go(0);
+          });
           event.target.reset();
-          this.$data.status = !status;
         }
         return true;
       }
