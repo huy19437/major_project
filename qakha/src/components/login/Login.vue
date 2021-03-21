@@ -19,21 +19,6 @@
       </ul>
       <div class="tab-content">
         <div id="signup" v-bind:style="{ display: status ? 'block' : 'none' }">
-          <p>
-            <a href="" class="btn btn-block btn-outline-info">
-              <font-awesome-icon :icon="['fab', 'google']" /><span
-                class="login-option-icon"
-                >Login via Google</span
-              ></a
-            >
-            <a href="" class="btn btn-block btn-outline-primary">
-              <font-awesome-icon :icon="['fab', 'facebook']" /><span
-                class="login-option-icon"
-                >Login via facebook</span
-              ></a
-            >
-          </p>
-          <br />
           <form @submit.prevent="register" @change="reFillRegister">
             <!-- <form @submit.prevent="register"> -->
             <div>
@@ -206,7 +191,6 @@
                 </p>
               </div>
             </div>
-
             <button class="button button-block">Sign up</button>
           </form>
         </div>
@@ -265,6 +249,18 @@
             <p class="forgot"><a href="#">Forgot Password?</a></p>
 
             <button class="button button-block">Log In</button>
+
+            <hr size="5px" />
+            <div class="or-seperator"><i>or</i></div>
+            <p class="text-center">Login with your social media account</p>
+            <div class="text-center social-btn">
+              <a href="#" class="btn btn-secondary"
+                ><i class="fa fa-facebook"></i>&nbsp; Facebook</a
+              >
+              <a href="#" class="btn btn-danger"
+                ><i class="fa fa-google"></i>&nbsp; Google</a
+              >
+            </div>
           </form>
         </div>
       </div>
@@ -359,22 +355,25 @@ export default {
       setLoginError: "auth/setLoginError",
       setRegisterError: "auth/setRegisterError",
     }),
-    authenticate() {
+    authenticate(event) {
       if (this.loginError == null) {
         this.$v.userLogin.$touch();
         if (!this.$v.userLogin.$invalid) {
           this.loginFuction(this.$data.userLogin);
           // console.log(this.$data.userLogin);
+          event.target.reset();
         }
         return true;
       }
     },
-    register() {
+    register(event) {
       if (this.registerError == null) {
         this.$v.userSignup.$touch();
         if (!this.$v.userSignup.$invalid) {
           this.registerFuction(this.$data.userSignup);
           console.log(this.$data.userSignup);
+          event.target.reset();
+          this.$data.status = !status;
         }
         return true;
       }
@@ -424,6 +423,11 @@ body {
   display: flex;
   height: 100vh;
   align-items: center;
+  input {
+    font-size: 16px;
+    padding: 18px 10px;
+    background-color: #fff;
+  }
 }
 .form-control {
   color: #000 !important;
@@ -439,7 +443,7 @@ a {
 }
 
 .form {
-  background: rgba($form-bg, 0.9);
+  background: #dfe0df;
   padding: 40px;
   // max-width: 600px;
   width: 500px;
@@ -451,13 +455,14 @@ a {
       padding: 15px 0;
       background: rgba(160, 179, 176, 0.25);
       border-radius: 10px;
-      font-size: 17px;
       .login-option-icon {
         margin-left: 30px;
       }
       &:hover {
-        background: #f7941d;
+        background-color: #f7941d;
+        border: 1px solid #f7941d;
         color: #fff;
+        outline: none;
       }
     }
   }
@@ -650,5 +655,47 @@ textarea {
 
 .errorMessage {
   color: red;
+}
+
+// ======== FORGOT================================
+.or-seperator {
+  margin-top: 20px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+.or-seperator i {
+  padding: 0 10px;
+  background: #dfe0df;
+  position: relative;
+  top: -11px;
+  z-index: 1;
+}
+.social-btn {
+  display: flex;
+  justify-content: space-around;
+  .btn {
+    border: none;
+    margin: 10px 3px 0;
+    opacity: 1;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 200px;
+  }
+}
+.social-btn .btn:hover {
+  opacity: 0.9;
+}
+.social-btn .btn-secondary,
+.social-btn .btn-secondary:active {
+  background: #0d8cf0 !important;
+  border: 1px solid #0d8cf0;
+  color: #fff;
+}
+.social-btn .btn-danger,
+.social-btn .btn-danger:active {
+  background: #e94235 !important;
+  border: 1px solid #e94235;
+  color: #ffff;
 }
 </style>

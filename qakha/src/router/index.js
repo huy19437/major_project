@@ -6,6 +6,7 @@ import Cart from '@/components/cart/Cart.vue'
 import Profile from '@/components/profile/Profile.vue'
 import Checkout from '@/components/checkout/Checkout.vue'
 import Login from '@/components/login/Login.vue'
+import Forgot from '@/components/login/Forgot.vue'
 import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
 
 Vue.use(VueRouter)
@@ -56,6 +57,11 @@ const routes = [
         next();
       }
     }
+  },
+  {
+    path: '/forgot',
+    name: 'Forgot',
+    component: Forgot,
   },
   {
     path: '/orderconfirm',
