@@ -47,14 +47,12 @@ const actions = {
     register({ commit }, params) {
         return new Promise((res, rej) => {
             console.log(params);
-            httpRequest.post('/v1/sign-up', params)
-                .then(respone => {
-                    console.log(respone.data);
-                    // localStorage.setItem('token', respone.data.token);
-                    // localStorage.setItem('user', respone.data.name);
+            httpRequest.post('/v1/sign_up', params)
+                .then(response => {
+                    console.log(response);
                     router.push({ path: "/" });
                 }).catch(err => {
-                    console.log(err.respone);
+                    console.log(err);
                     commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
                 })

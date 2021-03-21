@@ -34,11 +34,11 @@
             >
           </p>
           <br />
-          <!-- <form @submit.prevent="register" @change="reFillRegister"> -->
-          <form @submit.prevent="register">
+          <form @submit.prevent="register" @change="reFillRegister">
+            <!-- <form @submit.prevent="register"> -->
             <div>
-              <div v-if="loginError" class="alert alert-danger" role="alert">
-                {{ loginError }}
+              <div v-if="registerError" class="alert alert-danger" role="alert">
+                {{ registerError }}
               </div>
             </div>
             <!-- <div class="top-row">
@@ -65,13 +65,54 @@
                 type="text"
                 required
                 autocomplete="off"
+                v-model="userSignup.name"
+                @blur="$v.userSignup.name.$touch()"
                 placeholder="User Name*"
-                v-model="userSignup.username"
-                @blur="$v.userSignup.username.$touch()"
+                class="form-control"
+                :class="$v.userSignup.name.$error ? 'is-invalid' : ''"
               />
-              <div v-if="$v.userSignup.username.$error">
-                <p class="errorMessage" v-if="!$v.userSignup.username.required">
-                  Username is required
+              <div v-if="$v.userSignup.name.$error">
+                <p class="errorMessage" v-if="!$v.userSignup.name.required">
+                  Name is required
+                </p>
+              </div>
+            </div>
+
+            <div class="field-wrap">
+              <input
+                type="text"
+                required
+                autocomplete="off"
+                v-model="userSignup.phone_number"
+                @blur="$v.userSignup.phone_number.$touch()"
+                placeholder="Phone number*"
+                class="form-control"
+                :class="$v.userSignup.phone_number.$error ? 'is-invalid' : ''"
+              />
+              <div v-if="$v.userSignup.phone_number.$error">
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.phone_number.required"
+                >
+                  Phone number is required
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.phone_number.numeric"
+                >
+                  Phone number is numeric
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.phone_number.minLength"
+                >
+                  Phone number must be at least 10 characters
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.phone_number.maxLength"
+                >
+                  Phone number max is 10 characters
                 </p>
               </div>
             </div>
@@ -84,6 +125,8 @@
                 v-model="userSignup.email"
                 @blur="$v.userSignup.email.$touch()"
                 placeholder="Email*"
+                class="form-control"
+                :class="$v.userSignup.email.$error ? 'is-invalid' : ''"
               />
               <div v-if="$v.userSignup.email.$error">
                 <p class="errorMessage" v-if="!$v.userSignup.email.required">
@@ -102,6 +145,8 @@
                 v-model="userSignup.password"
                 @blur="$v.userSignup.password.$touch()"
                 placeholder="Password*"
+                class="form-control"
+                :class="$v.userSignup.password.$error ? 'is-invalid' : ''"
               />
               <div v-if="$v.userSignup.password.$error">
                 <p class="errorMessage" v-if="!$v.userSignup.password.required">
@@ -122,13 +167,51 @@
               </div>
             </div>
 
+            <div class="field-wrap">
+              <input
+                required
+                autocomplete="off"
+                v-model="userSignup.password_confirmation"
+                @blur="$v.userSignup.password_confirmation.$touch()"
+                placeholder="password confirmation*"
+                class="form-control"
+                :class="
+                  $v.userSignup.password_confirmation.$error ? 'is-invalid' : ''
+                "
+              />
+              <div v-if="$v.userSignup.password_confirmation.$error">
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.password_confirmation.required"
+                >
+                  passwordConfirmation is required
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.password_confirmation.minLength"
+                >
+                  passwordConfirmation must be at least 8 characters
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.password_confirmation.maxLength"
+                >
+                  passwordConfirmation must be at least 20 characters
+                </p>
+                <p
+                  class="errorMessage"
+                  v-if="!$v.userSignup.password_confirmation.sameAsPassword"
+                >
+                  passwordConfirmation not match
+                </p>
+              </div>
+            </div>
+
             <button class="button button-block">Sign up</button>
           </form>
         </div>
 
         <div id="login" v-bind:style="{ display: status ? 'none' : 'block' }">
-          <h1>Welcome Back!</h1>
-
           <form @submit.prevent="authenticate" @change="reFillLogin">
             <div>
               <div v-if="loginError" class="alert alert-danger" role="alert">
@@ -143,6 +226,8 @@
                 placeholder="Email*"
                 v-model="userLogin.email"
                 @blur="$v.userLogin.email.$touch()"
+                class="form-control"
+                :class="$v.userLogin.email.$error ? 'is-invalid' : ''"
               />
               <div v-if="$v.userLogin.email.$error">
                 <p class="errorMessage" v-if="!$v.userLogin.email.required">
@@ -161,6 +246,8 @@
                 v-model="userLogin.password"
                 @blur="$v.userLogin.password.$touch()"
                 placeholder="Password*"
+                class="form-control"
+                :class="$v.userLogin.password.$error ? 'is-invalid' : ''"
               />
               <div v-if="$v.userLogin.password.$error">
                 <p class="errorMessage" v-if="!$v.userLogin.password.required">
@@ -194,6 +281,8 @@ import {
   email,
   minLength,
   maxLength,
+  sameAs,
+  numeric,
 } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -205,9 +294,11 @@ export default {
         password: "",
       },
       userSignup: {
-        username: "",
+        name: "",
         email: "",
+        phone_number: "",
         password: "",
+        password_confirmation: "",
       },
     };
   },
@@ -224,8 +315,14 @@ export default {
       },
     },
     userSignup: {
-      username: {
+      name: {
         required,
+      },
+      phone_number: {
+        required,
+        numeric,
+        minLength: minLength(10),
+        maxLength: maxLength(10),
       },
       email: {
         required,
@@ -236,12 +333,18 @@ export default {
         minLength: minLength(5),
         maxLength: maxLength(20),
       },
+      password_confirmation: {
+        required,
+        minLength: minLength(5),
+        maxLength: maxLength(20),
+        sameAsPassword: sameAs("password"),
+      },
     },
   },
   computed: {
     ...mapGetters({
       loginError: "auth/getLoginError",
-      // registerError: "auth/registerError",
+      registerError: "auth/getRegisterError",
     }),
   },
   methods: {
@@ -254,34 +357,34 @@ export default {
     }),
     ...mapMutations({
       setLoginError: "auth/setLoginError",
-      // setRegisterError: "auth/setRegisterError",
+      setRegisterError: "auth/setRegisterError",
     }),
     authenticate() {
       if (this.loginError == null) {
         this.$v.userLogin.$touch();
         if (!this.$v.userLogin.$invalid) {
-          // this.loginFuction(this.$data.userLogin);
-          console.log(this.$data.userLogin);
+          this.loginFuction(this.$data.userLogin);
+          // console.log(this.$data.userLogin);
         }
         return true;
       }
     },
     register() {
-      // if (this.registerError == null) {
-      this.$v.userSignup.$touch();
-      if (!this.$v.userSignup.$invalid) {
-        // this.registerFuction(this.$data.userSignup);
-        console.log(this.$data.userSignup);
+      if (this.registerError == null) {
+        this.$v.userSignup.$touch();
+        if (!this.$v.userSignup.$invalid) {
+          this.registerFuction(this.$data.userSignup);
+          console.log(this.$data.userSignup);
+        }
+        return true;
       }
-      return true;
-      // }
     },
     reFillLogin() {
       this.setLoginError(null);
     },
-    // reFillRegister() {
-    //   // this.setRegisterError(null);
-    // },
+    reFillRegister() {
+      this.setRegisterError(null);
+    },
   },
 };
 </script>
@@ -317,6 +420,14 @@ body {
   background: $body-bg;
   font-family: "Titillium Web", sans-serif;
 }
+.login {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+}
+.form-control {
+  color: #000 !important;
+}
 
 a {
   text-decoration: none;
@@ -330,7 +441,8 @@ a {
 .form {
   background: rgba($form-bg, 0.9);
   padding: 40px;
-  max-width: 600px;
+  // max-width: 600px;
+  width: 500px;
   margin: 40px auto;
   border-radius: $br;
   box-shadow: 0 4px 10px 4px rgba($form-bg, 0.3);
@@ -339,6 +451,7 @@ a {
       padding: 15px 0;
       background: rgba(160, 179, 176, 0.25);
       border-radius: 10px;
+      font-size: 17px;
       .login-option-icon {
         margin-left: 30px;
       }
@@ -348,10 +461,16 @@ a {
       }
     }
   }
+  p[class="forgot"] {
+    a {
+      background: none;
+    }
+  }
   form {
     div {
       input {
         border-radius: 10px;
+        color: #000;
       }
     }
   }
@@ -527,5 +646,9 @@ textarea {
 .forgot {
   margin-top: -20px;
   text-align: right;
+}
+
+.errorMessage {
+  color: red;
 }
 </style>
