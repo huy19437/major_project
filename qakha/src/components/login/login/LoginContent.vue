@@ -198,7 +198,6 @@ a {
 .form {
   background: #dfe0df;
   padding: 40px;
-  // max-width: 600px;
   width: 500px;
   margin: 40px auto;
   border-radius: 10px;
@@ -248,67 +247,67 @@ a {
   }
 }
 
-.tab-group {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 40px 0;
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  li {
-    &:nth-child(1) {
-      a {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-      }
-    }
-    &:nth-child(2) {
-      a {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-      }
-    }
-    a {
-      display: block;
-      text-decoration: none;
-      padding: 15px;
-      background: rgba($gray-light, 0.25);
-      color: $gray-light;
-      font-size: 20px;
-      float: left;
-      width: 50%;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.5s ease;
-      // border-radius: 10px;
-      &:hover {
-        background: $main-dark;
-        color: $white;
-      }
-    }
-  }
-  .active a {
-    background: $main;
-    color: $white;
-  }
-}
+// .tab-group {
+//   list-style: none;
+//   padding: 0;
+//   margin: 0 0 40px 0;
+//   &:after {
+//     content: "";
+//     display: table;
+//     clear: both;
+//   }
+//   li {
+//     &:nth-child(1) {
+//       a {
+//         border-top-left-radius: 10px;
+//         border-bottom-left-radius: 10px;
+//       }
+//     }
+//     &:nth-child(2) {
+//       a {
+//         border-top-right-radius: 10px;
+//         border-bottom-right-radius: 10px;
+//       }
+//     }
+//     a {
+//       display: block;
+//       text-decoration: none;
+//       padding: 15px;
+//       background: rgba($gray-light, 0.25);
+//       color: $gray-light;
+//       font-size: 20px;
+//       float: left;
+//       width: 50%;
+//       text-align: center;
+//       cursor: pointer;
+//       transition: 0.5s ease;
+//       // border-radius: 10px;
+//       &:hover {
+//         background: $main-dark;
+//         color: $white;
+//       }
+//     }
+//   }
+//   .active a {
+//     background: $main;
+//     color: $white;
+//   }
+// }
 
-.tab-content {
-  div h1 {
-    color: #000;
-    padding-bottom: 26px;
-    padding-top: 20px;
-  }
-}
+// .tab-content {
+//   div h1 {
+//     color: #000;
+//     padding-bottom: 26px;
+//     padding-top: 20px;
+//   }
+// }
 
-h1 {
-  text-align: center;
-  color: $white;
-  font-weight: $thin;
-  margin: 0 0 40px;
-}
+// h1 {
+//   text-align: center;
+//   color: $white;
+//   font-weight: $thin;
+//   margin: 0 0 40px;
+// }
 
 label {
   position: absolute;
@@ -368,22 +367,22 @@ textarea {
   margin-bottom: 40px;
 }
 
-.top-row {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+// .top-row {
+//   &:after {
+//     content: "";
+//     display: table;
+//     clear: both;
+//   }
 
-  > div {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-    &:last-child {
-      margin: 0;
-    }
-  }
-}
+//   > div {
+//     float: left;
+//     width: 48%;
+//     margin-right: 4%;
+//     &:last-child {
+//       margin: 0;
+//     }
+//   }
+// }
 
 .button {
   border: 0;
