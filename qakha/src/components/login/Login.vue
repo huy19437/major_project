@@ -246,11 +246,10 @@
               </div>
             </div>
 
-            <p class="forgot"><a href="#">Forgot Password?</a></p>
+            <p class="forgot"><a href="forgot">Forgot Password?</a></p>
 
             <button class="button button-block">Log In</button>
 
-            <hr size="5px" />
             <div class="or-seperator"><i>or</i></div>
             <p class="text-center">Login with your social media account</p>
             <div class="text-center social-btn">
