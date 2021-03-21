@@ -6,6 +6,7 @@ import Cart from '@/components/cart/Cart.vue'
 import Profile from '@/components/profile/Profile.vue'
 import Checkout from '@/components/checkout/Checkout.vue'
 import Login from '@/components/login/Login.vue'
+import Loginn from '@/components/login/Loginn.vue'
 import Forgot from '@/components/login/Forgot.vue'
 import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
 
@@ -46,10 +47,22 @@ const routes = [
       auth: true
     },
   },
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   component: Login,
+  //   beforeEnter: (to, from, next) => {
+  //     if(localStorage.getItem("token")){
+  //       next("/");
+  //     }else{
+  //       next();
+  //     }
+  //   }
+  // },
   {
     path: '/login',
-    name: 'Login',
-    component: Login,
+    name: 'Loginn',
+    component: Loginn,
     beforeEnter: (to, from, next) => {
       if(localStorage.getItem("token")){
         next("/");

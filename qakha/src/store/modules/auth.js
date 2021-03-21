@@ -28,9 +28,13 @@ const getters = {
 }
 
 const mutations = {
-    setUserInfor(state) {
-        state.userInfo = userInformation.getUserName(localStorage.getItem('token'));
-        // state.userInfo = data;
+    setUserInfor(state, data) {
+        if (data != null && data.lastIndexOf(' ') > 0) {
+            var nameOfUser = data;
+            state.userInfo = nameOfUser.slice(nameOfUser.lastIndexOf(' '));
+        } else {
+            state.userInfo = data;
+        }
     },
     setToken(state) {
         state.token = localStorage.getItem('token');;
@@ -92,7 +96,7 @@ const actions = {
 
     },
     getUserInfoFromLocal({ commit }) {
-        commit('setUserInfor');
+        commit('setUserInfor', userInformation.getUserName(localStorage.getItem('token')));
     },
     isAuthenticated() {
         return new Promise((res, rej) => {
