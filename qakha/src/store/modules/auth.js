@@ -29,9 +29,10 @@ const getters = {
 
 const mutations = {
     setUserInfor(state, data) {
-        if (data != null && data.lastIndexOf(' ') > 0) {
-            var nameOfUser = data;
-            state.userInfo = nameOfUser.slice(nameOfUser.lastIndexOf(' '));
+        if (data != null && typeof data == 'string') {
+            if (data.lastIndexOf(" ") > 0) {
+                state.userInfo = data.slice(data.lastIndexOf(" "));
+            }
         } else {
             state.userInfo = data;
         }

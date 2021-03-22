@@ -1,11 +1,9 @@
+import jwt_decode from "jwt-decode";
 const userInformation = {
+    
     getUserName(token) {
-        try {
-            return JSON.parse(atob(token.split('.')[1])).user_name;
-        } catch (e) {
-            return null;
-        }
-
+        var decode = jwt_decode(token);
+        return decode.user_name;
     }
 }
 
