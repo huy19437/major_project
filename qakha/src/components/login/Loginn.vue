@@ -2,9 +2,17 @@
   <div class="login">
     <div class="form">
       <div v-if="registerSucess" class="alert alert-success" role="alert">
-        {{ registerSucess }}
+        <!-- {{ registerSucess }} -->
+        Sign up successfully!
         <br />
         Click Sign in to Login
+        <button
+          @click="registerSucess = false"
+          type="button"
+          class="close close-successmess-btn"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <ul class="tab-group">
         <li
@@ -48,16 +56,19 @@ export default {
     return {
       isLogin: false,
       status: false,
-      registerSucess: "",
+      registerSucess: false,
     };
   },
   methods: {
     toggleStyleDisplay: function () {
       this.status = !this.status;
     },
+    toggleSuccesMessage: function () {
+      this.registerSucess = false;
+    },
     showSuccesMessage(registerSucess) {
-      this.registerSucess = registerSucess;
-      setTimeout(function () {}, 3000);
+      this.registerSucess = !this.registerSucess;
+      setTimeout(this.toggleSuccesMessage, 4000);
     },
   },
 };
@@ -102,6 +113,12 @@ body {
     font-size: 16px;
     padding: 18px 10px;
     background-color: #fff;
+  }
+  .close-successmess-btn {
+    position: absolute;
+    right: 4px;
+    top: 1px;
+    font-size: 35px;
   }
 }
 

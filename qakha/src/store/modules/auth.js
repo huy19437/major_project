@@ -55,10 +55,10 @@ const actions = {
             httpRequest.post('/v1/sign_up', params)
                 .then(response => {
                     res(response.data);
-                    console.log(response.data);
+                    // console.log(response.data);
                     // router.push({ path: "/login" });
                 }).catch(err => {
-                    console.log(err);
+                    // console.log(err);
                     commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
                 })
@@ -69,12 +69,12 @@ const actions = {
             console.log(params);
             httpRequest.post('/v1/sign_in', params)
                 .then(respone => {
-                    console.log(respone.data);
+                    // console.log(respone.data);
                     localStorage.setItem('token', respone.data.token);
                     // localStorage.setItem('user', respone.data.name);
                     router.push({ path: "/" });
                 }).catch(err => {
-                    console.log(err.respone);
+                    // console.log(err.respone);
                     commit('setLoginError', err.response.data.message);
                     rej(err.response.data.message);
                 })

@@ -218,7 +218,6 @@ export default {
         if (!this.$v.userSignup.$invalid) {
           var messageRegiser = this.registerFuction(this.$data.userSignup);
           messageRegiser.then((response) => {
-            console.log(response);
             if (response) {
               this.registerSucess = "Sign up success!";
               this.$emit("register-success", this.registerSucess);
