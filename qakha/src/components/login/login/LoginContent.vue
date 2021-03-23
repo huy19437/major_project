@@ -2,8 +2,8 @@
   <div id="login" v-bind:style="{ display: status ? 'none' : 'block' }">
     <form @submit.prevent="authenticate" @change="reFillLogin">
       <div>
-        <div v-if="loginError" class="alert alert-danger" role="alert">
-          {{ loginError }}
+        <div v-if="errMess" class="alert alert-danger" role="alert">
+          {{ errMess }}
         </div>
       </div>
       <div class="field-wrap">
@@ -52,7 +52,10 @@
 
       <p class="forgot"><a href="forgot">Forgot Password?</a></p>
 
-      <button class="button button-block" :disabled="$v.userLogin.$invalid">
+      <button
+        class="button button-block"
+        :disabled="$v.userLogin.$invalid || isDisabled"
+      >
         Log In
       </button>
       <Spinner :loading="isLoading" />
@@ -94,6 +97,7 @@ export default {
       isLogin: false,
       // status: false,
       registerSucess: "",
+      errMess: "",
       isLoading: false,
       isDisabled: false,
       userLogin: {
@@ -133,21 +137,31 @@ export default {
     }),
     authenticate(event) {
       this.isLoading = true;
-      if (this.loginError == null) {
-        this.$v.userLogin.$touch();
-        if (!this.$v.userLogin.$invalid) {
-          this.loginFuction(this.$data.userLogin)
-            .then(() => {
-              console.log("huy");
-            })
-            .catch(() => {})
-            .finally(() => {
-              this.isLoading = false;
-            });
-          event.target.reset();
-        }
-        return true;
+      this.isDisabled = true;
+      // if (this.errMess == "") {
+      this.$v.userLogin.$touch();
+      if (!this.$v.userLogin.$invalid) {
+        this.loginFuction(this.$data.userLogin)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            this.errMess = err;
+            setTimeout(() => {
+              this.toggleErrMessage();
+            }, 3000);
+          })
+          .finally(() => {
+            this.isLoading = false;
+            this.isDisabled = false;
+          });
+        event.target.reset();
       }
+      return true;
+      // }
+    },
+    toggleErrMessage() {
+      this.errMess = "";
     },
     reFillLogin() {
       this.setLoginError(null);

@@ -70,8 +70,10 @@ const actions = {
                 .then(respone => {
                     localStorage.setItem('token', respone.data.token);
                     router.push({ path: "/" });
+                    res(respone.data);
                 }).catch(err => {
                     commit('setLoginError', err.response.data.message);
+                    rej(err.response.data.message);
                 })
         })
     },
