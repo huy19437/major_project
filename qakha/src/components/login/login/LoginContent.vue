@@ -52,7 +52,10 @@
 
       <p class="forgot"><a href="forgot">Forgot Password?</a></p>
 
-      <button class="button button-block">Log In</button>
+      <button class="button button-block" :disabled="$v.userLogin.$invalid">
+        Log In
+      </button>
+      <Spinner :loading="isLoading" />
 
       <div class="or-seperator"><i>or</i></div>
       <p class="text-center">Login with your social media account</p>
@@ -70,6 +73,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import Spinner from "@/components/spinner/Spinner";
 import {
   required,
   email,
@@ -84,11 +88,14 @@ export default {
       type: Boolean,
     },
   },
+  components: { Spinner },
   data() {
     return {
       isLogin: false,
       // status: false,
       registerSucess: "",
+      isLoading: false,
+      isDisabled: false,
       userLogin: {
         email: "",
         password: "",
@@ -111,6 +118,7 @@ export default {
   computed: {
     ...mapGetters({
       loginError: "auth/getLoginError",
+      getLoading: "auth/getLoading",
     }),
   },
   methods: {
@@ -124,11 +132,18 @@ export default {
       setLoginError: "auth/setLoginError",
     }),
     authenticate(event) {
+      this.isLoading = true;
       if (this.loginError == null) {
         this.$v.userLogin.$touch();
         if (!this.$v.userLogin.$invalid) {
-          this.loginFuction(this.$data.userLogin);
-          // console.log(this.$data.userLogin);
+          this.loginFuction(this.$data.userLogin)
+            .then(() => {
+              console.log("huy");
+            })
+            .catch(() => {})
+            .finally(() => {
+              this.isLoading = false;
+            });
           event.target.reset();
         }
         return true;

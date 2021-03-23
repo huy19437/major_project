@@ -66,17 +66,12 @@ const actions = {
     },
     login({ commit }, params) {
         return new Promise((res, rej) => {
-            console.log(params);
             httpRequest.post('/v1/sign_in', params)
                 .then(respone => {
-                    // console.log(respone.data);
                     localStorage.setItem('token', respone.data.token);
-                    // localStorage.setItem('user', respone.data.name);
                     router.push({ path: "/" });
                 }).catch(err => {
-                    // console.log(err.respone);
                     commit('setLoginError', err.response.data.message);
-                    rej(err.response.data.message);
                 })
         })
     },
