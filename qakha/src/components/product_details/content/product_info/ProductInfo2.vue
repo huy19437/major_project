@@ -124,6 +124,10 @@ img {
   padding: 3em;
   line-height: 1.5em;
 }
+.wrapper {
+  height: 100%;
+  align-items: top;
+}
 
 @media screen and (min-width: 997px) {
   .wrapper {
