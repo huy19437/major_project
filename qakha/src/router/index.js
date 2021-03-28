@@ -8,6 +8,7 @@ import Checkout from '@/components/checkout/Checkout.vue'
 import Login from '@/components/login/Login.vue'
 import Loginn from '@/components/login/Loginn.vue'
 import Forgot from '@/components/login/Forgot.vue'
+import ResetPass from '@/components/login/ResetPass.vue'
 import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
 
 Vue.use(VueRouter)
@@ -75,6 +76,11 @@ const routes = [
     path: '/forgot',
     name: 'Forgot',
     component: Forgot,
+  },
+  {
+    path: '/reset',
+    name: 'ResetPass',
+    component: ResetPass,
   },
   {
     path: '/orderconfirm',

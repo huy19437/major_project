@@ -21,6 +21,7 @@ export default {
   display: inline-block;
   width: 59px;
   height: 59px;
+  margin-top: 20px;
 }
 .lds-dual-ring:after {
   content: " ";

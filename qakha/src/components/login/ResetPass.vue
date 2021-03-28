@@ -4,25 +4,38 @@
       <form @submit.prevent="handleSubmit">
         <div>
           <div v-if="errMess" class="alert alert-danger" role="alert">
-            {{ errMess }}
+            {{ errMess.toString() }}
           </div>
         </div>
-        <h3>Forgot Password</h3>
+        <h3>Reset Password</h3>
         <div class="form-group">
           <input
-            type="email"
+            type="password"
             class="form-control"
-            :class="$v.userForgot.email.$error ? 'is-invalid' : ''"
-            placeholder="Email"
-            v-model="userForgot.email"
-            @blur="$v.userForgot.email.$touch()"
+            :class="$v.userReset.password.$error ? 'is-invalid' : ''"
+            placeholder="New Password"
+            v-model="userReset.password"
+            @blur="$v.userReset.password.$touch()"
           />
-          <div v-if="$v.userForgot.email.$error">
-            <p class="errorMessage" v-if="!$v.userForgot.email.required">
-              Email is required
+          <div v-if="$v.userReset.password.$error">
+            <p class="errorMessage" v-if="!$v.userReset.password.required">
+              New Password is required
             </p>
-            <p class="errorMessage" v-if="!$v.userForgot.email.email">
-              Email is invalid
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            :class="$v.userReset.token.$error ? 'is-invalid' : ''"
+            placeholder="Code"
+            v-model="userReset.token"
+            @blur="$v.userReset.token.$touch()"
+          />
+          <div v-if="$v.userReset.token.$error">
+            <p class="errorMessage" v-if="!$v.userReset.token.required">
+              OTP code is required
             </p>
           </div>
         </div>
@@ -36,37 +49,40 @@
 
 <script>
 import { mapActions } from "vuex";
-import { required, email } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
 export default {
-  name: "ForgotPassword",
+  name: "ResetPass",
   components: { Spinner },
   data() {
     return {
       errMess: "",
       isLoading: false,
-      userForgot: {
-        email: "",
+      userReset: {
+        password: "",
+        token: "",
       },
     };
   },
   validations: {
-    userForgot: {
-      email: {
+    userReset: {
+      token: {
         required,
-        email,
+      },
+      password: {
+        required,
       },
     },
   },
   methods: {
     ...mapActions({
-      forgotPassword: "auth/forgotPassword",
+      resetPassword: "auth/resetPassword",
     }),
     handleSubmit() {
       this.isLoading = true;
-      this.$v.userForgot.$touch();
-      if (!this.$v.userForgot.$invalid) {
-        this.forgotPassword(this.$data.userForgot)
+      this.$v.userReset.$touch();
+      if (!this.$v.userReset.$invalid) {
+        this.resetPassword(this.$data.userReset)
           .then((res) => {
             console.log(res);
           })
@@ -129,6 +145,7 @@ export default {
 }
 
 .errorMessage {
+  color: red;
   color: red;
   margin-bottom: 0;
   position: absolute;

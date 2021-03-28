@@ -32,6 +32,9 @@ const mutations = {
         if (data != null && typeof data == 'string') {
             if (data.lastIndexOf(" ") > 0) {
                 state.userInfo = data.slice(data.lastIndexOf(" "));
+            } else {
+                console.log('here');
+                state.userInfo = data;
             }
         } else {
             state.userInfo = data;
@@ -55,10 +58,7 @@ const actions = {
             httpRequest.post('/v1/sign_up', params)
                 .then(response => {
                     res(response.data);
-                    // console.log(response.data);
-                    // router.push({ path: "/login" });
                 }).catch(err => {
-                    // console.log(err);
                     commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
                 })
@@ -78,20 +78,32 @@ const actions = {
         })
     },
     logout({ commit }) {
-        // return new Promise((res, rej) => {
-        //     let params = { token: localStorage.getItem('token') };
-        //     httpRequest.post('/logout', params)
-        //         .then(result => {
                     localStorage.removeItem('token');
-                    // localStorage.removeItem('user');
                     commit('setUserInfor', null);
                     router.push({ path: "/login" });
-                    // state.userInfo = null;
-        //         }).catch(err => {
-        //             rej(err.response.data.message);
-        //     })
-        // })
 
+    },
+    forgotPassword({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/v1/passwords/forgot', params)
+                .then(response => {
+                    router.push({ path: "/reset" });
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                })
+        })
+    },
+    resetPassword({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/v1/passwords/reset', params)
+                .then(response => {
+                    router.push({ path: "/login" });
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                })
+        })
     },
     getUserInfoFromLocal({ commit }) {
         commit('setUserInfor', userInformation.getUserName(localStorage.getItem('token')));
