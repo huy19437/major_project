@@ -7,7 +7,7 @@ import "jquery"
 import "popper.js"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faAnchor } from '@fortawesome/free-solid-svg-icons'
+import { faCaretLeft, faCaretRight, faCoffee, faAnchor } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import '@/assets/asset_item/css/bootstrap.css'
@@ -28,7 +28,7 @@ import '@/assets/asset_login_item/css/login-register.css'
 import Vuelidate from 'vuelidate'
 
 
-library.add(faCoffee, faAnchor, faGoogle, faFacebook)
+library.add (faCaretLeft, faCaretRight, faCoffee, faAnchor, faGoogle, faFacebook)
 Vue.use(Vuelidate)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

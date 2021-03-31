@@ -10,6 +10,8 @@ import Loginn from '@/components/login/Loginn.vue'
 import Forgot from '@/components/login/Forgot.vue'
 import ResetPass from '@/components/login/ResetPass.vue'
 import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
+import ListProducts from '@/components/homepage/content/listProducts/ListProducts.vue'
+import ListPartners from "@/components/homepage/content/listPartners/ListPartners";
 
 Vue.use(VueRouter)
 
@@ -17,13 +19,30 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/list-products',
+        name: 'ListProducts',
+        component: ListProducts
+      },
+      {
+        path: '/',
+        name: 'ListPartners',
+        component: ListPartners
+      },
+    ]
   },
   {
     path: '/product-details',
     name: 'ProductDetail',
     component: ProductDetail
   },
+  // {
+  //   path: '/list-products',
+  //   name: 'ListProducts',
+  //   component: ListProducts
+  // },
   {
     path: '/cart',
     name: 'Cart',
@@ -48,18 +67,6 @@ const routes = [
       auth: true
     },
   },
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: Login,
-  //   beforeEnter: (to, from, next) => {
-  //     if(localStorage.getItem("token")){
-  //       next("/");
-  //     }else{
-  //       next();
-  //     }
-  //   }
-  // },
   {
     path: '/login',
     name: 'Loginn',
@@ -89,7 +96,7 @@ const routes = [
     meta: {
       auth: true
     },
-  }
+  },
 ]
 
 const router = new VueRouter({

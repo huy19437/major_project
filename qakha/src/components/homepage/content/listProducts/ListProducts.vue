@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Trending Item</h2>
+          <h2>Category List</h2>
         </div>
       </div>
     </div>
@@ -19,17 +19,17 @@
                   data-toggle="tab"
                   href="#man"
                   role="tab"
-                  >MAN</a
+                  >Category</a
                 >
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#women" role="tab"
-                  >WOMAN</a
+                  >Category</a
                 >
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#kids" role="tab"
-                  >KIDS</a
+                  >Category</a
                 >
               </li>
               <li class="nav-item">
@@ -38,7 +38,7 @@
                   data-toggle="tab"
                   href="#accessories"
                   role="tab"
-                  >ACCESSORIES</a
+                  >Category</a
                 >
               </li>
               <li class="nav-item">
@@ -47,12 +47,12 @@
                   data-toggle="tab"
                   href="#essential"
                   role="tab"
-                  >ESSENTIAL</a
+                  >Category</a
                 >
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#prices" role="tab"
-                  >PRICE</a
+                  >Category</a
                 >
               </li>
             </ul>
@@ -412,7 +412,37 @@
 
 
 <script>
-export default {};
+import { mapActions, mapGetters } from "vuex";
+export default {
+  name: "ListProducts",
+  // data() {
+  //   return {
+  //     products: [],
+  //   };
+  // },
+  // computed: {
+  //   ...mapGetters({
+  //     getProductsLocal: "products/getProductsLocal",
+  //   }),
+  // },
+  // methods: {
+  //   ...mapActions({
+  //     getProducts: "products/getProducts",
+  //   }),
+  //   getResult() {
+  //     this.getProducts()
+  //       .then((res) => {
+  //         this.products = this.getProductsLocal.data;
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   },
+  // },
+  // created() {
+  //   // this.getResult();
+  // },
+};
 </script>
 
 <style lang="scss">

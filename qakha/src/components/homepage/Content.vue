@@ -1,26 +1,23 @@
 <template>
   <div>
-    <ListProducts />
+    <MainContent />
     <Carousel />
     <ShopService />
     <NewLetter />
-    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
 import Carousel from "@/components/homepage/content/carousel/Carousel";
-import ListProducts from "@/components/homepage/content/listProducts/ListProducts";
 import ShopService from "@/components/homepage/content/shopService/ShopService";
 import NewLetter from "@/components/homepage/content/newLetter/NewLetter";
-// import Footer from "@/components/footer/Footer";
+import MainContent from "@/components/homepage/content/MainContent";
 export default {
   components: {
-    ListProducts,
     Carousel,
     ShopService,
     NewLetter,
-    // Footer,
+    MainContent,
   },
   data() {
     return {};
