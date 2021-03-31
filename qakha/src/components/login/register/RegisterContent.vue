@@ -39,13 +39,22 @@
           <p class="errorMessage" v-if="!$v.userSignup.phone_number.required">
             Phone number is required
           </p>
-          <p class="errorMessage" v-if="!$v.userSignup.phone_number.numeric">
+          <p
+            class="errorMessage"
+            v-else-if="!$v.userSignup.phone_number.numeric"
+          >
             Phone number is numeric
           </p>
-          <p class="errorMessage" v-if="!$v.userSignup.phone_number.minLength">
+          <p
+            class="errorMessage"
+            v-else-if="!$v.userSignup.phone_number.minLength"
+          >
             Phone number must be at least 10 characters
           </p>
-          <p class="errorMessage" v-if="!$v.userSignup.phone_number.maxLength">
+          <p
+            class="errorMessage"
+            v-else-if="!$v.userSignup.phone_number.maxLength"
+          >
             Phone number max is 10 characters
           </p>
         </div>
@@ -66,7 +75,7 @@
           <p class="errorMessage" v-if="!$v.userSignup.email.required">
             Email is required
           </p>
-          <p class="errorMessage" v-if="!$v.userSignup.email.email">
+          <p class="errorMessage" v-else-if="!$v.userSignup.email.email">
             Email is invalid
           </p>
         </div>
@@ -86,11 +95,17 @@
           <p class="errorMessage" v-if="!$v.userSignup.password.required">
             Password is required
           </p>
-          <p class="errorMessage" v-if="!$v.userSignup.password.minLength">
+          <p class="errorMessage" v-else-if="!$v.userSignup.password.minLength">
             Password must be at least 8 characters
           </p>
-          <p class="errorMessage" v-if="!$v.userSignup.password.maxLength">
+          <p class="errorMessage" v-else-if="!$v.userSignup.password.maxLength">
             Password must be at least 20 characters
+          </p>
+          <p
+            class="errorMessage"
+            v-else-if="!$v.userSignup.password.validPassword"
+          >
+            Password must have 1 uppercase, 1 lowercase, 1 number characters
           </p>
         </div>
       </div>
@@ -116,19 +131,19 @@
           </p>
           <p
             class="errorMessage"
-            v-if="!$v.userSignup.password_confirmation.minLength"
+            v-else-if="!$v.userSignup.password_confirmation.minLength"
           >
             passwordConfirmation must be at least 8 characters
           </p>
           <p
             class="errorMessage"
-            v-if="!$v.userSignup.password_confirmation.maxLength"
+            v-else-if="!$v.userSignup.password_confirmation.maxLength"
           >
             passwordConfirmation must be at least 20 characters
           </p>
           <p
             class="errorMessage"
-            v-if="!$v.userSignup.password_confirmation.sameAsPassword"
+            v-else-if="!$v.userSignup.password_confirmation.sameAsPassword"
           >
             passwordConfirmation not match
           </p>
@@ -141,6 +156,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import { validPassword } from "../../../services/validation/validPassword";
 import {
   required,
   email,
@@ -186,8 +202,9 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(5),
+        minLength: minLength(6),
         maxLength: maxLength(20),
+        validPassword,
       },
       password_confirmation: {
         required,
@@ -216,8 +233,7 @@ export default {
       if (this.registerError == null) {
         this.$v.userSignup.$touch();
         if (!this.$v.userSignup.$invalid) {
-          var messageRegiser = this.registerFuction(this.$data.userSignup);
-          messageRegiser.then((response) => {
+          this.registerFuction(this.$data.userSignup).then((response) => {
             if (response) {
               this.registerSucess = "Sign up success!";
               this.$emit("register-success", this.registerSucess);
@@ -292,7 +308,6 @@ a {
 .form {
   background: #dfe0df;
   padding: 40px;
-  // max-width: 600px;
   width: 500px;
   margin: 40px auto;
   border-radius: 10px;
@@ -336,6 +351,13 @@ a {
     border-radius: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    position: relative;
+    transition: all 200ms ease;
+    &:active {
+      -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+      box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+      top: 4px;
+    }
     &:hover {
       background: rgb(228, 186, 95);
     }

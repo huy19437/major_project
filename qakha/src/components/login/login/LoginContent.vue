@@ -347,6 +347,13 @@ textarea {
   color: $white;
   transition: all 0.5s ease;
   -webkit-appearance: none;
+  position: relative;
+  transition: all 200ms ease;
+  &:active {
+    -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    top: 4px;
+  }
   &:hover,
   &:focus {
     background: $main-dark;
@@ -403,11 +410,25 @@ textarea {
   background: #0d8cf0 !important;
   border: 1px solid #0d8cf0;
   color: #fff;
+  position: relative;
+  transition: all 200ms ease;
+  &:active {
+    -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    top: 4px;
+  }
 }
 .social-btn .btn-danger,
 .social-btn .btn-danger:active {
   background: #e94235 !important;
   border: 1px solid #e94235;
   color: #ffff;
+  position: relative;
+  transition: all 200ms ease;
+  &:active {
+    -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    top: 4px;
+  }
 }
 </style>
