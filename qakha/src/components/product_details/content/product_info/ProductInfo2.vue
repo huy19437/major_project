@@ -57,7 +57,7 @@
                 type="button"
                 style="margin-right: 5px"
               >
-                add to cart
+                <router-link to="/cart">add to cart</router-link>
               </button>
               <button class="like btn btn-default" type="button">
                 <span class="fa fa-heart"></span>
@@ -81,6 +81,14 @@ export default {};
 
 img {
   max-width: 100%;
+}
+
+.action {
+  button {
+    a {
+      color: #fff;
+    }
+  }
 }
 
 .preview {

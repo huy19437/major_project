@@ -1,72 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import ProductDetail from '@/components/product_details/ProductDetail.vue'
-import Cart from '@/components/cart/Cart.vue'
-import Profile from '@/components/profile/Profile.vue'
-import Checkout from '@/components/checkout/Checkout.vue'
-import Login from '@/components/login/Login.vue'
 import Loginn from '@/components/login/Loginn.vue'
 import Forgot from '@/components/login/Forgot.vue'
 import ResetPass from '@/components/login/ResetPass.vue'
-import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
-import ListProducts from '@/components/homepage/content/listProducts/ListProducts.vue'
-import ListPartners from "@/components/homepage/content/listPartners/ListPartners";
-
+import { content } from './content'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    redirect: '/content',
     component: Home,
     children: [
-      {
-        path: '/list-products',
-        name: 'ListProducts',
-        component: ListProducts
-      },
-      {
-        path: '/',
-        name: 'ListPartners',
-        component: ListPartners
-      },
+      ...content
     ]
   },
-  {
-    path: '/product-details',
-    name: 'ProductDetail',
-    component: ProductDetail
-  },
-  // {
-  //   path: '/list-products',
-  //   name: 'ListProducts',
-  //   component: ListProducts
-  // },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart,
-    meta: {
-      auth: true
-    },
-  },
-  {
-    path: '/checkout',
-    name: 'Checkout',
-    component: Checkout,
-    meta: {
-      auth: true
-    },
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-    meta: {
-      auth: true
-    },
-  },
+  
   {
     path: '/login',
     name: 'Loginn',
@@ -88,14 +38,6 @@ const routes = [
     path: '/reset',
     name: 'ResetPass',
     component: ResetPass,
-  },
-  {
-    path: '/orderconfirm',
-    name: 'OrderConfirm',
-    component: OrderConfirm,
-    meta: {
-      auth: true
-    },
   },
 ]
 

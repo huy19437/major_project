@@ -1,6 +1,13 @@
 <template>
   <div class="container">
     <div class="row">
+      <div class="col-12">
+        <div class="section-title">
+          <h2>Partner List</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-3">
         <div class="sidebar">
           <div class="widget border-0">
@@ -87,6 +94,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import PaginationCustom from "../../../pagination/PaginationCustom";
 export default {
   name: "ListPartners",
@@ -94,6 +102,9 @@ export default {
     PaginationCustom,
   },
   computed: {
+    ...mapGetters({
+      getPartnersLocal: "partner/getPartnersLocal",
+    }),
     visiblePartner() {
       return this.partnerData.slice(
         this.currentPage * this.pageSize,
@@ -113,9 +124,24 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      getPartners: "partner/getPartners",
+    }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
+    getResult() {
+      this.getPartners()
+        .then((res) => {
+          this.products = this.getPartnersLocal.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  created() {
+    this.getResult();
   },
   watch: {
     partnerDataOnChange() {
@@ -126,10 +152,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container {
-  padding-top: 7%;
-}
-
 .sidebar {
   padding-top: 28%;
   .widget {
