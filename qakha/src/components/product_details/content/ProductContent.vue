@@ -1,16 +1,16 @@
 <template>
   <div class="productDetail">
-    <ProductInfo2 />
+    <ProductInfo />
   </div>
 </template>
 
 <script>
-import ProductInfo2 from "@/components/product_details/content/product_info/ProductInfo2";
+import ProductInfo from "@/components/product_details/content/product_info/ProductInfo";
 
 export default {
   name: "productDetail",
   components: {
-    ProductInfo2,
+    ProductInfo,
   },
 };
 </script>
