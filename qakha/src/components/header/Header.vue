@@ -159,7 +159,8 @@
                   <div class="shopping-item">
                     <div class="dropdown-cart-header">
                       <span>2 Items</span>
-                      <a href="cart">View Cart</a>
+                      <!-- <a href="cart">View Cart</a> -->
+                      <router-link to="/cart">View Cart </router-link>
                     </div>
                     <ul class="shopping-list">
                       <li>

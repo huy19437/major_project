@@ -66,19 +66,6 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <!-- <a href="product-details">
-                          <img
-                            class="default-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <img
-                            class="hover-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <span class="new">New</span>
-                        </a> -->
                         <router-link to="/product-details">
                           <img
                             class="default-img"
@@ -136,7 +123,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details">
+                        <router-link to="/product-details">
                           <img
                             class="default-img"
                             src="../../../../assets/logo.png"
@@ -148,7 +135,7 @@
                             alt="#"
                           />
                           <span class="price-dec">30% Off</span>
-                        </a>
+                        </router-link>
                         <div class="button-head">
                           <div class="product-action">
                             <a
@@ -193,7 +180,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details">
+                        <router-link to="/product-details">
                           <img
                             class="default-img"
                             src="../../../../assets/logo.png"
@@ -205,7 +192,7 @@
                             alt="#"
                           />
                           <span class="out-of-stock">Hot</span>
-                        </a>
+                        </router-link>
                         <div class="button-head">
                           <div class="product-action">
                             <a
@@ -250,7 +237,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details">
+                        <router-link to="/product-details">
                           <img
                             class="default-img"
                             src="../../../../assets/logo.png"
@@ -262,7 +249,7 @@
                             alt="#"
                           />
                           <span class="new">New</span>
-                        </a>
+                        </router-link>
                         <div class="button-head">
                           <div class="product-action">
                             <a
@@ -307,7 +294,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details">
+                        <router-link to="/product-details">
                           <img
                             class="default-img"
                             src="../../../../assets/logo.png"
@@ -319,7 +306,7 @@
                             alt="#"
                           />
                           <span class="new">New</span>
-                        </a>
+                        </router-link>
                         <div class="button-head">
                           <div class="product-action">
                             <a
@@ -364,7 +351,7 @@
                   <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <div class="single-product">
                       <div class="product-img">
-                        <a href="product-details">
+                        <router-link to="/product-details">
                           <img
                             class="default-img"
                             src="../../../../assets/logo.png"
@@ -376,7 +363,7 @@
                             alt="#"
                           />
                           <span class="new">New</span>
-                        </a>
+                        </router-link>
                         <div class="button-head">
                           <div class="product-action">
                             <a
@@ -428,33 +415,33 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "ListProducts",
-  // data() {
-  //   return {
-  //     products: [],
-  //   };
-  // },
-  // computed: {
-  //   ...mapGetters({
-  //     getProductsLocal: "products/getProductsLocal",
-  //   }),
-  // },
-  // methods: {
-  //   ...mapActions({
-  //     getProducts: "products/getProducts",
-  //   }),
-  //   getResult() {
-  //     this.getProducts()
-  //       .then((res) => {
-  //         this.products = this.getProductsLocal.data;
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   },
-  // },
-  // created() {
-  //   // this.getResult();
-  // },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  computed: {
+    ...mapGetters({
+      getProductsLocal: "products/getProductsLocal",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      getProducts: "products/getProducts",
+    }),
+    getResult() {
+      this.getProducts()
+        .then((res) => {
+          this.products = this.getProductsLocal.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  created() {
+    this.getResult();
+  },
 };
 </script>
 
