@@ -1,8 +1,8 @@
 <template>
   <div class="productDetail">
-    <Header />
+    <!-- <Header /> -->
     <ProductContent />
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>
 
@@ -14,9 +14,9 @@ import ProductContent from "@/components/product_details/content/ProductContent"
 export default {
   name: "productDetail",
   components: {
-    Header,
+    // Header,
     ProductContent,
-    Footer,
+    // Footer,
   },
 };
 </script>

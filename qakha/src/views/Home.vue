@@ -2,7 +2,8 @@
   <div class="home">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <Header />
-    <Content />
+    <!-- <Content /> -->
+    <router-view />
     <Footer />
   </div>
 </template>
