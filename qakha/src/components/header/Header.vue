@@ -150,7 +150,7 @@
                     <li data-value="kid’s item" class="option">kid’s item</li>
                   </ul>
                 </div>
-                <div class="sinlge-bar shopping">
+                <div v-if="userName" class="sinlge-bar shopping">
                   <a href="#" class="single-icon"
                     ><i class="ti-bag"></i>
                     <span class="total-count">2</span></a
@@ -367,7 +367,7 @@ export default {
     },
   },
   created() {
-    this.getUserInfoFromLocal();
+    // this.getUserInfoFromLocal();
   },
 };
 </script>

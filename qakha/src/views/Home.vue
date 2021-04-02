@@ -1,20 +1,22 @@
 <template>
   <div class="home">
-    <Header />
     <router-view />
-    <Footer />
+    <Carousel />
+    <ShopService />
+    <NewLetter />
   </div>
 </template>
 
 <script>
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
-
+import Carousel from "@/components/homepage/content/carousel/Carousel";
+import ShopService from "@/components/homepage/content/shopService/ShopService";
+import NewLetter from "@/components/homepage/content/newLetter/NewLetter";
 export default {
   name: "Home",
   components: {
-    Header,
-    Footer,
+    Carousel,
+    ShopService,
+    NewLetter,
   },
 };
 </script>
