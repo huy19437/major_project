@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header-sticky">
     <header class="header shop">
       <!-- Topbar -->
       <div class="topbar">
@@ -373,6 +373,11 @@ export default {
 </script>
 
 <style lang="scss">
+.header-sticky {
+  position: sticky;
+  top: -158px;
+  z-index: 100;
+}
 .top-left .list-main {
   padding-left: 0;
   float: left;

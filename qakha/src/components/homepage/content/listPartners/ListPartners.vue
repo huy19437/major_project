@@ -15,7 +15,7 @@
               <input
                 class="form-control"
                 type="text"
-                placeholder="Search Keywords"
+                placeholder="Search by Name"
                 v-model="searchByName"
               />
             </div>
