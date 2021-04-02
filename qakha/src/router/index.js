@@ -20,12 +20,12 @@ const routes = [
     component: Home,
     children: [
       {
-        path: '/list-partners',
+        path: 'list-partners',
         name: 'ListPartners',
         component: ListPartners
       },
       {
-        path: '/list-products',
+        path: 'list-products',
         name: 'ListProducts',
         component: ListProducts
       },
