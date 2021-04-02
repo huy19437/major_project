@@ -16,6 +16,7 @@
                 class="form-control"
                 type="text"
                 placeholder="Search Keywords"
+                v-model="searchByName"
               />
             </div>
           </div>
@@ -42,9 +43,11 @@
                     data-select2-id="1"
                     tabindex="-1"
                     aria-hidden="true"
+                    @change="getTypePartner($event)"
                   >
-                    <option data-select2-id="3">Newest</option>
-                    <option>Oldest</option>
+                    <option value="1" data-select2-id="3">VEGE</option>
+                    <option value="2">RICE BOX</option>
+                    <option value="3">STREETFOOD</option>
                   </select>
                 </div>
               </div>
@@ -52,7 +55,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-6 col-lg-4 mb-4">
+          <div
+            v-for="partner in visiblePartner"
+            :key="partner.id"
+            class="col-sm-6 col-lg-4 mb-4"
+          >
             <div class="partner-list partner-grid">
               <div class="partner-list-image">
                 <img
@@ -65,13 +72,15 @@
                 <div class="partner-list-info">
                   <div class="partner-list-title">
                     <h5>
-                      <router-link to="/list-products">Partner A</router-link>
+                      <router-link to="/list-products">{{
+                        partner.name
+                      }}</router-link>
                     </h5>
                   </div>
                   <div class="partner-list-option">
                     <ul class="list-unstyled">
                       <li>
-                        <span>Partner name</span>
+                        <span>{{ partner.type_id }}</span>
                       </li>
                     </ul>
                   </div>
@@ -84,7 +93,7 @@
     </div>
     <div class="row">
       <PaginationCustom
-        :partnerData="partnerData"
+        :partnerData="filteredList"
         @page:update="updatePage"
         :currentPage="currentPage"
         :pageSize="pageSize"
@@ -105,22 +114,34 @@ export default {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
     }),
+    filteredList() {
+      return this.partnerData.filter((partner) => {
+        return (
+          partner.type_id
+            .toString()
+            .toLowerCase()
+            .includes(this.typePartner.toLowerCase()) &&
+          partner.name.toLowerCase().includes(this.searchByName.toLowerCase())
+        );
+      });
+    },
     visiblePartner() {
-      return this.partnerData.slice(
+      return this.filteredList.slice(
         this.currentPage * this.pageSize,
         this.currentPage * this.pageSize + this.pageSize
       );
     },
     partnerDataOnChange() {
-      return this.laravelData;
+      return this.partnerData;
     },
   },
   data() {
     return {
-      campaignIdForDel: "",
       currentPage: 0,
-      pageSize: 5,
+      pageSize: 6,
       partnerData: [],
+      typePartner: "1",
+      searchByName: "",
     };
   },
   methods: {
@@ -130,14 +151,18 @@ export default {
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
+    getTypePartner(event) {
+      this.typePartner = event.target.value.toString();
+    },
     getResult() {
-      this.getPartners()
-        .then((res) => {
-          this.products = this.getPartnersLocal.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // this.getPartners()
+      //   .then((res) => {
+      this.partnerData = this.getPartnersLocal;
+      // console.log(this.partnerData);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     },
   },
   created() {
@@ -152,6 +177,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.container {
+  .row:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    padding-top: 33px;
+  }
+}
 .sidebar {
   padding-top: 28%;
   .widget {
