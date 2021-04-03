@@ -33,7 +33,6 @@ const mutations = {
             if (data.lastIndexOf(" ") > 0) {
                 state.userInfo = data.slice(data.lastIndexOf(" "));
             } else {
-                console.log('here');
                 state.userInfo = data;
             }
         } else {
@@ -55,7 +54,7 @@ const actions = {
     register({ commit }, params) {
         return new Promise((res, rej) => {
             console.log(params);
-            httpRequest.post('/v1/sign_up', params)
+            httpRequest.post('/sign_up', params)
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
@@ -64,9 +63,22 @@ const actions = {
                 })
         })
     },
+    registerPartner({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/sign_up', params)
+                .then(response => {
+                    res(response.data);
+                    console.log('response: ' + response.data);
+                }).catch(err => {
+                    console.log(err.response.data.message);
+                    commit('setRegisterError', err.response.data.message);
+                    rej(err.response.data.message);
+                })
+        })
+    },
     login({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.post('/v1/sign_in', params)
+            httpRequest.post('/sign_in', params)
                 .then(respone => {
                     localStorage.setItem('token', respone.data.token);
                     router.push({ path: "/" });
@@ -78,14 +90,14 @@ const actions = {
         })
     },
     logout({ commit }) {
-                    localStorage.removeItem('token');
-                    commit('setUserInfor', null);
-                    router.push({ path: "/login" });
+        localStorage.removeItem('token');
+        commit('setUserInfor', null);
+        router.push({ path: "/login" });
 
     },
     forgotPassword({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.post('/v1/passwords/forgot', params)
+            httpRequest.post('/passwords/forgot', params)
                 .then(response => {
                     router.push({ path: "/reset" });
                     res(response.data);
@@ -96,7 +108,7 @@ const actions = {
     },
     resetPassword({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.post('/v1/passwords/reset', params)
+            httpRequest.post('/passwords/reset', params)
                 .then(response => {
                     router.push({ path: "/login" });
                     res(response.data);
