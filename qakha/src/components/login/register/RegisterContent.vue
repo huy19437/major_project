@@ -149,7 +149,13 @@
           </p>
         </div>
       </div>
-      <button class="button button-block">Sign up</button>
+      <button
+        class="button button-block"
+        :disabled="$v.userSignup.$invalid || isDisabled"
+      >
+        Sign up
+      </button>
+      <Spinner :loading="isLoading" />
       <p class="partner-signup">
         <router-link to="/register-partner"
           >Sign up to become a partner</router-link
@@ -160,6 +166,7 @@
 </template>
 
 <script>
+import Spinner from "@/components/spinner/Spinner";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { validPassword } from "../../../services/validation/validPassword";
 import {
@@ -176,11 +183,14 @@ export default {
       type: Boolean,
     },
   },
+  components: { Spinner },
   data() {
     return {
       isLogin: false,
       //   status: false,
       registerSucess: "",
+      isLoading: false,
+      isDisabled: false,
       userSignup: {
         name: "",
         email: "",
@@ -236,15 +246,22 @@ export default {
       setRegisterError: "auth/setRegisterError",
     }),
     register(event) {
+      this.isLoading = true;
+      this.isDisabled = true;
       if (this.registerError == null) {
         this.$v.userSignup.$touch();
         if (!this.$v.userSignup.$invalid) {
-          this.registerFuction(this.$data.userSignup).then((response) => {
-            if (response) {
-              this.registerSucess = "Sign up success!";
-              this.$emit("register-success", this.registerSucess);
-            }
-          });
+          this.registerFuction(this.$data.userSignup)
+            .then((response) => {
+              if (response) {
+                this.registerSucess = "Sign up success!";
+                this.$emit("register-success", this.registerSucess);
+              }
+            })
+            .finally(() => {
+              this.isLoading = false;
+              this.isDisabled = false;
+            });
           event.target.reset();
         }
         return true;

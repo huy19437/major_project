@@ -5,7 +5,7 @@
         <router-link to="/login">Back to login</router-link>
       </button>
     </div>
-    <h1 class="well title">Registration Partner</h1>
+    <h1 class="well title">Partner Registration</h1>
     <div
       v-if="registerSucess"
       class="alert alert-success success-mess"
@@ -198,7 +198,6 @@
                 >
                   Submit
                 </button>
-                <Spinner :loading="isLoading" />
               </div>
             </div>
           </form>
@@ -206,6 +205,7 @@
       </div>
       <div class="col-lg-6 well">
         <GoogleMap @get-location-partner="getLocationPartner" />
+        <Spinner :loading="isLoading" />
       </div>
     </div>
   </div>
@@ -424,6 +424,7 @@ $button-color: #f7941d;
 }
 
 .btn-info {
+  width: 100%;
   background-color: $button-color;
   border-color: $button-color;
   border-radius: 10px;

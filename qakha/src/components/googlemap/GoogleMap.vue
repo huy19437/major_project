@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="google-map">
     <div>
       <h2>Search Locations</h2>
       <label>
@@ -67,8 +67,31 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h2::after {
   display: none;
+}
+.google-map {
+  margin-bottom: 41px;
+  button {
+    background-color: #f7941d;
+    color: #fff;
+    border-color: #f7941d;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    position: relative;
+    transition: all 200ms ease;
+    &:active {
+      -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+      box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+      top: 4px;
+    }
+  }
+
+  input {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border: 1px solid #000;
+  }
 }
 </style>
