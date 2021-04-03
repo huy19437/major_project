@@ -28,7 +28,7 @@ import '@/assets/asset_login_item/css/login-register.css'
 import Vuelidate from 'vuelidate'
 
 
-library.add (faCaretLeft, faCaretRight, faCoffee, faAnchor, faGoogle, faFacebook)
+library.add(faCaretLeft, faCaretRight, faCoffee, faAnchor, faGoogle, faFacebook)
 Vue.use(Vuelidate)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -1,6 +1,6 @@
 <template>
   <div id="signup" v-bind:style="{ display: status ? 'block' : 'none' }">
-    <form @submit.prevent="register" @change="reFillRegister">
+    <form @submit.prevent="register" @input="reFillRegister">
       <div>
         <div v-if="registerError" class="alert alert-danger" role="alert">
           {{ registerError }}
@@ -150,6 +150,11 @@
         </div>
       </div>
       <button class="button button-block">Sign up</button>
+      <p class="partner-signup">
+        <router-link to="/register-partner"
+          >Sign up to become a partner</router-link
+        >
+      </p>
     </form>
   </div>
 </template>
@@ -182,6 +187,7 @@ export default {
         phone_number: "",
         password: "",
         password_confirmation: "",
+        type_user: 1,
       },
     };
   },
@@ -292,6 +298,7 @@ body {
     background-color: #fff;
   }
 }
+
 .form-control {
   color: #000 !important;
 }
@@ -328,7 +335,10 @@ a {
       }
     }
   }
-  p[class="forgot"] {
+  p[class="partner-signup"] {
+    padding-top: 20px;
+    margin-bottom: 0;
+    margin-top: 14px;
     a {
       background: none;
       &:hover {

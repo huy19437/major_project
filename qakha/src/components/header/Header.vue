@@ -41,11 +41,10 @@
                       />
                     </a>
                   </li>
-                  <li v-if="!userName">
-                    <i class="ti-user"></i><a href="profile">My account</a>
-                  </li>
-                  <li v-else>
-                    <i class="ti-user"></i><a href="profile">{{ userName }}</a>
+                  <li v-if="userName">
+                    <i class="ti-user"></i>
+                    <!-- <a href="profile">{{ userName }}</a> -->
+                    <router-link to="/profile">{{ userName }}</router-link>
                   </li>
                   <li v-if="!userName">
                     <i class="ti-power-off"></i><a href="login">Login</a>
@@ -193,7 +192,10 @@
                         <span>Total</span>
                         <span class="total-amount">$134.00</span>
                       </div>
-                      <a href="checkout" class="btn animate">Checkout</a>
+                      <!-- <a href="checkout" class="btn animate">Checkout</a> -->
+                      <router-link class="btn animate" to="/checkout"
+                        >Checkout</router-link
+                      >
                     </div>
                   </div>
                   <!--/ End Shopping Item -->
@@ -302,14 +304,17 @@
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li><a href="#">Home</a></li>
+                          <li>
+                            <!-- <a href="/">Home</a> -->
+                            <router-link to="/">Home</router-link>
+                          </li>
                           <li><a href="#">Product</a></li>
                           <li><a href="#">Service</a></li>
                           <li class="hasDropDown">
                             <a href="#">Shop<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
-                              <li><a href="cart.html">Cart</a></li>
-                              <li><a href="checkout.html">Checkout</a></li>
+                              <li><a href="cart">Cart</a></li>
+                              <li><a href="checkout">Checkout</a></li>
                             </ul>
                           </li>
                           <li><a href="#">Pages</a></li>
@@ -367,7 +372,7 @@ export default {
     },
   },
   created() {
-    // this.getUserInfoFromLocal();
+    this.getUserInfoFromLocal();
   },
 };
 </script>

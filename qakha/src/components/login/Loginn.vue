@@ -1,6 +1,11 @@
 <template>
   <div class="login">
     <div class="form">
+      <div class="row back-btn">
+        <button class="btn btn-lg">
+          <router-link to="/">Back to Home</router-link>
+        </button>
+      </div>
       <div v-if="registerSucess" class="alert alert-success" role="alert">
         <!-- {{ registerSucess }} -->
         Sign up successfully!
@@ -119,6 +124,18 @@ body {
     right: 4px;
     top: 1px;
     font-size: 35px;
+  }
+  .back-btn {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      background-color: transparent;
+      padding-bottom: 0;
+      a {
+        color: #000000;
+        font-size: 15px;
+      }
+    }
   }
 }
 
