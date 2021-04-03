@@ -5,181 +5,207 @@
         <router-link to="/login">Back to login</router-link>
       </button>
     </div>
-    <h1 class="well title">Registration Partner Form</h1>
-    <div class="col-lg-12 well">
-      <div class="row">
-        <form
-          @submit.prevent="handleSubmit"
-          @input="reFillRegister"
-          class="col-12"
-        >
-          <div v-if="registerSucess" class="alert alert-success" role="alert">
-            <!-- {{ registerSucess }} -->
-            Sign up successfully!
-            <button
-              @click="registerSucess = false"
-              type="button"
-              class="close close-successmess-btn"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div>
-            <div v-if="registerError" class="alert alert-danger" role="alert">
-              {{ registerError }}
+    <h1 class="well title">Registration Partner</h1>
+    <div
+      v-if="registerSucess"
+      class="alert alert-success success-mess"
+      role="alert"
+    >
+      Sign up successfully!
+      <button
+        @click="registerSucess = false"
+        type="button"
+        class="close close-successmess-btn"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="row register-form">
+      <div class="col-lg-6 well">
+        <div class="row">
+          <form
+            @submit.prevent="handleSubmit"
+            @input="reFillRegister"
+            class="col-12"
+          >
+            <div>
+              <div
+                v-if="registerError"
+                class="alert alert-danger err-mess"
+                role="alert"
+              >
+                {{ registerError }}
+              </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="row">
-              <div class="col-12 form-group">
-                <label>First Name</label>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 form-group">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter First Name Here.."
+                    class="form-control"
+                    v-model="form.name"
+                    @blur="$v.form.name.$touch()"
+                  />
+                  <div v-if="$v.form.name.$error">
+                    <p class="errorMessage" v-if="!$v.form.name.required">
+                      Name is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Address</label>
+                <textarea
+                  placeholder="Enter Address Here.."
+                  rows="3"
+                  required
+                  class="form-control"
+                  v-model="form.address"
+                  @blur="$v.form.address.$touch()"
+                ></textarea>
+                <div v-if="$v.form.address.$error">
+                  <p class="errorMessage" v-if="!$v.form.address.required">
+                    Address is required
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input
+                  type="number"
+                  placeholder="Enter Phone Number Here.."
+                  class="form-control"
+                  v-model="form.phone_number"
+                  @blur="$v.form.phone_number.$touch()"
+                />
+                <div v-if="$v.form.phone_number.$error">
+                  <p class="errorMessage" v-if="!$v.form.phone_number.required">
+                    Phone number is required
+                  </p>
+                  <p
+                    class="errorMessage"
+                    v-if="!$v.form.phone_number.minLength"
+                  >
+                    Phone number minimum is 10 characters
+                  </p>
+                  <p
+                    class="errorMessage"
+                    v-if="!$v.form.phone_number.maxLength"
+                  >
+                    Phone number maximum is 10 characters
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  placeholder="Enter Email Address Here.."
+                  class="form-control"
+                  v-model="form.email"
+                  @blur="$v.form.email.$touch()"
+                />
+                <div v-if="$v.form.email.$error">
+                  <p class="errorMessage" v-if="!$v.form.email.required">
+                    Email is required
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
                 <input
                   type="text"
-                  required
-                  placeholder="Enter First Name Here.."
+                  placeholder="Enter Password Here.."
                   class="form-control"
-                  v-model="form.name"
-                  @blur="$v.form.name.$touch()"
+                  v-model="form.password"
+                  @blur="$v.form.password.$touch()"
                 />
-                <div v-if="$v.form.name.$error">
-                  <p class="errorMessage" v-if="!$v.form.name.required">
-                    Name is required
+                <div v-if="$v.form.password.$error">
+                  <p class="errorMessage" v-if="!$v.form.password.required">
+                    Password is required
+                  </p>
+                  <p
+                    class="errorMessage"
+                    v-else-if="!$v.form.password.minLength"
+                  >
+                    Password is minimum is 6 characters
+                  </p>
+                  <p
+                    class="errorMessage"
+                    v-else-if="!$v.form.password.maxLength"
+                  >
+                    Password is maximum is 20 characters
+                  </p>
+                  <p
+                    class="errorMessage"
+                    v-else-if="!$v.form.password.validPassword"
+                  >
+                    Password is invalid
                   </p>
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label>Address</label>
-              <textarea
-                placeholder="Enter Address Here.."
-                rows="3"
-                required
-                class="form-control"
-                v-model="form.address"
-                @blur="$v.form.address.$touch()"
-              ></textarea>
-              <div v-if="$v.form.address.$error">
-                <p class="errorMessage" v-if="!$v.form.address.required">
-                  Address is required
-                </p>
+              <div class="row">
+                <div class="col-6 form-group">
+                  <label>Time open</label>
+                  <input
+                    type="time"
+                    id="timeOpen"
+                    class="form-control"
+                    v-model="form.time_open"
+                    @blur="$v.form.time_open.$touch()"
+                    @input="errMess = !errMess"
+                  />
+                  <div v-if="$v.form.time_open.$error">
+                    <p class="errorMessage" v-if="!$v.form.time_open.required">
+                      Time open is required
+                    </p>
+                  </div>
+                  <div v-if="errMess">
+                    <p class="errorMessage">
+                      Time open must be before Time close
+                    </p>
+                  </div>
+                </div>
+                <div class="col-6 form-group">
+                  <label>Time close</label>
+                  <input
+                    type="time"
+                    id="timeClose"
+                    class="form-control"
+                    v-model="form.time_close"
+                    @blur="$v.form.time_close.$touch()"
+                    @input="errMess = !errMess"
+                  />
+                  <div v-if="$v.form.time_close.$error">
+                    <p class="errorMessage" v-if="!$v.form.time_close.required">
+                      Time close is required
+                    </p>
+                  </div>
+                  <div v-if="errMess">
+                    <p class="errorMessage">
+                      Time close must be after Time open
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label>Phone Number</label>
-              <input
-                type="number"
-                placeholder="Enter Phone Number Here.."
-                class="form-control"
-                v-model="form.phone_number"
-                @blur="$v.form.phone_number.$touch()"
-              />
-              <div v-if="$v.form.phone_number.$error">
-                <p class="errorMessage" v-if="!$v.form.phone_number.required">
-                  Phone number is required
-                </p>
-                <p class="errorMessage" v-if="!$v.form.phone_number.minLength">
-                  Phone number minimum is 10 characters
-                </p>
-                <p class="errorMessage" v-if="!$v.form.phone_number.maxLength">
-                  Phone number maximum is 10 characters
-                </p>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="Enter Email Address Here.."
-                class="form-control"
-                v-model="form.email"
-                @blur="$v.form.email.$touch()"
-              />
-              <div v-if="$v.form.email.$error">
-                <p class="errorMessage" v-if="!$v.form.email.required">
-                  Email is required
-                </p>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input
-                type="text"
-                placeholder="Enter Password Here.."
-                class="form-control"
-                v-model="form.password"
-                @blur="$v.form.password.$touch()"
-              />
-              <div v-if="$v.form.password.$error">
-                <p class="errorMessage" v-if="!$v.form.password.required">
-                  Password is required
-                </p>
-                <p class="errorMessage" v-else-if="!$v.form.password.minLength">
-                  Password is minimum is 6 characters
-                </p>
-                <p class="errorMessage" v-else-if="!$v.form.password.maxLength">
-                  Password is maximum is 20 characters
-                </p>
-                <p
-                  class="errorMessage"
-                  v-else-if="!$v.form.password.validPassword"
+              <div class="row loader">
+                <button
+                  class="btn btn-lg btn-info"
+                  :disabled="$v.form.$invalid || isDisabled"
                 >
-                  Password is invalid
-                </p>
+                  Submit
+                </button>
+                <Spinner :loading="isLoading" />
               </div>
             </div>
-            <div class="row">
-              <div class="col-6 form-group">
-                <label>Time open</label>
-                <input
-                  type="time"
-                  id="timeOpen"
-                  class="form-control"
-                  v-model="form.time_open"
-                  @blur="$v.form.time_open.$touch()"
-                  @input="errMess = !errMess"
-                />
-                <div v-if="$v.form.time_open.$error">
-                  <p class="errorMessage" v-if="!$v.form.time_open.required">
-                    Time open is required
-                  </p>
-                </div>
-                <div v-if="errMess">
-                  <p class="errorMessage">
-                    Time open must be before Time close
-                  </p>
-                </div>
-              </div>
-              <div class="col-6 form-group">
-                <label>Time close</label>
-                <input
-                  type="time"
-                  id="timeClose"
-                  class="form-control"
-                  v-model="form.time_close"
-                  @blur="$v.form.time_close.$touch()"
-                  @input="errMess = !errMess"
-                />
-                <div v-if="$v.form.time_close.$error">
-                  <p class="errorMessage" v-if="!$v.form.time_close.required">
-                    Time close is required
-                  </p>
-                </div>
-                <div v-if="errMess">
-                  <p class="errorMessage">Time close must be after Time open</p>
-                </div>
-              </div>
-            </div>
-            <div class="row loader">
-              <button
-                class="btn btn-lg btn-info"
-                :disabled="$v.form.$invalid || isDisabled"
-              >
-                Submit
-              </button>
-              <Spinner :loading="isLoading" />
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 well">
+        <GoogleMap @get-location-partner="getLocationPartner" />
       </div>
     </div>
   </div>
@@ -196,9 +222,10 @@ import {
   numeric,
 } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
+import GoogleMap from "@/components/googlemap/GoogleMap";
 export default {
   name: "RegisterPartner",
-  components: { Spinner },
+  components: { Spinner, GoogleMap },
   data() {
     return {
       errMess: false,
@@ -215,6 +242,8 @@ export default {
         time_close: "",
         type_user: 3,
         city_id: 1,
+        latitude: "",
+        longitude: "",
       },
     };
   },
@@ -274,6 +303,7 @@ export default {
       if (this.registerError == null && !this.errMess) {
         this.$v.form.$touch();
         if (!this.$v.form.$invalid) {
+          console.log(this.$data.form);
           this.registerPartner(this.$data.form)
             .then((response) => {
               if (response) {
@@ -289,6 +319,11 @@ export default {
           event.target.reset();
         }
       }
+      console.log(this.$data.form);
+    },
+    getLocationPartner(location) {
+      this.$data.form.latitude = location.lat;
+      this.$data.form.longitude = location.lng;
     },
     toggleSuccesMessage: function () {
       this.registerSucess = false;
@@ -315,15 +350,22 @@ export default {
 <style scoped lang="scss">
 $button-color: #f7941d;
 .container {
-  margin-top: 2%;
+  position: relative;
+  margin-top: 1%;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  .register-form {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
   .title {
     background-color: $button-color;
     border: 5px solid #f5f5f5;
     margin-top: 0;
+    border-radius: 10px;
   }
   form {
+    position: relative;
     input,
     textarea {
       border-radius: 10px;
@@ -335,12 +377,36 @@ $button-color: #f7941d;
       width: 100%;
       height: 43%;
     }
+    .col-12 {
+      div {
+        text-align: left;
+      }
+    }
+    .err-mess {
+      position: absolute;
+      z-index: 100;
+      top: -5%;
+      right: -28%;
+    }
+  }
+  .success-mess {
+    margin-bottom: 0;
+    background-color: rgb(156, 241, 163);
+    border-color: transparent;
+    font-size: 15px;
+    font-weight: 700;
+    color: #468847;
+    position: absolute;
+    z-index: 100;
+    top: 14%;
+    width: 52%;
+    right: 24%;
   }
 }
 
 .back-btn {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   button {
     background-color: #fff;
     padding-bottom: 0;
@@ -397,9 +463,6 @@ $button-color: #f7941d;
 
 /* Customize container */
 @media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
 }
 
 /* Responsive: Portrait tablets and up */
