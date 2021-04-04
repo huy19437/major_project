@@ -152,6 +152,7 @@
                   <progress-bar :options="options" :value="progress" />
                 </div>
                 <section v-if="results && results.secure_url">
+                  <label>Image Uploaded</label>
                   <img :src="results.secure_url" :alt="results.public_id" />
                 </section>
               </div>
