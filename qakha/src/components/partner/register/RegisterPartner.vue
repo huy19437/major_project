@@ -394,6 +394,7 @@ export default {
       // console.log(this.$data.form);
     },
     getLocationPartner(location) {
+      this.reFillRegister();
       this.$data.form.latitude = location.lat;
       this.$data.form.longitude = location.lng;
     },
@@ -554,8 +555,11 @@ $button-color: #f7941d;
     .err-mess {
       position: absolute;
       z-index: 100;
-      top: -5%;
-      right: -28%;
+      right: -45%;
+      top: -3%;
+      font-size: 15px;
+      font-weight: 700;
+      width: 476px;
     }
   }
   .success-mess {
@@ -567,7 +571,7 @@ $button-color: #f7941d;
     color: #468847;
     position: absolute;
     z-index: 100;
-    top: 14%;
+    top: 13%;
     width: 52%;
     right: 24%;
   }
