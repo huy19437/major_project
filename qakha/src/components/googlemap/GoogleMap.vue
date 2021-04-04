@@ -3,7 +3,13 @@
     <div>
       <h2>Search Locations</h2>
       <label>
-        <gmap-autocomplete @place_changed="setPlace"> </gmap-autocomplete>
+        <gmap-autocomplete
+          @place_changed="setPlace"
+          :options="{
+            fields: ['geometry', 'formatted_address', 'address_components'],
+          }"
+          >>
+        </gmap-autocomplete>
         <button @click="addMarker">Add</button>
       </label>
       <br />

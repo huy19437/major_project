@@ -51,7 +51,26 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#prices" role="tab"
+                <a class="nav-link" data-toggle="tab" href="#man" role="tab"
+                  >Category</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#women" role="tab"
+                  >Category</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kids" role="tab"
+                  >Category</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  data-toggle="tab"
+                  href="#essential"
+                  role="tab"
                   >Category</a
                 >
               </li>
@@ -463,8 +482,11 @@ export default {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
 
-.tab-content .box-product-outer {
-  margin-bottom: 0;
+.tab-content {
+  margin-top: 84px;
+  .box-product-outer {
+    margin-bottom: 0;
+  }
 }
 
 .box-product-slider-outer {
@@ -559,12 +581,6 @@ export default {
   bottom: 0;
 }
 
-// .box-product h6 a {
-//   line-height: 1.4;
-//   color: #000;
-//   font-weight: 530;
-// }
-
 .price {
   margin-bottom: 5px;
   color: #f44336;
@@ -576,13 +592,6 @@ export default {
     background: #f44336;
   }
 }
-
-// .price .price-down {
-//   margin-left: 5px;
-//   padding: 2px 5px;
-//   color: #fff;
-//   background: #f44336;
-// }
 
 .price > div {
   font-size: 1.2rem;
@@ -613,27 +622,28 @@ export default {
   }
 }
 
-// .rating a {
-//   font-size: 0.9rem;
-// }
-
 .product-sorting-bar {
   border: 1px solid #e5e5e5;
 }
 
 .product-info {
-  .nav-tabs {
-    justify-content: space-evenly;
-    display: flex;
-    width: 100%;
-    padding: 0 160px !important;
-    border: none;
-    padding: 12px 0;
-    font-size: 1.2rem;
-    margin-top: 20px;
-    font-weight: 600;
+  .nav {
+    flex-wrap: nowrap;
   }
   .nav-tabs {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    padding: 0 160px !important;
+    border: none;
+    font-size: 1.2rem;
+    margin-top: -48px;
+    font-weight: 600;
+    overflow: hidden;
+    &:hover {
+      overflow-x: scroll;
+    }
     li {
       a {
         color: #000;
@@ -653,27 +663,10 @@ export default {
   }
 }
 
-// .product-info .nav-tabs li a {
-//   color: #000;
-// }
-
 .product-info .nav-tabs li a.active,
 .product-info .nav-tabs li:hover a {
   background: #f7941d;
   color: #fff;
   border-color: transparent;
 }
-
-// .product-info .nav-tabs .nav-item {
-//   margin-bottom: 0;
-// }
-
-// .product-info .nav-tabs .nav-link {
-//   margin-bottom: 0;
-//   border: 1px solid transparent;
-//   border-top-left-radius: 0.25rem;
-//   border-top-right-radius: 0.25rem;
-//   border-bottom-left-radius: 0.25rem;
-//   border-bottom-right-radius: 0.25rem;
-// }
 </style>

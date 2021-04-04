@@ -1,6 +1,6 @@
 <template>
   <div id="signup" v-bind:style="{ display: status ? 'block' : 'none' }">
-    <form @submit.prevent="register" @input="reFillRegister">
+    <form @submit.prevent="register($event)" @input="reFillRegister">
       <div>
         <div v-if="registerError" class="alert alert-danger" role="alert">
           {{ registerError }}
@@ -187,7 +187,6 @@ export default {
   data() {
     return {
       isLogin: false,
-      //   status: false,
       registerSucess: "",
       isLoading: false,
       isDisabled: false,
@@ -245,7 +244,7 @@ export default {
     ...mapMutations({
       setRegisterError: "auth/setRegisterError",
     }),
-    register(event) {
+    register() {
       this.isLoading = true;
       this.isDisabled = true;
       if (this.registerError == null) {
@@ -255,6 +254,7 @@ export default {
             .then((response) => {
               if (response) {
                 this.registerSucess = "Sign up success!";
+                this.clearInput();
                 this.$emit("register-success", this.registerSucess);
               }
             })
@@ -262,13 +262,20 @@ export default {
               this.isLoading = false;
               this.isDisabled = false;
             });
-          event.target.reset();
         }
         return true;
       }
     },
     reFillRegister() {
       this.setRegisterError(null);
+    },
+    clearInput() {
+      this.$v.userSignup.$reset();
+      this.userSignup.name = "";
+      this.userSignup.email = "";
+      this.userSignup.phone_number = "";
+      this.userSignup.password = "";
+      this.userSignup.password_confirmation = "";
     },
   },
 };

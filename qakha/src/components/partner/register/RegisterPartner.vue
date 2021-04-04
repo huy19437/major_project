@@ -151,6 +151,9 @@
                 <div v-show="showProgress">
                   <progress-bar :options="options" :value="progress" />
                 </div>
+                <section v-if="results && results.secure_url">
+                  <img :src="results.secure_url" :alt="results.public_id" />
+                </section>
               </div>
               <div class="form-group image-upload">
                 <label>Image</label>
@@ -162,7 +165,7 @@
                 />
               </div>
               <div class="row">
-                <div class="col-6 form-group">
+                <div class="col-4 form-group">
                   <label>Time open</label>
                   <input
                     type="time"
@@ -183,7 +186,7 @@
                     </p>
                   </div>
                 </div>
-                <div class="col-6 form-group">
+                <div class="col-4 form-group">
                   <label>Time close</label>
                   <input
                     type="time"
@@ -202,6 +205,22 @@
                     <p class="errorMessage">
                       Time close must be after Time open
                     </p>
+                  </div>
+                </div>
+                <div class="col-4 form-group">
+                  <label class="justify-content-start mr-2">Sort by :</label>
+                  <div class="short-by">
+                    <select
+                      class="form-control basic-select select2-hidden-accessible"
+                      data-select2-id="1"
+                      tabindex="-1"
+                      aria-hidden="true"
+                      @change="getTypePartner($event)"
+                    >
+                      <option value="1" data-select2-id="3">VEGE</option>
+                      <option value="2">RICE BOX</option>
+                      <option value="3">STREETFOOD</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -281,16 +300,18 @@ export default {
       formData: null,
       form: {
         name: "",
-        address: "",
-        phone_number: "",
         email: "",
+        phone_number: "",
         password: "",
+        address: "",
         time_open: "",
         time_close: "",
         type_user: 3,
         city_id: 1,
         latitude: "",
         longitude: "",
+        image: "",
+        type_id: 1,
       },
     };
   },
@@ -345,28 +366,31 @@ export default {
       setRegisterError: "auth/setRegisterError",
     }),
     async handleSubmit(event) {
-      await this.upload();
-      this.isLoading = true;
-      this.isDisabled = true;
-      if (this.registerError == null && !this.errMess) {
-        this.$v.form.$touch();
-        if (!this.$v.form.$invalid) {
-          console.log(this.$data.form);
-          this.registerPartner(this.$data.form)
-            .then((response) => {
-              if (response) {
-                console.log(response);
-                this.registerSucess = true;
-                setTimeout(this.toggleSuccesMessage, 5000);
-              }
-            })
-            .finally(() => {
-              this.isLoading = false;
-              this.isDisabled = false;
-            });
-          event.target.reset();
+      await this.upload().then((res) => {
+        console.log("đến đây");
+        this.isLoading = true;
+        this.isDisabled = true;
+        if (this.registerError == null && !this.errMess) {
+          this.$v.form.$touch();
+          if (!this.$v.form.$invalid) {
+            console.log(this.$data.form);
+            this.registerPartner(this.$data.form)
+              .then((response) => {
+                if (response) {
+                  console.log(response);
+                  this.registerSucess = true;
+                  this.clearInput();
+                  setTimeout(this.toggleSuccesMessage, 5000);
+                }
+              })
+              .finally(() => {
+                this.isLoading = false;
+                this.isDisabled = false;
+              });
+            event.target.reset();
+          }
         }
-      }
+      });
       // console.log(this.$data.form);
     },
     getLocationPartner(location) {
@@ -391,64 +415,77 @@ export default {
       this.formData.append("file", this.fileContents);
     },
     upload: function () {
-      //no need to look at selected files if there is no cloudname or preset
-      if (this.preset.length < 1 || this.cloudName.length < 1) {
-        this.errMess = "You must enter a cloud name and preset to upload";
-        return;
-      }
-      // clear errors
-      else {
-        this.errors = "";
-      }
-      console.log("upload", this.file.name);
-      let reader = new FileReader();
-      // attach listener to be called when data from file
-      reader.addEventListener(
-        "load",
-        function () {
-          this.fileContents = reader.result;
-          this.prepareFormData();
-          let cloudinaryUploadURL = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
-          let requestObj = {
-            url: cloudinaryUploadURL,
-            method: "POST",
-            data: this.formData,
-            onUploadProgress: function (progressEvent) {
-              console.log("progress", progressEvent);
-              this.progress = Math.round(
-                (progressEvent.loaded * 100.0) / progressEvent.total
-              );
-              console.log(this.progress);
-              //bind "this" to access vue state during callback
-            }.bind(this),
-          };
-          //show progress bar at beginning of post
-          this.showProgress = true;
-          axios(requestObj)
-            .then((response) => {
-              this.results = response.data;
-              console.log(this.results);
-              console.log("public_id", this.results.public_id);
-            })
-            .catch((error) => {
-              this.errors.push(error);
-              console.log(this.error);
-            })
-            .finally(() => {
-              setTimeout(
-                function () {
-                  this.showProgress = false;
-                }.bind(this),
-                1000
-              );
-            });
-        }.bind(this),
-        false
-      );
-      // call for file read if there is a file
-      if (this.file && this.file.name) {
-        reader.readAsDataURL(this.file);
-      }
+      return new Promise((res, rej) => {
+        if (this.preset.length < 1 || this.cloudName.length < 1) {
+          this.errMess = "You must enter a cloud name and preset to upload";
+          return;
+        }
+        // clear errors
+        else {
+          this.errors = "";
+        }
+        console.log("upload", this.file.name);
+        let reader = new FileReader();
+        // attach listener to be called when data from file
+        reader.addEventListener(
+          "load",
+          function () {
+            this.fileContents = reader.result;
+            this.prepareFormData();
+            let cloudinaryUploadURL = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
+            let requestObj = {
+              url: cloudinaryUploadURL,
+              method: "POST",
+              data: this.formData,
+              onUploadProgress: function (progressEvent) {
+                console.log("progress", progressEvent);
+                this.progress = Math.round(
+                  (progressEvent.loaded * 100.0) / progressEvent.total
+                );
+                console.log(this.progress);
+                //bind "this" to access vue state during callback
+              }.bind(this),
+            };
+            //show progress bar at beginning of post
+            this.showProgress = true;
+            axios(requestObj)
+              .then((response) => {
+                this.results = response.data;
+                this.form.image = this.results.secure_url;
+                console.log(this.form.image);
+                console.log(this.results);
+                console.log("public_id", this.results.public_id);
+                res();
+              })
+              .catch((error) => {
+                this.errors.push(error);
+                console.log(this.error);
+              })
+              .finally(() => {
+                setTimeout(
+                  function () {
+                    this.showProgress = false;
+                  }.bind(this),
+                  1000
+                );
+              });
+          }.bind(this),
+          false
+        );
+        // call for file read if there is a file
+        if (this.file && this.file.name) {
+          reader.readAsDataURL(this.file);
+        }
+      });
+    },
+    clearInput() {
+      this.$v.form.$reset();
+      this.form.name = "";
+      this.form.email = "";
+      this.form.phone_number = "";
+      this.form.password = "";
+      this.form.address = "";
+      this.form.image = "";
     },
   },
   watch: {
