@@ -208,7 +208,7 @@
                   </div>
                 </div>
                 <div class="col-4 form-group">
-                  <label class="justify-content-start mr-2">Sort by :</label>
+                  <label class="justify-content-start mr-2">Type</label>
                   <div class="short-by">
                     <select
                       class="form-control basic-select select2-hidden-accessible"
@@ -487,6 +487,10 @@ export default {
       this.form.address = "";
       this.form.image = "";
     },
+    getTypePartner(event) {
+      this.form.type_id = event.target.value;
+      console.log("type: " + this.form.type_id);
+    },
   },
   watch: {
     time_open() {
@@ -510,6 +514,12 @@ $button-color: #f7941d;
   margin-top: 1%;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  select.form-control:not([size]):not([multiple]) {
+    height: calc(2.25rem + 18px);
+    border-radius: 10px;
+    box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px,
+      rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+  }
   .col-6.form-group {
     margin-bottom: 0;
   }
