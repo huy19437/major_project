@@ -147,6 +147,20 @@
                   </p>
                 </div>
               </div>
+              <div class="form-group">
+                <div v-show="showProgress">
+                  <progress-bar :options="options" :value="progress" />
+                </div>
+              </div>
+              <div class="form-group image-upload">
+                <label>Image</label>
+                <input
+                  id="file-input"
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  @change="handleFileChange($event)"
+                />
+              </div>
               <div class="row">
                 <div class="col-6 form-group">
                   <label>Time open</label>
@@ -194,7 +208,9 @@
               <div class="row loader">
                 <button
                   class="btn btn-lg btn-info"
-                  :disabled="$v.form.$invalid || isDisabled"
+                  :disabled="
+                    $v.form.$invalid || isDisabled || filesSelected < 1
+                  "
                 >
                   Submit
                 </button>
@@ -223,15 +239,46 @@ import {
 } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
 import GoogleMap from "@/components/googlemap/GoogleMap";
+import axios from "axios";
+import ProgressBar from "vuejs-progress-bar";
 export default {
   name: "RegisterPartner",
-  components: { Spinner, GoogleMap },
+  components: { Spinner, GoogleMap, ProgressBar },
   data() {
+    const progressBarOptions = {
+      text: {
+        shadowColor: "black",
+        fontSize: 14,
+        fontFamily: "Helvetica",
+        dynamicPosition: true,
+      },
+      progress: {
+        color: "#E8C401",
+        backgroundColor: "#000000",
+      },
+      layout: {
+        height: 35,
+        width: 140,
+        type: "line",
+        progressPadding: 0,
+        verticalTextAlign: 63,
+      },
+    };
     return {
       errMess: false,
       registerSucess: false,
       isLoading: false,
       isDisabled: false,
+      results: null,
+      file: null,
+      filesSelected: 0,
+      cloudName: "qakhadelivery",
+      preset: "vue_upload",
+      progress: 0,
+      showProgress: false,
+      options: progressBarOptions,
+      fileContents: null,
+      formData: null,
       form: {
         name: "",
         address: "",
@@ -297,7 +344,8 @@ export default {
     ...mapMutations({
       setRegisterError: "auth/setRegisterError",
     }),
-    handleSubmit(event) {
+    async handleSubmit(event) {
+      await this.upload();
       this.isLoading = true;
       this.isDisabled = true;
       if (this.registerError == null && !this.errMess) {
@@ -319,7 +367,7 @@ export default {
           event.target.reset();
         }
       }
-      console.log(this.$data.form);
+      // console.log(this.$data.form);
     },
     getLocationPartner(location) {
       this.$data.form.latitude = location.lat;
@@ -330,6 +378,77 @@ export default {
     },
     reFillRegister() {
       this.setRegisterError(null);
+    },
+    handleFileChange: function (event) {
+      console.log("handlefilechange", event.target.files);
+      //returns an array of files even though multiple not used
+      this.file = event.target.files[0];
+      this.filesSelected = event.target.files.length;
+    },
+    prepareFormData: function () {
+      this.formData = new FormData();
+      this.formData.append("upload_preset", this.preset);
+      this.formData.append("file", this.fileContents);
+    },
+    upload: function () {
+      //no need to look at selected files if there is no cloudname or preset
+      if (this.preset.length < 1 || this.cloudName.length < 1) {
+        this.errMess = "You must enter a cloud name and preset to upload";
+        return;
+      }
+      // clear errors
+      else {
+        this.errors = "";
+      }
+      console.log("upload", this.file.name);
+      let reader = new FileReader();
+      // attach listener to be called when data from file
+      reader.addEventListener(
+        "load",
+        function () {
+          this.fileContents = reader.result;
+          this.prepareFormData();
+          let cloudinaryUploadURL = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
+          let requestObj = {
+            url: cloudinaryUploadURL,
+            method: "POST",
+            data: this.formData,
+            onUploadProgress: function (progressEvent) {
+              console.log("progress", progressEvent);
+              this.progress = Math.round(
+                (progressEvent.loaded * 100.0) / progressEvent.total
+              );
+              console.log(this.progress);
+              //bind "this" to access vue state during callback
+            }.bind(this),
+          };
+          //show progress bar at beginning of post
+          this.showProgress = true;
+          axios(requestObj)
+            .then((response) => {
+              this.results = response.data;
+              console.log(this.results);
+              console.log("public_id", this.results.public_id);
+            })
+            .catch((error) => {
+              this.errors.push(error);
+              console.log(this.error);
+            })
+            .finally(() => {
+              setTimeout(
+                function () {
+                  this.showProgress = false;
+                }.bind(this),
+                1000
+              );
+            });
+        }.bind(this),
+        false
+      );
+      // call for file read if there is a file
+      if (this.file && this.file.name) {
+        reader.readAsDataURL(this.file);
+      }
     },
   },
   watch: {
@@ -354,6 +473,9 @@ $button-color: #f7941d;
   margin-top: 1%;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  .col-6.form-group {
+    margin-bottom: 0;
+  }
   .register-form {
     padding-left: 19px;
     padding-right: 19px;
