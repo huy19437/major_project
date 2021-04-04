@@ -369,7 +369,7 @@ export default {
       await this.upload().then((res) => {
         console.log("đến đây");
         this.isLoading = true;
-        this.isDisabled = true;
+        // this.isDisabled = true;
         if (this.registerError == null && !this.errMess) {
           this.$v.form.$touch();
           if (!this.$v.form.$invalid) {
@@ -386,6 +386,7 @@ export default {
               .finally(() => {
                 this.isLoading = false;
                 this.isDisabled = false;
+                this.filesSelected = 0;
               });
             event.target.reset();
           }
@@ -417,6 +418,7 @@ export default {
     },
     upload: function () {
       return new Promise((res, rej) => {
+        this.isDisabled = true;
         if (this.preset.length < 1 || this.cloudName.length < 1) {
           this.errMess = "You must enter a cloud name and preset to upload";
           return;
