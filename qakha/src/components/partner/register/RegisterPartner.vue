@@ -40,7 +40,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12 form-group">
-                  <label>First Name</label>
+                  <label>Partner Name</label>
                   <input
                     type="text"
                     required

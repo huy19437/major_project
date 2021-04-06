@@ -16,7 +16,7 @@ export const home = [
                 component: ListPartners,
             },
             {
-                path: 'list-products',
+                path: 'list-products/:slug',
                 name: 'ListProducts',
                 component: ListProducts,
             }

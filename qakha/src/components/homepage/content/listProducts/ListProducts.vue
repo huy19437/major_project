@@ -13,65 +13,18 @@
           <div class="nav-main">
             <!-- Tab Nav -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  data-toggle="tab"
-                  href="#man"
-                  role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#women" role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#kids" role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
+              <li
+                v-for="category in categories"
+                :key="category.id"
+                class="nav-item"
+              >
                 <a
                   class="nav-link"
                   data-toggle="tab"
-                  href="#accessories"
+                  :href="`${category.name}`"
                   role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  data-toggle="tab"
-                  href="#essential"
-                  role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#man" role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#women" role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#kids" role="tab"
-                  >Category</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  data-toggle="tab"
-                  href="#essential"
-                  role="tab"
-                  >Category</a
+                  @click="getProductsByCategory(category.id)"
+                  >{{ category.name }}</a
                 >
               </li>
             </ul>
@@ -79,10 +32,20 @@
           </div>
           <div class="tab-content" id="myTabContent">
             <!-- Start Single Tab -->
-            <div class="tab-pane fade show active" id="man" role="tabpanel">
+            <div
+              v-for="category in categories"
+              :key="category.id"
+              class="tab-pane fade show active"
+              :id="`${category.name}`"
+              role="tabpanel"
+            >
               <div class="tab-single">
                 <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                  <div
+                    v-for="product in listProducts"
+                    :key="product.id"
+                    class="col-xl-3 col-lg-4 col-md-4 col-12"
+                  >
                     <div class="single-product">
                       <div class="product-img">
                         <router-link to="/product-details">
@@ -97,119 +60,7 @@
                             alt="#"
                           />
                           <span class="new">New</span>
-                        </router-link>
-                        <div class="button-head">
-                          <div class="product-action">
-                            <a
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                              title="Quick View"
-                              href="#"
-                              ><i class="ti-eye"></i><span>Quick Shop</span></a
-                            >
-                            <a title="Wishlist" href="#"
-                              ><i class="ti-heart"></i
-                              ><span>Add to Wishlist</span></a
-                            >
-                            <a title="Compare" href="#"
-                              ><i class="ti-bar-chart-alt"></i
-                              ><span>Add to Compare</span></a
-                            >
-                          </div>
-                          <div class="product-action-2">
-                            <a title="Add to cart" href="#">Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="product-content">
-                        <h3>
-                          <a href="product-details">Women Hot Collection</a>
-                        </h3>
-                        <div class="product-price">
-                          <span>$29.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/ End Single Tab -->
-            <!-- Start Single Tab -->
-            <div class="tab-pane fade" id="women" role="tabpanel">
-              <div class="tab-single">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                    <div class="single-product">
-                      <div class="product-img">
-                        <router-link to="/product-details">
-                          <img
-                            class="default-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <img
-                            class="hover-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
                           <span class="price-dec">30% Off</span>
-                        </router-link>
-                        <div class="button-head">
-                          <div class="product-action">
-                            <a
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                              title="Quick View"
-                              href="#"
-                              ><i class="ti-eye"></i><span>Quick Shop</span></a
-                            >
-                            <a title="Wishlist" href="#"
-                              ><i class="ti-heart"></i
-                              ><span>Add to Wishlist</span></a
-                            >
-                            <a title="Compare" href="#"
-                              ><i class="ti-bar-chart-alt"></i
-                              ><span>Add to Compare</span></a
-                            >
-                          </div>
-                          <div class="product-action-2">
-                            <a title="Add to cart" href="#">Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="product-content">
-                        <h3>
-                          <a href="product-details">Women Hot Collection</a>
-                        </h3>
-                        <div class="product-price">
-                          <span>$29.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/ End Single Tab -->
-            <!-- Start Single Tab -->
-            <div class="tab-pane fade" id="kids" role="tabpanel">
-              <div class="tab-single">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                    <div class="single-product">
-                      <div class="product-img">
-                        <router-link to="/product-details">
-                          <img
-                            class="default-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <img
-                            class="hover-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
                           <span class="out-of-stock">Hot</span>
                         </router-link>
                         <div class="button-head">
@@ -237,181 +88,10 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details">Women Hot Collection</a>
+                          <a href="product-details">{{ product.name }}</a>
                         </h3>
                         <div class="product-price">
-                          <span>$29.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/ End Single Tab -->
-            <!-- Start Single Tab -->
-            <div class="tab-pane fade" id="accessories" role="tabpanel">
-              <div class="tab-single">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                    <div class="single-product">
-                      <div class="product-img">
-                        <router-link to="/product-details">
-                          <img
-                            class="default-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <img
-                            class="hover-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <span class="new">New</span>
-                        </router-link>
-                        <div class="button-head">
-                          <div class="product-action">
-                            <a
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                              title="Quick View"
-                              href="#"
-                              ><i class="ti-eye"></i><span>Quick Shop</span></a
-                            >
-                            <a title="Wishlist" href="#"
-                              ><i class="ti-heart"></i
-                              ><span>Add to Wishlist</span></a
-                            >
-                            <a title="Compare" href="#"
-                              ><i class="ti-bar-chart-alt"></i
-                              ><span>Add to Compare</span></a
-                            >
-                          </div>
-                          <div class="product-action-2">
-                            <a title="Add to cart" href="#">Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="product-content">
-                        <h3>
-                          <a href="product-details">Women Hot Collection</a>
-                        </h3>
-                        <div class="product-price">
-                          <span>$29.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/ End Single Tab -->
-            <!-- Start Single Tab -->
-            <div class="tab-pane fade" id="essential" role="tabpanel">
-              <div class="tab-single">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                    <div class="single-product">
-                      <div class="product-img">
-                        <router-link to="/product-details">
-                          <img
-                            class="default-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <img
-                            class="hover-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <span class="new">New</span>
-                        </router-link>
-                        <div class="button-head">
-                          <div class="product-action">
-                            <a
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                              title="Quick View"
-                              href="#"
-                              ><i class="ti-eye"></i><span>Quick Shop</span></a
-                            >
-                            <a title="Wishlist" href="#"
-                              ><i class="ti-heart"></i
-                              ><span>Add to Wishlist</span></a
-                            >
-                            <a title="Compare" href="#"
-                              ><i class="ti-bar-chart-alt"></i
-                              ><span>Add to Compare</span></a
-                            >
-                          </div>
-                          <div class="product-action-2">
-                            <a title="Add to cart" href="#">Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="product-content">
-                        <h3>
-                          <a href="product-details">Women Hot Collection</a>
-                        </h3>
-                        <div class="product-price">
-                          <span>$29.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--/ End Single Tab -->
-            <!-- Start Single Tab -->
-            <div class="tab-pane fade" id="prices" role="tabpanel">
-              <div class="tab-single">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                    <div class="single-product">
-                      <div class="product-img">
-                        <router-link to="/product-details">
-                          <img
-                            class="default-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <img
-                            class="hover-img"
-                            src="../../../../assets/logo.png"
-                            alt="#"
-                          />
-                          <span class="new">New</span>
-                        </router-link>
-                        <div class="button-head">
-                          <div class="product-action">
-                            <a
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                              title="Quick View"
-                              href="#"
-                              ><i class="ti-eye"></i><span>Quick Shop</span></a
-                            >
-                            <a title="Wishlist" href="#"
-                              ><i class="ti-heart"></i
-                              ><span>Add to Wishlist</span></a
-                            >
-                            <a title="Compare" href="#"
-                              ><i class="ti-bar-chart-alt"></i
-                              ><span>Add to Compare</span></a
-                            >
-                          </div>
-                          <div class="product-action-2">
-                            <a title="Add to cart" href="#">Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="product-content">
-                        <h3>
-                          <a href="product-details">Women Hot Collection</a>
-                        </h3>
-                        <div class="product-price">
-                          <span>$29.00</span>
+                          <span>{{ product.price }}</span>
                         </div>
                       </div>
                     </div>
@@ -431,31 +111,41 @@
 
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "ListProducts",
   data() {
     return {
-      products: [],
+      categories: [],
+      cateId: null,
+      slug: this.$route.params.slug,
     };
   },
   computed: {
     ...mapGetters({
-      getProductsLocal: "products/getProductsLocal",
+      getPartnersLocal: "partner/getPartnersLocal",
     }),
+    listProducts() {
+      return this.categories.find((category) => {
+        return category.id === this.cateId;
+      }).products;
+    },
   },
   methods: {
-    ...mapActions({
-      getProducts: "products/getProducts",
-    }),
+    getProductsByCategory(cateId) {
+      this.cateId = cateId;
+    },
     getResult() {
-      this.getProducts()
-        .then((res) => {
-          this.products = this.getProductsLocal.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
+        this.categories = this.getPartnersLocal.find(
+          (obj) => obj.id == this.slug
+        ).categories;
+      }
+      if (this.categories) {
+        if (this.categories.length > 0) {
+          this.cateId = this.categories[0].id;
+        }
+      }
     },
   },
   created() {

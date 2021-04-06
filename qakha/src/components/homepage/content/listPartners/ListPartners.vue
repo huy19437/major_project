@@ -72,9 +72,16 @@
                 <div class="partner-list-info">
                   <div class="partner-list-title">
                     <h5>
-                      <router-link to="/list-products">{{
+                      <!-- <router-link to="/list-products">{{
                         partner.name
-                      }}</router-link>
+                      }}</router-link> -->
+                      <router-link
+                        :to="{
+                          name: 'ListProducts',
+                          params: { slug: partner.id },
+                        }"
+                        >{{ partner.name }}</router-link
+                      >
                     </h5>
                   </div>
                   <div class="partner-list-option">
@@ -155,14 +162,14 @@ export default {
       this.typePartner = event.target.value.toString();
     },
     getResult() {
-      // this.getPartners()
-      //   .then((res) => {
-      this.partnerData = this.getPartnersLocal;
-      // console.log(this.partnerData);
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
+      this.getPartners()
+        .then((res) => {
+          this.partnerData = this.getPartnersLocal;
+          // console.log(this.partnerData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   created() {
