@@ -51,7 +51,7 @@
                         <router-link
                           :to="{
                             name: 'ProductDetail',
-                            params: { data: product },
+                            params: { data: product, slug: product.id },
                           }"
                         >
                           <img
@@ -93,7 +93,15 @@
                       </div>
                       <div class="product-content">
                         <h3>
-                          <a href="product-details">{{ product.name }}</a>
+                          <router-link
+                            :to="{
+                              name: 'ProductDetail',
+                              params: { data: product, slug: product.id },
+                            }"
+                          >
+                            {{ product.name }}
+                          </router-link>
+                          <!-- <a href="product-details">{{ product.name }}</a> -->
                         </h3>
                         <div class="product-price">
                           <span>{{ product.price }}</span>
