@@ -1,7 +1,7 @@
 import httpRequest from '../../services/repository'
 
 const state = {
-    partners: [
+    partners2: [
         {
             "id": 1,
             "name": "Kermit Schultz",
@@ -1076,7 +1076,7 @@ const state = {
             "categories": []
         }
     ],
-    partners2: []
+    partners: []
 }
 
 const getters = {

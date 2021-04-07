@@ -48,7 +48,12 @@
                   >
                     <div class="single-product">
                       <div class="product-img">
-                        <router-link to="/product-details">
+                        <router-link
+                          :to="{
+                            name: 'ProductDetail',
+                            params: { data: product },
+                          }"
+                        >
                           <img
                             class="default-img"
                             src="../../../../assets/logo.png"
