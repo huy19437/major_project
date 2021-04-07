@@ -32,6 +32,35 @@
               sold:
               <span class="quantity_sold">{{ products.quantity_sold }}</span>
             </h5>
+            <div class="qty">
+              <div class="input-group">
+                <div class="button minus">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-number"
+                    @click="dec"
+                    :disabled="numberProductInCart < 1"
+                  >
+                    <i class="ti-minus"></i>
+                  </button>
+                </div>
+                <input
+                  type="text"
+                  class="input-number"
+                  :value="`${numberProductInCart}`"
+                />
+                <div class="button plus">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-number"
+                    @click="inc"
+                    :disabled="numberProductInCart > 9"
+                  >
+                    <i class="ti-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div class="action">
               <button
                 class="add-to-cart btn btn-default"
@@ -60,21 +89,34 @@ export default {
   data() {
     return {
       products: {},
+      partnerId: 0,
       slug: this.$route.params.slug,
+      numberProductInCart: 0,
     };
   },
+  methods: {
+    inc() {
+      this.numberProductInCart++;
+    },
+    dec() {
+      this.numberProductInCart--;
+    },
+    getResult() {
+      console.log(this.slug);
+      this.getPartnersLocal.find((obj) =>
+        obj.categories.find((obj) => {
+          obj.products.find((obj) => {
+            if (obj.id == this.slug) {
+              this.products = obj;
+              console.log(this.products);
+            }
+          });
+        })
+      );
+    },
+  },
   created() {
-    console.log(this.slug);
-    this.getPartnersLocal.find((obj) =>
-      obj.categories.find((obj) => {
-        obj.products.find((obj) => {
-          if (obj.id == this.slug) {
-            this.products = obj;
-            console.log(this.products);
-          }
-        });
-      })
-    );
+    this.getResult();
   },
 };
 </script>
@@ -182,7 +224,8 @@ img {
 .product-title,
 .price,
 .sold,
-.colors {
+.colors,
+.qty {
   text-transform: UPPERCASE;
   font-weight: bold;
 }
@@ -197,12 +240,24 @@ img {
 .product-description,
 .price,
 .vote,
-.sold {
+.sold,
+.qty {
   margin-bottom: 15px;
 }
 
 .product-title {
   margin-top: 0;
+}
+.qty .input-group {
+  display: flex;
+  button {
+    background-color: #f7941d;
+    border-color: #f7941d;
+  }
+  input {
+    text-align: center;
+    width: 70px;
+  }
 }
 
 .quantity_sold {

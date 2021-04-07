@@ -28,9 +28,9 @@ const routes = [
         path: 'cart',
         name: 'Cart',
         component: Cart,
-        meta: {
-          auth: true
-        },
+        // meta: {
+        //   auth: true
+        // },
       },
       {
         path: 'checkout',
