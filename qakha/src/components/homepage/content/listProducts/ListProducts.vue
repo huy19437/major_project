@@ -51,7 +51,7 @@
                         <router-link
                           :to="{
                             name: 'ProductDetail',
-                            params: { data: product, slug: product.id },
+                            params: { slug: product.id },
                           }"
                         >
                           <img
@@ -96,7 +96,7 @@
                           <router-link
                             :to="{
                               name: 'ProductDetail',
-                              params: { data: product, slug: product.id },
+                              params: { slug: product.id },
                             }"
                           >
                             {{ product.name }}

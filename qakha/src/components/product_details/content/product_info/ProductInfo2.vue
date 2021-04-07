@@ -28,28 +28,9 @@
             <h4 class="price">
               current price: <span>${{ products.price }}</span>
             </h4>
-            <p class="vote">
-              <strong>91%</strong> of buyers enjoyed this product!
-              <strong>(87 votes)</strong>
-            </p>
-            <h5 class="sizes">
-              sizes:
-              <span class="size" data-toggle="tooltip" title="small">s</span>
-              <span class="size" data-toggle="tooltip" title="medium">m</span>
-              <span class="size" data-toggle="tooltip" title="large">l</span>
-              <span class="size" data-toggle="tooltip" title="xtra large"
-                >xl</span
-              >
-            </h5>
-            <h5 class="colors">
-              colors:
-              <span
-                class="color orange not-available"
-                data-toggle="tooltip"
-                title="Not In store"
-              ></span>
-              <span class="color green"></span>
-              <span class="color blue"></span>
+            <h5 class="sold">
+              sold:
+              <span class="quantity_sold">{{ products.quantity_sold }}</span>
             </h5>
             <div class="action">
               <button
@@ -58,9 +39,6 @@
                 style="margin-right: 5px"
               >
                 <router-link to="/cart">add to cart</router-link>
-              </button>
-              <button class="like btn btn-default" type="button">
-                <span class="fa fa-heart"></span>
               </button>
             </div>
           </div>
@@ -71,14 +49,32 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  name: "ProductInfo2",
+  computed: {
+    ...mapGetters({
+      getPartnersLocal: "partner/getPartnersLocal",
+    }),
+  },
   data() {
     return {
       products: {},
+      slug: this.$route.params.slug,
     };
   },
   created() {
-    this.products = this.$route.params.data;
+    console.log(this.slug);
+    this.getPartnersLocal.find((obj) =>
+      obj.categories.find((obj) => {
+        obj.products.find((obj) => {
+          if (obj.id == this.slug) {
+            this.products = obj;
+            console.log(this.products);
+          }
+        });
+      })
+    );
   },
 };
 </script>
@@ -126,6 +122,7 @@ img {
 
 .tab-content {
   overflow: hidden;
+  margin-top: 0;
 }
 .tab-content img {
   width: 100%;
@@ -184,7 +181,7 @@ img {
 
 .product-title,
 .price,
-.sizes,
+.sold,
 .colors {
   text-transform: UPPERCASE;
   font-weight: bold;
@@ -200,7 +197,7 @@ img {
 .product-description,
 .price,
 .vote,
-.sizes {
+.sold {
   margin-bottom: 15px;
 }
 
@@ -208,10 +205,10 @@ img {
   margin-top: 0;
 }
 
-.size {
+.quantity_sold {
   margin-right: 10px;
 }
-.size:first-of-type {
+.quantity_sold:first-of-type {
   margin-left: 40px;
 }
 
