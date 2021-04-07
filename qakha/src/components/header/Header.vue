@@ -313,8 +313,16 @@
                           <li class="hasDropDown">
                             <a href="#">Shop<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
-                              <li><a href="cart">Cart</a></li>
-                              <li><a href="checkout">Checkout</a></li>
+                              <li>
+                                <!-- <a href="cart">Cart</a> -->
+                                <router-link to="/cart">Cart</router-link>
+                              </li>
+                              <li>
+                                <!-- <a href="checkout">Checkout</a> -->
+                                <router-link to="/checkout"
+                                  >Checkout</router-link
+                                >
+                              </li>
                             </ul>
                           </li>
                           <li><a href="#">Pages</a></li>
@@ -425,7 +433,7 @@ export default {
   .right-bar {
     display: flex !important;
     align-items: center;
-    top: 8px;
+    top: 10px !important;
     .nice-select {
       border-right: none;
     }
@@ -435,9 +443,31 @@ export default {
   }
 
   .nav {
-    li.active {
+    li {
+      &.active {
+        a {
+          height: 64px;
+        }
+      }
       a {
-        height: 64px;
+        color: #fff;
+        text-transform: capitalize;
+        font-size: 15px;
+        padding: 20px 15px;
+        font-weight: 500;
+        display: block;
+        position: relative;
+        transition: all 0.4s ease;
+        &:hover {
+          background-color: #333333 !important;
+          color: #f7941d !important;
+          font-size: 22px;
+        }
+      }
+      &:hover {
+        .dropdown {
+          margin-top: 4px;
+        }
       }
     }
   }

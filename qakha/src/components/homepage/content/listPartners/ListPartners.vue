@@ -25,7 +25,8 @@
               <input
                 class="form-control"
                 type="text"
-                placeholder="All Locations"
+                placeholder="Search by Location"
+                v-model="searchByAddress"
               />
             </div>
           </div>
@@ -72,9 +73,6 @@
                 <div class="partner-list-info">
                   <div class="partner-list-title">
                     <h5>
-                      <!-- <router-link to="/list-products">{{
-                        partner.name
-                      }}</router-link> -->
                       <router-link
                         :to="{
                           name: 'ListProducts',
@@ -87,7 +85,7 @@
                   <div class="partner-list-option">
                     <ul class="list-unstyled">
                       <li>
-                        <span>{{ partner.type_id }}</span>
+                        <span>{{ partner.address }}</span>
                       </li>
                     </ul>
                   </div>
@@ -128,7 +126,12 @@ export default {
             .toString()
             .toLowerCase()
             .includes(this.typePartner.toLowerCase()) &&
-          partner.name.toLowerCase().includes(this.searchByName.toLowerCase())
+          partner.name
+            .toLowerCase()
+            .includes(this.searchByName.toLowerCase()) &&
+          partner.address
+            .toLowerCase()
+            .includes(this.searchByAddress.toLowerCase())
         );
       });
     },
@@ -149,6 +152,7 @@ export default {
       partnerData: [],
       typePartner: "1",
       searchByName: "",
+      searchByAddress: "",
     };
   },
   methods: {
