@@ -147,12 +147,17 @@ export default {
   methods: {
     ...mapActions({
       setShoppingStatus: "cart/setShoppingStatus",
+      getCart: "cart/getCart",
     }),
     getProductsByCategory(cateId) {
       this.cateId = cateId;
     },
     getResult() {
       this.setShoppingStatus(true);
+      let params = {
+        partner_id: this.slug,
+      };
+      this.getCart(params);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug

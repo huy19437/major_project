@@ -348,7 +348,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Header",
   data() {
@@ -358,6 +358,7 @@ export default {
       isChanged: false,
       cart: [],
       products: [],
+      idOfProducts: [],
       qtyOfProducts: [],
     };
   },
@@ -368,6 +369,9 @@ export default {
       getPartnersLocal: "partner/getPartnersLocal",
       getShoppingStatus: "cart/getShoppingStatus",
     }),
+    cartsChange() {
+      return this.getCartLocal;
+    },
   },
   methods: {
     ...mapActions({
@@ -378,31 +382,35 @@ export default {
     showProfile() {
       this.$router.push({ path: "/profile" });
     },
-    getResult() {
-      console.log(this.getShoppingStatus);
-      this.cart = this.getCartLocal;
-      let idOfProducts = this.cart.map((item) => item.product_id);
-      this.qtyOfProducts = this.cart.map((item) => item.quantity);
-      const prods = [];
-
-      for (let i = 0; i < idOfProducts.length; i++) {
-        this.getPartnersLocal.find((pl) =>
-          pl.categories.find((cat) => {
-            cat.products.find((obj) => {
-              if (obj.id == idOfProducts[i]) {
-                obj.quantity = this.qtyOfProducts[i];
-                prods.push({ ...obj });
-              }
-            });
-          })
-        );
-      }
-      this.products = prods;
-    },
   },
   created() {
     this.getUserInfoFromLocal();
-    this.getResult();
+  },
+  watch: {
+    cartsChange() {
+      this.cart = this.getCartLocal;
+      if (this.cart) {
+        console.log("hi");
+        this.idOfProducts = this.cart.map((item) => item.product_id);
+        this.qtyOfProducts = this.cart.map((item) => item.quantity);
+        const prods = [];
+
+        for (let i = 0; i < this.idOfProducts.length; i++) {
+          this.getPartnersLocal.find((pl) =>
+            pl.categories.find((cat) => {
+              cat.products.find((obj) => {
+                if (obj.id == this.idOfProducts[i]) {
+                  obj.quantity = this.qtyOfProducts[i];
+                  prods.push({ ...obj });
+                }
+              });
+            })
+          );
+        }
+        this.products = prods;
+        console.log(this.products);
+      }
+    },
   },
 };
 </script>
