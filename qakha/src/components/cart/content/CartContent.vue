@@ -8,7 +8,7 @@
             <thead>
               <tr class="main-hading">
                 <th>PRODUCT</th>
-                <th>NAME</th>
+                <th>NAME AND DESCRIPTION</th>
                 <th class="text-center">UNIT PRICE</th>
                 <th class="text-center">QUANTITY</th>
                 <th class="text-center">TOTAL</th>
@@ -16,54 +16,30 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="product in products" :key="product.id">
                 <td class="image" data-title="No">
                   <img src="https://via.placeholder.com/100x100" alt="#" />
                 </td>
                 <td class="product-des" data-title="Description">
-                  <p class="product-name"><a href="#">Women Dress</a></p>
+                  <p class="product-name">{{ product.name }}</p>
                   <p class="product-des">
-                    Maboriosam in a tonto nesciung eget distingy magndapibus.
+                    {{ product.description }}
                   </p>
                 </td>
-                <td class="price" data-title="Price"><span>$110.00 </span></td>
+                <td class="price" data-title="Price">
+                  <span>${{ product.price }}</span>
+                </td>
                 <td class="qty" data-title="Qty">
                   <!-- Input Order -->
-                  <div class="input-group">
-                    <div class="button minus">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-number"
-                        disabled="disabled"
-                        data-type="minus"
-                        data-field="quant[1]"
-                      >
-                        <i class="ti-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      name="quant[1]"
-                      class="input-number"
-                      data-min="1"
-                      data-max="100"
-                      value="1"
-                    />
-                    <div class="button plus">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-number"
-                        data-type="plus"
-                        data-field="quant[1]"
-                      >
-                        <i class="ti-plus"></i>
-                      </button>
-                    </div>
-                  </div>
+                  <InputOrder
+                    @inc="(value) => (product.quantity = value)"
+                    @dec="(value) => (product.quantity = value)"
+                    :quantity="product.quantity"
+                  />
                   <!--/ End Input Order -->
                 </td>
                 <td class="total-amount" data-title="Total">
-                  <span>$220.88</span>
+                  <span> ${{ product.price * product.quantity }} </span>
                 </td>
                 <td class="action" data-title="Remove">
                   <a href="#"><i class="ti-trash remove-icon"></i></a>
@@ -119,7 +95,50 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+import InputOrder from "../input_order/InputOrder";
+export default {
+  name: "CartContent",
+  components: { InputOrder },
+  data() {
+    return {
+      cart: [],
+      products: [],
+      qtyOfProducts: [],
+    };
+  },
+  computed: {
+    ...mapGetters({
+      getCartLocal: "cart/getCartLocal",
+      getPartnersLocal: "partner/getPartnersLocal",
+    }),
+  },
+  methods: {
+    getResult() {
+      this.cart = this.getCartLocal;
+      let idOfProducts = this.cart.map((item) => item.product_id);
+      this.qtyOfProducts = this.cart.map((item) => item.quantity);
+      const prods = [];
+
+      for (let i = 0; i < idOfProducts.length; i++) {
+        this.getPartnersLocal.find((pl) =>
+          pl.categories.find((cat) => {
+            cat.products.find((obj) => {
+              if (obj.id == idOfProducts[i]) {
+                obj.quantity = this.qtyOfProducts[i];
+                prods.push({ ...obj });
+              }
+            });
+          })
+        );
+      }
+      this.products = prods;
+    },
+  },
+  created() {
+    this.getResult();
+  },
+};
 </script>
 
 <style scoped lang="scss">

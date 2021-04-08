@@ -47,11 +47,16 @@
                     <router-link to="/profile">{{ userName }}</router-link>
                   </li>
                   <li v-if="!userName">
-                    <i class="ti-power-off"></i><a href="login">Login</a>
+                    <i class="ti-power-off"></i>
+                    <!-- <a href="login">Login</a> -->
+                    <router-link to="/login">Login</router-link>
                   </li>
                   <li v-else>
-                    <i class="ti-power-off"></i
-                    ><a @click.prevent="logoutFuction" href="login">Logout</a>
+                    <i class="ti-power-off"></i>
+                    <a @click.prevent="logoutFuction">Logout</a>
+                    <!-- <router-link @click.prevent="logoutFuction" to="/login"
+                      >Logout</router-link
+                    > -->
                   </li>
                 </ul>
               </div>
@@ -155,35 +160,24 @@
                     <span class="total-count">2</span></a
                   >
                   <!-- Shopping Item -->
-                  <div class="shopping-item">
+                  <div v-if="getShoppingStatus" class="shopping-item">
                     <div class="dropdown-cart-header">
                       <span>2 Items</span>
                       <!-- <a href="cart">View Cart</a> -->
                       <router-link to="/cart">View Cart </router-link>
                     </div>
                     <ul class="shopping-list">
-                      <li>
+                      <li v-for="product in products" :key="product.id">
                         <a href="#" class="remove" title="Remove this item"
                           ><i class="fa fa-remove"></i
                         ></a>
                         <a class="cart-img" href="#"
                           ><img src="https://via.placeholder.com/70x70" alt="#"
                         /></a>
-                        <h4><a href="#">Woman Ring</a></h4>
+                        <h4>{{ product.name }}</h4>
                         <p class="quantity">
-                          1x - <span class="amount">$99.00</span>
-                        </p>
-                      </li>
-                      <li>
-                        <a href="#" class="remove" title="Remove this item"
-                          ><i class="fa fa-remove"></i
-                        ></a>
-                        <a class="cart-img" href="#"
-                          ><img src="https://via.placeholder.com/70x70" alt="#"
-                        /></a>
-                        <h4><a href="#">Woman Necklace</a></h4>
-                        <p class="quantity">
-                          1x - <span class="amount">$35.00</span>
+                          {{ product.quantity }}x -
+                          <span class="amount">${{ product.price }} </span>
                         </p>
                       </li>
                     </ul>
@@ -354,7 +348,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "Header",
   data() {
@@ -362,25 +356,53 @@ export default {
       isOpen: false,
       isOpen2: false,
       isChanged: false,
+      cart: [],
+      products: [],
+      qtyOfProducts: [],
     };
   },
   computed: {
     ...mapGetters({
       userName: "auth/getUserName",
+      getCartLocal: "cart/getCartLocal",
+      getPartnersLocal: "partner/getPartnersLocal",
+      getShoppingStatus: "cart/getShoppingStatus",
     }),
   },
   methods: {
     ...mapActions({
       logoutFuction: "auth/logout",
       getUserInfoFromLocal: "auth/getUserInfoFromLocal",
+      setCartsNull: "cart/setCartsNull",
     }),
-
     showProfile() {
       this.$router.push({ path: "/profile" });
+    },
+    getResult() {
+      console.log(this.getShoppingStatus);
+      this.cart = this.getCartLocal;
+      let idOfProducts = this.cart.map((item) => item.product_id);
+      this.qtyOfProducts = this.cart.map((item) => item.quantity);
+      const prods = [];
+
+      for (let i = 0; i < idOfProducts.length; i++) {
+        this.getPartnersLocal.find((pl) =>
+          pl.categories.find((cat) => {
+            cat.products.find((obj) => {
+              if (obj.id == idOfProducts[i]) {
+                obj.quantity = this.qtyOfProducts[i];
+                prods.push({ ...obj });
+              }
+            });
+          })
+        );
+      }
+      this.products = prods;
     },
   },
   created() {
     this.getUserInfoFromLocal();
+    this.getResult();
   },
 };
 </script>
@@ -502,6 +524,11 @@ export default {
   color: #000;
   border: none;
   font-size: 1.2rem;
+}
+
+.shopping-list {
+  max-height: 40vh;
+  overflow-y: auto;
 }
 
 .language-flag {

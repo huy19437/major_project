@@ -2,38 +2,101 @@ import httpRequest from '../../services/repository'
 import createMutationsSharer from "vuex-shared-mutations";
 
 const state = {
-    cart: [],
+    carts: [
+        {
+            "id": 5,
+            "quantity": 2,
+            "product_id": 2,
+            "user_id": 33,
+            "partner_id": 3,
+            "created_at": "2021-04-07T14:28:54.395Z",
+            "updated_at": "2021-04-07T15:15:17.422Z"
+        },
+        {
+            "id": 7,
+            "quantity": 1,
+            "product_id": 15,
+            "user_id": 33,
+            "partner_id": 3,
+            "created_at": "2021-04-07T14:43:55.849Z",
+            "updated_at": "2021-04-07T14:43:55.849Z"
+        },
+        {
+            "id": 8,
+            "quantity": 3,
+            "product_id": 23,
+            "user_id": 33,
+            "partner_id": 3,
+            "created_at": "2021-04-07T14:44:26.241Z",
+            "updated_at": "2021-04-07T15:40:14.997Z"
+        },
+        {
+            "id": 9,
+            "quantity": 1,
+            "product_id": 18,
+            "user_id": 33,
+            "partner_id": 3,
+            "created_at": "2021-04-07T15:04:50.799Z",
+            "updated_at": "2021-04-07T15:04:50.799Z"
+        }
+    ],
+    // carts: [],
     counter: 0,
+    isShopping: false,
 }
 
 const getters = {
     getCartLocal(state) {
-        return state.cart;
+        return state.carts;
     },
+    getShoppingStatus(state) {
+        return state.isShopping;
+    }
 }
 
 const mutations = {
     addProductToCart(state, data) {
-        state.cart.data.unshift(data);
+        function isEqual(objA, objB) {
+            var aProps = Object.getOwnPropertyNames(objA);
+            var bProps = Object.getOwnPropertyNames(objB);
+            if (aProps.length != bProps.length) {
+                console.log("1");
+                return false;
+            }
+
+            for (var i = 0; i < aProps.length - 1; i++) {
+                var propName = aProps[i];
+                if (objA[propName] !== objB[propName]) {
+                    console.log(aProps);
+                    console.log(objA[propName] + '====' + objB[propName]);
+                    console.log("2");
+                    return false;
+                }
+            }
+            return true;
+        }
+        function add(object) {
+            if (object) {
+                if (state.carts.filter(x => x.id === object.id).length === 0) {
+                    state.carts.push(object)
+                }
+            }
+        }
+        for (var i = 0; i < data.length; i++) {
+            add(data[i]);
+        }
+        console.log(state.carts)
+
     },
     setCart(state, data) {
-        state.cart = data;
-    },
-    deleteProductFromCart(state, productId) {
-        state.cart.data = state.cart.data.filter(product => product.id != productId);
-    },
-    updateCart(state, params) {
-        state.cart.data = state.cart.data.map(product => {
-            if (product.id == params.id) {
-                product = params.data;
-                product.id = params.id;
-            }
-            return product
-        })
+        state.carts = data;
     },
     increment(state) {
         state.counter++;
     },
+    setIsShopping(state, data) {
+        state.isShopping = data;
+    }
 }
 
 const actions = {
@@ -43,37 +106,17 @@ const actions = {
                 .then((response) => {
                     // console.log(response);
                     res();
-                    commit('setPartners', response.data);
                 }).catch(err => {
                     rej(err.response);
                 });
         })
     },
-    addPartner({ commit }, params) {
+    addProductToCart({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.post('/partners', params)
+            httpRequest.post('/carts', params)
                 .then((response) => {
-                    res(response.data);
-                }).catch(err => {
-                    rej(err.response.data.error);
-                });
-        })
-    },
-    deletePartner({ commit }, params) {
-        return new Promise((res, rej) => {
-            httpRequest.delete('/partners/' + params)
-                .then((response) => {
-                    res(response.data);
-                }).catch(err => {
-                    rej(err.response.data.error);
-                });
-        })
-    },
-    updatePartner({ commit }, params) {
-        return new Promise((res, rej) => {
-            httpRequest.put('/partners/' + params.id, params.data)
-                .then((response) => {
-                    res(response.data);
+                    res();
+                    commit('addProductToCart', response.data);
                 }).catch(err => {
                     rej(err.response.data.error);
                 });
@@ -82,6 +125,12 @@ const actions = {
     updateCounter({ commit }) {
         commit("increment");
     },
+    setCartsNull({ commit }) {
+        commit('setCart', null);
+    },
+    setShoppingStatus({ commit }, data) {
+        commit('setIsShopping', data);
+    }
 }
 
 export default {

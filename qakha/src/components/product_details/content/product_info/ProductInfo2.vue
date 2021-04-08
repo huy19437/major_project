@@ -66,8 +66,9 @@
                 class="add-to-cart btn btn-default"
                 type="button"
                 style="margin-right: 5px"
+                @click="addToCart"
               >
-                <router-link to="/cart">add to cart</router-link>
+                Add to cart
               </button>
             </div>
           </div>
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ProductInfo2",
   computed: {
@@ -89,30 +90,48 @@ export default {
   data() {
     return {
       products: {},
+      partner: {},
       partnerId: 0,
       slug: this.$route.params.slug,
       numberProductInCart: 0,
     };
   },
   methods: {
+    ...mapActions({
+      addProductToCart: "cart/addProductToCart",
+    }),
     inc() {
       this.numberProductInCart++;
     },
     dec() {
       this.numberProductInCart--;
     },
+    addToCart() {
+      let params = {
+        product_id: this.products.id,
+        partner_id: this.partner.id,
+        quantity: this.numberProductInCart,
+      };
+      // console.log(params);
+      this.addProductToCart(params);
+    },
     getResult() {
-      console.log(this.slug);
       this.getPartnersLocal.find((obj) =>
         obj.categories.find((obj) => {
           obj.products.find((obj) => {
             if (obj.id == this.slug) {
-              this.products = obj;
-              console.log(this.products);
+              this.products = { ...obj };
             }
           });
         })
       );
+      this.partner = this.getPartnersLocal.find((pl) =>
+        pl.categories.find((cat) =>
+          cat.products.find((obj) => obj.id == this.slug)
+        )
+      );
+      this.partnerId = this.partner.id;
+      console.log(this.products);
     },
   },
   created() {

@@ -124,7 +124,7 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ListProducts",
   data() {
@@ -145,10 +145,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      setShoppingStatus: "cart/setShoppingStatus",
+    }),
     getProductsByCategory(cateId) {
       this.cateId = cateId;
     },
     getResult() {
+      this.setShoppingStatus(true);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug

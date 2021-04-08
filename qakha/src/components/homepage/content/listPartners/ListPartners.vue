@@ -158,6 +158,8 @@ export default {
   methods: {
     ...mapActions({
       getPartners: "partner/getPartners",
+      setCartsNull: "cart/setCartsNull",
+      setShoppingStatus: "cart/setShoppingStatus",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -168,6 +170,8 @@ export default {
     getResult() {
       // this.getPartners()
       //   .then((res) => {
+      this.setCartsNull();
+      this.setShoppingStatus(false);
       this.partnerData = this.getPartnersLocal;
       // console.log(this.partnerData);
       // })
