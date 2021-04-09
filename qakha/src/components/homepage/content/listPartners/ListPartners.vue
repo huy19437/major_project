@@ -10,12 +10,13 @@
     <div class="row">
       <div class="col-lg-3">
         <div class="sidebar">
+          <label class="justify-content-start mr-2">Search by:</label>
           <div class="widget border-0">
             <div class="search">
               <input
                 class="form-control"
                 type="text"
-                placeholder="Search by Name"
+                placeholder="Name"
                 v-model="searchByName"
               />
             </div>
@@ -25,7 +26,7 @@
               <input
                 class="form-control"
                 type="text"
-                placeholder="Search by Location"
+                placeholder="Location"
                 v-model="searchByAddress"
               />
             </div>
@@ -37,7 +38,7 @@
           <div class="job-shortby ml-sm-auto d-flex align-items-center">
             <form class="form-inline">
               <div class="form-group mb-0">
-                <label class="justify-content-start mr-2">Sort by :</label>
+                <label class="justify-content-start mr-2">Sort by:</label>
                 <div class="short-by">
                   <select
                     class="form-control basic-select select2-hidden-accessible"
@@ -63,11 +64,18 @@
           >
             <div class="partner-list partner-grid">
               <div class="partner-list-image">
-                <img
-                  class="img-fluid"
-                  src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                  alt=""
-                />
+                <router-link
+                  :to="{
+                    name: 'ListProducts',
+                    params: { slug: partner.id },
+                  }"
+                >
+                  <img
+                    class="img-fluid"
+                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                    alt=""
+                  />
+                </router-link>
               </div>
               <div class="partner-list-details">
                 <div class="partner-list-info">
@@ -201,6 +209,7 @@ export default {
 }
 .sidebar {
   padding-top: 28%;
+  text-align: left;
   .widget {
     padding-bottom: 20px;
     .form-control {
@@ -227,7 +236,8 @@ select.form-control:not([size]):not([multiple]) {
   transition: all 0.3s ease-in-out;
   &:hover {
     -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
-    box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     position: relative;
     z-index: 99;
     a.partner-list-favourite {

@@ -33,7 +33,16 @@
                       />
                     </div>
                     <div class="thumb-content">
-                      <h4>{{ product.name }}</h4>
+                      <h4>
+                        <router-link
+                          :to="{
+                            name: 'ProductDetail',
+                            params: { slug: product.id },
+                          }"
+                        >
+                          {{ product.name }}
+                        </router-link>
+                      </h4>
                       <p class="item-price">
                         <span>${{ product.price }}</span>
                       </p>
@@ -65,7 +74,16 @@
                       />
                     </div>
                     <div class="thumb-content">
-                      <h4>{{ product.name }}</h4>
+                      <h4>
+                        <router-link
+                          :to="{
+                            name: 'ProductDetail',
+                            params: { slug: product.id },
+                          }"
+                        >
+                          {{ product.name }}
+                        </router-link>
+                      </h4>
                       <p class="item-price">
                         <span>${{ product.price }}</span>
                       </p>
@@ -79,20 +97,10 @@
             </div>
           </div>
           <!-- Carousel controls -->
-          <a
-            class="carousel-control-prev"
-            href="#myCarousel"
-            data-slide="prev"
-            style="width: 3%"
-          >
+          <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
             <i class="fa fa-angle-left"></i>
           </a>
-          <a
-            class="carousel-control-next"
-            href="#myCarousel"
-            data-slide="next"
-            style="width: 3%"
-          >
+          <a class="carousel-control-next" href="#myCarousel" data-slide="next">
             <i class="fa fa-angle-right"></i>
           </a>
         </div>
@@ -181,8 +189,10 @@ export default {
   padding: 50px 0;
 }
 
-.carousel-control-next .carousel-control-prev {
-  width: 3%;
+.carousel-control-next,
+.carousel-control-prev {
+  width: 3% !important;
+  background-color: #fff !important;
 }
 h2 {
   color: #000;
@@ -221,6 +231,7 @@ h2::after {
     min-height: 330px;
     text-align: center;
     overflow: hidden;
+    padding: 0 3px;
     .img-box {
       height: 160px;
       width: 100%;
@@ -251,6 +262,10 @@ h2::after {
       padding: 5px 10px;
       margin-top: 5px;
       line-height: 16px;
+      &:hover {
+        background: #f7941d !important;
+        border-color: #f7941d !important;
+      }
       i {
         font-size: 14px;
         font-weight: bold;
@@ -259,9 +274,20 @@ h2::after {
     }
     .thumb-wrapper {
       text-align: center;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+      border-radius: 5px;
     }
     .thumb-content {
       padding: 15px;
+      h4 {
+        a {
+          color: #000;
+          &:hover {
+            text-decoration: none;
+            color: #f7941d;
+          }
+        }
+      }
     }
     .item-price {
       font-size: 13px;

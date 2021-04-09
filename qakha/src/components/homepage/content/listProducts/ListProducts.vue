@@ -193,6 +193,20 @@ export default {
 <style lang="scss">
 /* -------------------------------------------------------------- Box Product -------------------------------------------------------------- */
 
+.single-product {
+  .product-content {
+    h3 {
+      a {
+        color: #000;
+        &:hover {
+          color: #f7941d;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
 .section-title {
   padding: 50px 0 10px;
 }
