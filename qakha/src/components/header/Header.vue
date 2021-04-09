@@ -389,7 +389,7 @@ export default {
     getInfoProductInCart() {
       this.cart = this.getCartLocal;
       if (this.cart) {
-        console.log("hi");
+        // console.log("hi");
         this.idOfProducts = this.cart.map((item) => item.product_id);
         this.qtyOfProducts = this.cart.map((item) => item.quantity);
         const prods = [];
@@ -409,7 +409,7 @@ export default {
         }
         this.products = prods;
         this.numberOfItem = this.products.length;
-        console.log(this.products);
+        // console.log(this.products);
       }
     },
     roundToTwo(x) {

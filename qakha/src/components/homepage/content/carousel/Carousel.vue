@@ -19,7 +19,11 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div class="row">
-                <div class="col-sm-3">
+                <div
+                  v-for="product in firstRowOfTrendProducts"
+                  :key="product.id"
+                  class="col-sm-3"
+                >
                   <div class="thumb-wrapper">
                     <div class="img-box">
                       <img
@@ -29,149 +33,27 @@
                       />
                     </div>
                     <div class="thumb-content">
-                      <h4>Apple iPad</h4>
+                      <h4>{{ product.name }}</h4>
                       <p class="item-price">
-                        <strike>$400.00</strike> <span>$369.00</span>
+                        <span>${{ product.price }}</span>
                       </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="thumb-wrapper">
-                    <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div class="thumb-content">
-                      <h4>Sony Headphone</h4>
-                      <p class="item-price">
-                        <strike>$25.00</strike> <span>$23.99</span>
-                      </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="thumb-wrapper">
-                    <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div class="thumb-content">
-                      <h4>Macbook Air</h4>
-                      <p class="item-price">
-                        <strike>$899.00</strike> <span>$649.00</span>
-                      </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-half-o"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="thumb-wrapper">
-                    <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div class="thumb-content">
-                      <h4>Nikon DSLR</h4>
-                      <p class="item-price">
-                        <strike>$315.00</strike> <span>$250.00</span>
-                      </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                        </ul>
-                      </div>
                       <a href="#" class="btn btn-primary">Add to Cart</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="carousel-item">
+            <div
+              v-for="trend in restOfTrendProducts"
+              :key="trend.id"
+              class="carousel-item"
+            >
               <div class="row">
-                <div class="col-sm-3">
+                <div
+                  v-for="product in trend"
+                  :key="product.id"
+                  class="col-sm-3"
+                >
                   <div class="thumb-wrapper">
                     <div class="img-box">
                       <img
@@ -181,140 +63,10 @@
                       />
                     </div>
                     <div class="thumb-content">
-                      <h4>Sony Play Station</h4>
+                      <h4>{{ product.name }}</h4>
                       <p class="item-price">
-                        <strike>$289.00</strike> <span>$269.00</span>
+                        <span>${{ product.price }}</span>
                       </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="thumb-wrapper">
-                    <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div class="thumb-content">
-                      <h4>Macbook Pro</h4>
-                      <p class="item-price">
-                        <strike>$1099.00</strike> <span>$869.00</span>
-                      </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-half-o"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="thumb-wrapper">
-                    <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div class="thumb-content">
-                      <h4>Bose Speaker</h4>
-                      <p class="item-price">
-                        <strike>$109.00</strike> <span>$99.00</span>
-                      </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="thumb-wrapper">
-                    <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div class="thumb-content">
-                      <h4>Samsung Galaxy S8</h4>
-                      <p class="item-price">
-                        <strike>$599.00</strike> <span>$569.00</span>
-                      </p>
-                      <div class="star-rating">
-                        <ul class="list-inline">
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star"></i>
-                          </li>
-                          <li class="list-inline-item">
-                            <i class="fa fa-star-o"></i>
-                          </li>
-                        </ul>
-                      </div>
                       <a href="#" class="btn btn-primary">Add to Cart</a>
                     </div>
                   </div>
@@ -346,7 +98,60 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters, mapActions } from "vuex";
+export default {
+  name: "Carousel",
+  data() {
+    return {
+      categories: [],
+      trendProducts: [],
+      slug: this.$route.params.slug,
+      firstRowOfTrendProducts: [],
+      restOfTrendProducts: [],
+    };
+  },
+  computed: {
+    ...mapGetters({
+      getPartnersLocal: "partner/getPartnersLocal",
+    }),
+  },
+  methods: {
+    getResult() {
+      var productOffour = [];
+      var tmp = [];
+      var index = 0;
+      this.getPartnersLocal.filter((partner) =>
+        partner.categories.filter((cat) =>
+          cat.products.filter((product) => {
+            if (product.quantity_sold > 7) {
+              productOffour.push(product);
+            }
+          })
+        )
+      );
+      for (let j = 0; j < Math.ceil(productOffour.length / 4); j++) {
+        for (let i = 0; i < 4; i++) {
+          if (index == productOffour.length) break;
+          tmp.push(productOffour[index]);
+          index++;
+        }
+        this.trendProducts.push(tmp);
+        tmp = [];
+      }
+      productOffour = [];
+      this.subTrendProductsArray();
+    },
+    subTrendProductsArray() {
+      this.firstRowOfTrendProducts = this.trendProducts[0];
+      this.restOfTrendProducts = this.trendProducts.slice(1);
+      console.log(this.firstRowOfTrendProducts);
+      console.log(this.restOfTrendProducts);
+    },
+  },
+  created() {
+    this.getResult();
+  },
+};
 </script>
 
 <style lang="scss">

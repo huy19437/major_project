@@ -87,7 +87,11 @@
                             >
                           </div>
                           <div class="product-action-2">
-                            <a title="Add to cart" href="#">Add to cart</a>
+                            <a
+                              title="Add to cart"
+                              @click="addToCart(product.id)"
+                              >Add to cart</a
+                            >
                           </div>
                         </div>
                       </div>
@@ -104,7 +108,7 @@
                           <!-- <a href="product-details">{{ product.name }}</a> -->
                         </h3>
                         <div class="product-price">
-                          <span>{{ product.price }}</span>
+                          <span>${{ product.price }}</span>
                         </div>
                       </div>
                     </div>
@@ -148,7 +152,17 @@ export default {
     ...mapActions({
       setShoppingStatus: "cart/setShoppingStatus",
       getCart: "cart/getCart",
+      addProductToCart: "cart/addProductToCart",
     }),
+    addToCart(id) {
+      let params = {
+        product_id: id,
+        partner_id: this.slug,
+        quantity: 1,
+      };
+      console.log(params);
+      // this.addProductToCart(params);
+    },
     getProductsByCategory(cateId) {
       this.cateId = cateId;
     },
