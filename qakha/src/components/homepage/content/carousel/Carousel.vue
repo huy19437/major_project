@@ -137,34 +137,37 @@ export default {
       console.log(params);
       // this.addProductToCart(params);
     },
-    getResult() {
-      var productOffour = [];
+    setTrendingProducts() {
+      var productsHasTrend = [];
       var tmp = [];
       var index = 0;
       this.getPartnersLocal.filter((partner) =>
         partner.categories.filter((cat) =>
           cat.products.filter((product) => {
             if (product.quantity_sold > 7) {
-              productOffour.push(product);
+              productsHasTrend.push(product);
             }
           })
         )
       );
-      for (let j = 0; j < Math.ceil(productOffour.length / 4); j++) {
+      for (let j = 0; j < Math.ceil(productsHasTrend.length / 4); j++) {
         for (let i = 0; i < 4; i++) {
-          if (index == productOffour.length) break;
-          tmp.push(productOffour[index]);
+          if (index == productsHasTrend.length) break;
+          tmp.push(productsHasTrend[index]);
           index++;
         }
         this.trendProducts.push(tmp);
         tmp = [];
       }
-      productOffour = [];
+      productsHasTrend = [];
       this.subTrendProductsArray();
     },
     subTrendProductsArray() {
       this.firstRowOfTrendProducts = this.trendProducts[0];
       this.restOfTrendProducts = this.trendProducts.slice(1);
+    },
+    getResult() {
+      this.setTrendingProducts();
     },
   },
   created() {
