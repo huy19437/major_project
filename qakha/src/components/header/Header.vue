@@ -81,30 +81,8 @@
                 </a>
               </div>
               <!--/ End Logo -->
-              <!-- Search Form -->
-              <div class="search-top">
-                <div class="top-search">
-                  <a href="#0"><i class="ti-search"></i></a>
-                </div>
-                <!-- Search Form -->
-                <div class="search-top">
-                  <form class="search-form">
-                    <input
-                      type="text"
-                      placeholder="Search here..."
-                      name="search"
-                    />
-                    <button value="search" type="submit">
-                      <i class="ti-search"></i>
-                    </button>
-                  </form>
-                </div>
-                <!--/ End Search Form -->
-              </div>
-              <!--/ End Search Form -->
-              <div class="mobile-nav"></div>
             </div>
-            <div class="col-lg-8 col-md-7 col-12">
+            <div class="col-lg-8 col-md-8 col-12">
               <div class="search-bar-top">
                 <div class="search-bar">
                   <div
@@ -137,23 +115,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-12">
+            <div class="col-lg-2 col-md-2 col-12">
               <div class="right-bar">
-                <div
-                  class="sinlge-bar nice-select"
-                  :class="{ open: isOpen2 }"
-                  @click="isOpen2 = !isOpen2"
-                >
-                  <span class="current">All Category</span>
-                  <ul class="list">
-                    <li data-value="All Category" class="option selected focus">
-                      All Category
-                    </li>
-                    <li data-value="watch" class="option">watch</li>
-                    <li data-value="mobile" class="option">mobile</li>
-                    <li data-value="kid’s item" class="option">kid’s item</li>
-                  </ul>
-                </div>
                 <div v-if="userName" class="sinlge-bar shopping">
                   <a href="#" class="single-icon"
                     ><i class="ti-bag"></i>
@@ -494,14 +457,18 @@ export default {
 
 .header.shop {
   .logo {
-    margin: 9px 0 0;
+    margin: 6px 0 0 !important;
     padding-left: 50px;
+  }
+
+  .search-bar-top {
+    margin-left: 15%;
   }
 
   .right-bar {
     display: flex !important;
     align-items: center;
-    top: 10px !important;
+    top: 20px !important;
     .nice-select {
       border-right: none;
     }
@@ -591,5 +558,24 @@ export default {
   position: absolute;
   top: -4px;
   right: -4.1px;
+}
+
+@media (max-width: 1199px) {
+  .header-inner {
+    height: 59px;
+  }
+  .header.shop .all-category h3 {
+    padding: 18px 25px !important;
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .header.shop {
+    .logo {
+      margin: 6px 0 0 !important;
+      padding-left: 0;
+    }
+  }
 }
 </style>
