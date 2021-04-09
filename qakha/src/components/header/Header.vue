@@ -162,7 +162,7 @@
                   <!-- Shopping Item -->
                   <div v-if="getShoppingStatus" class="shopping-item">
                     <div class="dropdown-cart-header">
-                      <span>2 Items</span>
+                      <span>{{ numberOfItem }} Items</span>
                       <!-- <a href="cart">View Cart</a> -->
                       <router-link to="/cart">View Cart </router-link>
                     </div>
@@ -184,7 +184,9 @@
                     <div class="bottom">
                       <div class="total">
                         <span>Total</span>
-                        <span class="total-amount">$134.00</span>
+                        <span class="total-amount"
+                          >${{ roundNumber(total) }}</span
+                        >
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
                       <router-link class="btn animate" to="/checkout"
@@ -360,6 +362,8 @@ export default {
       products: [],
       idOfProducts: [],
       qtyOfProducts: [],
+      numberOfItem: 0,
+      total: 0,
     };
   },
   computed: {
@@ -382,12 +386,7 @@ export default {
     showProfile() {
       this.$router.push({ path: "/profile" });
     },
-  },
-  created() {
-    this.getUserInfoFromLocal();
-  },
-  watch: {
-    cartsChange() {
+    getInfoProductInCart() {
       this.cart = this.getCartLocal;
       if (this.cart) {
         console.log("hi");
@@ -401,6 +400,7 @@ export default {
               cat.products.find((obj) => {
                 if (obj.id == this.idOfProducts[i]) {
                   obj.quantity = this.qtyOfProducts[i];
+                  this.total += obj.price * obj.quantity;
                   prods.push({ ...obj });
                 }
               });
@@ -408,8 +408,46 @@ export default {
           );
         }
         this.products = prods;
+        this.numberOfItem = this.products.length;
         console.log(this.products);
       }
+    },
+    roundToTwo(x) {
+      return (x = Math.round(parseFloat(x) * 1000) / 1000);
+      // return +(Math.round(num + "e+2") + "e-2");
+    },
+    isRound(n, p) {
+      let l = n.toString().split(".")[1].length;
+      return p >= l;
+    },
+    roundNumber(n, p = 2) {
+      if (Number.EPSILON === undefined) {
+        Number.EPSILON = Math.pow(2, -52);
+      }
+      if (Number.isInteger === undefined) {
+        Number.isInteger = function (value) {
+          return (
+            typeof value === "number" &&
+            isFinite(value) &&
+            Math.floor(value) === value
+          );
+        };
+      }
+      if (Number.isInteger(n) || this.isRound(n, p)) return n;
+      let r = 0.5 * Number.EPSILON * n;
+      let o = 1;
+      while (p-- > 0) o *= 10;
+      if (n < 0) o *= -1;
+      return Math.round((n + r) * o) / o;
+    },
+  },
+  created() {
+    this.getUserInfoFromLocal();
+    this.getInfoProductInCart();
+  },
+  watch: {
+    cartsChange() {
+      this.getInfoProductInCart();
     },
   },
 };

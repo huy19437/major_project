@@ -39,7 +39,9 @@
                   <!--/ End Input Order -->
                 </td>
                 <td class="total-amount" data-title="Total">
-                  <span> ${{ product.price * product.quantity }} </span>
+                  <span>
+                    ${{ roundToTwo(product.price * product.quantity) }}
+                  </span>
                 </td>
                 <td class="action" data-title="Remove">
                   <a href="#"><i class="ti-trash remove-icon"></i></a>
@@ -133,6 +135,9 @@ export default {
         );
       }
       this.products = prods;
+    },
+    roundToTwo(num) {
+      return +(Math.round(num + "e+2") + "e-2");
     },
   },
   created() {

@@ -112,7 +112,6 @@ export default {
         partner_id: this.partner.id,
         quantity: this.numberProductInCart,
       };
-      // console.log(params);
       this.addProductToCart(params);
     },
     getResult() {
@@ -131,7 +130,6 @@ export default {
         )
       );
       this.partnerId = this.partner.id;
-      console.log(this.products);
     },
   },
   created() {
