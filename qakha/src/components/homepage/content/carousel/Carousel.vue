@@ -37,7 +37,9 @@
                       <p class="item-price">
                         <span>${{ product.price }}</span>
                       </p>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                      <a @click="addToCart(product.id)" class="btn btn-primary"
+                        >Add to Cart</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -67,7 +69,9 @@
                       <p class="item-price">
                         <span>${{ product.price }}</span>
                       </p>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                      <a @click="addToCart(product.id)" class="btn btn-primary"
+                        >Add to Cart</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -103,6 +107,7 @@ export default {
   name: "Carousel",
   data() {
     return {
+      partner: {},
       categories: [],
       trendProducts: [],
       slug: this.$route.params.slug,
@@ -116,6 +121,22 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      addProductToCart: "cart/addProductToCart",
+    }),
+    addToCart(id) {
+      this.partner = this.getPartnersLocal.find((pl) =>
+        pl.categories.find((cat) => cat.products.find((obj) => obj.id == id))
+      );
+      this.partnerId = this.partner.id;
+      let params = {
+        product_id: id,
+        partner_id: this.partner.id,
+        quantity: 1,
+      };
+      console.log(params);
+      // this.addProductToCart(params);
+    },
     getResult() {
       var productOffour = [];
       var tmp = [];
@@ -144,8 +165,6 @@ export default {
     subTrendProductsArray() {
       this.firstRowOfTrendProducts = this.trendProducts[0];
       this.restOfTrendProducts = this.trendProducts.slice(1);
-      console.log(this.firstRowOfTrendProducts);
-      console.log(this.restOfTrendProducts);
     },
   },
   created() {
