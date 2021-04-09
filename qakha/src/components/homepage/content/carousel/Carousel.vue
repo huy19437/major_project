@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div id="bestseller" class="container">
     <div class="row">
       <div class="col-md-12 carousel-section">
-        <h2>Trending <b>Products</b></h2>
+        <h2>Best Seller <b>Products</b></h2>
         <div
           id="myCarousel"
           class="carousel slide"
