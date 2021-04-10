@@ -101,10 +101,9 @@ const mutations = {
 }
 
 const actions = {
-    getCart({ commit }, id) {
+    getCart({ commit }, params) {
         return new Promise((res, rej) => {
-            console.log("hi");
-            httpRequest.get('/cart/', { params: { partner_id: id } })
+            httpRequest.get('/cart/', { params: params })
                 .then((response) => {
                     console.log(response.data);
                     commit('setCart', response.data);

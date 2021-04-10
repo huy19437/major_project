@@ -245,7 +245,9 @@
                           </li>
                           <li><a href="#service">Service</a></li>
                           <li class="hasDropDown">
-                            <a href="#">Shop<i class="ti-angle-down"></i></a>
+                            <a v-if="getShoppingStatus"
+                              >Shop<i class="ti-angle-down"></i
+                            ></a>
                             <ul class="dropdown">
                               <li>
                                 <router-link to="/cart">Cart</router-link>

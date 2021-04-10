@@ -1,5 +1,12 @@
 <template>
   <div class="container">
+    <div
+      v-if="getPartnersLocal.length == 0 ? true : false"
+      class="alert alert-warning"
+      role="alert"
+    >
+      Go back and choose one Restaurant!
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="section-title">
@@ -209,7 +216,7 @@ export default {
       let params = {
         partner_id: this.slug,
       };
-      this.getCart(this.slug);
+      this.getCart(params);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug
