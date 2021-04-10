@@ -60,8 +60,10 @@
                     ${{ roundToTwo(product.price * product.quantity) }}
                   </span>
                 </td>
-                <td class="action" data-title="Remove">
-                  <a href="#"><i class="ti-trash remove-icon"></i></a>
+                <td class="action delete">
+                  <a @click="deleteProductInCart(product.id)"
+                    ><i class="ti-trash remove-icon"></i
+                  ></a>
                 </td>
               </tr>
             </tbody>
@@ -132,10 +134,14 @@ export default {
       getCartLocal: "cart/getCartLocal",
       getPartnersLocal: "partner/getPartnersLocal",
     }),
+    cartLocalChange() {
+      this.getCartLocal;
+    },
   },
   methods: {
     ...mapActions({
       updateCart: "cart/updateCart",
+      deleteCart: "cart/deleteCart",
     }),
     updateProduct(id, quantity) {
       this.partner = this.getPartnersLocal.find((pl) =>
@@ -148,6 +154,18 @@ export default {
       };
       console.log(params);
       this.updateCart(params);
+    },
+    deleteProductInCart(id) {
+      this.partner = this.getPartnersLocal.find((pl) =>
+        pl.categories.find((cat) => cat.products.find((obj) => obj.id == id))
+      );
+      let params = {
+        product_id: id,
+        partner_id: this.partner.id,
+      };
+      this.deleteCart(params).then(() => {
+        this.getResult();
+      });
     },
     roundToTwo(num) {
       return +(Math.round(num + "e+2") + "e-2");
@@ -176,6 +194,12 @@ export default {
   },
   created() {
     this.getResult();
+  },
+  watch: {
+    cartLocalChange() {
+      console.log("hể");
+      this.getResult();
+    },
   },
 };
 </script>
@@ -219,6 +243,11 @@ export default {
         display: flex;
       }
     }
+  }
+}
+.action.delete {
+  a {
+    cursor: pointer;
   }
 }
 </style>

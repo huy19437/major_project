@@ -53,9 +53,6 @@
                       <p class="item-price">
                         <span>${{ product.price }}</span>
                       </p>
-                      <a @click="addToCart(product.id)" class="btn btn-primary"
-                        >Add to Cart</a
-                      >
                     </div>
                   </div>
                 </div>
@@ -101,9 +98,6 @@
                       <p class="item-price">
                         <span>${{ product.price }}</span>
                       </p>
-                      <a @click="addToCart(product.id)" class="btn btn-primary"
-                        >Add to Cart</a
-                      >
                     </div>
                   </div>
                 </div>
@@ -141,6 +135,9 @@ export default {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
     }),
+    partnersLocalChange() {
+      return this.getPartnersLocal;
+    },
   },
   methods: {
     ...mapActions({
@@ -164,6 +161,7 @@ export default {
       var productsHasTrend = [];
       var tmp = [];
       var index = 0;
+      console.log(this.getPartnersLocal);
       this.getPartnersLocal.filter((pl) =>
         pl.categories.filter((cat) =>
           cat.products.filter((product) => {
@@ -194,6 +192,11 @@ export default {
   },
   created() {
     this.getResult();
+  },
+  watch: {
+    partnersLocalChange() {
+      this.getResult();
+    },
   },
 };
 </script>

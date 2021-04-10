@@ -1,29 +1,34 @@
 import axios from 'axios';
 
 // const baseDomain = "http://127.0.0.1:8000";
-const baseDomain = "https://133e7fc159ef.ngrok.io";
+const baseDomain = "https://4632f2da0cff.ngrok.io";
 
 const baseURL = `${baseDomain}/api/v1`;
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 
 const httpRequest = {
-    get(link) {
+    get(link, params) {
         let token = localStorage.getItem('token');
         let headers = { Authorization: `Bearer ${token}` };
-        return axios.get(baseURL + link, { headers });
+        return axios.get(baseURL + link, params, { headers });
     },
     post(link, params) {
         let token = localStorage.getItem('token');
         let headers = { Authorization: `Bearer ${token}` };
         return axios.post(baseURL + link, params, { headers });
     },
-    delete(link) {
+    delete(link, params) {
         let token = localStorage.getItem('token');
         let headers = { Authorization: `Bearer ${token}` };
-        return axios.delete(baseURL + link, { headers });
+        return axios.delete(baseURL + link, params, { headers });
     },
     put(link, params) {
+        let token = localStorage.getItem('token');
+        let headers = { Authorization: `Bearer ${token}` };
+        return axios.put(baseURL + link, params, { headers });
+    },
+    patch(link, params) {
         let token = localStorage.getItem('token');
         let headers = { Authorization: `Bearer ${token}` };
         return axios.put(baseURL + link, params, { headers });

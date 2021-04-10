@@ -131,7 +131,10 @@
                     </div>
                     <ul class="shopping-list">
                       <li v-for="product in products" :key="product.id">
-                        <a href="#" class="remove" title="Remove this item"
+                        <a
+                          @click="deleteProductInCart(product.id)"
+                          class="remove"
+                          title="Remove this item"
                           ><i class="fa fa-remove"></i
                         ></a>
                         <a class="cart-img" href="#"
@@ -313,7 +316,20 @@ export default {
       logoutFuction: "auth/logout",
       getUserInfoFromLocal: "auth/getUserInfoFromLocal",
       setCartsNull: "cart/setCartsNull",
+      deleteCart: "cart/deleteCart",
     }),
+    deleteProductInCart(id) {
+      this.partner = this.getPartnersLocal.find((pl) =>
+        pl.categories.find((cat) => cat.products.find((obj) => obj.id == id))
+      );
+      let params = {
+        product_id: id,
+        partner_id: this.partner.id,
+      };
+      this.deleteCart(params).then(() => {
+        this.getInfoProductInCart();
+      });
+    },
     showProfile() {
       this.$router.push({ path: "/profile" });
     },

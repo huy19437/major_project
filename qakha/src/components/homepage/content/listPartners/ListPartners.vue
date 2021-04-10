@@ -176,16 +176,16 @@ export default {
       this.typePartner = event.target.value.toString();
     },
     getResult() {
-      // this.getPartners()
-      //   .then((res) => {
-      this.setCartsNull();
-      this.setShoppingStatus(false);
-      this.partnerData = this.getPartnersLocal;
-      console.log(this.partnerData);
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
+      this.getPartners()
+        .then((res) => {
+          this.setCartsNull();
+          this.setShoppingStatus(false);
+          this.partnerData = this.getPartnersLocal;
+          // console.log(this.partnerData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   created() {

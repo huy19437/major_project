@@ -107,12 +107,17 @@ export default {
       this.numberProductInCart--;
     },
     addToCart() {
-      let params = {
-        product_id: this.products.id,
-        partner_id: this.partner.id,
-        quantity: this.numberProductInCart,
-      };
-      this.addProductToCart(params);
+      let token = localStorage.getItem("token");
+      if (token) {
+        let params = {
+          product_id: this.products.id,
+          partner_id: this.partner.id,
+          quantity: this.numberProductInCart,
+        };
+        this.addProductToCart(params);
+      } else {
+        this.$router.push({ path: "/login" });
+      }
     },
     getResult() {
       this.getPartnersLocal.find((obj) =>

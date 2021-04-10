@@ -101,10 +101,12 @@ const mutations = {
 }
 
 const actions = {
-    getCart({ commit }, params) {
+    getCart({ commit }, id) {
         return new Promise((res, rej) => {
-            httpRequest.post('/cart', params)
+            console.log("hi");
+            httpRequest.get('/cart/', { params: { partner_id: id } })
                 .then((response) => {
+                    console.log(response.data);
                     commit('setCart', response.data);
                     res();
                 }).catch(err => {
@@ -116,6 +118,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.post('/carts', params)
                 .then((response) => {
+                    console.log(response.data);
                     res();
                     commit('addProductToCart', response.data);
                 }).catch(err => {
@@ -125,9 +128,21 @@ const actions = {
     },
     updateCart({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.put('/carts', params)
+            httpRequest.patch('/carts', params)
                 .then((response) => {
                     console.log(response.data);
+                    commit('setCart', response.data);
+                    res();
+                }).catch(err => {
+                    rej(err.response);
+                });
+        })
+    },
+    deleteCart({ commit }, params) {
+        console.log(params);
+        return new Promise((res, rej) => {
+            httpRequest.delete('/carts', { data: params })
+                .then((response) => {
                     commit('setCart', response.data);
                     res();
                 }).catch(err => {

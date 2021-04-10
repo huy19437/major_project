@@ -209,7 +209,7 @@ export default {
       let params = {
         partner_id: this.slug,
       };
-      this.getCart(params);
+      this.getCart(this.slug);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug
