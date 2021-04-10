@@ -106,7 +106,7 @@
     </div>
     <div class="row">
       <PaginationCustom
-        :partnerData="filteredList"
+        :paginationData="filteredList"
         @page:update="updatePage"
         :currentPage="currentPage"
         :pageSize="pageSize"
@@ -270,27 +270,6 @@ select.form-control:not([size]):not([multiple]) {
 .partner-list-title {
   margin-bottom: 5px;
 }
-
-// .partner-list-details {
-//   border-bottom-left-radius: $border-radius;
-//   border-bottom-right-radius: $border-radius;
-//   ul {
-//     display: -webkit-box;
-//     display: -ms-flexbox;
-//     display: flex;
-//     -ms-flex-wrap: wrap;
-//     flex-wrap: wrap;
-//     margin-bottom: 0px;
-//     li {
-//       margin: 5px 10px 5px 0px;
-//       font-size: 13px;
-//       overflow: hidden;
-//       display: -webkit-box;
-//       -webkit-box-orient: vertical;
-//       -webkit-line-clamp: 1;
-//     }
-//   }
-// }
 
 .partner-banner .partner-list:hover {
   position: inherit;

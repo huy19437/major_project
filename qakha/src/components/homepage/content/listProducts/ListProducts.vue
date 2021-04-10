@@ -49,7 +49,7 @@
               <div class="tab-single">
                 <div class="row">
                   <div
-                    v-for="product in listProducts"
+                    v-for="product in visibleProducts"
                     :key="product.id"
                     class="col-xl-3 col-lg-4 col-md-4 col-12"
                   >
@@ -128,6 +128,14 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <PaginationCustom
+        :paginationData="listProducts"
+        @page:update="updatePage"
+        :currentPage="currentPage"
+        :pageSize="pageSize"
+      />
+    </div>
 
     <!-- <Carousel /> -->
   </div>
@@ -136,10 +144,16 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import PaginationCustom from "@/components/pagination/PaginationCustom";
 export default {
   name: "ListProducts",
+  components: {
+    PaginationCustom,
+  },
   data() {
     return {
+      currentPage: 0,
+      pageSize: 8,
       categories: [],
       cateId: null,
       slug: this.$route.params.slug,
@@ -150,9 +164,23 @@ export default {
       getPartnersLocal: "partner/getPartnersLocal",
     }),
     listProducts() {
-      return this.categories.find((category) => {
+      let tmp = [];
+      tmp = this.categories.find((category) => {
         return category.id === this.cateId;
-      }).products;
+      });
+      if (tmp) return tmp.products;
+      // return this.categories.find((category) => {
+      //   return category.id === this.cateId;
+      // }).products;
+    },
+    visibleProducts() {
+      return this.listProducts.slice(
+        this.currentPage * this.pageSize,
+        this.currentPage * this.pageSize + this.pageSize
+      );
+    },
+    categoriesDataOnChange() {
+      return this.categories;
     },
   },
   methods: {
@@ -161,6 +189,9 @@ export default {
       getCart: "cart/getCart",
       addProductToCart: "cart/addProductToCart",
     }),
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+    },
     addToCart(id) {
       let params = {
         product_id: id,
@@ -194,12 +225,22 @@ export default {
   created() {
     this.getResult();
   },
+  watch: {
+    categoriesDataOnChange() {
+      this.currentPage = 0;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-/* -------------------------------------------------------------- Box Product -------------------------------------------------------------- */
-
+.container {
+  .row:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    padding-top: 33px;
+  }
+}
 .single-product {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -262,160 +303,9 @@ export default {
     }
   }
 }
-.box-product-outer {
-  margin-bottom: 5px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-.box-product-outer:hover {
-  outline: 1px solid #aaa;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-}
 
 .tab-content {
   margin-top: 84px;
-  .box-product-outer {
-    margin-bottom: 0;
-  }
-}
-
-.box-product-slider-outer {
-  padding: 10px;
-}
-
-.box-product {
-  .img-wrapper {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 8px;
-    .tags {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: inline-block;
-      overflow: visible;
-      width: auto;
-      height: auto;
-      margin: 0;
-      padding: 0;
-      vertical-align: inherit;
-      border-width: 0;
-      background-color: transparent;
-      direction: rtl;
-    }
-    .tags-left {
-      left: 0;
-      direction: ltr;
-    }
-  }
-  .img-wrapper > :first-child {
-    position: relative;
-    display: block;
-  }
-  .img-wrapper > a > img {
-    width: 100%;
-  }
-  h6 {
-    a {
-      line-height: 1.4;
-      color: #000;
-      font-weight: 530;
-    }
-  }
-}
-
-.box-product .img-wrapper .tags > .label-tags {
-  display: table;
-  margin: 1px 0 0 0;
-  text-align: left;
-  opacity: 0.92;
-  filter: alpha(opacity=92);
-  direction: ltr;
-}
-
-.box-product .img-wrapper .tags > .label-tags:hover {
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.box-product .img-wrapper .tags > .label-tags a:hover {
-  text-decoration: none;
-}
-
-.box-product .img-wrapper > .option {
-  position: absolute;
-  top: auto;
-  right: 0;
-  bottom: -30px;
-  left: 0;
-  width: auto;
-  height: 28px;
-  -webkit-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-  text-align: center;
-  vertical-align: middle;
-  background-color: rgba(0, 0, 0, 0.55);
-}
-
-.box-product .img-wrapper .option > a {
-  font-size: 18px;
-  font-weight: normal;
-  display: inline-block;
-  padding: 0 4px;
-  color: #fff;
-}
-
-.box-product .img-wrapper:hover > .option {
-  top: auto;
-  bottom: 0;
-}
-
-.price {
-  margin-bottom: 5px;
-  color: #f44336;
-  font-size: 0.9rem;
-  .price-down {
-    margin-left: 5px;
-    padding: 2px 5px;
-    color: #fff;
-    background: #f44336;
-  }
-}
-
-.price > div {
-  font-size: 1.2rem;
-}
-
-.price-old {
-  position: relative;
-  display: inline-block;
-  margin-right: 7px;
-  color: #666;
-}
-
-.price-old:before {
-  position: absolute;
-  width: 100%;
-  height: 60%;
-  content: "";
-  border-bottom: 1px solid #666;
-}
-
-.rating {
-  i {
-    color: #fc0;
-    font-size: 0.9rem;
-  }
-  a {
-    font-size: 0.9rem;
-  }
-}
-
-.product-sorting-bar {
-  border: 1px solid #e5e5e5;
 }
 
 .product-info {

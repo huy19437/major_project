@@ -21,13 +21,14 @@
 <script>
 export default {
   name: "PaginationCustom",
-  props: ["partnerData", "currentPage", "pageSize"],
+  props: ["paginationData", "currentPage", "pageSize"],
   methods: {
     updatePage(pageNumber) {
       this.$emit("page:update", pageNumber);
     },
     totalPages() {
-      return Math.ceil(this.partnerData.length / this.pageSize);
+      if (this.paginationData)
+        return Math.ceil(this.paginationData.length / this.pageSize);
     },
     showPreviousLink() {
       return this.currentPage == 0 ? false : true;
