@@ -1,6 +1,13 @@
 <template>
   <div class="shopping-cart section">
-    <div class="container">
+    <div
+      v-if="getCartLocal.length == 0 ? true : false"
+      class="alert alert-warning"
+      role="alert"
+    >
+      Go back and push products into the cart!
+    </div>
+    <div v-else class="container">
       <div class="row">
         <div class="col-12">
           <!-- Shopping Summery -->
@@ -32,8 +39,18 @@
                 <td class="qty" data-title="Qty">
                   <!-- Input Order -->
                   <InputOrder
-                    @inc="(value) => (product.quantity = value)"
-                    @dec="(value) => (product.quantity = value)"
+                    @inc="
+                      (value) => {
+                        product.quantity = value;
+                        updateProduct(product.id, product.quantity);
+                      }
+                    "
+                    @dec="
+                      (value) => {
+                        product.quantity = value;
+                        updateProduct(product.id, product.quantity);
+                      }
+                    "
                     :quantity="product.quantity"
                   />
                   <!--/ End Input Order -->
@@ -97,7 +114,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import InputOrder from "../input_order/InputOrder";
 export default {
   name: "CartContent",
@@ -105,6 +122,7 @@ export default {
   data() {
     return {
       cart: [],
+      partner: {},
       products: [],
       qtyOfProducts: [],
     };
@@ -116,7 +134,26 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      updateCart: "cart/updateCart",
+    }),
+    updateProduct(id, quantity) {
+      this.partner = this.getPartnersLocal.find((pl) =>
+        pl.categories.find((cat) => cat.products.find((obj) => obj.id == id))
+      );
+      let params = {
+        product_id: id,
+        quantity: quantity,
+        partner_id: this.partner.id,
+      };
+      console.log(params);
+      this.updateCart(params);
+    },
+    roundToTwo(num) {
+      return +(Math.round(num + "e+2") + "e-2");
+    },
     getResult() {
+      console.log(this.getCartLocal);
       this.cart = this.getCartLocal;
       let idOfProducts = this.cart.map((item) => item.product_id);
       this.qtyOfProducts = this.cart.map((item) => item.quantity);
@@ -135,9 +172,6 @@ export default {
         );
       }
       this.products = prods;
-    },
-    roundToTwo(num) {
-      return +(Math.round(num + "e+2") + "e-2");
     },
   },
   created() {

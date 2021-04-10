@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Category List</h2>
+          <h2>Categories List</h2>
         </div>
       </div>
     </div>
@@ -31,6 +31,13 @@
             <!--/ End Tab Nav -->
           </div>
           <div class="tab-content" id="myTabContent">
+            <div class="row">
+              <div class="col-12">
+                <div class="section-title product-list">
+                  <h2>Products List</h2>
+                </div>
+              </div>
+            </div>
             <!-- Start Single Tab -->
             <div
               v-for="category in categories"
@@ -64,9 +71,9 @@
                             src="../../../../assets/logo.png"
                             alt="#"
                           />
-                          <span class="new">New</span>
+                          <!-- <span class="new">New</span>
                           <span class="price-dec">30% Off</span>
-                          <span class="out-of-stock">Hot</span>
+                          <span class="out-of-stock">Hot</span> -->
                         </router-link>
                         <div class="button-head">
                           <div class="product-action">
@@ -75,7 +82,7 @@
                               data-target="#exampleModal"
                               title="Quick View"
                               href="#"
-                              ><i class="ti-eye"></i><span>Quick Shop</span></a
+                              ><i class="ti-eye"></i><span>Quick View</span></a
                             >
                             <a title="Wishlist" href="#"
                               ><i class="ti-heart"></i
@@ -161,7 +168,7 @@ export default {
         quantity: 1,
       };
       console.log(params);
-      // this.addProductToCart(params);
+      this.addProductToCart(params);
     },
     getProductsByCategory(cateId) {
       this.cateId = cateId;
@@ -171,7 +178,7 @@ export default {
       let params = {
         partner_id: this.slug,
       };
-      // this.getCart(params);
+      this.getCart(params);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug
@@ -194,21 +201,66 @@ export default {
 /* -------------------------------------------------------------- Box Product -------------------------------------------------------------- */
 
 .single-product {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid #eeeeee;
+  border-radius: 7px;
   .product-content {
+    padding: 0 20px 20px;
     h3 {
       a {
         color: #000;
+        font-weight: 600 !important;
+        font-size: 1.5rem !important;
+        color: #000;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
         &:hover {
           color: #f7941d;
           text-decoration: none;
         }
       }
     }
+    .product-price {
+      color: #86bd57;
+    }
+  }
+  &:hover {
+    -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+}
+.product-img {
+  padding: 12px 12px;
+  .product-action {
+    margin-right: 12px !important;
+  }
+  .product-action-2 {
+    margin-left: 12px !important;
   }
 }
 
 .section-title {
   padding: 50px 0 10px;
+  &.product-list {
+    h2 {
+      font-size: 24px;
+      &::after {
+        content: "";
+        width: 67px;
+        position: absolute;
+        margin: 0 auto;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.2);
+        left: 0;
+        right: 0;
+        bottom: -20px;
+      }
+    }
+  }
 }
 .box-product-outer {
   margin-bottom: 5px;

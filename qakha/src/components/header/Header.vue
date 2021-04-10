@@ -374,7 +374,7 @@ export default {
   },
   created() {
     this.getUserInfoFromLocal();
-    this.getInfoProductInCart();
+    // this.getInfoProductInCart();
   },
   watch: {
     cartsChange() {

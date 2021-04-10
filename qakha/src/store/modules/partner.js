@@ -4,210 +4,121 @@ const state = {
     partners2: [
         {
             "id": 1,
-            "name": "Kermit Schultz",
-            "address": "3197 West Branch, Gleasonport, ME 96891-3198",
-            "phone_number": "0192074515",
+            "name": "Gov. Issac Kirlin",
+            "address": "Suite 220 66880 Carl Road, Russelchester, NM 65073",
+            "phone_number": "0909168073",
             "email": "partner1@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-09T18:34:13.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-22T15:46:39.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 3,
+            "city_id": 2,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:10.757Z",
-            "updated_at": "2021-04-06T13:09:10.757Z",
+            "created_at": "2021-04-09T16:41:02.839Z",
+            "updated_at": "2021-04-09T16:41:02.839Z",
             "categories": [
                 {
                     "id": 2,
                     "name": "Japanese",
                     "parent_id": 1,
                     "partner_id": 1,
-                    "created_at": "2021-04-06T13:09:11.917Z",
-                    "updated_at": "2021-04-06T13:09:11.917Z",
+                    "created_at": "2021-04-09T16:41:03.512Z",
+                    "updated_at": "2021-04-09T16:41:03.512Z",
                     "products": [
                         {
                             "id": 3,
-                            "name": "Barbecue Ribs",
-                            "quantity_sold": 8,
-                            "price": 92.08,
-                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.061Z",
-                            "updated_at": "2021-04-06T13:09:12.061Z"
-                        },
-                        {
-                            "id": 10,
-                            "name": "Chicken Wings",
-                            "quantity_sold": 7,
-                            "price": 56.04,
-                            "description": "Three egg omelet with Roquefort cheese, chives, and ham. With a side of roasted potatoes, and your choice of toast or croissant.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.208Z",
-                            "updated_at": "2021-04-06T13:09:12.208Z"
-                        },
-                        {
-                            "id": 12,
-                            "name": "Linguine with Clams",
-                            "quantity_sold": 5,
-                            "price": 55.51,
-                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.244Z",
-                            "updated_at": "2021-04-06T13:09:12.244Z"
-                        },
-                        {
-                            "id": 14,
-                            "name": "Chicken Milanese",
-                            "quantity_sold": 6,
-                            "price": 75.55,
-                            "description": "Smoked salmon, poached eggs, diced red onions and Hollandaise sauce on an English muffin. With a side of roasted potatoes.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.278Z",
-                            "updated_at": "2021-04-06T13:09:12.278Z"
-                        },
-                        {
-                            "id": 16,
-                            "name": "Fish and Chips",
-                            "quantity_sold": 7,
-                            "price": 71.56,
+                            "name": "Vegetable Soup",
+                            "quantity_sold": 1,
+                            "price": 36.57,
                             "description": "28-day aged 300g USDA Certified Prime Ribeye, rosemary-thyme garlic butter, with choice of two sides.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.310Z",
-                            "updated_at": "2021-04-06T13:09:12.310Z"
+                            "created_at": "2021-04-09T16:41:03.648Z",
+                            "updated_at": "2021-04-09T16:41:03.648Z"
                         },
                         {
-                            "id": 20,
-                            "name": "Chicken Fajitas",
-                            "quantity_sold": 6,
-                            "price": 47.61,
-                            "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.373Z",
-                            "updated_at": "2021-04-06T13:09:12.373Z"
-                        },
-                        {
-                            "id": 26,
-                            "name": "Pork Sausage Roll",
-                            "quantity_sold": 6,
-                            "price": 32.63,
-                            "description": "Breaded fried chicken with waffles, and a side of maple syrup.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 2,
-                            "created_at": "2021-04-06T13:09:12.488Z",
-                            "updated_at": "2021-04-06T13:09:12.488Z"
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "name": "Vietnam",
-                    "parent_id": 1,
-                    "partner_id": 1,
-                    "created_at": "2021-04-06T13:09:11.953Z",
-                    "updated_at": "2021-04-06T13:09:11.953Z",
-                    "products": [
-                        {
-                            "id": 1,
-                            "name": "Risotto with Seafood",
-                            "quantity_sold": 1,
-                            "price": 88.05,
-                            "description": "Granny Smith apples mixed with brown sugar and butter filling, in a flaky all-butter crust, with ice cream.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 4,
-                            "created_at": "2021-04-06T13:09:12.017Z",
-                            "updated_at": "2021-04-06T13:09:12.017Z"
-                        },
-                        {
-                            "id": 11,
-                            "name": "Chilli con Carne",
-                            "quantity_sold": 5,
-                            "price": 98.09,
-                            "description": "Three egg whites with spinach, mushrooms, caramelized onions, tomatoes and low-fat feta cheese. With herbed quinoa, and your choice of rye or whole-grain toast.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 4,
-                            "created_at": "2021-04-06T13:09:12.226Z",
-                            "updated_at": "2021-04-06T13:09:12.226Z"
-                        },
-                        {
-                            "id": 13,
-                            "name": "Pasta and Beans",
-                            "quantity_sold": 7,
-                            "price": 33.03,
+                            "id": 4,
+                            "name": "Chicken Wings",
+                            "quantity_sold": 9,
+                            "price": 78.17,
                             "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 4,
-                            "created_at": "2021-04-06T13:09:12.262Z",
-                            "updated_at": "2021-04-06T13:09:12.262Z"
+                            "category_id": 2,
+                            "created_at": "2021-04-09T16:41:03.661Z",
+                            "updated_at": "2021-04-09T16:41:03.661Z"
                         },
                         {
-                            "id": 17,
-                            "name": "Pasta Carbonara",
-                            "quantity_sold": 6,
-                            "price": 15.99,
-                            "description": "Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce, with choice of two sides.",
+                            "id": 8,
+                            "name": "Souvlaki",
+                            "quantity_sold": 5,
+                            "price": 87.81,
+                            "description": "28-day aged 300g USDA Certified Prime Ribeye, rosemary-thyme garlic butter, with choice of two sides.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 4,
-                            "created_at": "2021-04-06T13:09:12.326Z",
-                            "updated_at": "2021-04-06T13:09:12.326Z"
+                            "category_id": 2,
+                            "created_at": "2021-04-09T16:41:03.718Z",
+                            "updated_at": "2021-04-09T16:41:03.718Z"
                         },
                         {
-                            "id": 28,
-                            "name": "Pork Belly Buns",
-                            "quantity_sold": 9,
-                            "price": 10.08,
-                            "description": "Three egg omelet with Roquefort cheese, chives, and ham. With a side of roasted potatoes, and your choice of toast or croissant.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 4,
-                            "created_at": "2021-04-06T13:09:12.528Z",
-                            "updated_at": "2021-04-06T13:09:12.528Z"
-                        },
-                        {
-                            "id": 30,
-                            "name": "Linguine with Clams",
+                            "id": 9,
+                            "name": "Stinky Tofu",
                             "quantity_sold": 4,
-                            "price": 54.79,
-                            "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
+                            "price": 37.88,
+                            "description": "Three egg whites with spinach, mushrooms, caramelized onions, tomatoes and low-fat feta cheese. With herbed quinoa, and your choice of rye or whole-grain toast.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 4,
-                            "created_at": "2021-04-06T13:09:12.571Z",
-                            "updated_at": "2021-04-06T13:09:12.571Z"
+                            "category_id": 2,
+                            "created_at": "2021-04-09T16:41:03.732Z",
+                            "updated_at": "2021-04-09T16:41:03.732Z"
+                        },
+                        {
+                            "id": 16,
+                            "name": "Pho",
+                            "quantity_sold": 1,
+                            "price": 56.72,
+                            "description": "Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ladyfingers, topped with Valrhona cocoa powder.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 2,
+                            "created_at": "2021-04-09T16:41:03.832Z",
+                            "updated_at": "2021-04-09T16:41:03.832Z"
+                        },
+                        {
+                            "id": 21,
+                            "name": "Pierogi",
+                            "quantity_sold": 2,
+                            "price": 23.35,
+                            "description": "Breaded fried chicken with waffles. Served with maple syrup.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 2,
+                            "created_at": "2021-04-09T16:41:03.902Z",
+                            "updated_at": "2021-04-09T16:41:03.902Z"
+                        },
+                        {
+                            "id": 23,
+                            "name": "Cauliflower Penne",
+                            "quantity_sold": 3,
+                            "price": 47.43,
+                            "description": "28-day aged 300g USDA Certified Prime Ribeye, rosemary-thyme garlic butter, with choice of two sides.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 2,
+                            "created_at": "2021-04-09T16:41:03.931Z",
+                            "updated_at": "2021-04-09T16:41:03.931Z"
                         }
                     ]
                 }
@@ -215,161 +126,160 @@ const state = {
         },
         {
             "id": 2,
-            "name": "Cindy Fahey",
-            "address": "455 Breitenberg Corner, Busterborough, MI 46837-2057",
-            "phone_number": "0284306154",
+            "name": "Ayanna Runolfsdottir",
+            "address": "400 Jean Causeway, New Alejandrashire, CA 84647-1002",
+            "phone_number": "0731015577",
             "email": "partner2@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-13T07:10:11.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-14T13:27:52.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 2,
-            "type_id": 2,
-            "created_at": "2021-04-06T13:09:10.785Z",
-            "updated_at": "2021-04-06T13:09:10.785Z",
+            "city_id": 1,
+            "type_id": 1,
+            "created_at": "2021-04-09T16:41:02.859Z",
+            "updated_at": "2021-04-09T16:41:02.859Z",
             "categories": [
                 {
                     "id": 3,
                     "name": "Chinese",
-                    "parent_id": 1,
+                    "parent_id": 2,
                     "partner_id": 2,
-                    "created_at": "2021-04-06T13:09:11.935Z",
-                    "updated_at": "2021-04-06T13:09:11.935Z",
+                    "created_at": "2021-04-09T16:41:03.528Z",
+                    "updated_at": "2021-04-09T16:41:03.528Z",
                     "products": [
                         {
-                            "id": 4,
-                            "name": "Chilli con Carne",
-                            "quantity_sold": 6,
-                            "price": 13.87,
-                            "description": "Smoked salmon, poached eggs, diced red onions and Hollandaise sauce on an English muffin. With a side of roasted potatoes.",
+                            "id": 1,
+                            "name": "Barbecue Ribs",
+                            "quantity_sold": 8,
+                            "price": 45.88,
+                            "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.080Z",
-                            "updated_at": "2021-04-06T13:09:12.080Z"
+                            "created_at": "2021-04-09T16:41:03.621Z",
+                            "updated_at": "2021-04-09T16:41:03.621Z"
                         },
                         {
-                            "id": 5,
-                            "name": "Peking Duck",
-                            "quantity_sold": 9,
-                            "price": 78.26,
-                            "description": "Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ladyfingers, topped with Valrhona cocoa powder.",
+                            "id": 10,
+                            "name": "Sushi",
+                            "quantity_sold": 1,
+                            "price": 52.15,
+                            "description": "28-day aged 300g USDA Certified Prime Ribeye, rosemary-thyme garlic butter, with choice of two sides.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.101Z",
-                            "updated_at": "2021-04-06T13:09:12.101Z"
+                            "created_at": "2021-04-09T16:41:03.745Z",
+                            "updated_at": "2021-04-09T16:41:03.745Z"
                         },
                         {
-                            "id": 6,
-                            "name": "Tuna Sashimi",
+                            "id": 11,
+                            "name": "Poutine",
                             "quantity_sold": 2,
-                            "price": 31.59,
-                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.123Z",
-                            "updated_at": "2021-04-06T13:09:12.123Z"
-                        },
-                        {
-                            "id": 7,
-                            "name": "Souvlaki",
-                            "quantity_sold": 9,
-                            "price": 41.53,
-                            "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.141Z",
-                            "updated_at": "2021-04-06T13:09:12.141Z"
-                        },
-                        {
-                            "id": 9,
-                            "name": "Lasagne",
-                            "quantity_sold": 5,
-                            "price": 70.86,
+                            "price": 34.04,
                             "description": "Three egg omelet with Roquefort cheese, chives, and ham. With a side of roasted potatoes, and your choice of toast or croissant.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.191Z",
-                            "updated_at": "2021-04-06T13:09:12.191Z"
+                            "created_at": "2021-04-09T16:41:03.759Z",
+                            "updated_at": "2021-04-09T16:41:03.759Z"
                         },
                         {
-                            "id": 19,
-                            "name": "Chicken Parm",
-                            "quantity_sold": 7,
-                            "price": 16.03,
-                            "description": "Fresh parsley, Italian sausage, shallots, garlic, sun-dried tomatoes and mozzarella cheese in an all-butter crust. With a side of mixed fruits.",
+                            "id": 12,
+                            "name": "Scotch Eggs",
+                            "quantity_sold": 3,
+                            "price": 14.62,
+                            "description": "Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.357Z",
-                            "updated_at": "2021-04-06T13:09:12.357Z"
+                            "created_at": "2021-04-09T16:41:03.775Z",
+                            "updated_at": "2021-04-09T16:41:03.775Z"
                         },
                         {
-                            "id": 21,
-                            "name": "Meatballs with Sauce",
+                            "id": 13,
+                            "name": "Arepas",
+                            "quantity_sold": 5,
+                            "price": 43.43,
+                            "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 3,
+                            "created_at": "2021-04-09T16:41:03.790Z",
+                            "updated_at": "2021-04-09T16:41:03.790Z"
+                        },
+                        {
+                            "id": 15,
+                            "name": "Pork Belly Buns",
+                            "quantity_sold": 8,
+                            "price": 80.71,
+                            "description": "Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce, with choice of two sides.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 3,
+                            "created_at": "2021-04-09T16:41:03.819Z",
+                            "updated_at": "2021-04-09T16:41:03.819Z"
+                        },
+                        {
+                            "id": 17,
+                            "name": "Poutine",
                             "quantity_sold": 4,
-                            "price": 56.73,
+                            "price": 54.36,
                             "description": "Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ladyfingers, topped with Valrhona cocoa powder.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.390Z",
-                            "updated_at": "2021-04-06T13:09:12.390Z"
+                            "created_at": "2021-04-09T16:41:03.846Z",
+                            "updated_at": "2021-04-09T16:41:03.846Z"
                         },
                         {
-                            "id": 22,
-                            "name": "Fettuccine Alfredo",
-                            "quantity_sold": 9,
-                            "price": 99.25,
-                            "description": "Three egg whites with spinach, mushrooms, caramelized onions, tomatoes and low-fat feta cheese. With herbed quinoa, and your choice of rye or whole-grain toast.",
+                            "id": 20,
+                            "name": "Seafood Paella",
+                            "quantity_sold": 3,
+                            "price": 19.77,
+                            "description": "Granny Smith apples mixed with brown sugar and butter filling, in a flaky all-butter crust, with ice cream.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.415Z",
-                            "updated_at": "2021-04-06T13:09:12.415Z"
+                            "created_at": "2021-04-09T16:41:03.888Z",
+                            "updated_at": "2021-04-09T16:41:03.888Z"
+                        },
+                        {
+                            "id": 22,
+                            "name": "Pasta Carbonara",
+                            "quantity_sold": 8,
+                            "price": 79.76,
+                            "description": "28-day aged 300g USDA Certified Prime Ribeye, rosemary-thyme garlic butter, with choice of two sides.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 3,
+                            "created_at": "2021-04-09T16:41:03.917Z",
+                            "updated_at": "2021-04-09T16:41:03.917Z"
                         },
                         {
                             "id": 25,
                             "name": "Bruschette with Tomato",
-                            "quantity_sold": 7,
-                            "price": 36.38,
+                            "quantity_sold": 2,
+                            "price": 21.74,
                             "description": "Breaded fried chicken with waffles, and a side of maple syrup.",
                             "image": {
                                 "url": null
                             },
                             "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.471Z",
-                            "updated_at": "2021-04-06T13:09:12.471Z"
-                        },
-                        {
-                            "id": 29,
-                            "name": "Risotto with Seafood",
-                            "quantity_sold": 3,
-                            "price": 27.56,
-                            "description": "Smoked salmon, poached eggs, diced red onions and Hollandaise sauce on an English muffin. With a side of roasted potatoes.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 3,
-                            "created_at": "2021-04-06T13:09:12.551Z",
-                            "updated_at": "2021-04-06T13:09:12.551Z"
+                            "created_at": "2021-04-09T16:41:03.958Z",
+                            "updated_at": "2021-04-09T16:41:03.958Z"
                         }
                     ]
                 }
@@ -377,13 +287,12 @@ const state = {
         },
         {
             "id": 3,
-            "name": "Joseph Beahan",
-            "address": "9639 Teresia Locks, Brekkeville, MN 89464",
-            "phone_number": "0618437036",
+            "name": "Santina Hartmann DVM",
+            "address": "Suite 196 748 Hermiston Shoals, East Peiburgh, NM 05836",
+            "phone_number": "0004349009",
             "email": "partner3@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-20T15:52:07.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-24T08:29:49.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -392,107 +301,133 @@ const state = {
             },
             "city_id": 2,
             "type_id": 1,
-            "created_at": "2021-04-06T13:09:10.809Z",
-            "updated_at": "2021-04-06T13:09:10.809Z",
+            "created_at": "2021-04-09T16:41:02.882Z",
+            "updated_at": "2021-04-09T16:41:02.882Z",
             "categories": [
                 {
-                    "id": 5,
-                    "name": "French",
-                    "parent_id": 4,
+                    "id": 4,
+                    "name": "Vietnam",
+                    "parent_id": 1,
                     "partner_id": 3,
-                    "created_at": "2021-04-06T13:09:11.973Z",
-                    "updated_at": "2021-04-06T13:09:11.973Z",
+                    "created_at": "2021-04-09T16:41:03.553Z",
+                    "updated_at": "2021-04-09T16:41:03.553Z",
                     "products": [
                         {
-                            "id": 2,
-                            "name": "California Maki",
+                            "id": 7,
+                            "name": "Philadelphia Maki",
                             "quantity_sold": 5,
-                            "price": 71.98,
+                            "price": 14.32,
+                            "description": "Smoked salmon, poached eggs, diced red onions and Hollandaise sauce on an English muffin. With a side of roasted potatoes.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:03.702Z",
+                            "updated_at": "2021-04-09T16:41:03.702Z"
+                        },
+                        {
+                            "id": 14,
+                            "name": "Risotto with Seafood",
+                            "quantity_sold": 9,
+                            "price": 96.27,
+                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:03.805Z",
+                            "updated_at": "2021-04-09T16:41:03.805Z"
+                        },
+                        {
+                            "id": 18,
+                            "name": "Fettuccine Alfredo",
+                            "quantity_sold": 4,
+                            "price": 69.66,
+                            "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:03.860Z",
+                            "updated_at": "2021-04-09T16:41:03.860Z"
+                        },
+                        {
+                            "id": 19,
+                            "name": "Scotch Eggs",
+                            "quantity_sold": 4,
+                            "price": 88.34,
+                            "description": "Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ladyfingers, topped with Valrhona cocoa powder.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:03.874Z",
+                            "updated_at": "2021-04-09T16:41:03.874Z"
+                        },
+                        {
+                            "id": 26,
+                            "name": "Pappardelle alla Bolognese",
+                            "quantity_sold": 8,
+                            "price": 69.65,
                             "description": "Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce, with choice of two sides.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.038Z",
-                            "updated_at": "2021-04-06T13:09:12.038Z"
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:03.973Z",
+                            "updated_at": "2021-04-09T16:41:03.973Z"
                         },
                         {
-                            "id": 8,
-                            "name": "Chicken Parm",
-                            "quantity_sold": 6,
-                            "price": 68.72,
-                            "description": "Fresh parsley, Italian sausage, shallots, garlic, sun-dried tomatoes and mozzarella cheese in an all-butter crust. With a side of mixed fruits.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.162Z",
-                            "updated_at": "2021-04-06T13:09:12.162Z"
-                        },
-                        {
-                            "id": 15,
-                            "name": "Pizza",
-                            "quantity_sold": 6,
-                            "price": 63.77,
-                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.294Z",
-                            "updated_at": "2021-04-06T13:09:12.294Z"
-                        },
-                        {
-                            "id": 18,
-                            "name": "Vegetable Soup",
-                            "quantity_sold": 8,
-                            "price": 84.15,
+                            "id": 27,
+                            "name": "Meatballs with Sauce",
+                            "quantity_sold": 4,
+                            "price": 77.03,
                             "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.342Z",
-                            "updated_at": "2021-04-06T13:09:12.342Z"
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:03.987Z",
+                            "updated_at": "2021-04-09T16:41:03.987Z"
                         },
                         {
-                            "id": 23,
-                            "name": "Ebiten maki",
-                            "quantity_sold": 4,
-                            "price": 62.11,
-                            "description": "Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.",
+                            "id": 28,
+                            "name": "Pierogi",
+                            "quantity_sold": 5,
+                            "price": 59.56,
+                            "description": "28-day aged 300g USDA Certified Prime Ribeye, rosemary-thyme garlic butter, with choice of two sides.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.434Z",
-                            "updated_at": "2021-04-06T13:09:12.434Z"
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:04.002Z",
+                            "updated_at": "2021-04-09T16:41:04.002Z"
                         },
                         {
-                            "id": 24,
-                            "name": "Pork Belly Buns",
-                            "quantity_sold": 8,
-                            "price": 37.19,
-                            "description": "Three egg omelet with Roquefort cheese, chives, and ham. With a side of roasted potatoes, and your choice of toast or croissant.",
-                            "image": {
-                                "url": null
-                            },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.452Z",
-                            "updated_at": "2021-04-06T13:09:12.452Z"
-                        },
-                        {
-                            "id": 27,
-                            "name": "Tuna Sashimi",
+                            "id": 29,
+                            "name": "Chilli con Carne",
                             "quantity_sold": 1,
-                            "price": 46.28,
-                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
+                            "price": 35.49,
+                            "description": "Smoked salmon, poached eggs, diced red onions and Hollandaise sauce on an English muffin. With a side of roasted potatoes.",
                             "image": {
                                 "url": null
                             },
-                            "category_id": 5,
-                            "created_at": "2021-04-06T13:09:12.508Z",
-                            "updated_at": "2021-04-06T13:09:12.508Z"
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:04.014Z",
+                            "updated_at": "2021-04-09T16:41:04.014Z"
+                        },
+                        {
+                            "id": 30,
+                            "name": "Chicken Wings",
+                            "quantity_sold": 9,
+                            "price": 76.24,
+                            "description": "Three egg whites with spinach, mushrooms, caramelized onions, tomatoes and low-fat feta cheese. With herbed quinoa, and your choice of rye or whole-grain toast.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 4,
+                            "created_at": "2021-04-09T16:41:04.028Z",
+                            "updated_at": "2021-04-09T16:41:04.028Z"
                         }
                     ]
                 }
@@ -500,118 +435,183 @@ const state = {
         },
         {
             "id": 4,
-            "name": "Wilber Bosco Sr.",
-            "address": "Suite 157 427 Schroeder Ports, Rippinstad, NE 66317",
-            "phone_number": "0576964624",
+            "name": "Cornell Herman",
+            "address": "Suite 723 86710 Murphy Forks, Willmsberg, KY 03384",
+            "phone_number": "0351276141",
             "email": "partner4@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-15T08:48:08.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-11T21:42:50.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 3,
+            "city_id": 1,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:10.883Z",
-            "updated_at": "2021-04-06T13:09:10.883Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:02.901Z",
+            "updated_at": "2021-04-09T16:41:02.901Z",
+            "categories": [
+                {
+                    "id": 5,
+                    "name": "French",
+                    "parent_id": 2,
+                    "partner_id": 4,
+                    "created_at": "2021-04-09T16:41:03.576Z",
+                    "updated_at": "2021-04-09T16:41:03.576Z",
+                    "products": [
+                        {
+                            "id": 2,
+                            "name": "Hummus",
+                            "quantity_sold": 5,
+                            "price": 67.38,
+                            "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 5,
+                            "created_at": "2021-04-09T16:41:03.635Z",
+                            "updated_at": "2021-04-09T16:41:03.635Z"
+                        },
+                        {
+                            "id": 5,
+                            "name": "Pizza",
+                            "quantity_sold": 1,
+                            "price": 18.73,
+                            "description": "Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 5,
+                            "created_at": "2021-04-09T16:41:03.675Z",
+                            "updated_at": "2021-04-09T16:41:03.675Z"
+                        },
+                        {
+                            "id": 6,
+                            "name": "Pizza",
+                            "quantity_sold": 3,
+                            "price": 43.04,
+                            "description": "Fresh parsley, Italian sausage, shallots, garlic, sun-dried tomatoes and mozzarella cheese in an all-butter crust. With a side of mixed fruits.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 5,
+                            "created_at": "2021-04-09T16:41:03.689Z",
+                            "updated_at": "2021-04-09T16:41:03.689Z"
+                        },
+                        {
+                            "id": 24,
+                            "name": "Bruschette with Tomato",
+                            "quantity_sold": 4,
+                            "price": 96.05,
+                            "description": "Three egg omelet with Roquefort cheese, chives, and ham. With a side of roasted potatoes, and your choice of toast or croissant.",
+                            "image": {
+                                "url": null
+                            },
+                            "category_id": 5,
+                            "created_at": "2021-04-09T16:41:03.944Z",
+                            "updated_at": "2021-04-09T16:41:03.944Z"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "id": 5,
-            "name": "Edris Hammes",
-            "address": "869 Gerald Loaf, Nathanton, WI 42199",
-            "phone_number": "0131907311",
+            "name": "Clarice Hessel",
+            "address": "Apt. 490 349 Tana Spurs, Bethanychester, AL 00379",
+            "phone_number": "0900944540",
             "email": "partner5@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-11T04:55:57.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-19T04:36:55.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 1,
-            "type_id": 2,
-            "created_at": "2021-04-06T13:09:10.931Z",
-            "updated_at": "2021-04-06T13:09:10.931Z",
-            "categories": []
+            "city_id": 2,
+            "type_id": 3,
+            "created_at": "2021-04-09T16:41:02.920Z",
+            "updated_at": "2021-04-09T16:41:02.920Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 6,
-            "name": "Dr. Pok Wyman",
-            "address": "Apt. 527 825 Lang Ways, Iraport, WA 73395-5708",
-            "phone_number": "0846963602",
+            "name": "Song Bins DC",
+            "address": "23793 Macejkovic Extension, Lake Giovannimouth, SC 93048-0881",
+            "phone_number": "0577224252",
             "email": "partner6@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-07T15:55:07.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-19T04:40:05.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 2,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:10.960Z",
-            "updated_at": "2021-04-06T13:09:10.960Z",
-            "categories": []
+            "city_id": 3,
+            "type_id": 2,
+            "created_at": "2021-04-09T16:41:02.940Z",
+            "updated_at": "2021-04-09T16:41:02.940Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 7,
-            "name": "Matthew Toy",
-            "address": "Apt. 947 817 Alfred Valley, Cheryleshire, IL 70716",
-            "phone_number": "0241487755",
+            "name": "Nathanial Yost",
+            "address": "8262 Alyse Pike, Port Norah, MS 67955",
+            "phone_number": "0741782939",
             "email": "partner7@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:10.000Z",
-            "time_close": "2021-04-09T00:29:05.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-11T15:53:47.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 3,
-            "type_id": 1,
-            "created_at": "2021-04-06T13:09:10.996Z",
-            "updated_at": "2021-04-06T13:09:10.996Z",
-            "categories": []
+            "city_id": 1,
+            "type_id": 3,
+            "created_at": "2021-04-09T16:41:02.961Z",
+            "updated_at": "2021-04-09T16:41:02.961Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 8,
-            "name": "Kay Bednar",
-            "address": "Suite 173 4310 Ramiro Squares, Geraldoburgh, TX 94805",
-            "phone_number": "0080064316",
+            "name": "Ileen Hermiston",
+            "address": "Apt. 955 824 Julianne Cliffs, South Leah, NC 68630",
+            "phone_number": "0080227167",
             "email": "partner8@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-21T09:20:01.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-19T07:44:03.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 1,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.051Z",
-            "updated_at": "2021-04-06T13:09:11.051Z",
-            "categories": []
+            "city_id": 3,
+            "type_id": 1,
+            "created_at": "2021-04-09T16:41:02.981Z",
+            "updated_at": "2021-04-09T16:41:02.981Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 9,
-            "name": "Prof. Tammy Murazik",
-            "address": "2796 Russel Vista, Toyton, OH 24809",
-            "phone_number": "0573794849",
+            "name": "Gov. Indira Keebler",
+            "address": "Apt. 390 91098 Lanita Divide, South Faustinoside, MA 41263",
+            "phone_number": "0459135830",
             "email": "partner9@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-15T21:00:20.000Z",
+            "time_open": "2021-04-09T16:41:02.000Z",
+            "time_close": "2021-04-12T03:21:47.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -619,83 +619,87 @@ const state = {
                 "url": null
             },
             "city_id": 1,
-            "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.096Z",
-            "updated_at": "2021-04-06T13:09:11.096Z",
-            "categories": []
+            "type_id": 3,
+            "created_at": "2021-04-09T16:41:03.002Z",
+            "updated_at": "2021-04-09T16:41:03.002Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 10,
-            "name": "Antonia Gulgowski",
-            "address": "Suite 680 614 Loria Greens, Lake Robtview, OH 88586",
-            "phone_number": "0552598413",
+            "name": "Elisha Wunsch",
+            "address": "9409 Saul Points, South Tom, MA 19783-3731",
+            "phone_number": "0034930597",
             "email": "partner10@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-18T14:56:55.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-21T10:26:17.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 2,
+            "city_id": 3,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.138Z",
-            "updated_at": "2021-04-06T13:09:11.138Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.024Z",
+            "updated_at": "2021-04-09T16:41:03.024Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 11,
-            "name": "Oscar Champlin",
-            "address": "Suite 968 5867 Kathrine Isle, North Clementebury, DE 10655",
-            "phone_number": "0737092795",
+            "name": "Un Skiles LLD",
+            "address": "Apt. 795 12859 Reichel Route, Schulistshire, HI 91458",
+            "phone_number": "0547091033",
             "email": "partner11@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-09T03:42:19.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-24T07:55:14.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 3,
+            "city_id": 1,
             "type_id": 2,
-            "created_at": "2021-04-06T13:09:11.178Z",
-            "updated_at": "2021-04-06T13:09:11.178Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.045Z",
+            "updated_at": "2021-04-09T16:41:03.045Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 12,
-            "name": "Keenan Conroy",
-            "address": "9215 Claribel Club, New Quintonmouth, WV 75503",
-            "phone_number": "0327340720",
+            "name": "Quentin Auer DDS",
+            "address": "Apt. 172 61135 Agnes Squares, New Rufus, MT 28956-3092",
+            "phone_number": "0542222496",
             "email": "partner12@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-16T05:49:53.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-13T22:52:18.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 1,
-            "type_id": 2,
-            "created_at": "2021-04-06T13:09:11.225Z",
-            "updated_at": "2021-04-06T13:09:11.225Z",
-            "categories": []
+            "city_id": 2,
+            "type_id": 1,
+            "created_at": "2021-04-09T16:41:03.066Z",
+            "updated_at": "2021-04-09T16:41:03.066Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 13,
-            "name": "Emery Schuster DDS",
-            "address": "Apt. 870 8149 Oren Locks, Wunschstad, OR 64621-5767",
-            "phone_number": "0985192805",
+            "name": "Rory Herzog",
+            "address": "70145 Pierre Mills, Port Bryon, NY 41052-5291",
+            "phone_number": "0960312409",
             "email": "partner13@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-15T04:28:40.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-15T17:08:32.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -703,20 +707,21 @@ const state = {
                 "url": null
             },
             "city_id": 2,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.262Z",
-            "updated_at": "2021-04-06T13:09:11.262Z",
-            "categories": []
+            "type_id": 1,
+            "created_at": "2021-04-09T16:41:03.086Z",
+            "updated_at": "2021-04-09T16:41:03.086Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 14,
-            "name": "Brinda Torp",
-            "address": "Apt. 323 13167 Gerhold Alley, Port Mauro, WI 84683-1407",
-            "phone_number": "0376240651",
+            "name": "Shantelle Pacocha",
+            "address": "52101 Brekke Turnpike, Jinnychester, ID 48707-5236",
+            "phone_number": "0163087814",
             "email": "partner14@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-06T21:52:31.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-09T22:19:34.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -725,19 +730,20 @@ const state = {
             },
             "city_id": 3,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.299Z",
-            "updated_at": "2021-04-06T13:09:11.299Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.106Z",
+            "updated_at": "2021-04-09T16:41:03.106Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 15,
-            "name": "Rev. Laraine Koepp",
-            "address": "418 Marta Shores, East Lazaro, WI 95577",
-            "phone_number": "0605464866",
+            "name": "Zackary Quigley",
+            "address": "6609 Rosanne Greens, Dietrichport, MD 64860-8018",
+            "phone_number": "0541936246",
             "email": "partner15@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-07T09:59:59.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-11T11:34:59.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -746,103 +752,108 @@ const state = {
             },
             "city_id": 3,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.338Z",
-            "updated_at": "2021-04-06T13:09:11.338Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.126Z",
+            "updated_at": "2021-04-09T16:41:03.126Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 16,
-            "name": "Christal Kessler",
-            "address": "2181 Herman Curve, Samanthaport, WI 57248",
-            "phone_number": "0951021673",
+            "name": "Rema Zemlak Ret.",
+            "address": "Apt. 539 119 Frances Ford, Bauchfurt, TX 35568-9393",
+            "phone_number": "0368455458",
             "email": "partner16@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-19T19:44:24.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-14T13:29:55.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 2,
+            "city_id": 1,
             "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.370Z",
-            "updated_at": "2021-04-06T13:09:11.370Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.146Z",
+            "updated_at": "2021-04-09T16:41:03.146Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 17,
-            "name": "Aldo McGlynn",
-            "address": "Apt. 107 59701 Stuart Ridge, North Douglasbury, MS 11295-2197",
-            "phone_number": "0011431731",
+            "name": "Adrien Hartmann",
+            "address": "Suite 349 32673 Ullrich Fall, Jackelinemouth, CO 98927-3574",
+            "phone_number": "0677702185",
             "email": "partner17@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-11T08:04:05.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-12T01:50:39.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 2,
+            "city_id": 1,
             "type_id": 2,
-            "created_at": "2021-04-06T13:09:11.406Z",
-            "updated_at": "2021-04-06T13:09:11.406Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.166Z",
+            "updated_at": "2021-04-09T16:41:03.166Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 18,
-            "name": "Young Nader",
-            "address": "Apt. 977 6211 Margaretta Cove, West Joyaborough, NC 57337",
-            "phone_number": "0172494364",
+            "name": "Mrs. Sherwood Larkin",
+            "address": "Apt. 184 5406 Koepp Route, East Consuela, RI 04080",
+            "phone_number": "0092892600",
             "email": "partner18@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-12T11:32:41.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-18T05:15:50.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 1,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.436Z",
-            "updated_at": "2021-04-06T13:09:11.436Z",
-            "categories": []
+            "city_id": 2,
+            "type_id": 2,
+            "created_at": "2021-04-09T16:41:03.188Z",
+            "updated_at": "2021-04-09T16:41:03.188Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 19,
-            "name": "Sigrid Turner",
-            "address": "Apt. 970 41608 Cedric Isle, Darenborough, NJ 24426-5803",
-            "phone_number": "0539121865",
+            "name": "Simon Bashirian Sr.",
+            "address": "9762 Brandon Mountain, Samuelland, RI 41577-8592",
+            "phone_number": "0319613459",
             "email": "partner19@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-06T19:20:00.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-14T20:49:07.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 1,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.466Z",
-            "updated_at": "2021-04-06T13:09:11.466Z",
-            "categories": []
+            "city_id": 3,
+            "type_id": 2,
+            "created_at": "2021-04-09T16:41:03.208Z",
+            "updated_at": "2021-04-09T16:41:03.208Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 20,
-            "name": "Jessi Moore",
-            "address": "Apt. 166 146 Nicholas Isle, Zemlakside, NY 13975",
-            "phone_number": "0679453984",
+            "name": "Lacy Renner Jr.",
+            "address": "Apt. 112 4721 Nader Rapids, West Lizaberg, OH 61899-9168",
+            "phone_number": "0235592025",
             "email": "partner20@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-14T12:12:17.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-19T09:33:52.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -850,83 +861,21 @@ const state = {
                 "url": null
             },
             "city_id": 3,
-            "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.506Z",
-            "updated_at": "2021-04-06T13:09:11.506Z",
-            "categories": []
+            "type_id": 2,
+            "created_at": "2021-04-09T16:41:03.231Z",
+            "updated_at": "2021-04-09T16:41:03.231Z",
+            "categories": [
+
+            ]
         },
         {
             "id": 21,
-            "name": "Mike Maggio DO",
-            "address": "70132 Hickle Well, South Jackquelinemouth, SC 27578",
-            "phone_number": "0872118375",
+            "name": "Ms. Nelson Pagac",
+            "address": "78570 Mohr Motorway, Greenfeldershire, MD 95671",
+            "phone_number": "0474299057",
             "email": "partner21@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-12T08:24:44.000Z",
-            "status": null,
-            "latitude": null,
-            "longitude": null,
-            "image": {
-                "url": null
-            },
-            "city_id": 1,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.541Z",
-            "updated_at": "2021-04-06T13:09:11.541Z",
-            "categories": []
-        },
-        {
-            "id": 22,
-            "name": "Donte Gutmann",
-            "address": "97687 Berge Meadows, Harrisonville, IN 80462",
-            "phone_number": "0217243002",
-            "email": "partner22@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-19T07:58:59.000Z",
-            "status": null,
-            "latitude": null,
-            "longitude": null,
-            "image": {
-                "url": null
-            },
-            "city_id": 1,
-            "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.576Z",
-            "updated_at": "2021-04-06T13:09:11.576Z",
-            "categories": []
-        },
-        {
-            "id": 23,
-            "name": "Desmond Spinka Ret.",
-            "address": "Suite 183 67307 Alix Hill, Port Jamison, WA 84019-1191",
-            "phone_number": "0235752256",
-            "email": "partner23@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-07T10:18:56.000Z",
-            "status": null,
-            "latitude": null,
-            "longitude": null,
-            "image": {
-                "url": null
-            },
-            "city_id": 1,
-            "type_id": 2,
-            "created_at": "2021-04-06T13:09:11.625Z",
-            "updated_at": "2021-04-06T13:09:11.625Z",
-            "categories": []
-        },
-        {
-            "id": 24,
-            "name": "Susanne Bogisich I",
-            "address": "15828 Swift Keys, Carrolmouth, KS 21713-0691",
-            "phone_number": "0225512789",
-            "email": "partner24@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-15T12:50:19.000Z",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-24T00:35:21.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -934,83 +883,43 @@ const state = {
                 "url": null
             },
             "city_id": 3,
-            "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.664Z",
-            "updated_at": "2021-04-06T13:09:11.664Z",
-            "categories": []
-        },
-        {
-            "id": 25,
-            "name": "The Hon. Hunter Jakubowski",
-            "address": "1609 Karolyn Green, South Willieburgh, WI 97338",
-            "phone_number": "0844529706",
-            "email": "partner25@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-09T23:16:41.000Z",
-            "status": null,
-            "latitude": null,
-            "longitude": null,
-            "image": {
-                "url": null
-            },
-            "city_id": 2,
-            "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.705Z",
-            "updated_at": "2021-04-06T13:09:11.705Z",
-            "categories": []
-        },
-        {
-            "id": 26,
-            "name": "Francisco Marks",
-            "address": "Apt. 453 83467 Jo Circle, Yukbury, CT 67621",
-            "phone_number": "0910787856",
-            "email": "partner26@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-17T08:24:15.000Z",
-            "status": null,
-            "latitude": null,
-            "longitude": null,
-            "image": {
-                "url": null
-            },
-            "city_id": 2,
             "type_id": 2,
-            "created_at": "2021-04-06T13:09:11.735Z",
-            "updated_at": "2021-04-06T13:09:11.735Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.256Z",
+            "updated_at": "2021-04-09T16:41:03.256Z",
+            "categories": [
+
+            ]
         },
         {
-            "id": 27,
-            "name": "Jed Balistreri",
-            "address": "41315 Shawanda Greens, Kohlermouth, NJ 44853-0413",
-            "phone_number": "0907864631",
-            "email": "partner27@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-11T01:54:52.000Z",
+            "id": 22,
+            "name": "Deborah Kuvalis",
+            "address": "Apt. 607 6813 Jast Harbor, North Manual, NM 51582-9145",
+            "phone_number": "0431982535",
+            "email": "partner22@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-16T15:24:16.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
             "image": {
                 "url": null
             },
-            "city_id": 2,
+            "city_id": 1,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.769Z",
-            "updated_at": "2021-04-06T13:09:11.769Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.279Z",
+            "updated_at": "2021-04-09T16:41:03.279Z",
+            "categories": [
+
+            ]
         },
         {
-            "id": 28,
-            "name": "Zackary Smitham",
-            "address": "Apt. 782 60044 Johnston Land, Simonisborough, ME 97224-1124",
-            "phone_number": "0518320899",
-            "email": "partner28@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-17T09:44:20.000Z",
+            "id": 23,
+            "name": "Thanh Kunze",
+            "address": "Suite 187 6987 Colene Shores, Port Laurena, CA 11454",
+            "phone_number": "0584048738",
+            "email": "partner23@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-10T10:54:52.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -1019,29 +928,118 @@ const state = {
             },
             "city_id": 1,
             "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.803Z",
-            "updated_at": "2021-04-06T13:09:11.803Z",
+            "created_at": "2021-04-09T16:41:03.305Z",
+            "updated_at": "2021-04-09T16:41:03.305Z",
+            "categories": [
+
+            ]
+        },
+        {
+            "id": 24,
+            "name": "Herman Sanford PhD",
+            "address": "88649 Aaron Throughway, West Markfurt, IN 78039",
+            "phone_number": "0305336029",
+            "email": "partner24@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-18T18:14:57.000Z",
+            "status": null,
+            "latitude": null,
+            "longitude": null,
+            "image": {
+                "url": null
+            },
+            "city_id": 1,
+            "type_id": 3,
+            "created_at": "2021-04-09T16:41:03.332Z",
+            "updated_at": "2021-04-09T16:41:03.332Z",
+            "categories": [
+
+            ]
+        },
+        {
+            "id": 25,
+            "name": "Gov. Rosina Mayer",
+            "address": "591 Donnelly Centers, Crooksview, KY 32513-8603",
+            "phone_number": "0256067933",
+            "email": "partner25@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-12T01:03:05.000Z",
+            "status": null,
+            "latitude": null,
+            "longitude": null,
+            "image": {
+                "url": null
+            },
+            "city_id": 1,
+            "type_id": 1,
+            "created_at": "2021-04-09T16:41:03.357Z",
+            "updated_at": "2021-04-09T16:41:03.357Z",
+            "categories": [
+
+            ]
+        },
+        {
+            "id": 26,
+            "name": "Malika Krajcik",
+            "address": "438 Mertz Hollow, West Moriah, DE 40622-8503",
+            "phone_number": "0673861302",
+            "email": "partner26@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-18T03:49:50.000Z",
+            "status": null,
+            "latitude": null,
+            "longitude": null,
+            "image": {
+                "url": null
+            },
+            "city_id": 2,
+            "type_id": 3,
+            "created_at": "2021-04-09T16:41:03.380Z",
+            "updated_at": "2021-04-09T16:41:03.380Z",
+            "categories": [
+
+            ]
+        },
+        {
+            "id": 27,
+            "name": "Sherly Hane",
+            "address": "2638 Gleason Pine, Dickensfort, UT 07545",
+            "phone_number": "0307314161",
+            "email": "partner27@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-13T09:18:30.000Z",
+            "status": null,
+            "latitude": null,
+            "longitude": null,
+            "image": {
+                "url": null
+            },
+            "city_id": 2,
+            "type_id": 3,
+            "created_at": "2021-04-09T16:41:03.401Z",
+            "updated_at": "2021-04-09T16:41:03.401Z",
             "categories": [
                 {
                     "id": 1,
                     "name": "Korean",
                     "parent_id": null,
-                    "partner_id": 28,
-                    "created_at": "2021-04-06T13:09:11.902Z",
-                    "updated_at": "2021-04-06T13:09:11.902Z",
-                    "products": []
+                    "partner_id": 27,
+                    "created_at": "2021-04-09T16:41:03.492Z",
+                    "updated_at": "2021-04-09T16:41:03.492Z",
+                    "products": [
+
+                    ]
                 }
             ]
         },
         {
-            "id": 29,
-            "name": "Jerilyn Nikolaus",
-            "address": "32013 Mariam Junction, East Kalynstad, OK 09373-1126",
-            "phone_number": "0155564611",
-            "email": "partner29@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-09T10:34:00.000Z",
+            "id": 28,
+            "name": "Mr. Kurtis Simonis",
+            "address": "2157 Stiedemann Ford, West Darlene, KS 72192-6055",
+            "phone_number": "0179815800",
+            "email": "partner28@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-12T16:12:52.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -1050,19 +1048,20 @@ const state = {
             },
             "city_id": 3,
             "type_id": 1,
-            "created_at": "2021-04-06T13:09:11.839Z",
-            "updated_at": "2021-04-06T13:09:11.839Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.423Z",
+            "updated_at": "2021-04-09T16:41:03.423Z",
+            "categories": [
+
+            ]
         },
         {
-            "id": 30,
-            "name": "Matilda Towne",
-            "address": "Apt. 291 28436 Les Spur, East Damionshire, NV 52019-2338",
-            "phone_number": "0665233995",
-            "email": "partner30@gmail.com",
-            "password": "Test123@",
-            "time_open": "2021-04-06T13:09:11.000Z",
-            "time_close": "2021-04-15T00:37:44.000Z",
+            "id": 29,
+            "name": "Sen. Jamal Wolff",
+            "address": "7991 Mitchell Courts, West Alexis, HI 39055",
+            "phone_number": "0998844685",
+            "email": "partner29@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-14T09:07:04.000Z",
             "status": null,
             "latitude": null,
             "longitude": null,
@@ -1070,13 +1069,37 @@ const state = {
                 "url": null
             },
             "city_id": 2,
+            "type_id": 1,
+            "created_at": "2021-04-09T16:41:03.445Z",
+            "updated_at": "2021-04-09T16:41:03.445Z",
+            "categories": [
+
+            ]
+        },
+        {
+            "id": 30,
+            "name": "Otis Corkery",
+            "address": "Apt. 588 64406 Lanita Meadows, West Brettmouth, IN 11639-8482",
+            "phone_number": "0787204305",
+            "email": "partner30@gmail.com",
+            "time_open": "2021-04-09T16:41:03.000Z",
+            "time_close": "2021-04-13T10:04:00.000Z",
+            "status": null,
+            "latitude": null,
+            "longitude": null,
+            "image": {
+                "url": null
+            },
+            "city_id": 3,
             "type_id": 3,
-            "created_at": "2021-04-06T13:09:11.874Z",
-            "updated_at": "2021-04-06T13:09:11.874Z",
-            "categories": []
+            "created_at": "2021-04-09T16:41:03.468Z",
+            "updated_at": "2021-04-09T16:41:03.468Z",
+            "categories": [
+
+            ]
         }
     ],
-    partners: []
+    // partners2: []
 }
 
 const getters = {

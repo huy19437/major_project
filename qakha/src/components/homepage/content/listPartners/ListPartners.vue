@@ -86,14 +86,14 @@
                           name: 'ListProducts',
                           params: { slug: partner.id },
                         }"
-                        >{{ partner.name }}</router-link
+                        >Name: {{ partner.name }}</router-link
                       >
                     </h5>
                   </div>
                   <div class="partner-list-option">
                     <ul class="list-unstyled">
                       <li>
-                        <span>{{ partner.address }}</span>
+                        <span>Address: {{ partner.address }}</span>
                       </li>
                     </ul>
                   </div>
@@ -181,7 +181,7 @@ export default {
       this.setCartsNull();
       this.setShoppingStatus(false);
       this.partnerData = this.getPartnersLocal;
-      // console.log(this.partnerData);
+      console.log(this.partnerData);
       // })
       // .catch((err) => {
       //   console.log(err);
@@ -200,6 +200,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$border-radius: 7px;
 .container {
   .row:nth-child(3) {
     display: flex;
@@ -234,6 +235,7 @@ select.form-control:not([size]):not([multiple]) {
   padding: 20px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  border-radius: $border-radius;
   &:hover {
     -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
@@ -259,6 +261,8 @@ select.form-control:not([size]):not([multiple]) {
       height: 80px;
       -o-object-fit: cover;
       object-fit: cover;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
     }
   }
 }
@@ -267,20 +271,26 @@ select.form-control:not([size]):not([multiple]) {
   margin-bottom: 5px;
 }
 
-.partner-list-details {
-  ul {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-bottom: 0px;
-    li {
-      margin: 5px 10px 5px 0px;
-      font-size: 13px;
-    }
-  }
-}
+// .partner-list-details {
+//   border-bottom-left-radius: $border-radius;
+//   border-bottom-right-radius: $border-radius;
+//   ul {
+//     display: -webkit-box;
+//     display: -ms-flexbox;
+//     display: flex;
+//     -ms-flex-wrap: wrap;
+//     flex-wrap: wrap;
+//     margin-bottom: 0px;
+//     li {
+//       margin: 5px 10px 5px 0px;
+//       font-size: 13px;
+//       overflow: hidden;
+//       display: -webkit-box;
+//       -webkit-box-orient: vertical;
+//       -webkit-line-clamp: 1;
+//     }
+//   }
+// }
 
 .partner-banner .partner-list:hover {
   position: inherit;
@@ -307,16 +317,48 @@ select.form-control:not([size]):not([multiple]) {
     }
   }
   .partner-list-details {
-    text-align: center;
-    padding: 20px 20px 0px 20px;
+    text-align: left;
+    padding: 20px 20px 20px 20px;
     border: 1px solid #eeeeee;
     border-top: none;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    .partner-list-info {
+      .partner-list-title {
+        h5 {
+          a {
+            color: #000;
+            font-weight: 600 !important;
+            font-size: 1.5rem !important;
+            color: #000;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            &:hover {
+              color: #f7941d;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
     ul {
       -webkit-box-pack: center;
       -ms-flex-pack: center;
       justify-content: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      margin-bottom: 0px;
       li {
-        margin: 2px 5px;
+        font-size: 13px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
       }
     }
   }

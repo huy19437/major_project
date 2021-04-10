@@ -26,11 +26,18 @@
                 >
                   <div class="thumb-wrapper">
                     <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
+                      <router-link
+                        :to="{
+                          name: 'ProductDetail',
+                          params: { slug: product.id },
+                        }"
+                      >
+                        <img
+                          src="@/assets/img/qr_code.png"
+                          class="img-fluid"
+                          alt=""
+                        />
+                      </router-link>
                     </div>
                     <div class="thumb-content">
                       <h4>
@@ -67,11 +74,18 @@
                 >
                   <div class="thumb-wrapper">
                     <div class="img-box">
-                      <img
-                        src="@/assets/img/qr_code.png"
-                        class="img-fluid"
-                        alt=""
-                      />
+                      <router-link
+                        :to="{
+                          name: 'ProductDetail',
+                          params: { slug: product.id },
+                        }"
+                      >
+                        <img
+                          src="@/assets/img/qr_code.png"
+                          class="img-fluid"
+                          alt=""
+                        />
+                      </router-link>
                     </div>
                     <div class="thumb-content">
                       <h4>
@@ -143,14 +157,15 @@ export default {
         quantity: 1,
       };
       console.log(params);
-      // this.addProductToCart(params);
+      this.addProductToCart(params);
     },
     setTrendingProducts() {
+      this.trendProducts = [];
       var productsHasTrend = [];
       var tmp = [];
       var index = 0;
-      this.getPartnersLocal.filter((partner) =>
-        partner.categories.filter((cat) =>
+      this.getPartnersLocal.filter((pl) =>
+        pl.categories.filter((cat) =>
           cat.products.filter((product) => {
             if (product.quantity_sold > 7) {
               productsHasTrend.push(product);
@@ -167,7 +182,6 @@ export default {
         this.trendProducts.push(tmp);
         tmp = [];
       }
-      productsHasTrend = [];
       this.subTrendProductsArray();
     },
     subTrendProductsArray() {
@@ -208,10 +222,7 @@ h2 {
     font-weight: 500;
   }
 }
-// h2 b {
-//   color: #ffc000;
-//   font-weight: 500;
-// }
+
 h2::after {
   content: "";
   width: 100px;
@@ -274,14 +285,25 @@ h2::after {
     }
     .thumb-wrapper {
       text-align: center;
-      box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-      border-radius: 5px;
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+      border: 1px solid #eeeeee;
+      border-radius: 10px;
+      &:hover {
+        -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
+        box-shadow: rgb(50 50 93 / 25%) 0px 19px 10px -13px,
+          rgb(0 0 0 / 30%) 0px 8px 16px -8px;
+      }
     }
     .thumb-content {
       padding: 15px;
       h4 {
         a {
           color: #000;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
           &:hover {
             text-decoration: none;
             color: #f7941d;
@@ -319,53 +341,6 @@ h2::after {
   border-color: #000;
   box-shadow: none;
 }
-// .carousel .carousel-item {
-//   min-height: 330px;
-//   text-align: center;
-//   overflow: hidden;
-// }
-// .carousel .carousel-item .img-box {
-//   height: 160px;
-//   width: 100%;
-//   position: relative;
-// }
-// .carousel .carousel-item img {
-//   max-width: 100%;
-//   max-height: 100%;
-//   display: inline-block;
-//   position: absolute;
-//   bottom: 0;
-//   margin: 0 auto;
-//   left: 0;
-//   right: 0;
-// }
-// .carousel .carousel-item h4 {
-//   font-size: 18px;
-//   margin: 10px 0;
-// }
-// .carousel .carousel-item .btn {
-//   color: #333;
-//   border-radius: 0;
-//   font-size: 11px;
-//   text-transform: uppercase;
-//   font-weight: bold;
-//   background: none;
-//   border: 1px solid #ccc;
-//   padding: 5px 10px;
-//   margin-top: 5px;
-//   line-height: 16px;
-// }
-// .carousel .carousel-item .btn i {
-//   font-size: 14px;
-//   font-weight: bold;
-//   margin-left: 5px;
-// }
-// .carousel .thumb-wrapper {
-//   text-align: center;
-// }
-// .carousel .thumb-content {
-//   padding: 15px;
-// }
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -395,21 +370,6 @@ h2::after {
 .carousel-control-next i {
   margin-right: -3px;
 }
-// .carousel .item-price {
-//   font-size: 13px;
-//   padding: 2px 0;
-// }
-// .carousel .item-price strike {
-//   color: #999;
-//   margin-right: 5px;
-// }
-// .carousel .item-price span {
-//   color: #86bd57;
-//   font-size: 110%;
-// }
-// .carousel .carousel-indicators {
-//   bottom: -50px;
-// }
 .carousel-indicators li,
 .carousel-indicators li.active {
   width: 10px;
@@ -420,12 +380,6 @@ h2::after {
   border: none;
 }
 
-// .carousel-indicators li {
-//   background: rgba(0, 0, 0, 0.2);
-// }
-// .carousel-indicators li.active {
-//   background: rgba(0, 0, 0, 0.6);
-// }
 .star-rating {
   li {
     padding: 0;
@@ -435,11 +389,4 @@ h2::after {
     color: #ffc000;
   }
 }
-// .star-rating li {
-//   padding: 0;
-// }
-// .star-rating i {
-//   font-size: 14px;
-//   color: #ffc000;
-// }
 </style>

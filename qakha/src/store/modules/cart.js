@@ -3,45 +3,45 @@ import createMutationsSharer from "vuex-shared-mutations";
 import axios from 'axios';
 
 const state = {
-    carts: [
-        {
-            "id": 5,
-            "quantity": 2,
-            "product_id": 2,
-            "user_id": 33,
-            "partner_id": 3,
-            "created_at": "2021-04-07T14:28:54.395Z",
-            "updated_at": "2021-04-07T15:15:17.422Z"
-        },
-        {
-            "id": 7,
-            "quantity": 1,
-            "product_id": 15,
-            "user_id": 33,
-            "partner_id": 3,
-            "created_at": "2021-04-07T14:43:55.849Z",
-            "updated_at": "2021-04-07T14:43:55.849Z"
-        },
-        {
-            "id": 8,
-            "quantity": 3,
-            "product_id": 23,
-            "user_id": 33,
-            "partner_id": 3,
-            "created_at": "2021-04-07T14:44:26.241Z",
-            "updated_at": "2021-04-07T15:40:14.997Z"
-        },
-        {
-            "id": 9,
-            "quantity": 1,
-            "product_id": 18,
-            "user_id": 33,
-            "partner_id": 3,
-            "created_at": "2021-04-07T15:04:50.799Z",
-            "updated_at": "2021-04-07T15:04:50.799Z"
-        }
-    ],
-    // carts: [],
+    // carts: [
+    //     {
+    //         "id": 5,
+    //         "quantity": 2,
+    //         "product_id": 2,
+    //         "user_id": 33,
+    //         "partner_id": 3,
+    //         "created_at": "2021-04-07T14:28:54.395Z",
+    //         "updated_at": "2021-04-07T15:15:17.422Z"
+    //     },
+    //     {
+    //         "id": 7,
+    //         "quantity": 1,
+    //         "product_id": 15,
+    //         "user_id": 33,
+    //         "partner_id": 3,
+    //         "created_at": "2021-04-07T14:43:55.849Z",
+    //         "updated_at": "2021-04-07T14:43:55.849Z"
+    //     },
+    //     {
+    //         "id": 8,
+    //         "quantity": 3,
+    //         "product_id": 23,
+    //         "user_id": 33,
+    //         "partner_id": 3,
+    //         "created_at": "2021-04-07T14:44:26.241Z",
+    //         "updated_at": "2021-04-07T15:40:14.997Z"
+    //     },
+    //     {
+    //         "id": 9,
+    //         "quantity": 1,
+    //         "product_id": 18,
+    //         "user_id": 33,
+    //         "partner_id": 3,
+    //         "created_at": "2021-04-07T15:04:50.799Z",
+    //         "updated_at": "2021-04-07T15:04:50.799Z"
+    //     }
+    // ],
+    carts: [],
     counter: 0,
     isShopping: false,
 }
@@ -120,6 +120,18 @@ const actions = {
                     commit('addProductToCart', response.data);
                 }).catch(err => {
                     rej(err.response.data.error);
+                });
+        })
+    },
+    updateCart({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.put('/carts', params)
+                .then((response) => {
+                    console.log(response.data);
+                    commit('setCart', response.data);
+                    res();
+                }).catch(err => {
+                    rej(err.response);
                 });
         })
     },
