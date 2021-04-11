@@ -27,7 +27,10 @@ import '@/assets/asset_login_item/css/bootstrap.css'
 import '@/assets/asset_login_item/css/login-register.css'
 import Vuelidate from 'vuelidate'
 import * as VueGoogleMaps from "vue2-google-maps";
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
+Vue.use(VueToast);
 Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyDO9TS5tBtRgqE2Fsv4tEGzNv8HbRrSCpI",

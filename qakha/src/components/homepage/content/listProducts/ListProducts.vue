@@ -206,7 +206,15 @@ export default {
         quantity: 1,
       };
       console.log(params);
-      this.addProductToCart(params);
+      this.addProductToCart(params)
+        .then((res) => {
+          if (res) {
+            this.openToast("Product have been added to Cart", "success");
+          }
+        })
+        .catch((error) => {
+          this.openToast(error, "error");
+        });
     },
     getProductsByCategory(cateId) {
       this.cateId = cateId;
@@ -227,6 +235,15 @@ export default {
           this.cateId = this.categories[0].id;
         }
       }
+    },
+    openToast(message, type) {
+      this.$toast.open({
+        message: message,
+        type: type,
+        duration: 5000,
+        dismissible: true,
+        position: "top-right",
+      });
     },
   },
   created() {

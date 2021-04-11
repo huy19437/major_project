@@ -153,7 +153,15 @@ export default {
         partner_id: this.partner.id,
       };
       console.log(params);
-      this.updateCart(params);
+      this.updateCart(params)
+        .then((res) => {
+          if (res) {
+            this.openToast("Product have been updated", "success");
+          }
+        })
+        .catch((error) => {
+          this.openToast(error, "error");
+        });
     },
     deleteProductInCart(id) {
       this.partner = this.getPartnersLocal.find((pl) =>
@@ -163,9 +171,16 @@ export default {
         product_id: id,
         partner_id: this.partner.id,
       };
-      this.deleteCart(params).then(() => {
-        this.getResult();
-      });
+      this.deleteCart(params)
+        .then(() => {
+          if (res) {
+            this.getResult();
+            this.openToast("Product have been deleted", "success");
+          }
+        })
+        .catch((error) => {
+          this.openToast(error, "error");
+        });
     },
     roundToTwo(num) {
       return +(Math.round(num + "e+2") + "e-2");
@@ -190,6 +205,15 @@ export default {
         );
       }
       this.products = prods;
+    },
+    openToast(message, type) {
+      this.$toast.open({
+        message: message,
+        type: type,
+        duration: 5000,
+        dismissible: true,
+        position: "top-right",
+      });
     },
   },
   created() {

@@ -118,7 +118,7 @@ const actions = {
             httpRequest.post('/carts', params)
                 .then((response) => {
                     console.log(response.data);
-                    res();
+                    res(response.data);
                     commit('addProductToCart', response.data);
                 }).catch(err => {
                     rej(err.response.data.error);
@@ -131,9 +131,9 @@ const actions = {
                 .then((response) => {
                     console.log(response.data);
                     commit('setCart', response.data);
-                    res();
+                    res(response.data);
                 }).catch(err => {
-                    rej(err.response);
+                    rej(err.response.data.error);
                 });
         })
     },
@@ -143,9 +143,9 @@ const actions = {
             httpRequest.delete('/carts', { data: params })
                 .then((response) => {
                     commit('setCart', response.data);
-                    res();
+                    res(response.data);
                 }).catch(err => {
-                    rej(err.response);
+                    rej(err.response.data.error);
                 });
         })
     },
