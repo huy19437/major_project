@@ -125,7 +125,7 @@ export default {
     return {
       partner: {},
       categories: [],
-      partnerLocal: [],
+      partnersFromSer: [],
       trendProducts: [],
       slug: this.$route.params.slug,
       firstRowOfTrendProducts: [],
@@ -136,9 +136,6 @@ export default {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
     }),
-    partnersLocalChange() {
-      return this.getPartnersLocal;
-    },
   },
   methods: {
     ...mapActions({
@@ -163,7 +160,7 @@ export default {
       var productsHasTrend = [];
       var tmp = [];
       var index = 0;
-      this.getPartnersLocal.filter((pl) =>
+      this.partnersFromSer.filter((pl) =>
         pl.categories.filter((cat) =>
           cat.products.filter((product) => {
             if (product.quantity_sold > 7) {
@@ -187,14 +184,19 @@ export default {
       this.firstRowOfTrendProducts = this.trendProducts[0];
       this.restOfTrendProducts = this.trendProducts.slice(1);
     },
+    getPartnersFromSer() {
+      this.getPartners()
+        .then((res) => {
+          this.partnersFromSer = this.getPartnersLocal;
+          this.setTrendingProducts();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
-    this.setTrendingProducts();
-  },
-  watch: {
-    partnersLocalChange() {
-      this.setTrendingProducts();
-    },
+    this.getPartnersFromSer();
   },
 };
 </script>

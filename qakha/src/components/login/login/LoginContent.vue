@@ -147,7 +147,8 @@ export default {
             console.log(this.getNowRoute);
             if (this.getNowRoute) {
               console.log(this.getNowRoute);
-              window.location.href = "http://localhost:8080" + this.getNowRoute;
+              window.location.href =
+                "http://6e24278eddbc.ngrok.io" + this.getNowRoute;
               // this.$router.push({ path: "/" + this.getNowRoute });
             } else {
               this.$router.push({ path: "/" });

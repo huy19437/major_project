@@ -1,6 +1,5 @@
 import httpRequest from '../../services/repository'
 import createMutationsSharer from "vuex-shared-mutations";
-import axios from 'axios';
 
 const state = {
     // carts: [
@@ -42,7 +41,6 @@ const state = {
     //     }
     // ],
     carts: [],
-    counter: 0,
     isShopping: false,
 }
 
@@ -92,9 +90,6 @@ const mutations = {
     setCart(state, data) {
         state.carts = data;
     },
-    increment(state) {
-        state.counter++;
-    },
     setIsShopping(state, data) {
         state.isShopping = data;
     }
@@ -119,7 +114,7 @@ const actions = {
                 .then((response) => {
                     console.log(response.data);
                     res(response.data);
-                    commit('addProductToCart', response.data);
+                    commit('setCart', response.data);
                 }).catch(err => {
                     rej(err.response.data.error);
                 });
@@ -166,5 +161,4 @@ export default {
     getters,
     mutations,
     actions,
-    plugins: [createMutationsSharer({ predicate: ["increment"] })],
 }

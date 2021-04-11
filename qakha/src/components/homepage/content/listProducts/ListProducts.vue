@@ -70,12 +70,12 @@
                         >
                           <img
                             class="default-img"
-                            src="../../../../assets/logo.png"
+                            :src="`${product.image.url}`"
                             alt="#"
                           />
                           <img
                             class="hover-img"
-                            src="../../../../assets/logo.png"
+                            :src="`${product.image.url}`"
                             alt="#"
                           />
                           <!-- <span class="new">New</span>
@@ -310,6 +310,12 @@ export default {
   }
 }
 .product-img {
+  img {
+    display: block;
+    max-height: 129px;
+    height: auto;
+    object-fit: cover;
+  }
   padding: 12px 12px;
   .product-action {
     margin-right: 12px !important;
