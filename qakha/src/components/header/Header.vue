@@ -406,7 +406,7 @@ export default {
         type: type,
         duration: 5000,
         dismissible: true,
-        position: "top-right",
+        position: "top-left",
       });
     },
   },
