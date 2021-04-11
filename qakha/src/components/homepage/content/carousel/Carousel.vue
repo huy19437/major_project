@@ -125,6 +125,7 @@ export default {
     return {
       partner: {},
       categories: [],
+      partnerLocal: [],
       trendProducts: [],
       slug: this.$route.params.slug,
       firstRowOfTrendProducts: [],
@@ -142,6 +143,7 @@ export default {
   methods: {
     ...mapActions({
       addProductToCart: "cart/addProductToCart",
+      getPartners: "partner/getPartners",
     }),
     addToCart(id) {
       this.partner = this.getPartnersLocal.find((pl) =>
@@ -161,7 +163,6 @@ export default {
       var productsHasTrend = [];
       var tmp = [];
       var index = 0;
-      console.log(this.getPartnersLocal);
       this.getPartnersLocal.filter((pl) =>
         pl.categories.filter((cat) =>
           cat.products.filter((product) => {
@@ -186,16 +187,13 @@ export default {
       this.firstRowOfTrendProducts = this.trendProducts[0];
       this.restOfTrendProducts = this.trendProducts.slice(1);
     },
-    getResult() {
-      this.setTrendingProducts();
-    },
   },
   created() {
-    this.getResult();
+    this.setTrendingProducts();
   },
   watch: {
     partnersLocalChange() {
-      this.getResult();
+      this.setTrendingProducts();
     },
   },
 };

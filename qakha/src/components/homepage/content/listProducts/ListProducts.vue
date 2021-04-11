@@ -5,7 +5,7 @@
       class="alert alert-warning"
       role="alert"
     >
-      Go back and choose one Restaurant!
+      Go to the Home page and choose one Restaurant!
     </div>
     <div class="row">
       <div class="col-12">
@@ -169,6 +169,8 @@ export default {
   computed: {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
+      getNowRoute: "auth/getNowRoute",
+      userName: "auth/getUserName",
     }),
     listProducts() {
       let tmp = [];
@@ -195,36 +197,45 @@ export default {
       setShoppingStatus: "cart/setShoppingStatus",
       getCart: "cart/getCart",
       addProductToCart: "cart/addProductToCart",
+      nowRoute: "auth/nowRoute",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
     addToCart(id) {
-      let params = {
-        product_id: id,
-        partner_id: this.slug,
-        quantity: 1,
-      };
-      console.log(params);
-      this.addProductToCart(params)
-        .then((res) => {
-          if (res) {
-            this.openToast("Product have been added to Cart", "success");
-          }
-        })
-        .catch((error) => {
-          this.openToast(error, "error");
-        });
+      let token = localStorage.getItem("token");
+      if (token) {
+        let params = {
+          product_id: id,
+          partner_id: this.slug,
+          quantity: 1,
+        };
+        console.log(params);
+        this.addProductToCart(params)
+          .then((res) => {
+            if (res) {
+              this.openToast("Product have been added to Cart", "success");
+            }
+          })
+          .catch((error) => {
+            this.openToast(error, "error");
+          });
+      } else {
+        this.nowRoute(this.$route.path);
+        this.$router.push({ path: "/login" });
+      }
     },
     getProductsByCategory(cateId) {
       this.cateId = cateId;
     },
     getResult() {
       this.setShoppingStatus(true);
-      let params = {
-        partner_id: this.slug,
-      };
-      this.getCart(params);
+      if (this.userName) {
+        let params = {
+          partner_id: this.slug,
+        };
+        this.getCart(params);
+      }
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug

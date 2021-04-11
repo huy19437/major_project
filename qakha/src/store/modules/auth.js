@@ -7,6 +7,7 @@ const state = {
     token: null,
     loginError: null,
     registerError: null,
+    nowRoute: "",
 }
 
 const getters = {
@@ -24,6 +25,9 @@ const getters = {
     },
     getRegisterError(state) {
         return state.registerError;
+    },
+    getNowRoute(state) {
+        return state.nowRoute;
     }
 }
 
@@ -47,6 +51,9 @@ const mutations = {
     },
     setRegisterError(state, data) {
         state.registerError = data;
+    },
+    setNowRoute(state, data) {
+        state.nowRoute = data;
     }
 }
 
@@ -80,8 +87,9 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.post('/sign_in', params)
                 .then(respone => {
+                    console.log("hi");
                     localStorage.setItem('token', respone.data.token);
-                    router.push({ path: "/" });
+                    // router.push({ path: "/" });
                     res(respone.data);
                 }).catch(err => {
                     commit('setLoginError', err.response.data.message);
@@ -129,6 +137,9 @@ const actions = {
                     router.push({ path: "/" });
                 })
         })
+    },
+    nowRoute({ commit }, params) {
+        commit('setNowRoute', params);
     }
 }
 

@@ -1099,7 +1099,7 @@ const state = {
     //         ]
     //     }
     // ],
-    partners2: []
+    partners2: JSON.parse(localStorage.getItem('partners')),
 }
 
 const getters = {
@@ -1109,24 +1109,9 @@ const getters = {
 }
 
 const mutations = {
-    addNewPartner(state, data) {
-        state.partners2.data.unshift(data);
-    },
     setPartners(state, data) {
         state.partners2 = data;
     },
-    deleteOnePartner(state, partnerId) {
-        state.partners2.data = state.partners2.data.filter(partner => partner.id != partnerId);
-    },
-    updateOnePartner(state, params) {
-        state.partners2.data = state.partners2.data.map(partner => {
-            if (partner.id == params.id) {
-                partner = params.data;
-                partner.id = params.id;
-            }
-            return partner
-        })
-    }
 }
 
 const actions = {
@@ -1134,41 +1119,11 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.get('/partners')
                 .then((response) => {
-                    // console.log(response);
-                    res();
-                    commit('setPartners', response.data);
+                    localStorage.setItem('partners', JSON.stringify(response.data));
+                    res(response.data);
+                    commit('setPartners', JSON.parse(localStorage.getItem('partners')));
                 }).catch(err => {
                     rej(err.response);
-                });
-        })
-    },
-    addPartner({ commit }, params) {
-        return new Promise((res, rej) => {
-            httpRequest.post('/partners', params)
-                .then((response) => {
-                    res(response.data);
-                }).catch(err => {
-                    rej(err.response.data.error);
-                });
-        })
-    },
-    deletePartner({ commit }, params) {
-        return new Promise((res, rej) => {
-            httpRequest.delete('/partners/' + params)
-                .then((response) => {
-                    res(response.data);
-                }).catch(err => {
-                    rej(err.response.data.error);
-                });
-        })
-    },
-    updatePartner({ commit }, params) {
-        return new Promise((res, rej) => {
-            httpRequest.put('/partners/' + params.id, params.data)
-                .then((response) => {
-                    res(response.data);
-                }).catch(err => {
-                    rej(err.response.data.error);
                 });
         })
     },

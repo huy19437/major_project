@@ -39,12 +39,13 @@
                     type="button"
                     class="btn btn-primary btn-number"
                     @click="dec"
-                    :disabled="numberProductInCart < 1"
+                    :disabled="numberProductInCart < 2"
                   >
                     <i class="ti-minus"></i>
                   </button>
                 </div>
                 <input
+                  disabled
                   type="text"
                   class="input-number"
                   :value="`${numberProductInCart}`"
@@ -93,12 +94,14 @@ export default {
       partner: {},
       partnerId: 0,
       slug: this.$route.params.slug,
-      numberProductInCart: 0,
+      numberProductInCart: 1,
     };
   },
   methods: {
     ...mapActions({
+      setShoppingStatus: "cart/setShoppingStatus",
       addProductToCart: "cart/addProductToCart",
+      nowRoute: "auth/nowRoute",
     }),
     inc() {
       this.numberProductInCart++;
@@ -124,10 +127,12 @@ export default {
             this.openToast(error, "error");
           });
       } else {
+        this.nowRoute(this.$route.path);
         this.$router.push({ path: "/login" });
       }
     },
     getResult() {
+      this.setShoppingStatus(true);
       this.getPartnersLocal.find((obj) =>
         obj.categories.find((obj) => {
           obj.products.find((obj) => {

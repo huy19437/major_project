@@ -53,7 +53,9 @@
                   </li>
                   <li v-else>
                     <i class="ti-power-off"></i>
-                    <a @click.prevent="logoutFuction">Logout</a>
+                    <a style="cursor: pointer" @click.prevent="logoutFuction"
+                      >Logout</a
+                    >
                     <!-- <router-link @click.prevent="logoutFuction" to="/login"
                       >Logout</router-link
                     > -->
@@ -118,10 +120,12 @@
             <div class="col-lg-2 col-md-2 col-12">
               <div class="right-bar">
                 <div v-if="userName" class="sinlge-bar shopping">
-                  <a href="#" class="single-icon"
-                    ><i class="ti-bag"></i>
-                    <span class="total-count">2</span></a
-                  >
+                  <a class="single-icon">
+                    <i class="ti-bag"></i>
+                    <span v-if="getCartLocal" class="total-count">
+                      {{ getCartLocal.length }}
+                    </span>
+                  </a>
                   <!-- Shopping Item -->
                   <div v-if="getShoppingStatus" class="shopping-item">
                     <div class="dropdown-cart-header">
@@ -246,7 +250,7 @@
                           <li><a href="#service">Service</a></li>
                           <li class="hasDropDown">
                             <a v-if="getShoppingStatus"
-                              >Shop<i class="ti-angle-down"></i
+                              >Store<i class="ti-angle-down"></i
                             ></a>
                             <ul class="dropdown">
                               <li>
@@ -328,9 +332,16 @@ export default {
         product_id: id,
         partner_id: this.partner.id,
       };
-      this.deleteCart(params).then(() => {
-        this.getInfoProductInCart();
-      });
+      this.deleteCart(params)
+        .then((res) => {
+          if (res) {
+            this.openToast("Product have been deleted", "success");
+            this.getInfoProductInCart();
+          }
+        })
+        .catch((error) => {
+          this.openToast(error, "error");
+        });
     },
     showProfile() {
       this.$router.push({ path: "/profile" });
@@ -388,6 +399,15 @@ export default {
       while (p-- > 0) o *= 10;
       if (n < 0) o *= -1;
       return Math.round((n + r) * o) / o;
+    },
+    openToast(message, type) {
+      this.$toast.open({
+        message: message,
+        type: type,
+        duration: 5000,
+        dismissible: true,
+        position: "top-right",
+      });
     },
   },
   created() {

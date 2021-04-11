@@ -6,12 +6,12 @@
           type="button"
           class="btn btn-primary btn-number"
           @click="dec"
-          :disabled="quantity < 1"
+          :disabled="quantity < 2"
         >
           <i class="ti-minus"></i>
         </button>
       </div>
-      <input type="text" class="input-number" :value="`${quantity}`" />
+      <input disabled type="text" class="input-number" :value="`${quantity}`" />
       <div class="button plus">
         <button
           type="button"

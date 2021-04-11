@@ -129,18 +129,22 @@ export default {
     }),
     filteredList() {
       return this.partnerData.filter((partner) => {
+        // if (partner.type_id && partner.name && partner.address) {
         return (
-          partner.type_id
+          (partner.type_id || "")
             .toString()
             .toLowerCase()
             .includes(this.typePartner.toLowerCase()) &&
-          partner.name
+          (partner.name || "")
             .toLowerCase()
             .includes(this.searchByName.toLowerCase()) &&
-          partner.address
+          (partner.address || "")
             .toLowerCase()
             .includes(this.searchByAddress.toLowerCase())
         );
+        // } else {
+        //   return false;
+        // }
       });
     },
     visiblePartner() {
@@ -181,7 +185,6 @@ export default {
           this.setCartsNull();
           this.setShoppingStatus(false);
           this.partnerData = this.getPartnersLocal;
-          console.log(this.partnerData);
         })
         .catch((err) => {
           console.log(err);

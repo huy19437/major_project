@@ -172,7 +172,7 @@ export default {
         partner_id: this.partner.id,
       };
       this.deleteCart(params)
-        .then(() => {
+        .then((res) => {
           if (res) {
             this.getResult();
             this.openToast("Product have been deleted", "success");

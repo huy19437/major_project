@@ -123,6 +123,7 @@ export default {
     ...mapGetters({
       loginError: "auth/getLoginError",
       getLoading: "auth/getLoading",
+      getNowRoute: "auth/getNowRoute",
     }),
   },
   methods: {
@@ -143,6 +144,14 @@ export default {
       if (!this.$v.userLogin.$invalid) {
         this.loginFuction(this.$data.userLogin)
           .then((res) => {
+            console.log(this.getNowRoute);
+            if (this.getNowRoute) {
+              console.log(this.getNowRoute);
+              window.location.href = "http://localhost:8080" + this.getNowRoute;
+              // this.$router.push({ path: "/" + this.getNowRoute });
+            } else {
+              this.$router.push({ path: "/" });
+            }
             console.log(res);
           })
           .catch((err) => {
