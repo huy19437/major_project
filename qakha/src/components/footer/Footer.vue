@@ -114,7 +114,7 @@
         </div>
       </div>
     </footer>
-    <ScrollUp :scroll-duration="1000" />
+    <!-- <ScrollUp :scroll-duration="1000" /> -->
     <!-- <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647"
       ><span><i class="fa fa-angle-up"></i></span
     ></a> -->
@@ -122,11 +122,11 @@
 </template>
 
 <script>
-import ScrollUp from "vue-scroll-up";
+// import ScrollUp from "vue-scroll-up";
 export default {
   name: "Footer",
   components: {
-    ScrollUp,
+    // ScrollUp,
   },
 };
 </script>

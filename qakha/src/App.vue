@@ -1,12 +1,20 @@
 <template>
   <div id="app">
     <router-view />
+    <ScrollTopArrow></ScrollTopArrow>
+    <!-- <ScrollUp :scroll-duration="1000" /> -->
   </div>
 </template>
 
 <script>
+import ScrollUp from "vue-scroll-up";
+import ScrollTopArrow from "@/components/scroll_to_top/ScrollTopArrow";
 export default {
-  components: {},
+  name: "App",
+  components: {
+    ScrollUp,
+    ScrollTopArrow,
+  },
 };
 </script>
 
