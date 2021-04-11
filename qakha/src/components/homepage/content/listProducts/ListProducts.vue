@@ -30,7 +30,7 @@
                   data-toggle="tab"
                   :href="`${category.name}`"
                   role="tab"
-                  @click="getProductsByCategory(category.id)"
+                  @click="getProductsByCategory(category.id, category.name)"
                   >{{ category.name }}</a
                 >
               </li>
@@ -49,7 +49,8 @@
             <div
               v-for="category in categories"
               :key="category.id"
-              class="tab-pane fade show active"
+              class="tab-pane fade"
+              :class="{ 'active show': isActive(`${category.name}`) }"
               :id="`${category.name}`"
               role="tabpanel"
             >
@@ -164,6 +165,7 @@ export default {
       categories: [],
       cateId: null,
       slug: this.$route.params.slug,
+      activeItem: "",
     };
   },
   computed: {
@@ -177,10 +179,8 @@ export default {
       tmp = this.categories.find((category) => {
         return category.id === this.cateId;
       });
+      console.log(tmp.products);
       if (tmp) return tmp.products;
-      // return this.categories.find((category) => {
-      //   return category.id === this.cateId;
-      // }).products;
     },
     visibleProducts() {
       return this.listProducts.slice(
@@ -201,6 +201,9 @@ export default {
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
+    },
+    isActive(menuItem) {
+      return this.activeItem === menuItem;
     },
     addToCart(id) {
       let token = localStorage.getItem("token");
@@ -225,7 +228,8 @@ export default {
         this.$router.push({ path: "/login" });
       }
     },
-    getProductsByCategory(cateId) {
+    getProductsByCategory(cateId, menuItem) {
+      this.activeItem = menuItem;
       this.cateId = cateId;
     },
     getResult() {
@@ -244,6 +248,7 @@ export default {
       if (this.categories) {
         if (this.categories.length > 0) {
           this.cateId = this.categories[0].id;
+          this.activeItem = this.categories[0].name;
         }
       }
     },
