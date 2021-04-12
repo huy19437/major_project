@@ -7,6 +7,9 @@
     >
       Go to the Home page and choose one Restaurant!
     </div>
+    <div class="clearfix vi-header">
+      <h3 class="vi-left-title pull-left">{{ partner.name }}</h3>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="section-title">
@@ -167,6 +170,7 @@ export default {
       cateId: null,
       slug: this.$route.params.slug,
       activeItem: "",
+      partner: {},
     };
   },
   computed: {
@@ -239,8 +243,13 @@ export default {
         let params = {
           partner_id: this.slug,
         };
-        this.getCart(params);
+        this.getCart(params)
+          .then((res) => {})
+          .catch((error) => {
+            openToastMess("Partner id is invalid to get cart", "error");
+          });
       }
+      this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug
@@ -385,8 +394,39 @@ export default {
 
 .product-info .nav-tabs li a.active,
 .product-info .nav-tabs li:hover a {
-  background: #f7941d;
-  color: #fff;
+  background: transparent;
+  color: #f7941d;
   border-color: transparent;
+}
+/* Partner Title */
+.vi-header {
+  border-bottom: solid 1px #c35355;
+  padding-top: 10%;
+}
+.vi-left-title {
+  width: auto;
+  background: #c35355;
+  color: #fff;
+  padding: 3px 10px;
+  position: relative;
+  margin: 0;
+}
+.pull-left {
+  float: left;
+}
+.pull-left {
+  margin-left: 0 !important;
+}
+.vi-left-title a {
+  color: #fff;
+}
+.vi-left-title:after {
+  border: 16px solid transparent;
+  border-left-color: #c35355;
+  border-bottom-color: #c35355;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  content: "";
 }
 </style>

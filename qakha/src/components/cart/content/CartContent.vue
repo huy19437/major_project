@@ -80,7 +80,7 @@
                 <div class="left">
                   <div class="coupon">
                     <form action="#" target="_blank" class="coupon-input">
-                      <input name="Coupon" placeholder="Enter Your Coupon" />
+                      <input name="Coupon" placeholder="Enter Your Voucher" />
                       <button class="btn">Apply</button>
                     </form>
                   </div>
@@ -223,6 +223,10 @@ export default {
 <style scoped lang="scss">
 .product-des {
   text-align: left;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .price {

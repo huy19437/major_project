@@ -55,35 +55,6 @@ const getters = {
 
 const mutations = {
     addProductToCart(state, data) {
-        // function isEqual(objA, objB) {
-        //     var aProps = Object.getOwnPropertyNames(objA);
-        //     var bProps = Object.getOwnPropertyNames(objB);
-        //     if (aProps.length != bProps.length) {
-        //         console.log("1");
-        //         return false;
-        //     }
-
-        //     for (var i = 0; i < aProps.length - 1; i++) {
-        //         var propName = aProps[i];
-        //         if (objA[propName] !== objB[propName]) {
-        //             console.log(aProps);
-        //             console.log(objA[propName] + '====' + objB[propName]);
-        //             console.log("2");
-        //             return false;
-        //         }
-        //     }
-        //     return true;
-        // }
-        // function add(object) {
-        //     if (object) {
-        //         if (state.carts.filter(x => x.id === object.id).length === 0) {
-        //             state.carts.push(object)
-        //         }
-        //     }
-        // }
-        // for (var i = 0; i < data.length; i++) {
-        //     add(data[i]);
-        // }
         state.carts = data;
 
     },

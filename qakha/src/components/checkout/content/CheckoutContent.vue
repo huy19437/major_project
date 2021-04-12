@@ -124,6 +124,7 @@
                   <input type="radio" name="checkout" value="PAYPAL" />
                   Pay Pal<br />
                 </div>
+                <div ref="paypal"></div>
               </div>
             </div>
             <!--/ End Order Widget -->
@@ -178,6 +179,13 @@ export default {
       },
     };
   },
+  mounted: function () {
+    const script = document.createElement("script");
+    script.src =
+      "https://www.paypal.com/sdk/js?client-id=AcIVzJCoOhHzMvmwuAwQXcmxsLjKI4TYux9hTmn_cEwXzqnpbihB2xZK73qSP98zDV678drYe-ezmv_l";
+    script.addEventListener("load", this.setLoaded);
+    document.body.appendChild(script);
+  },
   validations: {
     user: {
       name: {
@@ -211,6 +219,33 @@ export default {
     }),
   },
   methods: {
+    setLoaded: function (resp) {
+      this.loaded = true;
+      window.paypal
+        .Buttons({
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: "0.01",
+                  },
+                },
+              ],
+            });
+          },
+          onApprove: function (data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function (details) {
+              // This function shows a transaction success message to your buyer.
+              alert(
+                "Transaction completed by " + details.payer.name.given_name
+              );
+            });
+          },
+        })
+        .render(this.$refs.paypal);
+    },
     checkout() {
       if (!this.$v.user.longitude.required || !this.$v.user.latitude.required) {
         openToastMess("Please choose delivery location", "error");
@@ -229,15 +264,6 @@ export default {
     chooseCity(name) {
       this.city = name;
     },
-    // openToast(message, type) {
-    //   this.$toast.open({
-    //     message: message,
-    //     type: type,
-    //     duration: 5000,
-    //     dismissible: true,
-    //     position: "top-left",
-    //   });
-    // },
   },
   created() {
     // this.getResult();

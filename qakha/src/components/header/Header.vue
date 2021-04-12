@@ -121,7 +121,7 @@
               <div class="right-bar">
                 <div v-if="userName" class="sinlge-bar shopping">
                   <a class="single-icon">
-                    <i class="ti-bag"></i>
+                    <font-awesome-icon :icon="['fas', 'shopping-cart']" />
                     <span v-if="getCartLocal" class="total-count">
                       {{ getCartLocal.length }}
                     </span>
@@ -473,6 +473,14 @@ export default {
     .nice-select::after {
       right: 39px;
     }
+    .single-icon {
+      svg {
+        font-size: 30px;
+      }
+    }
+    .list {
+      border: none;
+    }
   }
 
   .nav {
@@ -502,12 +510,6 @@ export default {
           margin-top: 4px;
         }
       }
-    }
-  }
-
-  .right-bar {
-    .list {
-      border: none;
     }
   }
 

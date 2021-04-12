@@ -33,7 +33,7 @@
                         }"
                       >
                         <img
-                          src="@/assets/img/qr_code.png"
+                          :src="`${product.image.url}`"
                           class="img-fluid"
                           alt=""
                         />
@@ -78,7 +78,7 @@
                         }"
                       >
                         <img
-                          src="@/assets/img/qr_code.png"
+                          :src="`${product.image.url}`"
                           class="img-fluid"
                           alt=""
                         />
