@@ -176,11 +176,11 @@ export default {
         .then((res) => {
           if (res) {
             this.getResult();
-            this.openToast("Product have been deleted", "success");
+            openToastMess("Product have been deleted", "success");
           }
         })
         .catch((error) => {
-          this.openToast(error, "error");
+          openToastMess(error, "error");
         });
     },
     roundToTwo(num) {
