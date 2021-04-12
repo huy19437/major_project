@@ -51,7 +51,7 @@
                         </router-link>
                       </h4>
                       <p class="item-price">
-                        <span>${{ product.price }}</span>
+                        <span>{{ product.price }} VNĐ</span>
                       </p>
                     </div>
                   </div>

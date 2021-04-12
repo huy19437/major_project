@@ -26,7 +26,7 @@
               {{ products.description }}
             </p>
             <h4 class="price">
-              current price: <span>${{ products.price }}</span>
+              current price: <span>{{ products.price }} VNĐ</span>
             </h4>
             <h5 class="sold">
               sold:

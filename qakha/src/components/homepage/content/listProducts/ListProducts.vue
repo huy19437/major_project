@@ -124,7 +124,7 @@
                           <!-- <a href="product-details">{{ product.name }}</a> -->
                         </h3>
                         <div class="product-price">
-                          <span>${{ product.price }}</span>
+                          <span>{{ product.price }} VNĐ</span>
                         </div>
                       </div>
                     </div>
@@ -332,6 +332,11 @@ export default {
 
 .section-title {
   padding: 50px 0 10px;
+  h2 {
+    &::after {
+      display: none;
+    }
+  }
 }
 
 .tab-content {
@@ -353,7 +358,6 @@ export default {
     margin-top: -85px;
     font-weight: 600;
     overflow: hidden;
-    // top: 12%;
     &:hover {
       overflow-x: scroll;
     }
@@ -362,28 +366,20 @@ export default {
         transition: all 0.4s ease;
         color: #000;
       }
+      a.active,
+      &:hover a {
+        background: transparent;
+        color: #f7941d;
+        border-color: transparent;
+        font-size: 18px;
+      }
     }
     .nav-item {
       margin-bottom: 0;
     }
-    .nav-link {
-      margin-bottom: 0;
-      border: 1px solid transparent;
-      border-top-left-radius: 0.25rem;
-      border-top-right-radius: 0.25rem;
-      border-bottom-left-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
-    }
   }
 }
 
-.product-info .nav-tabs li a.active,
-.product-info .nav-tabs li:hover a {
-  background: transparent;
-  color: #f7941d;
-  border-color: transparent;
-  font-size: 18px;
-}
 /* Partner Title */
 .vi-header {
   border-bottom: solid 1px #c35355;

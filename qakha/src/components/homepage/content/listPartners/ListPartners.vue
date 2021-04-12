@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Partner List</h2>
+          <h3 class="title-comm">
+            <span class="title-holder">PARTNER LIST</span>
+          </h3>
         </div>
       </div>
     </div>
@@ -350,5 +352,74 @@ select.form-control:not([size]):not([multiple]) {
 
 .partner-list.partner-grid .partner-list-favourite {
   margin-bottom: 0px;
+}
+
+.title-comm {
+  color: #fff;
+  font-size: 20px;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  background-color: #fff;
+  text-align: center;
+}
+
+h3.title-comm:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  border-top: 2px solid #d0d2d3;
+  z-index: 1;
+  display: block;
+}
+
+.title-comm .title-holder {
+  min-width: 350px;
+  height: 45px;
+  background-color: #ea3a3c;
+  height: auto;
+  line-height: 45px;
+  padding: 0px 20px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: inline-block;
+  min-width: 280px;
+}
+
+.title-holder:before {
+  content: "";
+  position: absolute;
+  right: -15px;
+  border-width: 0px;
+  bottom: 0px;
+  border-style: solid;
+  border-color: #ea3a3c transparent;
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 23px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 15px solid #ea3a3c;
+}
+
+.title-holder:after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  border-width: 0px;
+  bottom: 0px;
+  border-style: solid;
+  border-color: #ea3a3c transparent;
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 23px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-right: 15px solid #ea3a3c;
 }
 </style>
