@@ -41,12 +41,10 @@
             <!--/ End Tab Nav -->
           </div>
           <div class="tab-content" id="myTabContent">
-            <div class="row">
-              <div class="col-12">
-                <div class="section-title product-list">
-                  <h2>Products List</h2>
-                </div>
-              </div>
+            <div id="nz-div-4">
+              <h3 class="product-list-title">
+                <span>Products List</span>
+              </h3>
             </div>
             <!-- Start Single Tab -->
             <div
@@ -139,7 +137,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row pagination-custom">
       <PaginationCustom
         :paginationData="listProducts"
         @page:update="updatePage"
@@ -276,7 +274,7 @@ export default {
 
 <style lang="scss">
 .container {
-  .row:nth-child(3) {
+  .row.pagination-custom {
     display: flex;
     justify-content: center;
     padding-top: 33px;
@@ -289,6 +287,7 @@ export default {
   border-radius: 7px;
   .product-content {
     padding: 0 20px 20px;
+    margin-top: -13px !important;
     h3 {
       a {
         color: #000;
@@ -318,7 +317,7 @@ export default {
 .product-img {
   img {
     display: block;
-    max-height: 129px;
+    max-height: 161px;
     height: auto;
     object-fit: cover;
   }
@@ -333,22 +332,6 @@ export default {
 
 .section-title {
   padding: 50px 0 10px;
-  &.product-list {
-    h2 {
-      font-size: 24px;
-      &::after {
-        content: "";
-        width: 67px;
-        position: absolute;
-        margin: 0 auto;
-        height: 4px;
-        background: rgba(0, 0, 0, 0.2);
-        left: 0;
-        right: 0;
-        bottom: -20px;
-      }
-    }
-  }
 }
 
 .tab-content {
@@ -367,14 +350,16 @@ export default {
     padding: 0 160px !important;
     border: none;
     font-size: 1.2rem;
-    margin-top: -48px;
+    margin-top: -85px;
     font-weight: 600;
     overflow: hidden;
+    // top: 12%;
     &:hover {
       overflow-x: scroll;
     }
     li {
       a {
+        transition: all 0.4s ease;
         color: #000;
       }
     }
@@ -397,6 +382,7 @@ export default {
   background: transparent;
   color: #f7941d;
   border-color: transparent;
+  font-size: 18px;
 }
 /* Partner Title */
 .vi-header {
@@ -428,5 +414,51 @@ export default {
   top: 0;
   left: 100%;
   content: "";
+}
+
+/* Product list title */
+
+#nz-div-4 h3.product-list-title :after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 40px solid transparent;
+  border-left: 20px solid #ea3a3c;
+  border-bottom: 0px solid transparent;
+  border-right: 0 solid transparent;
+  position: absolute;
+  top: 0px;
+  right: -20px;
+}
+
+#nz-div-4 h3.product-list-title :before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-width: 40px 20px 0px 0px;
+  border-style: solid;
+  border-color: transparent;
+  border-right-color: #ea3a3c;
+  position: absolute;
+  top: 0px;
+  left: -20px;
+}
+
+#nz-div-4 h3.product-list-title span {
+  background: #ea3a3c;
+  padding: 10px 20px 8px 20px;
+  color: white;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+}
+
+#nz-div-4 h3.product-list-title {
+  text-align: center;
+  margin: 45px 0;
+  border-bottom: 2px solid #ea3a3c;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
 }
 </style>

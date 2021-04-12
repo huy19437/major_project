@@ -473,13 +473,18 @@ export default {
     .nice-select::after {
       right: 39px;
     }
-    .single-icon {
-      svg {
-        font-size: 30px;
-      }
-    }
     .list {
       border: none;
+    }
+    .sinlge-bar {
+      .single-icon {
+        svg {
+          font-size: 30px;
+        }
+        .total-count {
+          top: -16px !important;
+        }
+      }
     }
   }
 
