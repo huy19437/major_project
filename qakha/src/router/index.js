@@ -36,9 +36,9 @@ const routes = [
         path: 'checkout',
         name: 'Checkout',
         component: Checkout,
-        meta: {
-          auth: true
-        },
+        // meta: {
+        //   auth: true
+        // },
       },
       {
         path: 'profile',
