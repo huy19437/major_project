@@ -291,6 +291,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "Header",
   data() {
@@ -335,12 +336,12 @@ export default {
       this.deleteCart(params)
         .then((res) => {
           if (res) {
-            this.openToast("Product have been deleted", "success");
+            openToastMess("Product have been deleted", "success");
             this.getInfoProductInCart();
           }
         })
         .catch((error) => {
-          this.openToast(error, "error");
+          openToastMess(error, "error");
         });
     },
     showProfile() {
@@ -399,15 +400,6 @@ export default {
       while (p-- > 0) o *= 10;
       if (n < 0) o *= -1;
       return Math.round((n + r) * o) / o;
-    },
-    openToast(message, type) {
-      this.$toast.open({
-        message: message,
-        type: type,
-        duration: 5000,
-        dismissible: true,
-        position: "top-left",
-      });
     },
   },
   created() {

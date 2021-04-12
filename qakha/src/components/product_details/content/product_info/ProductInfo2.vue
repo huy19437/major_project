@@ -81,6 +81,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "ProductInfo2",
   computed: {
@@ -120,11 +121,11 @@ export default {
         this.addProductToCart(params)
           .then((res) => {
             if (res) {
-              this.openToast("Product have been added to Cart", "success");
+              openToastMess("Product have been added to Cart", "success");
             }
           })
           .catch((error) => {
-            this.openToast(error, "error");
+            openToastMess(error, "error");
           });
       } else {
         this.nowRoute(this.$route.path);
@@ -148,15 +149,6 @@ export default {
         )
       );
       this.partnerId = this.partner.id;
-    },
-    openToast(message, type) {
-      this.$toast.open({
-        message: message,
-        type: type,
-        duration: 5000,
-        dismissible: true,
-        position: "top-left",
-      });
     },
   },
   created() {

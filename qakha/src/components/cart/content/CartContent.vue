@@ -118,6 +118,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import InputOrder from "../input_order/InputOrder";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "CartContent",
   components: { InputOrder },
@@ -156,11 +157,11 @@ export default {
       this.updateCart(params)
         .then((res) => {
           if (res) {
-            this.openToast("Product have been updated", "success");
+            openToastMess("Product have been updated", "success");
           }
         })
         .catch((error) => {
-          this.openToast(error, "error");
+          openToastMess(error, "error");
         });
     },
     deleteProductInCart(id) {
@@ -205,15 +206,6 @@ export default {
         );
       }
       this.products = prods;
-    },
-    openToast(message, type) {
-      this.$toast.open({
-        message: message,
-        type: type,
-        duration: 5000,
-        dismissible: true,
-        position: "top-left",
-      });
     },
   },
   created() {

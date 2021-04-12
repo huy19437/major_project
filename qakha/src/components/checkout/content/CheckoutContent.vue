@@ -152,6 +152,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { openToastMess } from "@/services/toastMessage";
 import {
   required,
   email,
@@ -212,7 +213,7 @@ export default {
   methods: {
     checkout() {
       if (!this.$v.user.longitude.required || !this.$v.user.latitude.required) {
-        this.openToast("Please choose delivery location", "error");
+        openToastMess("Please choose delivery location", "error");
       } else {
         this.$v.user.$touch();
         console.log(this.$data.user);
@@ -228,15 +229,15 @@ export default {
     chooseCity(name) {
       this.city = name;
     },
-    openToast(message, type) {
-      this.$toast.open({
-        message: message,
-        type: type,
-        duration: 5000,
-        dismissible: true,
-        position: "top-left",
-      });
-    },
+    // openToast(message, type) {
+    //   this.$toast.open({
+    //     message: message,
+    //     type: type,
+    //     duration: 5000,
+    //     dismissible: true,
+    //     position: "top-left",
+    //   });
+    // },
   },
   created() {
     // this.getResult();
