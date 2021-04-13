@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="section-title">
           <h3 class="title-comm">
-            <span class="title-holder">PARTNER LIST</span>
+            <span class="title-holder">restaurants</span>
           </h3>
         </div>
       </div>
@@ -389,6 +389,7 @@ h3.title-comm:before {
   text-align: center;
   display: inline-block;
   min-width: 280px;
+  text-transform: uppercase;
 }
 
 .title-holder:before {

@@ -1,10 +1,10 @@
 import jwt_decode from "jwt-decode";
 const userInformation = {
 
-    getUserName(token) {
+    getUser(token) {
         if (token) {
             var decode = jwt_decode(token);
-            return decode.user_name;
+            return decode.user;
         }
         return "";
     }

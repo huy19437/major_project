@@ -8,9 +8,13 @@ const state = {
     loginError: null,
     registerError: null,
     nowRoute: "",
+    user: null,
 }
 
 const getters = {
+    getUser(state) {
+        return state.user;
+    },
     userInfo(state) {
         return state.userInfo;
     },
@@ -32,15 +36,20 @@ const getters = {
 }
 
 const mutations = {
+    setUser(state, data) {
+        state.user = data
+    },
     setUserInfor(state, data) {
-        if (data != null && typeof data == 'string') {
-            if (data.lastIndexOf(" ") > 0) {
-                state.userInfo = data.slice(data.lastIndexOf(" "));
+        if (data) {
+            if (data.name != null && typeof data.name == 'string') {
+                if (data.name.lastIndexOf(" ") > 0) {
+                    state.userInfo = data.name.slice(data.name.lastIndexOf(" "));
+                } else {
+                    state.userInfo = data.name;
+                }
             } else {
-                state.userInfo = data;
+                state.userInfo = data.name;
             }
-        } else {
-            state.userInfo = data;
         }
     },
     setToken(state) {
@@ -98,6 +107,7 @@ const actions = {
         })
     },
     logout({ commit }) {
+        console.log("hi");
         localStorage.removeItem('token');
         commit('setUserInfor', null);
         router.push({ path: "/login" });
@@ -126,7 +136,10 @@ const actions = {
         })
     },
     getUserInfoFromLocal({ commit }) {
-        commit('setUserInfor', userInformation.getUserName(localStorage.getItem('token')));
+        commit('setUserInfor', userInformation.getUser(localStorage.getItem('token')));
+    },
+    user({ commit }) {
+        commit('setUser', userInformation.getUser(localStorage.getItem('token')));
     },
     isAuthenticated() {
         return new Promise((res, rej) => {

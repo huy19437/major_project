@@ -53,7 +53,7 @@
                   </li>
                   <li v-else>
                     <i class="ti-power-off"></i>
-                    <a style="cursor: pointer" @click.prevent="logoutFuction"
+                    <a style="cursor: pointer" @click.prevent="logout"
                       >Logout</a
                     >
                     <!-- <router-link @click.prevent="logoutFuction" to="/login"
@@ -325,6 +325,9 @@ export default {
       setCartsNull: "cart/setCartsNull",
       deleteCart: "cart/deleteCart",
     }),
+    logout() {
+      this.logoutFuction();
+    },
     deleteProductInCart(id) {
       this.partner = this.getPartnersLocal.find((pl) =>
         pl.categories.find((cat) => cat.products.find((obj) => obj.id == id))

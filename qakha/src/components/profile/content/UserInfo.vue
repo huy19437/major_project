@@ -9,38 +9,26 @@
               <div class="row about-list">
                 <div class="col-md-6">
                   <div class="media">
-                    <label>Birthday</label>
-                    <p>4th april 1998</p>
+                    <label>Name</label>
+                    <p>{{ getUser.name }}</p>
                   </div>
                   <div class="media">
-                    <label>Age</label>
-                    <p>22 Yr</p>
-                  </div>
-                  <div class="media">
-                    <label>Residence</label>
-                    <p>Canada</p>
+                    <label>Role</label>
+                    <p>{{ getUser.role }}</p>
                   </div>
                   <div class="media">
                     <label>Address</label>
-                    <p>California, USA</p>
+                    <p>{{ getUser.address }}</p>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="media">
                     <label>E-mail</label>
-                    <p>info@domain.com</p>
+                    <p>{{ getUser.email }}</p>
                   </div>
                   <div class="media">
                     <label>Phone</label>
-                    <p>820-885-3321</p>
-                  </div>
-                  <div class="media">
-                    <label>Skype</label>
-                    <p>skype.0404</p>
-                  </div>
-                  <div class="media">
-                    <label>Freelance</label>
-                    <p>Available</p>
+                    <p>{{ getUser.phone_number }}</p>
                   </div>
                 </div>
               </div>
@@ -48,12 +36,11 @@
           </div>
           <div class="col-lg-6">
             <div class="about-avatar">
-              <!-- <img
-                src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                title=""
-                alt=""
-              /> -->
-              <img src="@/assets/logo.png" title="" alt="" />
+              <img
+                :src="`${getUser.image.url}`"
+                title="User Avatar"
+                alt="User Avatar"
+              />
             </div>
           </div>
         </div>
@@ -91,7 +78,30 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapGetters } from "vuex";
+export default {
+  name: "UserInfo",
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters({
+      getUser: "auth/getUser",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      user: "auth/user",
+    }),
+    getResult() {
+      this.user();
+      console.log(this.getUser);
+    },
+  },
+  created() {
+    this.getResult();
+  },
+};
 </script>
 
 <style lang="scss">
