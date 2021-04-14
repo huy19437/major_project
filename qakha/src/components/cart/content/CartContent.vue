@@ -76,7 +76,7 @@
           <!-- Total Amount -->
           <div class="total-amount">
             <div class="row">
-              <div class="col-lg-8 col-md-5 col-12">
+              <!-- <div class="col-lg-8 col-md-5 col-12">
                 <div class="left">
                   <div class="coupon">
                     <form action="#" target="_blank" class="coupon-input">
@@ -84,14 +84,14 @@
                       <button class="btn">Apply</button>
                     </form>
                   </div>
-                  <!-- <div class="checkbox">
+                  <div class="checkbox">
                     <label class="checkbox-inline" for="2"
                       ><input name="news" id="2" type="checkbox" /> Shipping
                       (+10$)</label
                     >
-                  </div> -->
+                  </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-lg-4 col-md-7 col-12">
                 <div class="right">
                   <ul>
@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import InputOrder from "../input_order/InputOrder";
 import { openToastMess } from "@/services/toastMessage";
 export default {
@@ -155,6 +155,9 @@ export default {
     ...mapActions({
       updateCart: "cart/updateCart",
       deleteCart: "cart/deleteCart",
+    }),
+    ...mapMutations({
+      setSubTotal: "order/setSubTotal",
     }),
     updateProduct(id, quantity) {
       this.partner = this.getPartnersLocal.find((pl) =>
@@ -220,6 +223,7 @@ export default {
       }
       this.products = prods;
       this.subTotal = this.getSubTotal(this.products);
+      this.setSubTotal(this.roundToTwo(this.subTotal));
     },
     getSubTotal(array) {
       return array.reduce(function (accumulator, currentValue) {
@@ -256,6 +260,12 @@ export default {
 
 .remove-icon {
   color: #000;
+}
+
+.shopping-cart .total-amount {
+  .row {
+    justify-content: flex-end;
+  }
 }
 
 .total-amount {

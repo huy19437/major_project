@@ -98,9 +98,9 @@
                   <p>
                     Copyright © 2020
                     <a href="http://www.wpthemesgrid.com" target="_blank"
-                      >Wpthemesgrid</a
+                      >QakhaDelivery</a
                     >
-                    - All Rights Reserved.
+                    > - All Rights Reserved.
                   </p>
                 </div>
               </div>

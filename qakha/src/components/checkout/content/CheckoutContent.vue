@@ -92,6 +92,32 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-group">
+                    <label>Voucher</label>
+                    <div
+                      class="nice-select"
+                      tabindex="0"
+                      :class="{ open: isOpen2 }"
+                      @click="isOpen2 = !isOpen2"
+                    >
+                      <span class="current">{{ voucher }}</span>
+                      <ul class="list">
+                        <li
+                          v-for="item in getVouchersLocal"
+                          :key="item.id"
+                          class="option"
+                          @click="() => (voucher = item.code)"
+                        >
+                          {{ item.code }}
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="button">
+                      <button class="btn btn-apply">Apply</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </form>
             <!--/ End Form -->
@@ -104,9 +130,15 @@
               <h2 class="order-details-title">CART TOTALS</h2>
               <div class="content">
                 <ul>
-                  <li>Sub Total<span>$330.00</span></li>
-                  <li>(+) Shipping<span>$10.00</span></li>
-                  <li class="last">Total<span>$340.00</span></li>
+                  <li>
+                    Sub Total<span>{{ subTotal }} VNĐ</span>
+                  </li>
+                  <li>
+                    (+) Shipping<span>{{ shipping_fee }} VNĐ</span>
+                  </li>
+                  <li class="last">
+                    Total<span>{{ subTotal + shipping_fee }} VNĐ</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -164,6 +196,10 @@ export default {
   data() {
     return {
       slug: this.$route.params.slug,
+      shipping_fee: 0,
+      subTotal: 0,
+      voucher: "",
+      isOpen2: false,
       user: {
         name: "",
         email: "",
@@ -203,11 +239,15 @@ export default {
   computed: {
     ...mapGetters({
       getUser: "auth/getUser",
+      getSubtotal: "order/getSubtotal",
+      getVouchersLocal: "voucher/getVouchersLocal",
     }),
   },
   methods: {
     ...mapActions({
       userObj: "auth/user",
+      getDistance: "order/getDistanceForShip",
+      getVouchersFlPartner: "voucher/getVouchersFlPartner",
     }),
     checkout() {
       if (!this.$v.user.longitude.required || !this.$v.user.latitude.required) {
@@ -221,16 +261,36 @@ export default {
       this.$data.user.longitude = location.lng;
       this.$data.user.latitude = location.lat;
     },
-    getResult() {
+    getShipDistance(params) {
+      this.getDistance(params)
+        .then((res) => {
+          this.shipping_fee = res.shipping_fee;
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    getUserInfo() {
       this.user.name = this.getUser.name;
       this.user.email = this.getUser.email;
       this.user.phone_number = this.getUser.phone_number;
       this.user.address = this.getUser.addresses[0].name;
-      console.log(this.getUser);
+    },
+    getResult() {
+      console.log(this.getSubtotal);
+      this.subTotal = this.getSubtotal;
+      this.getUserInfo();
+      let addressUserForCalcDistance = {
+        partner_id: this.slug,
+        latitude: this.getUser.addresses[0].latitude,
+        longitude: this.getUser.addresses[0].longitude,
+      };
+      this.getShipDistance(addressUserForCalcDistance);
     },
   },
   created() {
     this.userObj();
+    this.getVouchersFlPartner({ partner_id: this.slug });
     this.getResult();
   },
 };
@@ -296,5 +356,13 @@ export default {
 
 .shop.checkout .single-widget.get-button .btn {
   line-height: 33px !important;
+}
+
+.btn-apply {
+  line-height: 19px;
+  text-align: center;
+  border-radius: unset !important;
+  text-transform: uppercase;
+  color: #fff;
 }
 </style>
