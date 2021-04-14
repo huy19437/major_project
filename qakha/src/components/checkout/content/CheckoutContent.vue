@@ -163,6 +163,7 @@ export default {
   components: { GoogleMap },
   data() {
     return {
+      slug: this.$route.params.slug,
       user: {
         name: "",
         email: "",

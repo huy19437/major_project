@@ -199,6 +199,7 @@ export default {
       getCart: "cart/getCart",
       addProductToCart: "cart/addProductToCart",
       nowRoute: "auth/nowRoute",
+      partnerId: "partner/partnerId",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -247,6 +248,7 @@ export default {
           });
       }
       this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      this.partnerId(this.partner.id);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
           (obj) => obj.id == this.slug

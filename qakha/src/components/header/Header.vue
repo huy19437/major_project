@@ -131,7 +131,22 @@
                     <div class="dropdown-cart-header">
                       <span>{{ numberOfItem }} Items</span>
                       <!-- <a href="cart">View Cart</a> -->
-                      <router-link to="/cart">View Cart </router-link>
+                      <router-link
+                        v-if="getShoppingStatus"
+                        :to="{
+                          name: 'Cart',
+                          params: { slug: this.$route.params.slug },
+                        }"
+                        >Cart
+                      </router-link>
+                      <router-link
+                        v-else
+                        :to="{
+                          name: 'Cart',
+                          params: { slug: 0 },
+                        }"
+                        >Cart
+                      </router-link>
                     </div>
                     <ul class="shopping-list">
                       <li v-for="product in products" :key="product.id">
@@ -254,7 +269,22 @@
                             ></a>
                             <ul class="dropdown">
                               <li>
-                                <router-link to="/cart">Cart</router-link>
+                                <router-link
+                                  v-if="getShoppingStatus"
+                                  :to="{
+                                    name: 'Cart',
+                                    params: { slug: this.$route.params.slug },
+                                  }"
+                                  >Cart
+                                </router-link>
+                                <router-link
+                                  v-else
+                                  :to="{
+                                    name: 'Cart',
+                                    params: { slug: 0 },
+                                  }"
+                                  >Cart
+                                </router-link>
                               </li>
                               <li>
                                 <router-link to="/checkout"

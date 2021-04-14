@@ -26,7 +26,7 @@ const routes = [
         component: ProductDetail
       },
       {
-        path: 'cart',
+        path: 'cart/:slug',
         name: 'Cart',
         component: Cart,
         meta: {
@@ -34,7 +34,7 @@ const routes = [
         },
       },
       {
-        path: 'checkout',
+        path: 'checkout/:slug',
         name: 'Checkout',
         component: Checkout,
         meta: {

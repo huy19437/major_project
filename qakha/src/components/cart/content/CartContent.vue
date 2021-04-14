@@ -103,7 +103,10 @@
                   <div class="button5">
                     <router-link
                       class="btn btn-right"
-                      :to="{ name: 'Checkout' }"
+                      :to="{
+                        name: 'Checkout',
+                        params: { slug: slug },
+                      }"
                     >
                       Checkout
                     </router-link>
@@ -134,13 +137,14 @@ export default {
       products: [],
       qtyOfProducts: [],
       subTotal: 0,
-      shipingFee: 0,
       toTal: 0,
+      slug: this.$route.params.slug,
     };
   },
   computed: {
     ...mapGetters({
       getCartLocal: "cart/getCartLocal",
+      getPartnerId: "partner/getPartnerId",
       getPartnersLocal: "partner/getPartnersLocal",
     }),
     cartLocalChange() {

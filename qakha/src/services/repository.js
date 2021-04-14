@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const baseDomain = "http://127.0.0.1:8000";
-const baseDomain = "https://acdbbafe1dc1.ngrok.io";
+const baseDomain = "https://954a17e184fd.ngrok.io";
 
 const baseURL = `${baseDomain}/api/v1`;
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');

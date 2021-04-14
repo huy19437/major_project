@@ -1100,18 +1100,25 @@ const state = {
     //     }
     // ],
     partners2: JSON.parse(localStorage.getItem('partners')),
+    partnerId: 0,
 }
 
 const getters = {
     getPartnersLocal(state) {
         return state.partners2;
     },
+    getPartnerId(state) {
+        return state.partnerId;
+    }
 }
 
 const mutations = {
     setPartners(state, data) {
         state.partners2 = data;
     },
+    setPartnerId(state, data) {
+        state.partnerId = data
+    }
 }
 
 const actions = {
@@ -1127,6 +1134,9 @@ const actions = {
                 });
         })
     },
+    partnerId({ commit }, params) {
+        commit('setPartnerId', params)
+    }
 }
 
 export default {
