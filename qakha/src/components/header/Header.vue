@@ -364,7 +364,7 @@ export default {
               cat.products.find((obj) => {
                 if (obj.id == this.idOfProducts[i]) {
                   obj.quantity = this.qtyOfProducts[i];
-                  this.total += obj.price * obj.quantity;
+                  // this.total += obj.price * obj.quantity;
                   prods.push({ ...obj });
                 }
               });
@@ -373,7 +373,7 @@ export default {
         }
         this.products = prods;
         this.numberOfItem = this.products.length;
-        // console.log(this.products);
+        this.total = this.getSubTotal(this.products);
       }
     },
     roundToTwo(x) {
@@ -403,6 +403,11 @@ export default {
       while (p-- > 0) o *= 10;
       if (n < 0) o *= -1;
       return Math.round((n + r) * o) / o;
+    },
+    getSubTotal(array) {
+      return array.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue.price * currentValue.quantity;
+      }, 0);
     },
   },
   created() {

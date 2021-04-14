@@ -10,6 +10,7 @@ import Checkout from '@/components/checkout/Checkout.vue'
 import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
 import MainHome from '../views/MainHome.vue'
 import RegisterPartner from '@/components/partner/register/RegisterPartner.vue'
+import RegisterDriver from '@/components/driver/register/RegisterDriver.vue'
 import { home } from './home'
 Vue.use(VueRouter)
 
@@ -28,17 +29,17 @@ const routes = [
         path: 'cart',
         name: 'Cart',
         component: Cart,
-        // meta: {
-        //   auth: true
-        // },
+        meta: {
+          auth: true
+        },
       },
       {
         path: 'checkout',
         name: 'Checkout',
         component: Checkout,
-        // meta: {
-        //   auth: true
-        // },
+        meta: {
+          auth: true
+        },
       },
       {
         path: 'profile',
@@ -63,7 +64,7 @@ const routes = [
     name: 'Loginn',
     component: Loginn,
     beforeEnter: (to, from, next) => {
-      if (localStorage.getItem("token")) {
+      if (localStorage.getItem('token')) {
         next("/");
       } else {
         next();
@@ -84,6 +85,11 @@ const routes = [
     path: '/register-partner',
     name: 'RegisterPartner',
     component: RegisterPartner
+  },
+  {
+    path: '/register-driver',
+    name: 'RegisterDriver',
+    component: RegisterDriver
   }
 ]
 

@@ -34,7 +34,7 @@
                   </p>
                 </td>
                 <td class="price" data-title="Price">
-                  <span>${{ product.price }}</span>
+                  <span>{{ product.price }} VNĐ</span>
                 </td>
                 <td class="qty" data-title="Qty">
                   <!-- Input Order -->
@@ -57,7 +57,7 @@
                 </td>
                 <td class="total-amount" data-title="Total">
                   <span>
-                    ${{ roundToTwo(product.price * product.quantity) }}
+                    {{ roundToTwo(product.price * product.quantity) }} VNĐ
                   </span>
                 </td>
                 <td class="action delete">
@@ -84,24 +84,29 @@
                       <button class="btn">Apply</button>
                     </form>
                   </div>
-                  <div class="checkbox">
+                  <!-- <div class="checkbox">
                     <label class="checkbox-inline" for="2"
                       ><input name="news" id="2" type="checkbox" /> Shipping
                       (+10$)</label
                     >
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="col-lg-4 col-md-7 col-12">
                 <div class="right">
                   <ul>
-                    <li>Cart Subtotal<span>$330.00</span></li>
-                    <li>Shipping<span>Free</span></li>
-                    <li>You Save<span>$20.00</span></li>
-                    <li class="last">You Pay<span>$310.00</span></li>
+                    <li>
+                      Subtotal<span>{{ roundToTwo(subTotal) }} VNĐ</span>
+                    </li>
+                    <li class="last"></li>
                   </ul>
                   <div class="button5">
-                    <a href="checkout" class="btn btn-right">Checkout</a>
+                    <router-link
+                      class="btn btn-right"
+                      :to="{ name: 'Checkout' }"
+                    >
+                      Checkout
+                    </router-link>
                     <a href="/" class="btn btn-right">Continue shopping</a>
                   </div>
                 </div>
@@ -128,6 +133,9 @@ export default {
       partner: {},
       products: [],
       qtyOfProducts: [],
+      subTotal: 0,
+      shipingFee: 0,
+      toTal: 0,
     };
   },
   computed: {
@@ -157,6 +165,7 @@ export default {
       this.updateCart(params)
         .then((res) => {
           if (res) {
+            this.getResult();
             openToastMess("Product have been updated", "success");
           }
         })
@@ -187,7 +196,6 @@ export default {
       return +(Math.round(num + "e+2") + "e-2");
     },
     getResult() {
-      console.log(this.getCartLocal);
       this.cart = this.getCartLocal;
       let idOfProducts = this.cart.map((item) => item.product_id);
       this.qtyOfProducts = this.cart.map((item) => item.quantity);
@@ -199,6 +207,7 @@ export default {
             cat.products.find((obj) => {
               if (obj.id == idOfProducts[i]) {
                 obj.quantity = this.qtyOfProducts[i];
+                // this.subTotal += obj.price * obj.quantity;
                 prods.push({ ...obj });
               }
             });
@@ -206,6 +215,12 @@ export default {
         );
       }
       this.products = prods;
+      this.subTotal = this.getSubTotal(this.products);
+    },
+    getSubTotal(array) {
+      return array.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue.price * currentValue.quantity;
+      }, 0);
     },
   },
   created() {
@@ -213,7 +228,6 @@ export default {
   },
   watch: {
     cartLocalChange() {
-      console.log("hể");
       this.getResult();
     },
   },

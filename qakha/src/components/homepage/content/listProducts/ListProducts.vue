@@ -175,14 +175,12 @@ export default {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
       getNowRoute: "auth/getNowRoute",
-      userName: "auth/getUserName",
     }),
     listProducts() {
       let tmp = [];
       tmp = this.categories.find((category) => {
         return category.id === this.cateId;
       });
-      console.log(tmp.products);
       if (tmp) return tmp.products;
     },
     visibleProducts() {
@@ -237,14 +235,15 @@ export default {
     },
     getResult() {
       this.setShoppingStatus(true);
-      if (this.userName) {
+      let token = localStorage.getItem("token");
+      if (token) {
         let params = {
           partner_id: this.slug,
         };
         this.getCart(params)
           .then((res) => {})
           .catch((error) => {
-            openToastMess("Partner id is invalid to get cart", "error");
+            openToastMess(error.toString(), "error");
           });
       }
       this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);

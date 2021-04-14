@@ -161,6 +161,11 @@
           >Sign up to become a partner</router-link
         >
       </p>
+      <p class="driver-signup">
+        <router-link to="/register-driver"
+          >Sign up to become a driver</router-link
+        >
+      </p>
     </form>
   </div>
 </template>
@@ -359,7 +364,8 @@ a {
       }
     }
   }
-  p[class="partner-signup"] {
+  p[class="partner-signup"],
+  p[class="driver-signup"] {
     padding-top: 20px;
     margin-bottom: 0;
     margin-top: 14px;

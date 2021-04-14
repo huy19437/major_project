@@ -1,5 +1,6 @@
 import httpRequest from '../../services/repository'
 import createMutationsSharer from "vuex-shared-mutations";
+import axios from 'axios';
 
 const state = {
     // carts: [
@@ -68,14 +69,14 @@ const mutations = {
 
 const actions = {
     getCart({ commit }, params) {
+        console.log(params);
         return new Promise((res, rej) => {
-            httpRequest.get('/cart/', { params: params })
+            httpRequest.get('/cart', { params })
                 .then((response) => {
-                    console.log(response.data);
-                    commit('setCart', response.data);
-                    res();
+                    res(response.data);
+                    commit('setCart', response.data.carts);
                 }).catch(err => {
-                    rej(err.response);
+                    rej(err.response.data.error);
                 });
         })
     },
@@ -85,7 +86,7 @@ const actions = {
                 .then((response) => {
                     console.log(response.data);
                     res(response.data);
-                    commit('setCart', response.data);
+                    commit('setCart', response.data.carts);
                 }).catch(err => {
                     rej(err.response.data.error);
                 });
@@ -96,7 +97,7 @@ const actions = {
             httpRequest.patch('/carts', params)
                 .then((response) => {
                     console.log(response.data);
-                    commit('setCart', response.data);
+                    commit('setCart', response.data.carts);
                     res(response.data);
                 }).catch(err => {
                     rej(err.response.data.error);
@@ -108,7 +109,8 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.delete('/carts', { data: params })
                 .then((response) => {
-                    commit('setCart', response.data);
+                    console.log(response.data);
+                    commit('setCart', response.data.carts);
                     res(response.data);
                 }).catch(err => {
                     rej(err.response.data.error);

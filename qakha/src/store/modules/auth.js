@@ -8,7 +8,7 @@ const state = {
     loginError: null,
     registerError: null,
     nowRoute: "",
-    user: null,
+    user: {},
 }
 
 const getters = {
@@ -38,6 +38,7 @@ const getters = {
 const mutations = {
     setUser(state, data) {
         state.user = data
+        console.log(state.user);
     },
     setUserInfor(state, data) {
         if (data) {
@@ -50,6 +51,8 @@ const mutations = {
             } else {
                 state.userInfo = data.name;
             }
+        } else if (data === null) {
+            state.userInfo = null;
         }
     },
     setToken(state) {
@@ -92,11 +95,23 @@ const actions = {
                 })
         })
     },
+    registerDriver({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/sign_up', params)
+                .then(response => {
+                    res(response.data);
+                    console.log('response: ' + response.data);
+                }).catch(err => {
+                    console.log(err.response.data.message);
+                    commit('setRegisterError', err.response.data.message);
+                    rej(err.response.data.message);
+                })
+        })
+    },
     login({ commit }, params) {
         return new Promise((res, rej) => {
             httpRequest.post('/sign_in', params)
                 .then(respone => {
-                    console.log("hi");
                     localStorage.setItem('token', respone.data.token);
                     // router.push({ path: "/" });
                     res(respone.data);
@@ -107,7 +122,6 @@ const actions = {
         })
     },
     logout({ commit }) {
-        console.log("hi");
         localStorage.removeItem('token');
         commit('setUserInfor', null);
         router.push({ path: "/login" });
@@ -139,6 +153,7 @@ const actions = {
         commit('setUserInfor', userInformation.getUser(localStorage.getItem('token')));
     },
     user({ commit }) {
+        console.log("hi");
         commit('setUser', userInformation.getUser(localStorage.getItem('token')));
     },
     isAuthenticated() {
