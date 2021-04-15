@@ -90,14 +90,14 @@
                           name: 'ListProducts',
                           params: { slug: partner.id },
                         }"
-                        >Name: {{ partner.name }}</router-link
+                        >{{ partner.name }}</router-link
                       >
                     </h5>
                   </div>
                   <div class="partner-list-option">
                     <ul class="list-unstyled">
                       <li>
-                        <span>Address: {{ partner.address }}</span>
+                        <span>{{ partner.address }}</span>
                       </li>
                     </ul>
                   </div>

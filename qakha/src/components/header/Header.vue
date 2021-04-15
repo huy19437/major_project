@@ -132,18 +132,9 @@
                       <span>{{ numberOfItem }} Items</span>
                       <!-- <a href="cart">View Cart</a> -->
                       <router-link
-                        v-if="getShoppingStatus"
                         :to="{
                           name: 'Cart',
-                          params: { slug: this.$route.params.slug },
-                        }"
-                        >Cart
-                      </router-link>
-                      <router-link
-                        v-else
-                        :to="{
-                          name: 'Cart',
-                          params: { slug: 0 },
+                          params: { slug: this.$route.params.slug || 0 },
                         }"
                         >Cart
                       </router-link>
@@ -270,18 +261,11 @@
                             <ul class="dropdown">
                               <li>
                                 <router-link
-                                  v-if="getShoppingStatus"
                                   :to="{
                                     name: 'Cart',
-                                    params: { slug: this.$route.params.slug },
-                                  }"
-                                  >Cart
-                                </router-link>
-                                <router-link
-                                  v-else
-                                  :to="{
-                                    name: 'Cart',
-                                    params: { slug: 0 },
+                                    params: {
+                                      slug: this.$route.params.slug || 0,
+                                    },
                                   }"
                                   >Cart
                                 </router-link>

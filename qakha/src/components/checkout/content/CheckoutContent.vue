@@ -75,7 +75,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-12">
+                <!-- <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
                     <label>Address<span>*</span></label>
                     <input
@@ -89,6 +89,34 @@
                       <p class="errorMessage" v-if="!$v.user.address.required">
                         Address is required
                       </p>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-group">
+                    <label>Address</label>
+                    <div
+                      class="nice-select"
+                      tabindex="0"
+                      :class="{ open: isOpen3 }"
+                      @click="isOpen3 = !isOpen3"
+                    >
+                      <span class="current">{{ user.address }}</span>
+                      <ul class="list">
+                        <li
+                          v-for="item in getUserAddress"
+                          :key="item.id"
+                          class="option"
+                          @click="
+                            () => {
+                              user.address = item.name;
+                              changeAddress(item);
+                            }
+                          "
+                        >
+                          {{ item.name }}
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -113,8 +141,11 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="button">
-                      <button class="btn btn-apply">Apply</button>
+                    <div class="button btn-voucher-group">
+                      <a @click="applyVoucher" class="btn btn-apply">Apply</a>
+                      <a @click="voucher = ''" class="btn btn-cancel">
+                        Cancel
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -200,6 +231,7 @@ export default {
       subTotal: 0,
       voucher: "",
       isOpen2: false,
+      isOpen3: false,
       user: {
         name: "",
         email: "",
@@ -241,14 +273,39 @@ export default {
       getUser: "auth/getUser",
       getSubtotal: "order/getSubtotal",
       getVouchersLocal: "voucher/getVouchersLocal",
+      getUserAddress: "auth/getUserAddress",
     }),
   },
   methods: {
     ...mapActions({
       userObj: "auth/user",
       getDistance: "order/getDistanceForShip",
+      applyVouchers: "voucher/applyVouchers",
       getVouchersFlPartner: "voucher/getVouchersFlPartner",
     }),
+    changeAddress(address) {
+      let addressUserForCalcDistance = {
+        partner_id: this.slug,
+        latitude: address.latitude,
+        longitude: address.longitude,
+      };
+      this.getDistance(addressUserForCalcDistance)
+        .then((res) => {
+          this.shipping_fee = res.shipping_fee;
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    applyVoucher() {
+      let params = {
+        code: this.voucher,
+        partner_id: this.slug,
+      };
+      this.applyVouchers(params).then((res) => {
+        this.subTotal = res;
+      });
+    },
     checkout() {
       if (!this.$v.user.longitude.required || !this.$v.user.latitude.required) {
         openToastMess("Please choose delivery location", "error");
@@ -261,8 +318,13 @@ export default {
       this.$data.user.longitude = location.lng;
       this.$data.user.latitude = location.lat;
     },
-    getShipDistance(params) {
-      this.getDistance(params)
+    getShipDistance() {
+      let addressUserForCalcDistance = {
+        partner_id: this.slug,
+        latitude: this.getUser.addresses[0].latitude,
+        longitude: this.getUser.addresses[0].longitude,
+      };
+      this.getDistance(addressUserForCalcDistance)
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
         })
@@ -274,18 +336,20 @@ export default {
       this.user.name = this.getUser.name;
       this.user.email = this.getUser.email;
       this.user.phone_number = this.getUser.phone_number;
-      this.user.address = this.getUser.addresses[0].name;
+      // this.user.address = this.getUser.addresses[0].name;
     },
     getResult() {
       console.log(this.getSubtotal);
       this.subTotal = this.getSubtotal;
+      this.user.address = this.getUser.addresses[0].name;
       this.getUserInfo();
-      let addressUserForCalcDistance = {
-        partner_id: this.slug,
-        latitude: this.getUser.addresses[0].latitude,
-        longitude: this.getUser.addresses[0].longitude,
-      };
-      this.getShipDistance(addressUserForCalcDistance);
+      this.getShipDistance();
+      // let addressUserForCalcDistance = {
+      //   partner_id: this.slug,
+      //   latitude: this.getUser.addresses[0].latitude,
+      //   longitude: this.getUser.addresses[0].longitude,
+      // };
+      // this.getShipDistance(addressUserForCalcDistance);
     },
   },
   created() {
@@ -358,11 +422,13 @@ export default {
   line-height: 33px !important;
 }
 
-.btn-apply {
+.btn-apply,
+.btn-cancel {
   line-height: 19px;
   text-align: center;
   border-radius: unset !important;
   text-transform: uppercase;
-  color: #fff;
+  color: #fff !important;
+  margin-right: 20px;
 }
 </style>

@@ -19,7 +19,6 @@ const mutations = {
 }
 
 const actions = {
-
     getVouchersFlPartner({ commit }, params) {
         return new Promise((res, rej) => {
             httpRequest.get('/orders/vouchers', { params })
@@ -32,6 +31,19 @@ const actions = {
                 });
         })
 
+    },
+    applyVouchers({ commit }, params) {
+        return new Promise((res, rej) => {
+            console.log(params);
+            httpRequest.post('/orders/voucher', params)
+                .then((response) => {
+                    console.log(response);
+                    res(response.data.total_after_discount);
+                    // commit('setVoucher', response.data.voucher);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                });
+        })
     }
 }
 

@@ -15,6 +15,9 @@ const getters = {
     getUser(state) {
         return state.user;
     },
+    getUserAddress(state) {
+        return state.user.addresses;
+    },
     userInfo(state) {
         return state.userInfo;
     },

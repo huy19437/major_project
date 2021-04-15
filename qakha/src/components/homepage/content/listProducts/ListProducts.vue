@@ -244,7 +244,11 @@ export default {
         this.getCart(params)
           .then((res) => {})
           .catch((error) => {
-            openToastMess(error.toString(), "error");
+            if (typeof error == "object") {
+              openToastMess(error.toString(), "error");
+            } else {
+              openToastMess(error, "error");
+            }
           });
       }
       this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
@@ -358,10 +362,10 @@ export default {
     font-size: 1.2rem;
     margin-top: -85px;
     font-weight: 600;
-    overflow: hidden;
-    &:hover {
-      overflow-x: scroll;
-    }
+    // overflow: hidden;
+    // &:hover {
+    //   overflow-x: scroll;
+    // }
     li {
       a {
         transition: all 0.4s ease;
