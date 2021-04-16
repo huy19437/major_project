@@ -39,7 +39,18 @@ const actions = {
                 .then((response) => {
                     console.log(response);
                     res(response.data.total_after_discount);
-                    // commit('setVoucher', response.data.voucher);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                });
+        })
+    },
+    cancelVouchers({ commit }, params) {
+        return new Promise((res, rej) => {
+            console.log(params);
+            httpRequest.delete('/orders/voucher', { data: params })
+                .then((response) => {
+                    console.log(response);
+                    res(response.data.total_before_discount);
                 }).catch(err => {
                     rej(err.response.data.error);
                 });

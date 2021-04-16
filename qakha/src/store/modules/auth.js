@@ -41,15 +41,16 @@ const getters = {
 const mutations = {
     setUser(state, data) {
         state.user = data
-        console.log(state.user);
     },
     setUserInfor(state, data) {
         if (data) {
             if (data.name != null && typeof data.name == 'string') {
                 if (data.name.lastIndexOf(" ") > 0) {
-                    state.userInfo = data.name.slice(data.name.lastIndexOf(" "));
+                    let tmp = data.name.trim();
+                    state.userInfo = tmp.slice(tmp.lastIndexOf(" "));
+                    console.log(state.userInfo);
                 } else {
-                    state.userInfo = data.name;
+                    state.userInfo = data.name.trim();
                 }
             } else {
                 state.userInfo = data.name;
@@ -156,7 +157,6 @@ const actions = {
         commit('setUserInfor', userInformation.getUser(localStorage.getItem('token')));
     },
     user({ commit }) {
-        console.log("hi");
         commit('setUser', userInformation.getUser(localStorage.getItem('token')));
     },
     isAuthenticated() {

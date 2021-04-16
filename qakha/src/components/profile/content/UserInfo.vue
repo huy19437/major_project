@@ -19,6 +19,9 @@
                   <div class="media">
                     <label>Address</label>
                     <p>{{ getUser.address }}</p>
+                    <router-link to="/edit-address">
+                      <font-awesome-icon :icon="['fas', 'edit']" />
+                    </router-link>
                   </div>
                 </div>
                 <div class="col-md-6">

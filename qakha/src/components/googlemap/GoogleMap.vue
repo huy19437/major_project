@@ -47,6 +47,7 @@ export default {
     // nhận địa điểm thông qua autocomplete component
     setPlace(place) {
       this.currentPlace = place;
+      // console.log(place.formatted_address);
     },
     addMarker() {
       if (this.currentPlace) {
@@ -57,8 +58,9 @@ export default {
         this.markers.push({ position: marker });
         this.places.push(this.currentPlace);
         this.center = marker;
+        let tmp = this.currentPlace;
         this.currentPlace = null;
-        this.$emit("get-location-partner", this.center);
+        this.$emit("get-location-partner", this.center, tmp.formatted_address);
       }
     },
     geolocate: function () {

@@ -165,9 +165,15 @@
                         >
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
-                      <router-link class="btn animate" to="/checkout"
-                        >Checkout</router-link
+                      <router-link
+                        class="btn btn-right"
+                        :to="{
+                          name: 'Checkout',
+                          params: { slug: this.$route.params.slug || 0 },
+                        }"
                       >
+                        Checkout
+                      </router-link>
                     </div>
                   </div>
                   <!--/ End Shopping Item -->
@@ -270,11 +276,6 @@
                                   >Cart
                                 </router-link>
                               </li>
-                              <li>
-                                <router-link to="/checkout"
-                                  >Checkout</router-link
-                                >
-                              </li>
                             </ul>
                           </li>
                           <li><a href="#">Pages</a></li>
@@ -304,7 +305,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "Header",
@@ -338,6 +339,9 @@ export default {
       getUserInfoFromLocal: "auth/getUserInfoFromLocal",
       setCartsNull: "cart/setCartsNull",
       deleteCart: "cart/deleteCart",
+    }),
+    ...mapMutations({
+      setSubTotal: "order/setSubTotal",
     }),
     logout() {
       this.logoutFuction();
@@ -388,6 +392,7 @@ export default {
         this.products = prods;
         this.numberOfItem = this.products.length;
         this.total = this.getSubTotal(this.products);
+        this.setSubTotal(this.roundToTwo(this.total));
       }
     },
     roundToTwo(x) {

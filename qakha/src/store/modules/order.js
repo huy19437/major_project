@@ -35,6 +35,17 @@ const actions = {
                 });
         })
     },
+    createOrder({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/orders', params)
+                .then((response) => {
+                    res(response.data);
+                    // commit('setDistance', response.data);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                });
+        })
+    }
 }
 
 export default {

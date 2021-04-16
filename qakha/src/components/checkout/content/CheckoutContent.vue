@@ -34,13 +34,12 @@
                       placeholder="Enter Email Here..."
                       required
                       v-model="user.email"
-                      @blur="$v.user.email.$touch()"
                     />
-                    <div v-if="$v.user.email.$error">
+                    <!-- <div v-if="$v.user.email.$error">
                       <p class="errorMessage" v-if="!$v.user.email.required">
                         Email is required
                       </p>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
@@ -129,13 +128,13 @@
                       :class="{ open: isOpen2 }"
                       @click="isOpen2 = !isOpen2"
                     >
-                      <span class="current">{{ voucher }}</span>
+                      <span class="current">{{ voucher.code }}</span>
                       <ul class="list">
                         <li
                           v-for="item in getVouchersLocal"
                           :key="item.id"
                           class="option"
-                          @click="() => (voucher = item.code)"
+                          @click="() => (voucher = item)"
                         >
                           {{ item.code }}
                         </li>
@@ -143,9 +142,36 @@
                     </div>
                     <div class="button btn-voucher-group">
                       <a @click="applyVoucher" class="btn btn-apply">Apply</a>
-                      <a @click="voucher = ''" class="btn btn-cancel">
+                      <a @click="cancelVoucher" class="btn btn-cancel">
                         Cancel
                       </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-group">
+                    <label>Delivery time</label>
+                    <input
+                      type="time"
+                      id="timeOpen"
+                      class="form-control"
+                      step="900"
+                      v-model="user.delivery_time"
+                      @blur="$v.user.delivery_time.$touch()"
+                      @input="errMess = false"
+                    />
+                    <div v-if="$v.user.delivery_time.$error">
+                      <p
+                        class="errorMessage"
+                        v-if="!$v.user.delivery_time.required"
+                      >
+                        Delivery time is required
+                      </p>
+                    </div>
+                    <div v-if="errMess">
+                      <p class="errorMessage">
+                        Time open must be before Time close
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -198,7 +224,9 @@
             <div class="single-widget get-button">
               <div class="content">
                 <div class="button">
-                  <a @click="checkout" class="btn">proceed to checkout</a>
+                  <a @click="proceedToCheckout" class="btn"
+                    >proceed to checkout</a
+                  >
                 </div>
               </div>
             </div>
@@ -221,24 +249,29 @@ import {
   numeric,
 } from "vuelidate/lib/validators";
 import GoogleMap from "@/components/googlemap/GoogleMap";
+import moment from "moment";
 export default {
   name: "CheckoutContent",
   components: { GoogleMap },
   data() {
     return {
+      errMess: false,
       slug: this.$route.params.slug,
       shipping_fee: 0,
       subTotal: 0,
-      voucher: "",
+      voucher: {},
       isOpen2: false,
       isOpen3: false,
+      partnerOpenTime: moment().format("HH:mm"),
+      partnerCloseTime: moment().format("HH:mm"),
       user: {
         name: "",
-        email: "",
+        // email: "",
         phone_number: "",
         address: "",
-        longitude: "",
-        latitude: "",
+        delivery_time: "",
+        // longitude: "",
+        // latitude: "",
       },
     };
   },
@@ -260,12 +293,15 @@ export default {
       address: {
         required,
       },
-      longitude: {
+      delivery_time: {
         required,
       },
-      latitude: {
-        required,
-      },
+      // longitude: {
+      //   required,
+      // },
+      // latitude: {
+      //   required,
+      // },
     },
   },
   computed: {
@@ -274,13 +310,19 @@ export default {
       getSubtotal: "order/getSubtotal",
       getVouchersLocal: "voucher/getVouchersLocal",
       getUserAddress: "auth/getUserAddress",
+      getPartnersLocal: "partner/getPartnersLocal",
     }),
+    delivery_time() {
+      return this.user.delivery_time;
+    },
   },
   methods: {
     ...mapActions({
       userObj: "auth/user",
       getDistance: "order/getDistanceForShip",
+      createOrder: "order/createOrder",
       applyVouchers: "voucher/applyVouchers",
+      cancelVouchers: "voucher/cancelVouchers",
       getVouchersFlPartner: "voucher/getVouchersFlPartner",
     }),
     changeAddress(address) {
@@ -299,20 +341,57 @@ export default {
     },
     applyVoucher() {
       let params = {
-        code: this.voucher,
+        code: this.voucher.code,
         partner_id: this.slug,
       };
-      this.applyVouchers(params).then((res) => {
-        this.subTotal = res;
-      });
+      this.applyVouchers(params)
+        .then((res) => {
+          this.subTotal = res;
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
     },
-    checkout() {
-      if (!this.$v.user.longitude.required || !this.$v.user.latitude.required) {
-        openToastMess("Please choose delivery location", "error");
-      } else {
-        this.$v.user.$touch();
-        console.log(this.$data.user);
+    cancelVoucher() {
+      let params = {
+        voucher_id: this.voucher.id,
+        partner_id: this.slug,
+      };
+      this.cancelVouchers(params)
+        .then((res) => {
+          this.subTotal = res;
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    proceedToCheckout() {
+      // if (!this.$v.user.longitude.required || !this.$v.user.latitude.required) {
+      //   openToastMess("Please choose delivery location", "error");
+      // } else {
+      this.$v.user.$touch();
+      if (!this.$v.user.$invalid) {
+        let params = {
+          name: this.user.name,
+          phone_number: this.user.phone_number,
+          address: this.user.address,
+          delivery_time:
+            moment().format("YYYY-MM-DD") + " " + this.user.delivery_time,
+          partner_id: this.slug,
+          shipping_fee: this.shipping_fee,
+          type_checkout: "cash",
+        };
+        console.log(params);
+        // this.createOrder(params)
+        //   .then((res) => {
+        //     console.log(res);
+        //   })
+        //   .catch((error) => {
+        //     openToastMess(error, "error");
+        //   });
       }
+      console.log(this.$data.user);
+      // }
     },
     getLocationPartner(location) {
       this.$data.user.longitude = location.lng;
@@ -338,6 +417,10 @@ export default {
       this.user.phone_number = this.getUser.phone_number;
       // this.user.address = this.getUser.addresses[0].name;
     },
+    getPartnersTime() {
+      let obj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      console.log(obj.time_close);
+    },
     getResult() {
       console.log(this.getSubtotal);
       this.subTotal = this.getSubtotal;
@@ -356,6 +439,12 @@ export default {
     this.userObj();
     this.getVouchersFlPartner({ partner_id: this.slug });
     this.getResult();
+    this.getPartnersTime();
+  },
+  watch: {
+    delivery_time() {
+      // this.errMess = true;
+    },
   },
 };
 </script>
@@ -430,5 +519,12 @@ export default {
   text-transform: uppercase;
   color: #fff !important;
   margin-right: 20px;
+}
+
+.current {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 </style>

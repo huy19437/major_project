@@ -11,6 +11,7 @@ import OrderConfirm from '@/components/order_confirmation/OrderConfirm.vue'
 import MainHome from '../views/MainHome.vue'
 import RegisterPartner from '@/components/partner/register/RegisterPartner.vue'
 import RegisterDriver from '@/components/driver/register/RegisterDriver.vue'
+import EditAddress from '@/components/edit_address/EditAddress.vue'
 import { home } from './home'
 Vue.use(VueRouter)
 
@@ -38,7 +39,7 @@ const routes = [
         name: 'Checkout',
         component: Checkout,
         meta: {
-          auth: true
+          // auth: true
         },
       },
       {
@@ -90,7 +91,12 @@ const routes = [
     path: '/register-driver',
     name: 'RegisterDriver',
     component: RegisterDriver
-  }
+  },
+  {
+    path: '/edit-address',
+    name: 'EditAddress',
+    component: EditAddress
+  },
 ]
 
 const router = new VueRouter({
