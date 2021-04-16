@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const baseDomain = "http://127.0.0.1:8000";
-const baseDomain = "https://053f1ad537fd.ngrok.io";
+const baseDomain = "https://72e084669d4f.ngrok.io";
 
 const baseURL = `${baseDomain}/api/v1`;
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
@@ -31,7 +31,7 @@ const httpRequest = {
     patch(link, params) {
         let token = localStorage.getItem('token');
         let headers = { Authorization: `Bearer ${token}` };
-        return axios.put(baseURL + link, params, { headers });
+        return axios.patch(baseURL + link, params, { headers });
     },
     getAuthen(link) {
         let token = localStorage.getItem('token');

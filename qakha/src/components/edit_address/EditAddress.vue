@@ -28,11 +28,12 @@
                         class="address-name"
                         type="text"
                         :value="`${address.name}`"
+                        @input="getAddressChange($event)"
                       />
                     </td>
                     <td>
                       <a
-                        @click="updateOneAddress(address)"
+                        @click="updateOneAddress(address.id)"
                         class="update-address"
                       >
                         <font-awesome-icon :icon="['fas', 'edit']" />
@@ -50,6 +51,11 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <Spinner :loading="isLoading" />
+          </div>
+        </div>
       </div>
       <div class="col-lg-6 well">
         <GoogleMap @get-location-partner="getLocationUser" />
@@ -62,13 +68,16 @@
 import GoogleMap from "@/components/googlemap/GoogleMap";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
+import Spinner from "@/components/spinner/Spinner";
 export default {
   name: "EditAddress",
-  components: { GoogleMap },
+  components: { GoogleMap, Spinner },
   data() {
     return {
       address: "",
       locationUser: {},
+      addressUpdate: "",
+      isLoading: false,
     };
   },
   validations: {},
@@ -84,6 +93,7 @@ export default {
       addAddress: "address/addAddress",
       deleteAddress: "address/deleteAddress",
       user: "auth/user",
+      updateAddress: "address/updateAddress",
     }),
     getLocationUser(location, place) {
       console.log(this.locationUser);
@@ -103,6 +113,7 @@ export default {
         });
     },
     deleteOneAddress(id) {
+      this.isLoading = true;
       this.deleteAddress(id)
         .then((res) => {
           this.getResult();
@@ -110,10 +121,32 @@ export default {
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
-    updateOneAddress(address) {
-      console.log(address);
+    updateOneAddress(addressId) {
+      let params = {
+        id: addressId,
+        name: this.addressUpdate,
+      };
+      this.isLoading = true;
+      this.updateAddress(params)
+        .then((response) => {
+          this.getResult();
+          openToastMess("Update address successfully!", "success");
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    getAddressChange(e) {
+      this.addressUpdate = e.target.value;
+      console.log(this.addressUpdate);
     },
     getResult() {
       this.getAddress(this.getUser.id);
@@ -251,6 +284,13 @@ $button-color: #f7941d;
 
 .address-name {
   width: 100%;
+}
+
+.update-address,
+.delete-address {
+  font-size: 20px;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 /* Custom page header */

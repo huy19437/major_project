@@ -130,6 +130,7 @@ export default {
   computed: {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
+      getUser: "auth/getUser",
     }),
     filteredList() {
       return this.partnerData.filter((partner) => {
@@ -176,6 +177,8 @@ export default {
       getPartners: "partner/getPartners",
       setCartsNull: "cart/setCartsNull",
       setShoppingStatus: "cart/setShoppingStatus",
+      user: "auth/user",
+      getAddress: "address/getAddress",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -189,6 +192,7 @@ export default {
           this.setCartsNull();
           this.setShoppingStatus(false);
           this.partnerData = this.getPartnersLocal;
+          this.getAddress(this.getUser.id);
         })
         .catch((err) => {
           console.log(err);
@@ -197,6 +201,7 @@ export default {
   },
   created() {
     this.getResult();
+    this.user();
   },
   watch: {
     partnerDataOnChange() {

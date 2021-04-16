@@ -52,11 +52,10 @@ const actions = {
         })
     },
     updateAddress({ commit }, params) {
+        console.log(params.id);
         return new Promise((res, rej) => {
-            httpRequest.patch('/addresses', params)
+            httpRequest.patch('/addresses/' + params.id, { name: params.name })
                 .then((response) => {
-                    console.log(response.data);
-                    commit('setAddress', response.data);
                     res(response.data);
                 }).catch(err => {
                     rej(err.response.data.error);

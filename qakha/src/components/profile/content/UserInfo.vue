@@ -18,7 +18,9 @@
                   </div>
                   <div class="media">
                     <label>Address</label>
-                    <p>{{ getUser.address }}</p>
+                    <p v-if="getAddressLocal.length > 0">
+                      {{ getAddressLocal[0].name }}
+                    </p>
                     <router-link to="/edit-address">
                       <font-awesome-icon :icon="['fas', 'edit']" />
                     </router-link>
@@ -90,15 +92,17 @@ export default {
   computed: {
     ...mapGetters({
       getUser: "auth/getUser",
+      getAddressLocal: "address/getAddressLocal",
     }),
   },
   methods: {
     ...mapActions({
       user: "auth/user",
+      getAddress: "address/getAddress",
     }),
     getResult() {
       this.user();
-      console.log(this.getUser);
+      this.getAddress(this.user.id);
     },
   },
   created() {
@@ -163,6 +167,15 @@ img {
   padding-top: 10px;
   .media {
     padding: 5px 0;
+    &:nth-child(3) {
+      p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        width: 41%;
+      }
+    }
   }
   p {
     margin: 0;

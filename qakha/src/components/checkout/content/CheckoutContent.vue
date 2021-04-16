@@ -103,7 +103,7 @@
                       <span class="current">{{ user.address }}</span>
                       <ul class="list">
                         <li
-                          v-for="item in getUserAddress"
+                          v-for="item in getAddressLocal"
                           :key="item.id"
                           class="option"
                           @click="
@@ -311,6 +311,7 @@ export default {
       getVouchersLocal: "voucher/getVouchersLocal",
       getUserAddress: "auth/getUserAddress",
       getPartnersLocal: "partner/getPartnersLocal",
+      getAddressLocal: "address/getAddressLocal",
     }),
     delivery_time() {
       return this.user.delivery_time;
@@ -422,7 +423,7 @@ export default {
       console.log(obj.time_close);
     },
     getResult() {
-      console.log(this.getSubtotal);
+      console.log(this.getAddressLocal);
       this.subTotal = this.getSubtotal;
       this.user.address = this.getUser.addresses[0].name;
       this.getUserInfo();
