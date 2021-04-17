@@ -206,10 +206,21 @@
               <h2 class="order-details-title">Payments</h2>
               <div class="content">
                 <div class="checkbox">
-                  <input type="radio" name="checkout" value="COD" /> Cash On
-                  Delivery<br />
-                  <input type="radio" name="checkout" value="PAYPAL" />
-                  Pay Pal<br />
+                  <input
+                    type="radio"
+                    v-model="user.type_checkout"
+                    name="checkout"
+                    value="cash"
+                  />
+                  Cash On Delivery<br />
+                  <input
+                    type="radio"
+                    v-model="user.type_checkout"
+                    name="checkout"
+                    value="coins"
+                  />
+                  Coins: {{ getCoinsUser }}<br />
+                  <div>{{ user.type_checkout }}</div>
                 </div>
               </div>
             </div>
@@ -225,7 +236,10 @@
             <div class="single-widget get-button">
               <div class="content">
                 <div class="button">
-                  <a @click="proceedToCheckout" class="btn"
+                  <a
+                    :disabled="$v.user.$invalid"
+                    @click="proceedToCheckout"
+                    class="btn"
                     >proceed to checkout</a
                   >
                 </div>
@@ -271,6 +285,7 @@ export default {
         phone_number: "",
         address: "",
         delivery_time: "",
+        type_checkout: "",
         // longitude: "",
         // latitude: "",
       },
@@ -297,6 +312,9 @@ export default {
       delivery_time: {
         required,
       },
+      type_checkout: {
+        required,
+      },
       // longitude: {
       //   required,
       // },
@@ -313,8 +331,9 @@ export default {
       // getUserAddress: "auth/getUserAddress",
       getPartnersLocal: "partner/getPartnersLocal",
       getAddressLocal: "address/getAddressLocal",
+      getCoinsUser: "order/getCoinsUser",
     }),
-    delivery_time() {
+    deliveryTime() {
       return this.user.delivery_time;
     },
   },
@@ -327,6 +346,7 @@ export default {
       cancelVouchers: "voucher/cancelVouchers",
       getVouchersFlPartner: "voucher/getVouchersFlPartner",
       getAddress: "address/getAddress",
+      coinsUsers: "order/coinsUsers",
     }),
     changeAddress(address) {
       let addressUserForCalcDistance = {
@@ -373,7 +393,7 @@ export default {
       //   openToastMess("Please choose delivery location", "error");
       // } else {
       this.$v.user.$touch();
-      if (!this.$v.user.$invalid || !this.errMess) {
+      if (!this.$v.user.$invalid && !this.errMess) {
         let params = {
           name: this.user.name,
           phone_number: this.user.phone_number,
@@ -382,15 +402,17 @@ export default {
             moment().format("YYYY-MM-DD") + " " + this.user.delivery_time,
           partner_id: this.slug,
           shipping_fee: this.shipping_fee,
-          type_checkout: "cash",
+          type_checkout: this.user.type_checkout,
         };
-        // this.createOrder(params)
-        //   .then((res) => {
-        //     console.log(res);
-        //   })
-        //   .catch((error) => {
-        //     openToastMess(error, "error");
-        //   });
+        console.log(params);
+        this.createOrder(params)
+          .then((res) => {
+            openToastMess("Order created", "success");
+            console.log(res);
+          })
+          .catch((error) => {
+            openToastMess(error, "error");
+          });
       }
       // }
     },
@@ -416,7 +438,7 @@ export default {
       this.user.name = this.getUser.name;
       this.user.email = this.getUser.email;
       this.user.phone_number = this.getUser.phone_number;
-      // this.user.address = this.getUser.addresses[0].name;
+      console.log(this.getUser);
     },
     validateDeliveryTime(delivery_time) {
       let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
@@ -444,9 +466,13 @@ export default {
     },
     getResult() {
       this.subTotal = this.getSubtotal;
-      this.user.address = this.getAddressLocal[0].name;
+      if (this.getAddressLocal.length == 0) {
+        openToastMess("User have no address", "warning");
+      } else {
+        this.user.address = this.getAddressLocal[0].name;
+        this.getShipDistance();
+      }
       this.getUserInfo();
-      this.getShipDistance();
       // let addressUserForCalcDistance = {
       //   partner_id: this.slug,
       //   latitude: this.getUser.addresses[0].latitude,
@@ -460,12 +486,13 @@ export default {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
       this.getResult();
+      this.coinsUsers();
       // this.validateDeliveryTime();
     });
   },
   watch: {
-    delivery_time() {
-      this.validateDeliveryTime(this.delivery_time);
+    deliveryTime() {
+      this.validateDeliveryTime(this.user.delivery_time);
     },
   },
 };

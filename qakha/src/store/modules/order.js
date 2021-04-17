@@ -2,7 +2,8 @@ import httpRequest from '../../services/repository'
 
 const state = {
     distance: 0,
-    subtt: 0
+    subtt: 0,
+    coins_user: 0
 }
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
     },
     getSubtotal(state) {
         return state.subtt;
+    },
+    getCoinsUser(state) {
+        return state.coins_user;
     }
 }
 
@@ -20,6 +24,9 @@ const mutations = {
     },
     setSubTotal(state, data) {
         state.subtt = data
+    },
+    setCoinsUser(state, data) {
+        state.coins_user = data
     }
 }
 
@@ -39,10 +46,23 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.post('/orders', params)
                 .then((response) => {
+                    console.log(response);
                     res(response.data);
                     // commit('setDistance', response.data);
                 }).catch(err => {
                     rej(err.response.data.error);
+                });
+        })
+    },
+    coinsUsers({ commit }) {
+        return new Promise((res, rej) => {
+            httpRequest.get('/orders/coins_user')
+                .then((response) => {
+                    console.log(response.data);
+                    commit('setCoinsUser', response.data.coins);
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.message);
                 });
         })
     }
