@@ -152,28 +152,6 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 form-group">
-                  <div v-show="showProgress">
-                    <progress-bar :options="options" :value="progress" />
-                  </div>
-                  <section v-if="results && results.secure_url">
-                    <label>Image Uploaded</label>
-                    <img :src="results.secure_url" :alt="results.public_id" />
-                  </section>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 form-group image-upload">
-                  <label>Driver's Avatar</label>
-                  <input
-                    id="file-input"
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    @change="handleFileChange($event)"
-                  />
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-6 form-group">
                   <label>ID Card Number</label>
                   <input
@@ -220,6 +198,74 @@
                   </div>
                 </div>
               </div>
+              <div class="row"></div>
+              <div class="row image-section">
+                <div class="col-6 form-group">
+                  <div v-show="showProgress">
+                    <progress-bar :options="options" :value="progress" />
+                  </div>
+                  <section v-if="results && results.secure_url">
+                    <label>Image Uploaded</label>
+                    <img :src="results.secure_url" :alt="results.public_id" />
+                  </section>
+                </div>
+                <div class="col-6 form-group image-upload">
+                  <label>Driver's Avatar</label>
+                  <input
+                    id="file-input"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    @change="handleFileChange($event)"
+                  />
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-6 form-group">
+                  <label>ID Card Number</label>
+                  <input
+                    type="number"
+                    placeholder="Enter ID Card Number Here..."
+                    class="form-control"
+                    v-model="form.id_card"
+                    @blur="$v.form.id_card.$touch()"
+                  />
+                  <div v-if="$v.form.id_card.$error">
+                    <p class="errorMessage" v-if="!$v.form.id_card.required">
+                      Id card Number is required
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.id_card.validIdCard"
+                    >
+                      Id card Number is invalid
+                    </p>
+                  </div>
+                </div>
+                <div class="col-6 form-group">
+                  <label>License Plate</label>
+                  <input
+                    type="text"
+                    placeholder="Enter License Plate Here..."
+                    class="form-control"
+                    v-model="form.license_plate"
+                    @blur="$v.form.license_plate.$touch()"
+                  />
+                  <div v-if="$v.form.license_plate.$error">
+                    <p
+                      class="errorMessage"
+                      v-if="!$v.form.license_plate.required"
+                    >
+                      License plate is required
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.license_plate.validLicensePlate"
+                    >
+                      License plate is invalid
+                    </p>
+                  </div>
+                </div>
+              </div> -->
               <div class="row loader">
                 <button
                   class="btn btn-lg btn-info"
@@ -237,7 +283,9 @@
           </form>
         </div>
         <div class="row">
-          <Spinner :loading="isLoading" />
+          <div class="col-12 form-group">
+            <Spinner :loading="isLoading" />
+          </div>
         </div>
       </div>
     </div>
@@ -522,6 +570,9 @@ $button-color: #f7941d;
     .col-12 {
       div {
         text-align: left;
+      }
+      .row.image-section {
+        margin-bottom: 4rem;
       }
     }
     .err-mess {
