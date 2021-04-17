@@ -31,6 +31,7 @@ const getters = {
         return state.loginError;
     },
     getRegisterError(state) {
+        console.log("hi");
         return state.registerError;
     },
     getNowRoute(state) {
@@ -97,11 +98,10 @@ const actions = {
     },
     registerDriver({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.post('/sign_up_driver', params)
+            httpRequest.post('/sign_up', params)
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
-                    commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
                 })
         })

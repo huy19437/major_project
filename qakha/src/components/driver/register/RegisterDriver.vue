@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container driver-signup">
     <div class="row back-btn">
       <button class="btn btn-lg">
         <router-link to="/login">Back to login</router-link>
@@ -14,15 +14,6 @@
             @input="reFillRegister"
             class="col-12"
           >
-            <div>
-              <div
-                v-if="registerError"
-                class="alert alert-danger err-mess"
-                role="alert"
-              >
-                {{ registerError }}
-              </div>
-            </div>
             <div class="col-12">
               <div class="row">
                 <div class="col-12 form-group">
@@ -43,7 +34,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 form-group">
+                <div class="col-6 form-group">
                   <label>Phone Number</label>
                   <input
                     type="number"
@@ -73,9 +64,7 @@
                     </p>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12 form-group">
+                <div class="col-6 form-group">
                   <label>Email</label>
                   <input
                     type="email"
@@ -92,7 +81,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-12 form-group">
+                <div class="col-6 form-group">
                   <label>Password</label>
                   <input
                     type="text"
@@ -125,13 +114,11 @@
                     </p>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12 form-group">
+                <div class="col-6 form-group">
                   <label>Password confirmation</label>
                   <input
                     type="text"
-                    placeholder="Enter Password Here.."
+                    placeholder="Enter Password Confirm Here.."
                     class="form-control"
                     v-model="form.password_confirmation"
                     @blur="$v.form.password_confirmation.$touch()"
@@ -200,6 +187,12 @@
                     <p class="errorMessage" v-if="!$v.form.id_card.required">
                       Id card Number is required
                     </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.id_card.validIdCard"
+                    >
+                      Id card Number is invalid
+                    </p>
                   </div>
                 </div>
                 <div class="col-6 form-group">
@@ -218,6 +211,12 @@
                     >
                       License plate is required
                     </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.license_plate.validLicensePlate"
+                    >
+                      License plate is invalid
+                    </p>
                   </div>
                 </div>
               </div>
@@ -225,7 +224,10 @@
                 <button
                   class="btn btn-lg btn-info"
                   :disabled="
-                    $v.form.$invalid || isDisabled || filesSelected < 1
+                    $v.form.$invalid ||
+                    isDisabled ||
+                    filesSelected < 1 ||
+                    registerErr
                   "
                 >
                   Submit
@@ -243,8 +245,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import { validPassword } from "../../../services/validation/validPassword";
+import { validIdCard } from "../../../services/validation/validIdCard";
+import { validLicensePlate } from "../../../services/validation/validLicensePlate";
 import {
   required,
   email,
@@ -280,7 +284,7 @@ export default {
       },
     };
     return {
-      registerSucess: false,
+      registerErr: false,
       isLoading: false,
       isDisabled: false,
       results: null,
@@ -334,17 +338,15 @@ export default {
       },
       id_card: {
         required,
+        validIdCard,
       },
       license_plate: {
         required,
+        validLicensePlate,
       },
     },
   },
-  computed: {
-    ...mapGetters({
-      registerError: "auth/getRegisterError",
-    }),
-  },
+  computed: {},
   methods: {
     ...mapActions({
       registerDriver: "auth/registerDriver",
@@ -356,23 +358,26 @@ export default {
       await this.upload()
         .then((res) => {
           this.isLoading = true;
-          if (this.registerError == null) {
+          if (this.registerErr == false) {
             this.$v.form.$touch();
             if (!this.$v.form.$invalid) {
-              console.log(this.$data.form);
-              // this.registerDriver(this.$data.form)
-              //   .then((response) => {
-              //     if (response) {
-              //       openToastMess("Sign up successfully", "success");
-              //       this.clearInput();
-              //     }
-              //   })
-              //   .finally(() => {
-              //     this.isLoading = false;
-              //     this.isDisabled = false;
-              //     this.filesSelected = 0;
-              //   });
-              // event.target.reset();
+              this.registerDriver(this.$data.form)
+                .then((response) => {
+                  if (response) {
+                    openToastMess("Sign up successfully", "success");
+                    // event.target.reset();
+                    this.clearInput();
+                  }
+                })
+                .catch((err) => {
+                  this.registerErr = true;
+                  openToastMess(err, "error");
+                })
+                .finally(() => {
+                  this.isLoading = false;
+                  this.isDisabled = false;
+                });
+              console.log(event.target.value);
             }
           }
         })
@@ -380,11 +385,8 @@ export default {
           openToastMess(err, "error");
         });
     },
-    toggleSuccesMessage: function () {
-      this.registerSucess = false;
-    },
     reFillRegister() {
-      this.setRegisterError(null);
+      this.registerErr = false;
     },
     handleFileChange: function (event) {
       console.log("handlefilechange", event.target.files);
@@ -466,9 +468,12 @@ export default {
       this.form.name = "";
       this.form.email = "";
       this.form.phone_number = "";
+      this.form.password_confirmation = "";
       this.form.password = "";
       this.form.address = "";
       this.form.image = "";
+      this.form.id_card = "";
+      this.form.license_plate = "";
     },
   },
   watch: {},
@@ -477,9 +482,9 @@ export default {
 
 <style scoped lang="scss">
 $button-color: #f7941d;
-.container {
+.container.driver-signup {
   position: relative;
-  margin-top: 1%;
+  margin-top: 5%;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
   select.form-control:not([size]):not([multiple]) {
