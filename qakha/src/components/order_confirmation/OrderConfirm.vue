@@ -12,6 +12,7 @@
       v-if="getOrderDetails.length == 0 ? true : false"
       class="alert alert-warning"
       role="alert"
+      style="text-align: center"
     >
       Go back and make a order
     </div>
@@ -131,7 +132,7 @@
                                 <a
                                   href="/"
                                   style="color: #ffffff; text-decoration: none"
-                                  >Shop &nbsp;</a
+                                  >Restaurants &nbsp;</a
                                 >
                               </p>
                             </td>
@@ -226,6 +227,78 @@
                           color: #777777;
                         "
                       ></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" style="padding-top: 20px">
+                      <table
+                        cellspacing="0"
+                        cellpadding="0"
+                        border="0"
+                        width="100%"
+                      >
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            bgcolor="#eeeeee"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 800;
+                              line-height: 24px;
+                              padding: 10px;
+                            "
+                          >
+                            Your Order
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            bgcolor="#eeeeee"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 800;
+                              line-height: 24px;
+                              padding: 10px;
+                            "
+                          ></td>
+                        </tr>
+                        <tr v-for="product in products" :key="product.id">
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px 10px;
+                            "
+                          >
+                            <img :src="`${product.image.url}`" width="90" />
+                            {{ product.name }}
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px 10px;
+                            "
+                          >
+                            {{ product.price }} VNĐ
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
                   <tr>
@@ -487,16 +560,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "OrderConfirm",
   data() {
-    return {};
+    return { products: [] };
   },
   computed: {
     ...mapGetters({
       getOrder: "order/getOrder",
       getOrderDetails: "order/getOrderDetails",
+      getPartnersLocal: "partner/getPartnersLocal",
     }),
   },
   methods: {
@@ -504,9 +578,29 @@ export default {
       console.log(this.getOrder);
       console.log(this.getOrderDetails);
     },
+    getInfoProduct() {
+      if (this.getOrderDetails) {
+        this.idOfProducts = this.getOrderDetails.map((item) => item.product_id);
+        const prods = [];
+
+        for (let i = 0; i < this.idOfProducts.length; i++) {
+          this.getPartnersLocal.find((pl) =>
+            pl.categories.find((cat) => {
+              cat.products.find((obj) => {
+                if (obj.id == this.idOfProducts[i]) {
+                  prods.push({ ...obj });
+                }
+              });
+            })
+          );
+        }
+        this.products = prods;
+      }
+    },
   },
   created() {
     this.showOrder();
+    this.getInfoProduct();
   },
 };
 </script>

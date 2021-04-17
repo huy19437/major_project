@@ -148,7 +148,9 @@
                           ><i class="fa fa-remove"></i
                         ></a>
                         <a class="cart-img" href="#"
-                          ><img src="https://via.placeholder.com/70x70" alt="#"
+                          ><img
+                            :src="`${product.image.url}`"
+                            alt="product image"
                         /></a>
                         <h4>{{ product.name }}</h4>
                         <p class="quantity">
