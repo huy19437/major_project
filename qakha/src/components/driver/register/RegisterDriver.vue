@@ -198,7 +198,6 @@
                   </div>
                 </div>
               </div>
-              <div class="row"></div>
               <div class="row image-section">
                 <div class="col-6 form-group">
                   <div v-show="showProgress">

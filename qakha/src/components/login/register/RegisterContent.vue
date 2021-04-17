@@ -156,16 +156,18 @@
         Sign up
       </button>
       <Spinner :loading="isLoading" />
-      <p class="partner-signup">
-        <router-link to="/register-partner"
-          >Sign up to become a partner</router-link
-        >
-      </p>
-      <p class="driver-signup">
-        <router-link to="/register-driver"
-          >Sign up to become a driver</router-link
-        >
-      </p>
+      <div class="row register-orther">
+        <div class="col-6 formgroup">
+          <p class="partner-signup">
+            <router-link to="/register-partner">Become a partner</router-link>
+          </p>
+        </div>
+        <div class="col-6 formgroup">
+          <p class="driver-signup">
+            <router-link to="/register-driver">Become a driver</router-link>
+          </p>
+        </div>
+      </div>
     </form>
   </div>
 </template>
@@ -493,5 +495,9 @@ textarea {
 
 .errorMessage {
   color: red;
+}
+
+.register-orther {
+  font-size: 2rem;
 }
 </style>
