@@ -261,6 +261,7 @@ import Spinner from "@/components/spinner/Spinner";
 import GoogleMap from "@/components/googlemap/GoogleMap";
 import axios from "axios";
 import ProgressBar from "vuejs-progress-bar";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "RegisterPartner",
   components: { Spinner, GoogleMap, ProgressBar },
@@ -367,32 +368,35 @@ export default {
       setRegisterError: "auth/setRegisterError",
     }),
     async handleSubmit(event) {
-      await this.upload().then((res) => {
-        console.log("đến đây");
-        this.isLoading = true;
-        // this.isDisabled = true;
-        if (this.registerError == null && !this.errMess) {
-          this.$v.form.$touch();
-          if (!this.$v.form.$invalid) {
-            console.log(this.$data.form);
-            this.registerPartner(this.$data.form)
-              .then((response) => {
-                if (response) {
-                  console.log(response);
-                  this.registerSucess = true;
-                  this.clearInput();
-                  setTimeout(this.toggleSuccesMessage, 5000);
-                }
-              })
-              .finally(() => {
-                this.isLoading = false;
-                this.isDisabled = false;
-                this.filesSelected = 0;
-              });
-            event.target.reset();
+      await this.upload()
+        .then((res) => {
+          this.isLoading = true;
+          // this.isDisabled = true;
+          if (this.registerError == null && !this.errMess) {
+            this.$v.form.$touch();
+            if (!this.$v.form.$invalid) {
+              console.log(this.$data.form);
+              this.registerPartner(this.$data.form)
+                .then((response) => {
+                  if (response) {
+                    console.log(response);
+                    this.registerSucess = true;
+                    this.clearInput();
+                    setTimeout(this.toggleSuccesMessage, 5000);
+                  }
+                })
+                .finally(() => {
+                  this.isLoading = false;
+                  this.isDisabled = false;
+                  this.filesSelected = 0;
+                });
+              event.target.reset();
+            }
           }
-        }
-      });
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
       // console.log(this.$data.form);
     },
     getLocationPartner(location) {
@@ -420,14 +424,6 @@ export default {
     upload: function () {
       return new Promise((res, rej) => {
         this.isDisabled = true;
-        if (this.preset.length < 1 || this.cloudName.length < 1) {
-          this.errMess = "You must enter a cloud name and preset to upload";
-          return;
-        }
-        // clear errors
-        else {
-          this.errors = "";
-        }
         console.log("upload", this.file.name);
         let reader = new FileReader();
         // attach listener to be called when data from file
@@ -459,11 +455,10 @@ export default {
                 console.log(this.form.image);
                 console.log(this.results);
                 console.log("public_id", this.results.public_id);
-                res();
+                res(response);
               })
               .catch((error) => {
-                this.errors.push(error);
-                console.log(this.error);
+                rej(error);
               })
               .finally(() => {
                 setTimeout(

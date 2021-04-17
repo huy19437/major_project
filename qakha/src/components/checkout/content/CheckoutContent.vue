@@ -309,7 +309,7 @@ export default {
       getUser: "auth/getUser",
       getSubtotal: "order/getSubtotal",
       getVouchersLocal: "voucher/getVouchersLocal",
-      getUserAddress: "auth/getUserAddress",
+      // getUserAddress: "auth/getUserAddress",
       getPartnersLocal: "partner/getPartnersLocal",
       getAddressLocal: "address/getAddressLocal",
     }),
@@ -401,8 +401,8 @@ export default {
     getShipDistance() {
       let addressUserForCalcDistance = {
         partner_id: this.slug,
-        latitude: this.getUser.addresses[0].latitude,
-        longitude: this.getUser.addresses[0].longitude,
+        latitude: this.getAddressLocal[0].latitude,
+        longitude: this.getAddressLocal[0].longitude,
       };
       this.getDistance(addressUserForCalcDistance)
         .then((res) => {
@@ -425,7 +425,7 @@ export default {
     getResult() {
       console.log(this.getAddressLocal);
       this.subTotal = this.getSubtotal;
-      this.user.address = this.getUser.addresses[0].name;
+      this.user.address = this.getAddressLocal[0].name;
       this.getUserInfo();
       this.getShipDistance();
       // let addressUserForCalcDistance = {

@@ -44,24 +44,6 @@
               </div>
               <div class="row">
                 <div class="col-12 form-group">
-                  <label>Address</label>
-                  <input
-                    placeholder="Enter Address Here.."
-                    rows="3"
-                    required
-                    class="form-control"
-                    v-model="form.address"
-                    @blur="$v.form.address.$touch()"
-                  />
-                  <div v-if="$v.form.address.$error">
-                    <p class="errorMessage" v-if="!$v.form.address.required">
-                      Address is required
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 form-group">
                   <label>Phone Number</label>
                   <input
                     type="number"
@@ -140,6 +122,44 @@
                       v-else-if="!$v.form.password.validPassword"
                     >
                       Password is invalid
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 form-group">
+                  <label>Password confirmation</label>
+                  <input
+                    type="text"
+                    placeholder="Enter Password Here.."
+                    class="form-control"
+                    v-model="form.password_confirmation"
+                    @blur="$v.form.password_confirmation.$touch()"
+                  />
+                  <div v-if="$v.form.password_confirmation.$error">
+                    <p
+                      class="errorMessage"
+                      v-if="!$v.form.password_confirmation.required"
+                    >
+                      passwordConfirmation is required
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password_confirmation.minLength"
+                    >
+                      passwordConfirmation is minimum is 6 characters
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password_confirmation.maxLength"
+                    >
+                      passwordConfirmation is maximum is 20 characters
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password_confirmation.sameAsPassword"
+                    >
+                      passwordConfirmation not match
                     </p>
                   </div>
                 </div>
@@ -230,6 +250,7 @@ import {
   email,
   minLength,
   maxLength,
+  sameAs,
 } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
 import axios from "axios";
@@ -277,13 +298,11 @@ export default {
         email: "",
         phone_number: "",
         password: "",
-        address: "",
+        password_confirmation: "",
         id_card: "",
         license_plate: "",
-        type_user: 3,
-        city_id: 1,
+        type_user: 2,
         image: "",
-        type_id: 1,
       },
     };
   },
@@ -292,13 +311,16 @@ export default {
       name: {
         required,
       },
-      address: {
-        required,
-      },
       phone_number: {
         required,
         minLength: minLength(10),
         maxLength: maxLength(10),
+      },
+      password_confirmation: {
+        required,
+        minLength: minLength(6),
+        maxLength: maxLength(20),
+        sameAsPassword: sameAs("password"),
       },
       email: {
         required,
@@ -337,19 +359,20 @@ export default {
           if (this.registerError == null) {
             this.$v.form.$touch();
             if (!this.$v.form.$invalid) {
-              this.registerDriver(this.$data.form)
-                .then((response) => {
-                  if (response) {
-                    openToastMess("Sign up successfully", "success");
-                    this.clearInput();
-                  }
-                })
-                .finally(() => {
-                  this.isLoading = false;
-                  this.isDisabled = false;
-                  this.filesSelected = 0;
-                });
-              event.target.reset();
+              console.log(this.$data.form);
+              // this.registerDriver(this.$data.form)
+              //   .then((response) => {
+              //     if (response) {
+              //       openToastMess("Sign up successfully", "success");
+              //       this.clearInput();
+              //     }
+              //   })
+              //   .finally(() => {
+              //     this.isLoading = false;
+              //     this.isDisabled = false;
+              //     this.filesSelected = 0;
+              //   });
+              // event.target.reset();
             }
           }
         })

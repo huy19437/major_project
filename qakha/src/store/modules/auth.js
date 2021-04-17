@@ -101,7 +101,7 @@ const actions = {
     },
     registerDriver({ commit }, params) {
         return new Promise((res, rej) => {
-            httpRequest.post('/sign_up', params)
+            httpRequest.post('/sign_up_driver', params)
                 .then(response => {
                     res(response.data);
                     console.log('response: ' + response.data);
@@ -158,16 +158,6 @@ const actions = {
     },
     user({ commit }) {
         commit('setUser', userInformation.getUser(localStorage.getItem('token')));
-    },
-    isAuthenticated() {
-        return new Promise((res, rej) => {
-            httpRequest.getAuthen('/checkAuthenticated')
-                .then(res => {
-                }).catch(err => {
-                    localStorage.removeItem('token');
-                    router.push({ path: "/" });
-                })
-        })
     },
     nowRoute({ commit }, params) {
         commit('setNowRoute', params);

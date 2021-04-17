@@ -95,9 +95,6 @@ h2::after {
       top: 4px;
     }
   }
-  h2 {
-    text-align: left;
-  }
 
   input {
     border-top-left-radius: 7px;

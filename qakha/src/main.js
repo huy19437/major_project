@@ -27,6 +27,9 @@ import '@/assets/asset_login_item/css/bootstrap.css'
 import '@/assets/asset_login_item/css/login-register.css'
 import Vuelidate from 'vuelidate'
 import * as VueGoogleMaps from "vue2-google-maps";
+import ProgressBar from 'vuejs-progress-bar'
+Vue.use(ProgressBar)
+
 // import VueToast from 'vue-toast-notification';
 // import 'vue-toast-notification/dist/theme-sugar.css';
 

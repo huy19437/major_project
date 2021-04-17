@@ -284,6 +284,11 @@ $button-color: #f7941d;
 
 .address-name {
   width: 100%;
+  border: none;
+  background: #f5f5f5;
+  &:focus {
+    outline: none;
+  }
 }
 
 .update-address,
@@ -291,6 +296,16 @@ $button-color: #f7941d;
   font-size: 20px;
   margin-right: 20px;
   cursor: pointer;
+}
+
+.table {
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
+  }
 }
 
 /* Custom page header */
