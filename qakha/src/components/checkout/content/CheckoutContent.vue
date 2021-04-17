@@ -170,7 +170,8 @@
                     </div>
                     <div v-if="errMess">
                       <p class="errorMessage">
-                        Time open must be before Time close
+                        Delivery time must be greater than time open of
+                        restaurant
                       </p>
                     </div>
                   </div>
@@ -325,6 +326,7 @@ export default {
       applyVouchers: "voucher/applyVouchers",
       cancelVouchers: "voucher/cancelVouchers",
       getVouchersFlPartner: "voucher/getVouchersFlPartner",
+      getAddress: "address/getAddress",
     }),
     changeAddress(address) {
       let addressUserForCalcDistance = {
@@ -371,7 +373,7 @@ export default {
       //   openToastMess("Please choose delivery location", "error");
       // } else {
       this.$v.user.$touch();
-      if (!this.$v.user.$invalid) {
+      if (!this.$v.user.$invalid || !this.errMess) {
         let params = {
           name: this.user.name,
           phone_number: this.user.phone_number,
@@ -382,7 +384,6 @@ export default {
           shipping_fee: this.shipping_fee,
           type_checkout: "cash",
         };
-        console.log(params);
         // this.createOrder(params)
         //   .then((res) => {
         //     console.log(res);
@@ -391,7 +392,6 @@ export default {
         //     openToastMess(error, "error");
         //   });
       }
-      console.log(this.$data.user);
       // }
     },
     getLocationPartner(location) {
@@ -418,12 +418,31 @@ export default {
       this.user.phone_number = this.getUser.phone_number;
       // this.user.address = this.getUser.addresses[0].name;
     },
-    getPartnersTime() {
-      let obj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
-      console.log(obj.time_close);
+    validateDeliveryTime(delivery_time) {
+      let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+
+      let time_close = partnerObj.time_close.slice(
+        0,
+        partnerObj.time_close.lastIndexOf(":")
+      );
+      let time_open = partnerObj.time_open.slice(
+        0,
+        partnerObj.time_open.lastIndexOf(":")
+      );
+
+      console.log(time_open + "===" + time_close);
+      console.log(delivery_time);
+
+      if (delivery_time < time_open) {
+        this.errMess = true;
+        console.log("delivery time must be greater than time_open");
+      }
+      if (delivery_time > time_close) {
+        this.errMess = true;
+        console.log("delivery time must be less than time_close");
+      }
     },
     getResult() {
-      console.log(this.getAddressLocal);
       this.subTotal = this.getSubtotal;
       this.user.address = this.getAddressLocal[0].name;
       this.getUserInfo();
@@ -437,14 +456,16 @@ export default {
     },
   },
   created() {
-    this.userObj();
-    this.getVouchersFlPartner({ partner_id: this.slug });
-    this.getResult();
-    this.getPartnersTime();
+    this.getAddress().then((res) => {
+      this.userObj();
+      this.getVouchersFlPartner({ partner_id: this.slug });
+      this.getResult();
+      // this.validateDeliveryTime();
+    });
   },
   watch: {
     delivery_time() {
-      // this.errMess = true;
+      this.validateDeliveryTime(this.delivery_time);
     },
   },
 };

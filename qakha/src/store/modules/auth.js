@@ -48,7 +48,6 @@ const mutations = {
                 if (data.name.lastIndexOf(" ") > 0) {
                     let tmp = data.name.trim();
                     state.userInfo = tmp.slice(tmp.lastIndexOf(" "));
-                    console.log(state.userInfo);
                 } else {
                     state.userInfo = data.name.trim();
                 }
@@ -76,7 +75,6 @@ const mutations = {
 const actions = {
     register({ commit }, params) {
         return new Promise((res, rej) => {
-            console.log(params);
             httpRequest.post('/sign_up', params)
                 .then(response => {
                     res(response.data);
@@ -91,9 +89,7 @@ const actions = {
             httpRequest.post('/sign_up', params)
                 .then(response => {
                     res(response.data);
-                    console.log('response: ' + response.data);
                 }).catch(err => {
-                    console.log(err.response.data.message);
                     commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
                 })
@@ -104,9 +100,7 @@ const actions = {
             httpRequest.post('/sign_up_driver', params)
                 .then(response => {
                     res(response.data);
-                    console.log('response: ' + response.data);
                 }).catch(err => {
-                    console.log(err.response.data.message);
                     commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
                 })

@@ -26,11 +26,10 @@ const mutations = {
 }
 
 const actions = {
-    getAddress({ commit }, params) {
+    getAddress({ commit }) {
         return new Promise((res, rej) => {
             httpRequest.get('/addresses')
                 .then((response) => {
-                    console.log(response.data);
                     res(response.data);
                     commit('setAddress', response.data);
                 }).catch(err => {
