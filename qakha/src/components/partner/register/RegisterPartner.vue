@@ -56,114 +56,129 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Address</label>
-                <textarea
-                  placeholder="Enter Address Here.."
-                  rows="3"
-                  required
-                  class="form-control"
-                  v-model="form.address"
-                  @blur="$v.form.address.$touch()"
-                ></textarea>
-                <div v-if="$v.form.address.$error">
-                  <p class="errorMessage" v-if="!$v.form.address.required">
-                    Address is required
-                  </p>
+              <div class="row">
+                <div class="col-12 formgroup">
+                  <label>Address</label>
+                  <input
+                    placeholder="Enter Address Here.."
+                    rows="3"
+                    required
+                    class="form-control"
+                    v-model="form.address"
+                    @blur="$v.form.address.$touch()"
+                  />
+                  <div v-if="$v.form.address.$error">
+                    <p class="errorMessage" v-if="!$v.form.address.required">
+                      Address is required
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="number"
-                  placeholder="Enter Phone Number Here.."
-                  class="form-control"
-                  v-model="form.phone_number"
-                  @blur="$v.form.phone_number.$touch()"
-                />
-                <div v-if="$v.form.phone_number.$error">
-                  <p class="errorMessage" v-if="!$v.form.phone_number.required">
-                    Phone number is required
-                  </p>
-                  <p
-                    class="errorMessage"
-                    v-if="!$v.form.phone_number.minLength"
-                  >
-                    Phone number minimum is 10 characters
-                  </p>
-                  <p
-                    class="errorMessage"
-                    v-if="!$v.form.phone_number.maxLength"
-                  >
-                    Phone number maximum is 10 characters
-                  </p>
+              <div class="row">
+                <div class="col-12 formgroup">
+                  <label>Phone Number</label>
+                  <input
+                    type="number"
+                    placeholder="Enter Phone Number Here.."
+                    class="form-control"
+                    v-model="form.phone_number"
+                    @blur="$v.form.phone_number.$touch()"
+                  />
+                  <div v-if="$v.form.phone_number.$error">
+                    <p
+                      class="errorMessage"
+                      v-if="!$v.form.phone_number.required"
+                    >
+                      Phone number is required
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-if="!$v.form.phone_number.minLength"
+                    >
+                      Phone number minimum is 10 characters
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-if="!$v.form.phone_number.maxLength"
+                    >
+                      Phone number maximum is 10 characters
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  placeholder="Enter Email Address Here.."
-                  class="form-control"
-                  v-model="form.email"
-                  @blur="$v.form.email.$touch()"
-                />
-                <div v-if="$v.form.email.$error">
-                  <p class="errorMessage" v-if="!$v.form.email.required">
-                    Email is required
-                  </p>
+              <div class="row">
+                <div class="col-12 formgroup">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    placeholder="Enter Email Address Here.."
+                    class="form-control"
+                    v-model="form.email"
+                    @blur="$v.form.email.$touch()"
+                  />
+                  <div v-if="$v.form.email.$error">
+                    <p class="errorMessage" v-if="!$v.form.email.required">
+                      Email is required
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input
-                  type="text"
-                  placeholder="Enter Password Here.."
-                  class="form-control"
-                  v-model="form.password"
-                  @blur="$v.form.password.$touch()"
-                />
-                <div v-if="$v.form.password.$error">
-                  <p class="errorMessage" v-if="!$v.form.password.required">
-                    Password is required
-                  </p>
-                  <p
-                    class="errorMessage"
-                    v-else-if="!$v.form.password.minLength"
-                  >
-                    Password is minimum is 6 characters
-                  </p>
-                  <p
-                    class="errorMessage"
-                    v-else-if="!$v.form.password.maxLength"
-                  >
-                    Password is maximum is 20 characters
-                  </p>
-                  <p
-                    class="errorMessage"
-                    v-else-if="!$v.form.password.validPassword"
-                  >
-                    Password is invalid
-                  </p>
+              <div class="row">
+                <div class="col-12 formgroup">
+                  <label>Password</label>
+                  <input
+                    type="text"
+                    placeholder="Enter Password Here.."
+                    class="form-control"
+                    v-model="form.password"
+                    @blur="$v.form.password.$touch()"
+                  />
+                  <div v-if="$v.form.password.$error">
+                    <p class="errorMessage" v-if="!$v.form.password.required">
+                      Password is required
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password.minLength"
+                    >
+                      Password is minimum is 6 characters
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password.maxLength"
+                    >
+                      Password is maximum is 20 characters
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password.validPassword"
+                    >
+                      Password is invalid
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div v-show="showProgress">
-                  <progress-bar :options="options" :value="progress" />
+              <!-- <div class="row">
+                <div class="col-12 formgroup">
+                  <div v-show="showProgress">
+                    <progress-bar :options="options" :value="progress" />
+                  </div>
+                  <section v-if="results && results.secure_url">
+                    <label>Image Uploaded</label>
+                    <img :src="results.secure_url" :alt="results.public_id" />
+                  </section>
                 </div>
-                <section v-if="results && results.secure_url">
-                  <label>Image Uploaded</label>
-                  <img :src="results.secure_url" :alt="results.public_id" />
-                </section>
-              </div>
-              <div class="form-group image-upload">
-                <label>Image</label>
-                <input
-                  id="file-input"
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  @change="handleFileChange($event)"
-                />
+              </div> -->
+              <div class="row">
+                <div class="col-12 formgroup image-upload">
+                  <label>Image</label>
+                  <input
+                    id="file-input"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    @change="handleFileChange($event)"
+                  />
+                </div>
               </div>
               <div class="row">
                 <div class="col-4 form-group">
@@ -238,10 +253,34 @@
             </div>
           </form>
         </div>
+        <div class="row">
+          <div class="col-12 form-group">
+            <Spinner :loading="isLoading" />
+          </div>
+        </div>
       </div>
       <div class="col-lg-6 well">
-        <GoogleMap @get-location-partner="getLocationPartner" />
-        <Spinner :loading="isLoading" />
+        <div class="row">
+          <div class="row maps-section">
+            <div class="col-12 formgroup">
+              <GoogleMap @get-location-partner="getLocationPartner" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 formgroup">
+            <div v-show="showProgress">
+              <progress-bar :options="options" :value="progress" />
+            </div>
+            <section
+              class="image-upload-section"
+              v-if="results && results.secure_url"
+            >
+              <label>Image Uploaded</label>
+              <img :src="results.secure_url" :alt="results.public_id" />
+            </section>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -572,6 +611,15 @@ $button-color: #f7941d;
     top: 13%;
     width: 52%;
     right: 24%;
+  }
+  .maps-section {
+    width: 100%;
+    padding-left: 33px;
+  }
+  .image-upload-section {
+    img {
+      height: 40vh;
+    }
   }
 }
 

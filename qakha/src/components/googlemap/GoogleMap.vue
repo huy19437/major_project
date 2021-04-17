@@ -15,7 +15,7 @@
       <br />
     </div>
     <br />
-    <gmap-map :center="center" :zoom="12" style="width: 100%; height: 400px">
+    <gmap-map :center="center" :zoom="12" style="width: 100%; height: 21vh">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
