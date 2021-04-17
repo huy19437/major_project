@@ -99,8 +99,10 @@ export default {
     ...mapActions({
       user: "auth/user",
       getAddress: "address/getAddress",
+      setShoppingStatus: "cart/setShoppingStatus",
     }),
     getResult() {
+      this.setShoppingStatus(false);
       this.user();
       this.getAddress(this.user.id);
     },
