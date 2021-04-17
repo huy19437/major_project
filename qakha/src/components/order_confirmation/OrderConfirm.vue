@@ -9,22 +9,13 @@
     bgcolor="#eeeeee"
   >
     <div
-      style="
-        display: none;
-        font-size: 1px;
-        color: #fefefe;
-        line-height: 1px;
-        font-family: Open Sans, Helvetica, Arial, sans-serif;
-        max-height: 0px;
-        max-width: 0px;
-        opacity: 0;
-        overflow: hidden;
-      "
+      v-if="getOrderDetails.length == 0 ? true : false"
+      class="alert alert-warning"
+      role="alert"
     >
-      For what reason would it be advisable for me to think about business
-      content? That might be little bit risky to have crew member like them.
+      Go back and make a order
     </div>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table v-else border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
         <td align="center" style="background-color: #eeeeee" bgcolor="#eeeeee">
           <table
@@ -139,7 +130,6 @@
                               >
                                 <a
                                   href="/"
-                                  target="_blank"
                                   style="color: #ffffff; text-decoration: none"
                                   >Shop &nbsp;</a
                                 >
@@ -155,8 +145,7 @@
                               "
                             >
                               <a
-                                href="#"
-                                target="_blank"
+                                href="/"
                                 style="color: #ffffff; text-decoration: none"
                                 ><img
                                   src="https://img.icons8.com/color/48/000000/small-business.png"
@@ -236,10 +225,7 @@
                           line-height: 24px;
                           color: #777777;
                         "
-                      >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Praesentium iste ipsa numquam odio dolores, nam.
-                      </p>
+                      ></p>
                     </td>
                   </tr>
                   <tr>
@@ -264,7 +250,7 @@
                               padding: 10px;
                             "
                           >
-                            Order Confirmation #
+                            Order Confirmation
                           </td>
                           <td
                             width="25%"
@@ -278,9 +264,7 @@
                               line-height: 24px;
                               padding: 10px;
                             "
-                          >
-                            2345678
-                          </td>
+                          ></td>
                         </tr>
                         <tr>
                           <td
@@ -295,7 +279,7 @@
                               padding: 15px 10px 5px 10px;
                             "
                           >
-                            Purchased Item (1)
+                            Purchased Item ({{ getOrderDetails.length }})
                           </td>
                           <td
                             width="25%"
@@ -309,7 +293,7 @@
                               padding: 15px 10px 5px 10px;
                             "
                           >
-                            $100.00
+                            {{ getOrder.subtotal }} VNĐ
                           </td>
                         </tr>
                         <tr>
@@ -325,7 +309,7 @@
                               padding: 5px 10px;
                             "
                           >
-                            Shipping + Handling
+                            Shipping Fee
                           </td>
                           <td
                             width="25%"
@@ -339,37 +323,7 @@
                               padding: 5px 10px;
                             "
                           >
-                            $10.00
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            width="75%"
-                            align="left"
-                            style="
-                              font-family: Open Sans, Helvetica, Arial,
-                                sans-serif;
-                              font-size: 16px;
-                              font-weight: 400;
-                              line-height: 24px;
-                              padding: 5px 10px;
-                            "
-                          >
-                            Sales Tax
-                          </td>
-                          <td
-                            width="25%"
-                            align="left"
-                            style="
-                              font-family: Open Sans, Helvetica, Arial,
-                                sans-serif;
-                              font-size: 16px;
-                              font-weight: 400;
-                              line-height: 24px;
-                              padding: 5px 10px;
-                            "
-                          >
-                            $5.00
+                            {{ getOrder.shipping_fee }} VNĐ
                           </td>
                         </tr>
                       </table>
@@ -414,7 +368,7 @@
                               border-bottom: 3px solid #eeeeee;
                             "
                           >
-                            $115.00
+                            {{ getOrder.total }} VNĐ
                           </td>
                         </tr>
                       </table>
@@ -473,8 +427,11 @@
                             >
                               <p style="font-weight: 800">Delivery Address</p>
                               <p>
-                                675 Massachusetts Avenue<br />11th Floor<br />Cambridge,
-                                MA 02139
+                                {{ getOrder.address.split(",")[0] }}
+                                <br />
+                                {{ getOrder.address.split(",")[1] }}
+                                <br />
+                                {{ getOrder.address.split(",")[2] }}
                               </p>
                             </td>
                           </tr>
@@ -512,7 +469,7 @@
                               <p style="font-weight: 800">
                                 Estimated Delivery Date
                               </p>
-                              <p>January 1st, 2016</p>
+                              <p>{{ getOrder.delivery_time }}</p>
                             </td>
                           </tr>
                         </table>
@@ -530,7 +487,28 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapGetters, mapMutations } from "vuex";
+export default {
+  name: "OrderConfirm",
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters({
+      getOrder: "order/getOrder",
+      getOrderDetails: "order/getOrderDetails",
+    }),
+  },
+  methods: {
+    showOrder() {
+      console.log(this.getOrder);
+      console.log(this.getOrderDetails);
+    },
+  },
+  created() {
+    this.showOrder();
+  },
+};
 </script>
 
 <style scoped lang="scss">

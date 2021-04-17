@@ -408,6 +408,7 @@ export default {
         this.createOrder(params)
           .then((res) => {
             openToastMess("Order created", "success");
+            this.$router.push({ name: "OrderConfirm" });
             console.log(res);
           })
           .catch((error) => {

@@ -192,7 +192,6 @@ export default {
           this.setCartsNull();
           this.setShoppingStatus(false);
           this.partnerData = this.getPartnersLocal;
-          this.getAddress();
         })
         .catch((err) => {
           console.log(err);

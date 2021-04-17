@@ -3,7 +3,9 @@ import httpRequest from '../../services/repository'
 const state = {
     distance: 0,
     subtt: 0,
-    coins_user: 0
+    coins_user: 0,
+    order: {},
+    order_details: []
 }
 
 const getters = {
@@ -15,6 +17,12 @@ const getters = {
     },
     getCoinsUser(state) {
         return state.coins_user;
+    },
+    getOrder(state) {
+        return state.order
+    },
+    getOrderDetails(state) {
+        return state.order_details
     }
 }
 
@@ -27,6 +35,12 @@ const mutations = {
     },
     setCoinsUser(state, data) {
         state.coins_user = data
+    },
+    setOrder(state, data) {
+        state.order = data
+    },
+    setOrderDetails(state, data) {
+        state.order_details = data
     }
 }
 
@@ -48,7 +62,8 @@ const actions = {
                 .then((response) => {
                     console.log(response);
                     res(response.data);
-                    // commit('setDistance', response.data);
+                    commit('setOrder', response.data.order);
+                    commit('setOrderDetails', response.data.order_details);
                 }).catch(err => {
                     rej(err.response.data.error);
                 });
