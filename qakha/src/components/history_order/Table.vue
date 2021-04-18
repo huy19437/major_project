@@ -31,7 +31,7 @@
               {{ item.status }}
             </span>
           </td>
-          <td>8</td>
+          <td><a class="order-detail">View Order Detail</a></td>
         </tr>
       </tbody>
     </table>
@@ -130,5 +130,9 @@ export default {
   background: #f7941d;
   padding: 4px;
   border-radius: 5px;
+}
+.order-detail {
+  color: #428bca !important;
+  cursor: pointer;
 }
 </style>

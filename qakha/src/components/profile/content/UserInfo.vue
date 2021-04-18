@@ -5,7 +5,14 @@
         <div class="row align-items-center flex-row-reverse user-info">
           <div class="col-lg-6">
             <div class="about-text go-to">
-              <h3 class="dark-color">About Me</h3>
+              <div class="header-info">
+                <h3 class="dark-color">About Me</h3>
+                <div title="History Order" class="order-history">
+                  <router-link to="/history-order">
+                    <font-awesome-icon :icon="['fas', 'clipboard-list']" />
+                  </router-link>
+                </div>
+              </div>
               <div class="row about-list">
                 <div class="col-md-6">
                   <div class="media">
@@ -255,5 +262,16 @@ mark {
 }
 .dark-color {
   color: #20247b;
+}
+
+.header-info {
+  display: flex;
+  justify-content: space-between;
+  .order-history {
+    a {
+      color: #000;
+    }
+    font-size: 3rem;
+  }
 }
 </style>
