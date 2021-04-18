@@ -5,7 +5,8 @@ const state = {
     subtt: 0,
     coins_user: 0,
     order: {},
-    order_details: []
+    order_details: [],
+    history_order: [],
 }
 
 const getters = {
@@ -23,6 +24,9 @@ const getters = {
     },
     getOrderDetails(state) {
         return state.order_details
+    },
+    getHistoryOrder(state) {
+        return state.history_order
     }
 }
 
@@ -41,6 +45,9 @@ const mutations = {
     },
     setOrderDetails(state, data) {
         state.order_details = data
+    },
+    setHistoryOrder(state, data) {
+        state.history_order = data
     }
 }
 
@@ -80,7 +87,19 @@ const actions = {
                     rej(err.response.data.message);
                 });
         })
-    }
+    },
+    historyOrders({ commit }) {
+        return new Promise((res, rej) => {
+            httpRequest.get('/orders')
+                .then((response) => {
+                    commit('setHistoryOrder', response.data);
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.message);
+                });
+        })
+    },
+
 }
 
 export default {

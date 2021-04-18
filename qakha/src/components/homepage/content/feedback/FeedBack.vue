@@ -3,9 +3,9 @@
     <h2>FeedBacks of <b>Customers</b></h2>
     <div class="p-4 p-lg-5 bg-white">
       <div class="row">
-        <div v-if="getFeedbacks" class="col-lg-8">
+        <div v-if="visibleFeedbacks" class="col-lg-8">
           <div
-            v-for="feedback in getFeedbacks"
+            v-for="feedback in visibleFeedbacks"
             :key="feedback.id"
             class="media mb-3"
           >
@@ -36,6 +36,14 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <PaginationCustom
+          :paginationData="getFeedbacks"
+          @page:update="updatePage"
+          :currentPage="currentPage"
+          :pageSize="pageSize"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -43,31 +51,62 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
+import PaginationCustom from "@/components/pagination/PaginationCustom";
 export default {
+  name: "FeedBack",
+  components: { PaginationCustom },
+  data() {
+    return {
+      currentPage: 0,
+      pageSize: 3,
+    };
+  },
   computed: {
     ...mapGetters({
       getFeedbacksStatus: "feedback/getFeedbacksStatus",
       getFeedbacks: "feedback/getFeedbacks",
     }),
+    feedBacksStatusChange() {
+      return this.getFeedbacksStatus;
+    },
+    visibleFeedbacks() {
+      return this.getFeedbacks.slice(
+        this.currentPage * this.pageSize,
+        this.currentPage * this.pageSize + this.pageSize
+      );
+    },
   },
   methods: {
     ...mapActions({
       Feedbacks: "feedback/Feedbacks",
     }),
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+    },
     getResult() {
-      let params = {
-        partner_id: this.$route.params.slug,
-      };
-      console.log(params);
-      this.Feedbacks(params)
-        .then(() => {})
-        .catch((error) => {
-          openToastMess(error, "error");
-        });
+      console.log("this.getFeedbacksStatus " + this.getFeedbacksStatus);
+
+      if (this.getFeedbacksStatus) {
+        console.log("this.getFeedbacksStatus " + this.getFeedbacksStatus);
+        let params = {
+          partner_id: this.$route.params.slug,
+        };
+        console.log(params);
+        this.Feedbacks(params)
+          .then((res) => {
+            console.log("hi");
+            console.log(res);
+          })
+          .catch((error) => {
+            openToastMess(error, "error");
+          });
+      }
     },
   },
-  created() {
-    this.getResult();
+  watch: {
+    feedBacksStatusChange() {
+      this.getResult();
+    },
   },
 };
 </script>

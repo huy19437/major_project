@@ -4,7 +4,7 @@
       <h1>History Order</h1>
     </div>
     <div class="row" style="margin-bottom: 48px">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-12">
         <div class="row">
           <Content />
         </div>

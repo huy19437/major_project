@@ -17,7 +17,7 @@
             <div class="single-service">
               <i class="ti-reload"></i>
               <h4>Free Return</h4>
-              <p>Within 30 days returns</p>
+              <p>Within 1 hour returns</p>
             </div>
             <!-- End Single Service -->
           </div>

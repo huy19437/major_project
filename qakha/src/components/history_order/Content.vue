@@ -1,64 +1,141 @@
 <template>
   <div class="col-12">
     <div class="row">
-      <div class="col-3">
+      <div class="col-4">
         <div class="form-group dropdown">
           <label>Status</label>
           <DropDownStatus @selet-option="methodToRunOnSelect" />
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <div class="form-group">
-          <label>Start date</label>
+          <label>Delivery time</label>
           <input
             type="date"
             name="bday"
             max="3000-12-31"
             min="1000-01-01"
             class="form-control"
+            v-model="dateSearch"
           />
         </div>
       </div>
-      <div class="col-3">
-        <div class="form-group">
-          <label>End date</label>
-          <input
-            type="date"
-            name="bday"
-            max="3000-12-31"
-            min="1000-01-01"
-            class="form-control"
-          />
+      <div class="col-4" style="align-self: center">
+        <div class="row">
+          <div class="col-5">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm btn-search"
+              @click="searchOrderByParams()"
+            >
+              <span>Search</span>
+            </button>
+          </div>
+          <div class="col-5">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm btn-create"
+              data-toggle="modal"
+              data-target="#staticBackdrop"
+              @click="fetchOrderHistoryAgain()"
+            >
+              <span
+                ><span><font-awesome-icon :icon="['fas', 'undo']" /></span
+              ></span>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="col-3" style="align-self: center">
-        <button type="button" class="btn btn-primary btn-sm btn-search">
-          <span>Search</span>
-        </button>
       </div>
     </div>
 
-    <Table :laravelData="''" :successMess="''" />
+    <Table :historyOrderData="orderHistoryData" />
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Table from "./Table";
 import DropDownStatus from "./DropDownStatus";
-
+import moment from "moment";
 export default {
   name: "ContentCampaign",
   components: {
     DropDownStatus,
     Table,
   },
+  computed: {
+    ...mapGetters({
+      getHistoryOrder: "order/getHistoryOrder",
+    }),
+  },
   data() {
-    return {};
+    return {
+      orderHistoryData: [],
+      searchStatus: "completed",
+      dateSearch: "",
+      filterObj: {
+        status: "completed",
+        delivery_time: "",
+        end_date: "",
+      },
+    };
   },
   methods: {
+    ...mapActions({
+      historyOrders: "order/historyOrders",
+    }),
     methodToRunOnSelect(payload) {
-      console.log(payload);
+      this.searchStatus = payload;
     },
+    searchOrderByParams() {
+      this.orderHistoryData = this.getHistoryOrder;
+      this.setFilterObj();
+
+      //filter props has value of filterObj
+      Object.keys(this.filterObj).forEach((key) => {
+        if (this.filterObj[key] === "") delete this.filterObj[key];
+      });
+
+      var filter = this.filterObj;
+      this.orderHistoryData = this.orderHistoryData.filter((item) => {
+        for (let key in filter) {
+          //sort condition for status
+          if (item[key].indexOf(" ") < 0) {
+            if (item[key] != filter[key]) {
+              return false;
+            }
+            //sort condition for delivery_time
+          } else if (
+            item[key].slice(0, item[key].indexOf(" ")) != filter[key]
+          ) {
+            return false;
+          }
+        }
+        return true;
+      });
+      console.log(this.orderHistoryData);
+    },
+    setFilterObj() {
+      this.filterObj.status = this.searchStatus;
+      if (this.dateSearch) {
+        this.filterObj.delivery_time = moment(this.dateSearch).format(
+          "DD-MM-YYYY"
+        );
+      } else {
+        this.filterObj.delivery_time = "";
+      }
+    },
+    fetchOrderHistoryAgain() {
+      this.dateSearch = "";
+      this.getResult();
+    },
+    getResult() {
+      this.historyOrders().then((res) => {
+        this.orderHistoryData = this.getHistoryOrder;
+      });
+    },
+  },
+  created() {
+    this.getResult();
   },
 };
 </script>

@@ -69,7 +69,6 @@ const mutations = {
 
 const actions = {
     getCart({ commit }, params) {
-        console.log(params);
         return new Promise((res, rej) => {
             httpRequest.get('/cart', { params })
                 .then((response) => {

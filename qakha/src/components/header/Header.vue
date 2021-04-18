@@ -282,10 +282,10 @@
                           </li>
                           <li><a href="#">Pages</a></li>
                           <li class="hasDropDown">
-                            <a href="#">Blog<i class="ti-angle-down"></i></a>
+                            <a href="#">Mart<i class="ti-angle-down"></i></a>
                             <ul class="dropdown">
                               <li>
-                                <a href="blog-single-sidebar.html">Our Blog</a>
+                                <a href="blog-single-sidebar.html">Our Mart</a>
                               </li>
                             </ul>
                           </li>

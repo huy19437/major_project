@@ -31,7 +31,6 @@ const getters = {
         return state.loginError;
     },
     getRegisterError(state) {
-        console.log("hi");
         return state.registerError;
     },
     getNowRoute(state) {
