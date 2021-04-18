@@ -200,6 +200,7 @@ export default {
       addProductToCart: "cart/addProductToCart",
       nowRoute: "auth/nowRoute",
       partnerId: "partner/partnerId",
+      showFeedback: "feedback/showFeedback",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -236,6 +237,7 @@ export default {
     },
     getResult() {
       this.setShoppingStatus(true);
+      this.showFeedback(true);
       let token = localStorage.getItem("token");
       if (token) {
         let params = {

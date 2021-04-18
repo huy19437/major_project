@@ -12,6 +12,7 @@ import MainHome from '../views/MainHome.vue'
 import RegisterPartner from '@/components/partner/register/RegisterPartner.vue'
 import RegisterDriver from '@/components/driver/register/RegisterDriver.vue'
 import EditAddress from '@/components/edit_address/EditAddress.vue'
+import HistoryOrder from '@/components/history_order/HistoryOrder.vue'
 import { home } from './home'
 Vue.use(VueRouter)
 
@@ -54,6 +55,14 @@ const routes = [
         path: 'orderconfirm/:slug',
         name: 'OrderConfirm',
         component: OrderConfirm,
+        meta: {
+          auth: true
+        },
+      },
+      {
+        path: 'history-order',
+        name: 'HistoryOrder',
+        component: HistoryOrder,
         meta: {
           auth: true
         },

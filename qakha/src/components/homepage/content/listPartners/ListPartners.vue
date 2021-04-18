@@ -179,6 +179,7 @@ export default {
       setShoppingStatus: "cart/setShoppingStatus",
       user: "auth/user",
       getAddress: "address/getAddress",
+      showFeedback: "feedback/showFeedback",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -191,6 +192,7 @@ export default {
         .then((res) => {
           this.setCartsNull();
           this.setShoppingStatus(false);
+          this.showFeedback(false);
           this.partnerData = this.getPartnersLocal;
         })
         .catch((err) => {
