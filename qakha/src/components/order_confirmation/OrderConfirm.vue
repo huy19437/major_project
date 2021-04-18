@@ -560,11 +560,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "OrderConfirm",
   data() {
-    return { products: [] };
+    return { products: [], slug: this.$route.params.slug };
   },
   computed: {
     ...mapGetters({
@@ -574,6 +574,10 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      getCart: "cart/getCart",
+      setShoppingStatus: "cart/setShoppingStatus",
+    }),
     showOrder() {
       console.log(this.getOrder);
       console.log(this.getOrderDetails);
@@ -597,10 +601,29 @@ export default {
         this.products = prods;
       }
     },
+    getCartAfterOrder() {
+      this.setShoppingStatus(false);
+      let token = localStorage.getItem("token");
+      if (token) {
+        let params = {
+          partner_id: this.slug,
+        };
+        this.getCart(params)
+          .then((res) => {})
+          .catch((error) => {
+            if (typeof error == "object") {
+              openToastMess(error.toString(), "error");
+            } else {
+              openToastMess(error, "error");
+            }
+          });
+      }
+    },
   },
   created() {
     this.showOrder();
     this.getInfoProduct();
+    this.getCartAfterOrder();
   },
 };
 </script>

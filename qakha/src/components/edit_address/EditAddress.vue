@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row back-btn">
       <button class="btn btn-lg">
-        <router-link to="/profile">Back</router-link>
+        <a @click="hasHistory() ? $router.go(-1) : $router.push('/')">Back</a>
       </button>
     </div>
     <h1 class="well title">User Address Edit</h1>
@@ -150,6 +150,9 @@ export default {
     },
     getResult() {
       this.getAddress(this.getUser.id);
+    },
+    hasHistory() {
+      return window.history.length > 2;
     },
   },
   created() {

@@ -100,7 +100,12 @@
                       :class="{ open: isOpen3 }"
                       @click="isOpen3 = !isOpen3"
                     >
-                      <span class="current">{{ user.address }}</span>
+                      <span class="current">
+                        {{ user.address }}
+                        <router-link to="/edit-address">
+                          <font-awesome-icon :icon="['fas', 'edit']" />
+                        </router-link>
+                      </span>
                       <ul class="list">
                         <li
                           v-for="item in getAddressLocal"
@@ -369,6 +374,7 @@ export default {
       };
       this.applyVouchers(params)
         .then((res) => {
+          openToastMess("Apply Voucher Successfully!", "success");
           this.subTotal = res;
         })
         .catch((error) => {
@@ -382,6 +388,7 @@ export default {
       };
       this.cancelVouchers(params)
         .then((res) => {
+          openToastMess("Cancel Voucher Successfully!", "success");
           this.subTotal = res;
         })
         .catch((error) => {
@@ -408,7 +415,10 @@ export default {
         this.createOrder(params)
           .then((res) => {
             openToastMess("Order created", "success");
-            this.$router.push({ name: "OrderConfirm" });
+            this.$router.push({
+              name: "OrderConfirm",
+              params: { slug: this.slug },
+            });
             console.log(res);
           })
           .catch((error) => {

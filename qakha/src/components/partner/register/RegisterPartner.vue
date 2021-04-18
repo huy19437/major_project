@@ -427,7 +427,7 @@ export default {
                 .finally(() => {
                   this.isLoading = false;
                   this.isDisabled = false;
-                  this.filesSelected = 0;
+                  // this.filesSelected = 0;
                 });
               event.target.reset();
             }

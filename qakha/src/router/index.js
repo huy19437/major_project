@@ -51,7 +51,7 @@ const routes = [
         },
       },
       {
-        path: 'orderconfirm',
+        path: 'orderconfirm/:slug',
         name: 'OrderConfirm',
         component: OrderConfirm,
         meta: {
