@@ -255,6 +255,24 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="loadMe"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loader"></div>
+            <div clas="loader-txt">
+              <p>Waiting for Checkout</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -270,6 +288,7 @@ import {
 } from "vuelidate/lib/validators";
 import GoogleMap from "@/components/googlemap/GoogleMap";
 import moment from "moment";
+import $ from "jquery";
 export default {
   name: "CheckoutContent",
   components: { GoogleMap },
@@ -414,6 +433,7 @@ export default {
           latitude: this.user.address.latitude,
         };
         console.log(params);
+        $("#loadMe").modal("show");
         this.createOrder(params)
           .then((res) => {
             openToastMess("Order created", "success");
@@ -425,6 +445,9 @@ export default {
           })
           .catch((error) => {
             openToastMess(error, "error");
+          })
+          .finally(() => {
+            $("#loadMe").modal("hide");
           });
       }
       // }
@@ -588,5 +611,57 @@ export default {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+}
+
+/** SPINNER CREATION **/
+
+.loader {
+  position: relative;
+  text-align: center;
+  margin: 15px auto 35px auto;
+  z-index: 9999;
+  display: block;
+  width: 80px;
+  height: 80px;
+  border: 10px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: #000;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+/** MODAL STYLING **/
+
+.modal-content {
+  top: 30vh;
+  border-radius: 0px;
+  box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+}
+
+.modal-backdrop.show {
+  opacity: 0.75;
+}
+
+.loader-txt {
+  p {
+    font-size: 13px;
+    color: #666;
+    small {
+      font-size: 11.5px;
+      color: #999;
+    }
+  }
 }
 </style>

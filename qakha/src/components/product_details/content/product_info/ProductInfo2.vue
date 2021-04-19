@@ -12,6 +12,7 @@
           </div>
           <div class="details col-md-6">
             <h3 class="product-title">{{ products.name }}</h3>
+            <h5 class="partner-name">{{ partner.name }}</h5>
             <div class="rating">
               <div class="stars">
                 <span class="fa fa-star checked"></span>
@@ -258,6 +259,7 @@ img {
 }
 
 .product-title,
+.partner-name,
 .price,
 .sold,
 .colors,
@@ -272,6 +274,7 @@ img {
 }
 
 .product-title,
+.partner-name,
 .rating,
 .product-description,
 .price,
@@ -287,12 +290,31 @@ img {
 .qty .input-group {
   display: flex;
   button {
-    background-color: #f7941d;
-    border-color: #f7941d;
+    border-radius: 0;
+    background-color: #fff;
+    border-color: #fff;
+    color: #000;
+    &:active {
+      color: #f7941d;
+      background-color: #fff;
+      border-color: #fff;
+      box-shadow: none;
+    }
+    &:focus {
+      border-radius: 0;
+      background-color: #fff;
+      border-color: #fff;
+      color: #f7941d;
+      outline: none;
+      box-shadow: none;
+    }
   }
   input {
     text-align: center;
-    width: 70px;
+    width: 58px;
+    background-color: #fff;
+    border-color: #fff;
+    border: none;
   }
 }
 
@@ -300,7 +322,7 @@ img {
   margin-right: 10px;
 }
 .quantity_sold:first-of-type {
-  margin-left: 40px;
+  margin-left: 9px;
 }
 
 .color {
@@ -317,7 +339,7 @@ img {
 
 .add-to-cart,
 .like {
-  background: #ff9f1a;
+  background: #000;
   padding: 1.2em 1.5em;
   border: none;
   text-transform: UPPERCASE;
@@ -325,10 +347,14 @@ img {
   color: #fff;
   -webkit-transition: background 0.3s ease;
   transition: background 0.3s ease;
+  border-radius: 0;
+  &:hover {
+    background: #ff9f1a;
+  }
 }
 .add-to-cart:hover,
 .like:hover {
-  background: #b36800;
+  background: #f7941d;
   color: #fff;
 }
 
