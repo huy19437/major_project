@@ -1,6 +1,16 @@
 <template>
   <div>
     <table class="table">
+      <colgroup>
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 20%" />
+        <col style="width: 20%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+        <col style="width: 10%" />
+      </colgroup>
       <thead>
         <tr class="table-active">
           <th scope="col">STT</th>
@@ -23,7 +33,11 @@
             Delivery time:
             {{ item.delivery_time }}
           </td>
-          <td>{{ item.address }}</td>
+          <td>
+            <span class="partner-name">{{ item.partner.name }}</span>
+            <br />
+            {{ item.address }}
+          </td>
           <td>{{ item.driver.name }}</td>
           <td>{{ item.total }}</td>
           <td>
@@ -48,7 +62,7 @@
       :currentPage="currentPage"
       :pageSize="pageSize"
     />
-    <OrderDetailModal :totalOfOrder="totalOfOrder" />
+    <OrderDetailModal :totalOfOrder="totalOfOrder" :partnerName="partnerName" />
   </div>
 </template>
 
@@ -87,8 +101,9 @@ export default {
   data() {
     return {
       currentPage: 0,
-      pageSize: 4,
+      pageSize: 2,
       totalOfOrder: 0,
+      partnerName: "",
     };
   },
   methods: {
@@ -104,6 +119,7 @@ export default {
       };
       this.orderDetails(params).then((response) => {
         this.totalOfOrder = response.order.total;
+        this.partnerName = response.order.partner.name;
         console.log(response);
       });
     },
@@ -154,14 +170,21 @@ export default {
   background: #00db48;
   padding: 4px;
   border-radius: 5px;
+  color: #fff;
+  font-size: 11px;
 }
 .order-status-shipping {
   background: #f7941d;
   padding: 4px;
   border-radius: 5px;
+  color: #fff;
+  font-size: 11px;
 }
 .order-detail {
   color: #428bca !important;
   cursor: pointer;
+}
+.partner-name {
+  font-weight: 700;
 }
 </style>

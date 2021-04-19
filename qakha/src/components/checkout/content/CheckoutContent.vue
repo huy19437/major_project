@@ -101,7 +101,7 @@
                       @click="isOpen3 = !isOpen3"
                     >
                       <span class="current">
-                        {{ user.address }}
+                        {{ user.address.name }}
                         <router-link to="/edit-address">
                           <font-awesome-icon :icon="['fas', 'edit']" />
                         </router-link>
@@ -113,7 +113,7 @@
                           class="option"
                           @click="
                             () => {
-                              user.address = item.name;
+                              user.address = item;
                               changeAddress(item);
                             }
                           "
@@ -288,7 +288,7 @@ export default {
         name: "",
         // email: "",
         phone_number: "",
-        address: "",
+        address: {},
         delivery_time: "",
         type_checkout: "",
         // longitude: "",
@@ -404,12 +404,14 @@ export default {
         let params = {
           name: this.user.name,
           phone_number: this.user.phone_number,
-          address: this.user.address,
+          address: this.user.address.name,
           delivery_time:
             moment().format("YYYY-MM-DD") + " " + this.user.delivery_time,
           partner_id: this.slug,
           shipping_fee: this.shipping_fee,
           type_checkout: this.user.type_checkout,
+          longitude: this.user.address.longitude,
+          latitude: this.user.address.latitude,
         };
         console.log(params);
         this.createOrder(params)
@@ -427,10 +429,10 @@ export default {
       }
       // }
     },
-    getLocationPartner(location) {
-      this.$data.user.longitude = location.lng;
-      this.$data.user.latitude = location.lat;
-    },
+    // getLocationPartner(location) {
+    //   this.$data.user.longitude = location.lng;
+    //   this.$data.user.latitude = location.lat;
+    // },
     getShipDistance() {
       let addressUserForCalcDistance = {
         partner_id: this.slug,
@@ -480,7 +482,7 @@ export default {
       if (this.getAddressLocal.length == 0) {
         openToastMess("User have no address", "warning");
       } else {
-        this.user.address = this.getAddressLocal[0].name;
+        this.user.address = this.getAddressLocal[0];
         this.getShipDistance();
       }
       this.getUserInfo();

@@ -12,10 +12,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">
-            Your order at ABC
+            Your order at
+            <span v-if="partnerName" class="partner-name">
+              {{ partnerName }}
+            </span>
           </h5>
           <h5 v-if="totalOfOrder" class="modal-title" id="staticBackdropLabel">
-            Total: {{ totalOfOrder }} VNĐ
+            <span class="total-order">Total: {{ totalOfOrder }} VNĐ</span>
           </h5>
         </div>
         <div class="modal-body">
@@ -78,6 +81,9 @@ export default {
     totalOfOrder: {
       type: Number,
     },
+    partnerName: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -101,17 +107,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.modal-backdrop.fade {
-  opacity: 0.4 !important;
-}
 .modal-dialog {
   width: 1140px !important;
   max-width: 1140px !important;
 }
 
 .modal-footer {
+  justify-content: center;
   button {
-    background-color: #f7941d;
+    background-color: #000;
+    &:hover {
+      background-color: #f7941d;
+      border-color: #f7941d;
+      color: #fff;
+    }
   }
+}
+.total-order {
+  color: red;
+  font-weight: 700;
+}
+.partner-name {
+  font-weight: 700;
+  text-transform: uppercase;
 }
 </style>
