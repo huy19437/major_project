@@ -20,7 +20,7 @@
                 </p>
                 <p class="call">
                   Got Question? Call us 24/7<span
-                    ><a href="tel:123456789">+0123 456 789</a></span
+                    ><a href="tel:+84 589 273 382">+84 589 273 382</a></span
                   >
                 </p>
               </div>
@@ -68,18 +68,20 @@
                   </ul>
                 </div>
                 <!-- End Single Widget -->
-                <ul>
+                <ul class="footer-list-social">
                   <li>
-                    <a href="#"><i class="ti-facebook"></i></a>
+                    <a title="facebook" href="#"><i class="ti-facebook"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="ti-twitter"></i></a>
+                    <a title="twitter" href="#"><i class="ti-twitter"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="ti-flickr"></i></a>
+                    <a title="flickr" href="#"><i class="ti-flickr"></i></a>
                   </li>
                   <li>
-                    <a href="#"><i class="ti-instagram"></i></a>
+                    <a title="instagram" href="#"
+                      ><i class="ti-instagram"></i
+                    ></a>
                   </li>
                 </ul>
               </div>
@@ -144,7 +146,8 @@ export default {
   text-align: left;
 }
 
+.footer-list-social,
 .footer-list-info {
-  padding-left: 0;
+  padding: 0;
 }
 </style>

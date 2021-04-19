@@ -25,7 +25,7 @@
             <tbody>
               <tr v-for="product in products" :key="product.id">
                 <td class="image" data-title="No">
-                  <img src="https://via.placeholder.com/100x100" alt="#" />
+                  <img :src="`${product.image.url}`" alt="#" />
                 </td>
                 <td class="product-des" data-title="Description">
                   <p class="product-name">{{ product.name }}</p>

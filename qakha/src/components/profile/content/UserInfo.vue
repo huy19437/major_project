@@ -28,7 +28,11 @@
                     <p v-if="getAddressLocal.length > 0">
                       {{ getAddressLocal[0].name }}
                     </p>
-                    <router-link to="/edit-address">
+                    <router-link
+                      title="Edit User Address"
+                      style="color: #000"
+                      to="/edit-address"
+                    >
                       <font-awesome-icon :icon="['fas', 'edit']" />
                     </router-link>
                   </div>
