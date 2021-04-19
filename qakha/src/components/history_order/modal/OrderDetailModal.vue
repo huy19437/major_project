@@ -1,0 +1,111 @@
+<template>
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-backdrop="true"
+    data-keyboard="true"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            Your order at ABC
+          </h5>
+          <h5 v-if="totalOfOrder" class="modal-title" id="staticBackdropLabel">
+            Total: {{ totalOfOrder }} VNĐ
+          </h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <!-- Shopping Summery -->
+              <table class="table shopping-summery">
+                <thead>
+                  <tr class="main-hading">
+                    <th>Member</th>
+                    <th>Dish</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Fee</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody v-if="getOrderDetailsHistory">
+                  <tr
+                    v-for="order in getOrderDetailsHistory.order_details"
+                    :key="order.id"
+                  >
+                    <td>{{ getOrderDetailsHistory.user_name }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.price }}</td>
+                    <td>
+                      {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}
+                    </td>
+                    <td>{{ getOrderDetailsHistory.order.discount }}</td>
+                    <td>
+                      {{
+                        order.quantity * order.price +
+                        Math.ceil(getOrderDetailsHistory.order.shipping_fee) -
+                        getOrderDetailsHistory.order.discount
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!--/ End Shopping Summery -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from "vuex";
+export default {
+  props: {
+    totalOfOrder: {
+      type: Number,
+    },
+  },
+  data() {
+    return {
+      total: 0,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      getOrderDetailsHistory: "order/getOrderDetailsHistory",
+    }),
+  },
+  methods: {
+    getResult() {
+      console.log(this.getOrderDetailsHistory);
+    },
+  },
+  created() {
+    this.getResult();
+  },
+};
+</script>
+
+<style>
+.modal-backdrop.fade {
+  opacity: 0.4 !important;
+}
+.modal-dialog {
+  width: 1140px !important;
+  max-width: 1140px !important;
+}
+</style>

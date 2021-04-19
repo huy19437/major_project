@@ -21,28 +21,30 @@
         </div>
       </div>
       <div class="col-4" style="align-self: center">
-        <div class="row">
-          <div class="col-5">
-            <button
-              type="button"
-              class="btn btn-primary btn-sm btn-search"
-              @click="searchOrderByParams()"
-            >
-              <span>Search</span>
-            </button>
-          </div>
-          <div class="col-5">
-            <button
-              type="button"
-              class="btn btn-primary btn-sm btn-create"
-              data-toggle="modal"
-              data-target="#staticBackdrop"
-              @click="fetchOrderHistoryAgain()"
-            >
-              <span
-                ><span><font-awesome-icon :icon="['fas', 'undo']" /></span
-              ></span>
-            </button>
+        <div class="form-group">
+          <label>Action</label>
+          <div class="row">
+            <div class="col-5">
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="searchOrderByParams()"
+              >
+                <span>Search</span>
+              </button>
+            </div>
+            <div class="col-5">
+              <button
+                type="button"
+                class="btn btn-primary"
+                title="Reload History Order"
+                @click="fetchOrderHistoryAgain()"
+              >
+                <span
+                  ><span><font-awesome-icon :icon="['fas', 'undo']" /></span
+                ></span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -70,10 +72,10 @@ export default {
   data() {
     return {
       orderHistoryData: [],
-      searchStatus: "completed",
+      searchStatus: "",
       dateSearch: "",
       filterObj: {
-        status: "completed",
+        status: "",
         delivery_time: "",
         end_date: "",
       },
@@ -96,6 +98,7 @@ export default {
       });
 
       var filter = this.filterObj;
+      console.log(filter);
       this.orderHistoryData = this.orderHistoryData.filter((item) => {
         for (let key in filter) {
           //sort condition for status

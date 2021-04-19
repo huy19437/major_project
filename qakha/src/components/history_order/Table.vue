@@ -31,7 +31,14 @@
               {{ item.status }}
             </span>
           </td>
-          <td><a class="order-detail">View Order Detail</a></td>
+          <td @click="viewOrderDetail(item.id)">
+            <a
+              class="order-detail"
+              data-toggle="modal"
+              data-target="#staticBackdrop"
+              >View Order Detail</a
+            >
+          </td>
         </tr>
       </tbody>
     </table>
@@ -41,11 +48,16 @@
       :currentPage="currentPage"
       :pageSize="pageSize"
     />
+    <OrderDetailModal :totalOfOrder="totalOfOrder" />
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import PaginationCustom from "@/components/pagination/PaginationCustom.vue";
+import OrderDetailModal from "./modal/OrderDetailModal";
+import { openToastMess } from "@/services/toastMessage";
+import $ from "jquery";
 export default {
   name: "Table",
   props: {
@@ -56,8 +68,12 @@ export default {
   },
   components: {
     PaginationCustom,
+    OrderDetailModal,
   },
   computed: {
+    ...mapGetters({
+      getOrderDetails: "order/getOrderDetails",
+    }),
     visibleHistoryOrderData() {
       return this.historyOrderData.slice(
         this.currentPage * this.pageSize,
@@ -72,11 +88,24 @@ export default {
     return {
       currentPage: 0,
       pageSize: 4,
+      totalOfOrder: 0,
     };
   },
   methods: {
+    ...mapActions({
+      orderDetails: "order/orderDetails",
+    }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
+    },
+    viewOrderDetail(id) {
+      let params = {
+        order_id: id,
+      };
+      this.orderDetails(params).then((response) => {
+        this.totalOfOrder = response.order.total;
+        console.log(response);
+      });
     },
   },
   watch: {

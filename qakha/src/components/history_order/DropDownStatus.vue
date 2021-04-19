@@ -18,20 +18,32 @@ export default {
     return {
       arrayOfObjects: [
         {
-          status: "shipping",
+          status: "Shipping",
         },
         {
-          status: "completed",
+          status: "Completed",
+        },
+        {
+          status: "All",
         },
       ],
       object: {
-        status: "completed",
+        status: "All",
       },
     };
   },
   methods: {
     methodToRunOnSelect(payload) {
       let orderStt = payload.status === "completed" ? "completed" : "shipping";
+      if (payload.status === "All") {
+        orderStt = "";
+      }
+      if (payload.status === "Completed") {
+        orderStt = "completed";
+      }
+      if (payload.status === "Shipping") {
+        orderStt = "shipping";
+      }
       this.$emit("selet-option", orderStt);
     },
   },
