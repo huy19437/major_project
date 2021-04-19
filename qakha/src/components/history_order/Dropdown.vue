@@ -89,12 +89,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .btn-group {
   min-width: 160px;
   height: 40px;
   position: relative;
-  margin: 10px 1px;
+  margin: 0 1px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -105,7 +105,7 @@ export default {
 .dropdown-toggle {
   color: #636b6f;
   min-width: 160px;
-  padding: 10px 20px 10px 10px;
+  padding: 5px 20px 10px 10px;
   text-transform: none;
   font-weight: 300;
   margin-bottom: 7px;
@@ -139,13 +139,22 @@ export default {
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
-  font-size: 14px;
+  font-size: 17px;
   text-align: left;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
+  li {
+    padding: 4px 12px;
+    a {
+      color: #000;
+      &:hover {
+        color: #f7941d;
+      }
+    }
+  }
 }
 
 .dropdown-menu > li > a {

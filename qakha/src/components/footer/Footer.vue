@@ -61,10 +61,10 @@
                 <!-- Single Widget -->
                 <div class="contact">
                   <ul class="footer-list-info">
-                    <li>NO. 342 - London Oxford Street.</li>
-                    <li>012 United Kingdom.</li>
-                    <li>info@eshop.com</li>
-                    <li>+032 3456 7890</li>
+                    <li>256 Nguyen Van Linh</li>
+                    <li>Da Nang, Viet Nam</li>
+                    <li>nguyenduchuy19437@gmail.com</li>
+                    <li>+84 589 273 382</li>
                   </ul>
                 </div>
                 <!-- End Single Widget -->

@@ -9,7 +9,7 @@
               <!-- Top Left -->
               <div class="top-left">
                 <ul class="list-main">
-                  <li><i class="ti-headphone-alt"></i> 0589273382</li>
+                  <li><i class="ti-headphone-alt"></i>+84 589 273 382</li>
                   <li><i class="ti-email"></i> nguyenduchuy19437@gmail.com</li>
                 </ul>
               </div>
@@ -550,7 +550,7 @@ export default {
   .nav-inner {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     .dropdown {
       margin-right: 188px;
       list-style: none;

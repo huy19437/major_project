@@ -18,13 +18,13 @@ export default {
     return {
       arrayOfObjects: [
         {
-          status: "Shipping",
+          status: "All",
         },
         {
           status: "Completed",
         },
         {
-          status: "All",
+          status: "Shipping",
         },
       ],
       object: {

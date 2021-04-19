@@ -100,12 +100,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .modal-backdrop.fade {
   opacity: 0.4 !important;
 }
 .modal-dialog {
   width: 1140px !important;
   max-width: 1140px !important;
+}
+
+.modal-footer {
+  button {
+    background-color: #f7941d;
+  }
 }
 </style>
