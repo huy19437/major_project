@@ -134,6 +134,7 @@ export default {
     getResult() {
       this.historyOrders().then((res) => {
         this.orderHistoryData = this.getHistoryOrder;
+        console.log(this.orderHistoryData);
       });
     },
   },

@@ -281,10 +281,14 @@ export default {
 
 <style lang="scss">
 .container {
-  .row.pagination-custom {
-    display: flex;
-    justify-content: center;
-    padding-top: 33px;
+  .row {
+    &.pagination-custom {
+      display: contents;
+      padding-top: 33px;
+    }
+    .pagination-wrapper {
+      margin-top: 20px;
+    }
   }
 }
 .single-product {

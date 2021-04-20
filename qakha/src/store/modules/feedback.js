@@ -35,6 +35,27 @@ const actions = {
                 });
         })
     },
+    addFeedbacks({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/orders/feedbacks', params)
+                .then((response) => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                });
+        })
+    },
+    addFeedbackPartner({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/orders/feedbacks', params)
+                .then((response) => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                });
+        })
+    },
+
     showFeedback({ commit }, data) {
         commit('setShowFeeddBack', data);
     }

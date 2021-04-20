@@ -42,7 +42,7 @@
                     v-for="order in getOrderDetailsHistory.order_details"
                     :key="order.id"
                   >
-                    <td>{{ getOrderDetailsHistory.user_name }}</td>
+                    <td>{{ getOrderDetailsHistory.order.name }}</td>
                     <td>{{ order.product.name }}</td>
                     <td>{{ order.quantity }}</td>
                     <td>{{ order.price }}</td>

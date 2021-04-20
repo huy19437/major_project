@@ -38,7 +38,19 @@
             <br />
             {{ item.address }}
           </td>
-          <td>{{ item.driver.name }}</td>
+          <td>
+            {{ item.driver.name }} <br />
+            <a
+              class="rate-driver"
+              :class="{
+                diabledPointer: item.status === 'shipping' ? true : false,
+              }"
+              data-toggle="modal"
+              data-target="#feedBackModal"
+              @click="getDataForFeedback(item)"
+              >Rate</a
+            >
+          </td>
           <td>{{ item.total }}</td>
           <td>
             <span :class="`order-status-${item.status}`">
@@ -63,6 +75,8 @@
       :pageSize="pageSize"
     />
     <OrderDetailModal :totalOfOrder="totalOfOrder" :partnerName="partnerName" />
+    <FeedBackModal :dataForFeedback="dataForFeedback" />
+    <FeedBackPartnerModal :dataForFeedback="dataForFeedback" />
   </div>
 </template>
 
@@ -70,6 +84,8 @@
 import { mapActions, mapGetters } from "vuex";
 import PaginationCustom from "@/components/pagination/PaginationCustom.vue";
 import OrderDetailModal from "./modal/OrderDetailModal";
+import FeedBackModal from "./modal/FeedBackModal";
+import FeedBackPartnerModal from "./modal/FeedBackPartnerModal";
 import { openToastMess } from "@/services/toastMessage";
 import $ from "jquery";
 export default {
@@ -83,6 +99,8 @@ export default {
   components: {
     PaginationCustom,
     OrderDetailModal,
+    FeedBackModal,
+    FeedBackPartnerModal,
   },
   computed: {
     ...mapGetters({
@@ -104,6 +122,7 @@ export default {
       pageSize: 2,
       totalOfOrder: 0,
       partnerName: "",
+      dataForFeedback: {},
     };
   },
   methods: {
@@ -122,6 +141,14 @@ export default {
         this.partnerName = response.order.partner.name;
         console.log(response);
       });
+    },
+    getDataForFeedback(order) {
+      let params = {
+        order_id: order.id,
+        driver_id: order.driver_id,
+        partner_id: order.partner_id,
+      };
+      this.dataForFeedback = params;
     },
   },
   watch: {
@@ -186,5 +213,17 @@ export default {
 }
 .partner-name {
   font-weight: 700;
+}
+.rate-driver {
+  font-weight: 700 !important;
+  color: #0288d1 !important;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.diabledPointer {
+  pointer-events: none;
+  color: #ccc !important;
 }
 </style>

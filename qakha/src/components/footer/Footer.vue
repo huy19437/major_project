@@ -99,7 +99,7 @@
                 <div class="left">
                   <p>
                     Copyright © 2020
-                    <a href="http://www.wpthemesgrid.com" target="_blank"
+                    <a href="https://www.facebook.com/me/" target="_blank"
                       >QakhaDelivery</a
                     >
                     > - All Rights Reserved.

@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row pagination-custom">
         <PaginationCustom
           :paginationData="getFeedbacks"
           @page:update="updatePage"
@@ -103,6 +103,9 @@ export default {
       }
     },
   },
+  created() {
+    this.getResult();
+  },
   watch: {
     feedBacksStatusChange() {
       this.getResult();
@@ -115,6 +118,13 @@ export default {
 .mb-0,
 .my-0 {
   margin-bottom: 0 !important;
+}
+.bg-white {
+  .row {
+    &.pagination-custom {
+      display: contents;
+    }
+  }
 }
 .media-body {
   text-align: left;

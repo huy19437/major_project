@@ -38,6 +38,7 @@
 import { mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "ForgotPassword",
   components: { Spinner },
@@ -68,6 +69,7 @@ export default {
       if (!this.$v.userForgot.$invalid) {
         this.forgotPassword(this.$data.userForgot)
           .then((res) => {
+            openToastMess(res, "success");
             console.log(res);
           })
           .catch((err) => {
