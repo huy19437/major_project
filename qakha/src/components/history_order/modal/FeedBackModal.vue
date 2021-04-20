@@ -103,9 +103,9 @@ export default {
         .catch((error) => {
           openToastMess(error, "error");
         });
+      this.feedBackDriverObj.content = "";
     },
     getResult() {
-      this.rating = "";
       this.feedBackDriverObj.order_id = this.dataForFeedback.order_id;
       this.feedBackDriverObj.driver_id = this.dataForFeedback.driver_id;
       this.feedBackDriverObj.partner_id = this.dataForFeedback.partner_id;

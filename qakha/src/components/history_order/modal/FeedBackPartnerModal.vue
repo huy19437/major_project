@@ -100,9 +100,9 @@ export default {
         .catch((error) => {
           openToastMess(error, "error");
         });
+      this.feedBackPartnerObj.content = "";
     },
     getResult() {
-      this.rating = "";
       this.feedBackPartnerObj.order_id = this.dataForFeedback.order_id;
       this.feedBackPartnerObj.partner_id = this.dataForFeedback.partner_id;
     },
