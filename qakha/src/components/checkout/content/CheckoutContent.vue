@@ -175,8 +175,7 @@
                     </div>
                     <div v-if="errMess">
                       <p class="errorMessage">
-                        Delivery time must be greater than time open of
-                        restaurant
+                        {{ errMessage }}
                       </p>
                     </div>
                   </div>
@@ -295,6 +294,7 @@ export default {
   data() {
     return {
       errMess: false,
+      errMessage: "",
       slug: this.$route.params.slug,
       shipping_fee: 0,
       subTotal: 0,
@@ -436,6 +436,7 @@ export default {
         $("#loadMe").modal("show");
         this.createOrder(params)
           .then((res) => {
+            $("#loadMe").modal("hide");
             openToastMess("Order created", "success");
             this.$router.push({
               name: "OrderConfirm",
@@ -444,10 +445,8 @@ export default {
             console.log(res);
           })
           .catch((error) => {
-            openToastMess(error, "error");
-          })
-          .finally(() => {
             $("#loadMe").modal("hide");
+            openToastMess(error, "error");
           });
       }
       // }
@@ -489,15 +488,32 @@ export default {
       );
 
       console.log(time_open + "===" + time_close);
-      console.log(delivery_time);
+      let hourOfDeliveryTime = delivery_time.slice(
+        0,
+        delivery_time.indexOf(":")
+      );
+      let hourOfPartnerOpenTime = partnerObj.time_open.slice(
+        0,
+        partnerObj.time_open.indexOf(":")
+      );
+      if (hourOfDeliveryTime === hourOfPartnerOpenTime) {
+        let minuteDeliveryTime = delivery_time.slice(
+          delivery_time.indexOf(":") + 1
+        );
+        let minutePartnerOpenTime = time_open.slice(time_open.indexOf(":") + 1);
+        if (minuteDeliveryTime - minutePartnerOpenTime < 20) {
+          this.errMess = true;
+          this.errMessage = `Delivery time must be after time open at least 20'. Time open is ${time_open}`;
+        }
+      }
 
       if (delivery_time < time_open) {
         this.errMess = true;
-        console.log("delivery time must be greater than time_open");
+        this.errMessage = "Delivery time must be after time open";
       }
       if (delivery_time > time_close) {
         this.errMess = true;
-        console.log("delivery time must be less than time_close");
+        this.errMessage = "Delivery time must be before time close";
       }
     },
     getResult() {
