@@ -154,7 +154,28 @@ const actions = {
     },
     nowRoute({ commit }, params) {
         commit('setNowRoute', params);
-    }
+    },
+    updateUser({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.patch('/user', params)
+                .then(response => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response.data.message);
+                })
+        })
+    },
+    showUser({ commit }) {
+        return new Promise((res, rej) => {
+            httpRequest.get('/user')
+                .then(response => {
+                    res(response.data);
+                    commit('setUser', response.data);
+                }).catch(err => {
+                    rej(err.response.data.message);
+                })
+        })
+    },
 }
 
 export default {

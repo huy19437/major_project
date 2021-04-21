@@ -77,6 +77,9 @@
                     <p class="errorMessage" v-if="!$v.form.email.required">
                       Email is required
                     </p>
+                    <p class="errorMessage" v-if="!$v.form.email.email">
+                      Email is invalid
+                    </p>
                   </div>
                 </div>
               </div>

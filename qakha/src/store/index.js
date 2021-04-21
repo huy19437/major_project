@@ -8,6 +8,7 @@ import order from './modules/order'
 import voucher from './modules/voucher'
 import address from './modules/address'
 import feedback from './modules/feedback'
+import user from './modules/user'
 import createMutationsSharer from "vuex-shared-mutations";
 
 Vue.use(Vuex)
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     order,
     voucher,
     address,
-    feedback
+    feedback,
+    user
   },
   plugins: [createMutationsSharer({ predicate: ["cart/setCart"] })],
 })

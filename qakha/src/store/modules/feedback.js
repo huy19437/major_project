@@ -16,7 +16,10 @@ const getters = {
 
 const mutations = {
     setFeedbacks(state, data) {
-        state.feedbacks = data;
+        data.forEach(element => {
+            state.feedbacks.unshift(element)
+        });
+        // state.feedbacks = data;
     },
     setShowFeeddBack(state, data) {
         state.showFeedback = data;

@@ -17,11 +17,16 @@
                 <div class="col-md-6">
                   <div class="media">
                     <label>Name</label>
-                    <p>{{ getUser.name }}</p>
+                    <!-- <p>{{ getUser.name }}</p> -->
+                    <input
+                      type="text"
+                      v-model="userObj.name"
+                      @blur="isDisabled = false"
+                    />
                   </div>
                   <div class="media">
                     <label>Role</label>
-                    <p>{{ getUser.role }}</p>
+                    <p>{{ userDataFromSer.role }}</p>
                   </div>
                   <div class="media">
                     <label>Address</label>
@@ -40,24 +45,101 @@
                 <div class="col-md-6">
                   <div class="media">
                     <label>E-mail</label>
-                    <p>{{ getUser.email }}</p>
+                    <!-- <p>{{ getUser.email }}</p> -->
+                    <input
+                      type="text"
+                      v-model="userObj.email"
+                      @blur="
+                        $v.userObj.email.$touch();
+                        isDisabled = false;
+                      "
+                    />
+                    <div v-if="$v.userObj.email.$error">
+                      <p class="errorMessage" v-if="!$v.userObj.email.email">
+                        Email is invalid
+                      </p>
+                    </div>
                   </div>
                   <div class="media">
                     <label>Phone</label>
-                    <p>{{ getUser.phone_number }}</p>
+                    <!-- <p>{{ getUser.phone_number }}</p> -->
+                    <input
+                      type="text"
+                      v-model="userObj.phone_number"
+                      @blur="
+                        $v.userObj.phone_number.$touch();
+                        isDisabled = false;
+                      "
+                    />
+                    <div v-if="$v.userObj.phone_number.$error">
+                      <p
+                        class="errorMessage"
+                        v-if="!$v.userObj.phone_number.minLength"
+                      >
+                        Phone number minimum is 10 characters
+                      </p>
+                      <p
+                        class="errorMessage"
+                        v-if="!$v.userObj.phone_number.maxLength"
+                      >
+                        Phone number maximum is 10 characters
+                      </p>
+                    </div>
                   </div>
+                </div>
+                <div class="col-6 form-group">
+                  <div v-show="showProgress">
+                    <progress-bar :options="options" :value="progress" />
+                  </div>
+                  <!-- <section v-if="results && results.secure_url">
+                    <label>Image Uploaded</label>
+                    <img :src="results.secure_url" :alt="results.public_id" />
+                  </section> -->
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="about-avatar">
+            <div class="upload-image">
+              <div class="item-upload btn-up">
+                <label title="Change avatar">
+                  <span class="icon icon-upload">
+                    <font-awesome-icon :icon="['fas', 'camera']" />
+                  </span>
+                  <input
+                    type="file"
+                    accept=".png,.jpg,.jpeg"
+                    style="visibility: hidden"
+                    @change="handleFileChange($event)"
+                  />
+                </label>
+              </div>
+            </div>
+            <div v-if="userDataFromSer.image" class="about-avatar">
               <img
-                :src="`${getUser.image.url}`"
+                :src="`${userDataFromSer.image.url}`"
                 title="User Avatar"
                 alt="User Avatar"
               />
             </div>
+            <div v-else-if="results && results.secure_url" class="about-avatar">
+              <img
+                :src="results.secure_url"
+                title="User Avatar"
+                alt="User Avatar"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 justify-content-flex-end">
+            <button
+              @click="submitData"
+              class="btn btn-primary btn-update-user"
+              :disabled="$v.userObj.$invalid || isDisabled"
+            >
+              Update
+            </button>
           </div>
         </div>
         <!-- <div class="counter">
@@ -95,10 +177,63 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { email, minLength, maxLength } from "vuelidate/lib/validators";
+import ProgressBar from "vuejs-progress-bar";
+import { openToastMess } from "@/services/toastMessage";
+import axios from "axios";
 export default {
   name: "UserInfo",
+  components: { ProgressBar },
   data() {
-    return {};
+    const progressBarOptions = {
+      text: {
+        shadowColor: "black",
+        fontSize: 14,
+        fontFamily: "Helvetica",
+        dynamicPosition: true,
+      },
+      progress: {
+        color: "#E8C401",
+        backgroundColor: "#000000",
+      },
+      layout: {
+        height: 35,
+        width: 140,
+        type: "line",
+        progressPadding: 0,
+        verticalTextAlign: 63,
+      },
+    };
+    return {
+      isDisabled: true,
+      userDataFromSer: {},
+      results: null,
+      file: null,
+      filesSelected: 0,
+      cloudName: "qakhadelivery",
+      preset: "vue_upload",
+      progress: 0,
+      showProgress: false,
+      options: progressBarOptions,
+      fileContents: null,
+      formData: null,
+      userObj: {
+        name: "",
+        email: "",
+        phone_number: "",
+      },
+    };
+  },
+  validations: {
+    userObj: {
+      email: {
+        email,
+      },
+      phone_number: {
+        minLength: minLength(10),
+        maxLength: maxLength(10),
+      },
+    },
   },
   computed: {
     ...mapGetters({
@@ -111,11 +246,147 @@ export default {
       user: "auth/user",
       getAddress: "address/getAddress",
       setShoppingStatus: "cart/setShoppingStatus",
+      showUser: "auth/showUser",
+      updateUser: "auth/updateUser",
     }),
+    async submitData() {
+      if (this.filesSelected != 0) {
+        console.log("1");
+        await this.upload()
+          .then((res) => {
+            console.log(this.userObj);
+            this.$v.userObj.$touch();
+            if (!this.$v.userObj.$invalid) {
+              this.updateUser(this.$data.userObj)
+                .then((response) => {
+                  if (response) {
+                    openToastMess("Sign up successfully", "success");
+                    this.getResult();
+                  }
+                })
+                .catch((err) => {
+                  this.registerErr = true;
+                  openToastMess(err, "error");
+                });
+            }
+          })
+          .catch((err) => {
+            openToastMess(err, "error");
+          });
+      } else {
+        console.log("2");
+        this.$v.userObj.$touch();
+        if (!this.$v.userObj.$invalid) {
+          console.log(this.$data.userObj);
+          this.updateUser(this.$data.userObj)
+            .then((response) => {
+              if (response) {
+                console.log("3");
+                openToastMess("Sign up successfully", "success");
+                this.getResult();
+              }
+            })
+            .catch((err) => {
+              this.registerErr = true;
+              openToastMess(err, "error");
+            });
+        }
+      }
+      this.isDisabled = true;
+      this.filesSelected = 0;
+    },
+    handleFileChange: function (event) {
+      this.isDisabled = false;
+      console.log("handlefilechange", event.target.files);
+      //returns an array of files even though multiple not used
+      this.file = event.target.files[0];
+      this.filesSelected = event.target.files.length;
+    },
+    prepareFormData: function () {
+      this.formData = new FormData();
+      this.formData.append("upload_preset", this.preset);
+      this.formData.append("file", this.fileContents);
+    },
+    upload: function () {
+      return new Promise((res, rej) => {
+        if (this.preset.length < 1 || this.cloudName.length < 1) {
+          openToastMess(
+            "You must enter a cloud name and preset to upload",
+            "error"
+          );
+          return;
+        }
+        console.log("upload", this.file.name);
+        let reader = new FileReader();
+        // attach listener to be called when data from file
+        reader.addEventListener(
+          "load",
+          function () {
+            this.fileContents = reader.result;
+            this.prepareFormData();
+            let cloudinaryUploadURL = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
+            let requestObj = {
+              url: cloudinaryUploadURL,
+              method: "POST",
+              data: this.formData,
+              onUploadProgress: function (progressEvent) {
+                console.log("progress", progressEvent);
+                this.progress = Math.round(
+                  (progressEvent.loaded * 100.0) / progressEvent.total
+                );
+                console.log(this.progress);
+                //bind "this" to access vue state during callback
+              }.bind(this),
+            };
+            //show progress bar at beginning of post
+            this.showProgress = true;
+            axios(requestObj)
+              .then((response) => {
+                this.results = response.data;
+                this.userObj.image = this.results.secure_url;
+                console.log(this.userObj.image);
+                console.log(this.results);
+                console.log("public_id", this.results.public_id);
+                res();
+              })
+              .catch((error) => {
+                console.log(this.error);
+                rej(error);
+              })
+              .finally(() => {
+                setTimeout(
+                  function () {
+                    this.showProgress = false;
+                  }.bind(this),
+                  1000
+                );
+              });
+          }.bind(this),
+          false
+        );
+        // call for file read if there is a file
+        if (this.file && this.file.name) {
+          reader.readAsDataURL(this.file);
+        }
+      });
+    },
+    getUserChange(e) {
+      // this.addressUpdate = e.target.value;
+      // console.log(this.addressUpdate);
+    },
+    setUserInfo() {
+      this.userDataFromSer = this.getUser;
+      this.userObj.phone_number = this.userDataFromSer.phone_number;
+      this.userObj.name = this.userDataFromSer.name;
+      this.userObj.email = this.userDataFromSer.email;
+    },
     getResult() {
-      this.setShoppingStatus(false);
-      this.user();
-      this.getAddress(this.user.id);
+      this.showUser().then((res) => {
+        this.setShoppingStatus(false);
+        // this.user();
+        this.getAddress(this.user.id);
+        this.setUserInfo();
+      });
     },
   },
   created() {
@@ -277,5 +548,52 @@ mark {
     }
     font-size: 3rem;
   }
+}
+.justify-content-flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn.btn-primary.btn-update-user {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+  &:hover {
+    background-color: #f7941d;
+    border-color: #f7941d;
+  }
+  &:active {
+    color: #fff !important;
+    background-color: #f7941d !important;
+    border-color: #f7941d !important;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 50%) !important;
+  }
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.upload-image {
+  display: flex;
+  padding: 10px 0;
+  overflow: auto;
+}
+
+.item-upload {
+  position: relative;
+  height: 70px;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px !important;
+}
+
+.btn-up {
+  cursor: pointer;
+}
+
+.icon-upload {
+  font-size: 20px;
+  background-position: -337px -335px;
 }
 </style>
