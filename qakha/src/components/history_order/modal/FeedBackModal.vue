@@ -12,7 +12,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <img src="@/assets/images/logo_qakha2.png" alt="" />
-          <div class="shipper-name">Nguyen Duc Huy</div>
+          <div class="shipper-name">{{ driverName }}</div>
           <div class="rating-star-container">
             <star-rating
               @rating-selected="setRating"
@@ -21,6 +21,7 @@
               :padding="9"
               :rounded-corners="true"
               :show-rating="false"
+              v-model="rating"
             ></star-rating>
           </div>
         </div>
@@ -70,7 +71,7 @@ export default {
   },
   data() {
     return {
-      rating: "",
+      rating: 0,
       feedBackDriverObj: {
         order_id: 0,
         content: "",
@@ -83,6 +84,9 @@ export default {
   computed: {
     dataForFeedbackChange() {
       return this.dataForFeedback;
+    },
+    driverName() {
+      return this.dataForFeedback.driver_name;
     },
   },
   methods: {
@@ -102,6 +106,9 @@ export default {
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.rating = 0;
         });
       this.feedBackDriverObj.content = "";
     },
