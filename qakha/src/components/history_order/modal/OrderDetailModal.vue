@@ -18,7 +18,17 @@
             </span>
           </h5>
           <h5 v-if="totalOfOrder" class="modal-title" id="staticBackdropLabel">
-            <span class="total-order">Total: {{ totalOfOrder }} VNĐ</span>
+            <span>
+              fee:
+              {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}đ
+            </span>
+            <br v-if="getOrderDetailsHistory.order.discount" />
+            <span v-if="getOrderDetailsHistory.order.discount">
+              discount:
+              {{ getOrderDetailsHistory.order.discount }}đ
+            </span>
+            <br />
+            <span class="total-order">Total: {{ totalOfOrder }}đ</span>
           </h5>
         </div>
         <div class="modal-body">
@@ -32,8 +42,8 @@
                     <th>Dish</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>Fee</th>
-                    <th>Discount</th>
+                    <!-- <th>Fee</th> -->
+                    <!-- <th>Discount</th> -->
                     <th>Total</th>
                   </tr>
                 </thead>
@@ -46,16 +56,12 @@
                     <td>{{ order.product.name }}</td>
                     <td>{{ order.quantity }}</td>
                     <td>{{ order.price }}</td>
-                    <td>
+                    <!-- <td>
                       {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}
-                    </td>
-                    <td>{{ getOrderDetailsHistory.order.discount }}</td>
+                    </td> -->
+                    <!-- <td>{{ getOrderDetailsHistory.order.discount }}</td> -->
                     <td>
-                      {{
-                        order.quantity * order.price +
-                        Math.ceil(getOrderDetailsHistory.order.shipping_fee) -
-                        getOrderDetailsHistory.order.discount
-                      }}
+                      {{ order.quantity * order.price }}
                     </td>
                   </tr>
                 </tbody>
@@ -130,5 +136,9 @@ export default {
 .partner-name {
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.modal-title {
+  text-align: left;
 }
 </style>

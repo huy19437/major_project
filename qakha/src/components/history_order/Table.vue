@@ -43,12 +43,17 @@
             <a
               class="rate-driver"
               :class="{
-                diabledPointer: item.status === 'shipping' ? true : false,
+                diabledPointer:
+                  item.status === 'shipping'
+                    ? true
+                    : false || item.rate_status === 'rated'
+                    ? true
+                    : false,
               }"
               data-toggle="modal"
               data-target="#feedBackModal"
               @click="getDataForFeedback(item)"
-              >Rate</a
+              >{{ item.rate_status }}</a
             >
           </td>
           <td>{{ item.total }}</td>
@@ -123,6 +128,7 @@ export default {
       totalOfOrder: 0,
       partnerName: "",
       dataForFeedback: {},
+      rate_status: "",
     };
   },
   methods: {

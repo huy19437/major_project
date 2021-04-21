@@ -101,6 +101,7 @@ export default {
         .then((res) => {
           console.log(res);
           openToastMess("Add feedback partner successfully!", "success");
+          window.location.reload();
         })
         .catch((error) => {
           openToastMess(error, "error");

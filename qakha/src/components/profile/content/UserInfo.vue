@@ -109,7 +109,6 @@
                   <input
                     type="file"
                     accept=".png,.jpg,.jpeg"
-                    style="visibility: hidden"
                     @change="handleFileChange($event)"
                   />
                 </label>
