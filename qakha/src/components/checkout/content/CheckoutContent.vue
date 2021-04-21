@@ -153,7 +153,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-12">
+                <!-- <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
                     <label>Delivery time</label>
                     <input
@@ -179,7 +179,7 @@
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </form>
             <!--/ End Form -->
@@ -301,14 +301,14 @@ export default {
       voucher: {},
       isOpen2: false,
       isOpen3: false,
-      partnerOpenTime: moment().format("HH:mm"),
-      partnerCloseTime: moment().format("HH:mm"),
+      // partnerOpenTime: moment().format("HH:mm"),
+      // partnerCloseTime: moment().format("HH:mm"),
       user: {
         name: "",
         // email: "",
         phone_number: "",
         address: {},
-        delivery_time: "",
+        // delivery_time: "",
         type_checkout: "",
         // longitude: "",
         // latitude: "",
@@ -333,9 +333,9 @@ export default {
       address: {
         required,
       },
-      delivery_time: {
-        required,
-      },
+      // delivery_time: {
+      //   required,
+      // },
       type_checkout: {
         required,
       },
@@ -357,9 +357,9 @@ export default {
       getAddressLocal: "address/getAddressLocal",
       getCoinsUser: "order/getCoinsUser",
     }),
-    deliveryTime() {
-      return this.user.delivery_time;
-    },
+    // deliveryTime() {
+    //   return this.user.delivery_time;
+    // },
   },
   methods: {
     ...mapActions({
@@ -424,8 +424,8 @@ export default {
           name: this.user.name,
           phone_number: this.user.phone_number,
           address: this.user.address.name,
-          delivery_time:
-            moment().format("YYYY-MM-DD") + " " + this.user.delivery_time,
+          // delivery_time:
+          //   moment().format("YYYY-MM-DD") + " " + this.user.delivery_time,
           partner_id: this.slug,
           shipping_fee: this.shipping_fee,
           type_checkout: this.user.type_checkout,
@@ -543,9 +543,9 @@ export default {
     });
   },
   watch: {
-    deliveryTime() {
-      this.validateDeliveryTime(this.user.delivery_time);
-    },
+    // deliveryTime() {
+    //   this.validateDeliveryTime(this.user.delivery_time);
+    // },
   },
 };
 </script>
