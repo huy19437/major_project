@@ -119,15 +119,16 @@
                 :src="`${userDataFromSer.image.url}`"
                 title="User Avatar"
                 alt="User Avatar"
+                class="user-avatar"
               />
             </div>
-            <div v-else-if="results && results.secure_url" class="about-avatar">
+            <!-- <div v-else-if="results && results.secure_url" class="about-avatar">
               <img
                 :src="results.secure_url"
                 title="User Avatar"
                 alt="User Avatar"
               />
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="row">
@@ -448,6 +449,16 @@ img {
   font-weight: 700;
   margin: 0 0 6px;
 }
+
+.about-avatar {
+  margin-top: 30px;
+  .user-avatar {
+    width: 25vw;
+    height: 30vh;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
 @media (max-width: 767px) {
   .about-text h3 {
     font-size: 35px;
@@ -521,7 +532,7 @@ img {
 @media (max-width: 991px) {
   .about-avatar {
     margin-top: 30px;
-    img {
+    .user-avatar {
       width: 300px;
       height: 300px;
       object-fit: cover;

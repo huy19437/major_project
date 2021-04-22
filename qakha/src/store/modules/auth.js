@@ -121,6 +121,7 @@ const actions = {
     logout({ commit }) {
         localStorage.removeItem('token');
         commit('setUserInfor', null);
+        commit('setUser', null);
         router.push({ path: "/login" });
 
     },

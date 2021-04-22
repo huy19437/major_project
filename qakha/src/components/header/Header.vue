@@ -44,7 +44,7 @@
                   <li v-if="userName">
                     <i class="ti-user"></i>
                     <!-- <a href="profile">{{ userName }}</a> -->
-                    <router-link to="/profile">{{ userName }}</router-link>
+                    <router-link to="/profile">{{ nameOfUser }}</router-link>
                   </li>
                   <li v-if="!userName">
                     <i class="ti-power-off"></i>
@@ -322,17 +322,22 @@ export default {
       qtyOfProducts: [],
       numberOfItem: 0,
       total: 0,
+      nameOfUser: "",
     };
   },
   computed: {
     ...mapGetters({
       userName: "auth/getUserName",
+      getUser: "auth/getUser",
       getCartLocal: "cart/getCartLocal",
       getPartnersLocal: "partner/getPartnersLocal",
       getShoppingStatus: "cart/getShoppingStatus",
     }),
     cartsChange() {
       return this.getCartLocal;
+    },
+    userChange() {
+      return this.getUser;
     },
   },
   methods: {
@@ -430,6 +435,22 @@ export default {
         return accumulator + currentValue.price * currentValue.quantity;
       }, 0);
     },
+    getNameFromUserObj(data) {
+      if (data) {
+        if (data.name != null && typeof data.name == "string") {
+          if (data.name.lastIndexOf(" ") > 0) {
+            let tmp = data.name.trim();
+            this.nameOfUser = tmp.slice(tmp.lastIndexOf(" "));
+          } else {
+            this.nameOfUser = data.name.trim();
+          }
+        } else {
+          this.nameOfUser = data.name;
+        }
+      } else if (data === null) {
+        this.nameOfUser = null;
+      }
+    },
   },
   created() {
     this.getUserInfoFromLocal();
@@ -438,6 +459,9 @@ export default {
   watch: {
     cartsChange() {
       this.getInfoProductInCart();
+    },
+    userChange() {
+      this.getNameFromUserObj(this.getUser);
     },
   },
 };

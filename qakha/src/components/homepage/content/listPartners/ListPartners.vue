@@ -178,6 +178,7 @@ export default {
       setCartsNull: "cart/setCartsNull",
       setShoppingStatus: "cart/setShoppingStatus",
       user: "auth/user",
+      showUser: "auth/showUser",
       getAddress: "address/getAddress",
       showFeedback: "feedback/showFeedback",
     }),
@@ -202,7 +203,7 @@ export default {
   },
   created() {
     this.getResult();
-    this.user();
+    this.showUser();
   },
   watch: {
     partnerDataOnChange() {
