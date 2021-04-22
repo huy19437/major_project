@@ -29,9 +29,7 @@
           <td>{{ item.type_checkout }}</td>
           <td>
             Order time:
-            {{ item.created_at }}<br />
-            Delivery time:
-            {{ item.delivery_time }}
+            {{ item.created_at }}
           </td>
           <td>
             <span class="partner-name">{{ item.partner.name }}</span>
