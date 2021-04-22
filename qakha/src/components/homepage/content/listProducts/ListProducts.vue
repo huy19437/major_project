@@ -8,7 +8,11 @@
       Go to the Home page and choose one Restaurant!
     </div>
     <div class="clearfix vi-header">
-      <h3 class="vi-left-title pull-left">{{ partner.name }}</h3>
+      <h3 class="vi-left-title pull-left">
+        {{ partner.name }} -
+        {{ getAveragePoint }}
+        <span class="fa fa-star checked avg-point"></span>
+      </h3>
     </div>
     <div class="row">
       <div class="col-12">
@@ -175,6 +179,8 @@ export default {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
       getNowRoute: "auth/getNowRoute",
+      getAveragePoint: "feedback/getAveragePoint",
+      getFeedbacksStatus: "feedback/getFeedbacksStatus",
     }),
     listProducts() {
       let tmp = [];
@@ -201,6 +207,7 @@ export default {
       nowRoute: "auth/nowRoute",
       partnerId: "partner/partnerId",
       showFeedback: "feedback/showFeedback",
+      Feedbacks: "feedback/Feedbacks",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -235,6 +242,23 @@ export default {
       this.activeItem = menuItem;
       this.cateId = cateId;
     },
+    getFeedBackToShow() {
+      if (this.getFeedbacksStatus) {
+        // console.log("this.getFeedbacksStatus " + this.getFeedbacksStatus);
+        let params = {
+          partner_id: this.$route.params.slug,
+        };
+        // console.log(params);
+        this.Feedbacks(params)
+          .then((res) => {
+            // console.log("hi");
+            // console.log(res);
+          })
+          .catch((error) => {
+            openToastMess(error, "error");
+          });
+      }
+    },
     getResult() {
       this.setShoppingStatus(true);
       this.showFeedback(true);
@@ -253,6 +277,7 @@ export default {
             }
           });
       }
+      this.getFeedBackToShow();
       this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
       this.partnerId(this.partner.id);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
@@ -467,5 +492,8 @@ export default {
   font-size: 16px;
   line-height: 20px;
   text-transform: uppercase;
+}
+.avg-point {
+  color: yellow;
 }
 </style>

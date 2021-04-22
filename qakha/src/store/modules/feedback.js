@@ -3,26 +3,35 @@ import httpRequest from '../../services/repository'
 const state = {
     feedbacks: [],
     showFeedback: false,
+    avg_point: 0
 }
 
 const getters = {
     getFeedbacks(state) {
+        console.log('hi');
         return state.feedbacks;
     },
     getFeedbacksStatus(state) {
         return state.showFeedback
+    },
+    getAveragePoint(state) {
+        return state.avg_point
     }
 }
 
 const mutations = {
     setFeedbacks(state, data) {
-        data.forEach(element => {
+        state.avg_point = data.avg_point
+        state.feedbacks = []
+        data.feedbacks.forEach(element => {
             state.feedbacks.unshift(element)
         });
-        // state.feedbacks = data;
     },
     setShowFeeddBack(state, data) {
         state.showFeedback = data;
+    },
+    setAveragePoint(state, data) {
+        state.avg_point = data
     }
 }
 
@@ -32,7 +41,8 @@ const actions = {
             httpRequest.get('/feedbacks/partner', { params })
                 .then((response) => {
                     res(response.data.feedbacks);
-                    commit('setFeedbacks', response.data.feedbacks);
+                    commit('setFeedbacks', response.data);
+                    // commit('setAveragePoint', response.data.avg_point);
                 }).catch(err => {
                     rej(err.response.data.error);
                 });

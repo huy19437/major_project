@@ -38,7 +38,7 @@
       </div>
       <div class="row pagination-custom">
         <PaginationCustom
-          :paginationData="getFeedbacks"
+          :paginationData="feedBackData"
           @page:update="updatePage"
           :currentPage="currentPage"
           :pageSize="pageSize"
@@ -59,6 +59,7 @@ export default {
     return {
       currentPage: 0,
       pageSize: 3,
+      feedBackData: [],
     };
   },
   computed: {
@@ -69,8 +70,11 @@ export default {
     feedBacksStatusChange() {
       return this.getFeedbacksStatus;
     },
+    feedBacksDataChange() {
+      return this.getFeedbacks;
+    },
     visibleFeedbacks() {
-      return this.getFeedbacks.slice(
+      return this.feedBackData.slice(
         this.currentPage * this.pageSize,
         this.currentPage * this.pageSize + this.pageSize
       );
@@ -84,30 +88,13 @@ export default {
       this.currentPage = pageNumber;
     },
     getResult() {
-      console.log("this.getFeedbacksStatus " + this.getFeedbacksStatus);
-
-      if (this.getFeedbacksStatus) {
-        console.log("this.getFeedbacksStatus " + this.getFeedbacksStatus);
-        let params = {
-          partner_id: this.$route.params.slug,
-        };
-        console.log(params);
-        this.Feedbacks(params)
-          .then((res) => {
-            console.log("hi");
-            console.log(res);
-          })
-          .catch((error) => {
-            openToastMess(error, "error");
-          });
-      }
+      this.feedBackData = this.getFeedbacks;
+      console.log(this.feedBackData);
     },
   },
-  created() {
-    this.getResult();
-  },
+  created() {},
   watch: {
-    feedBacksStatusChange() {
+    feedBacksDataChange() {
       this.getResult();
     },
   },
