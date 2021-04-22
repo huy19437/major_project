@@ -8,7 +8,6 @@ const state = {
 
 const getters = {
     getFeedbacks(state) {
-        console.log('hi');
         return state.feedbacks;
     },
     getFeedbacksStatus(state) {

@@ -203,7 +203,9 @@ export default {
   },
   created() {
     this.getResult();
-    this.showUser();
+    if (Object.keys(this.getUser).length != 0) {
+      this.showUser();
+    }
   },
   watch: {
     partnerDataOnChange() {

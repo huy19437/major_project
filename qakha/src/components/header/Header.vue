@@ -44,7 +44,9 @@
                   <li v-if="userName">
                     <i class="ti-user"></i>
                     <!-- <a href="profile">{{ userName }}</a> -->
-                    <router-link to="/profile">{{ nameOfUser }}</router-link>
+                    <router-link to="/profile">
+                      {{ nameOfUser || userName }}
+                    </router-link>
                   </li>
                   <li v-if="!userName">
                     <i class="ti-power-off"></i>
@@ -454,6 +456,7 @@ export default {
   },
   created() {
     this.getUserInfoFromLocal();
+    console.log(this.userName);
     // this.getInfoProductInCart();
   },
   watch: {

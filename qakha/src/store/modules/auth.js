@@ -57,6 +57,7 @@ const mutations = {
         } else if (data === null) {
             state.userInfo = null;
         }
+        console.log(state.userInfo);
     },
     setToken(state) {
         state.token = localStorage.getItem('token');;
@@ -148,6 +149,7 @@ const actions = {
         })
     },
     getUserInfoFromLocal({ commit }) {
+        // console.log(userInformation.getUser(localStorage.getItem('token')));
         commit('setUserInfor', userInformation.getUser(localStorage.getItem('token')));
     },
     user({ commit }) {
