@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <img src="@/assets/images/logo_qakha2.png" alt="" />
+          <img :src="`${partner_image.url}`" alt="" />
           <div class="shipper-name">{{ partnerName }}</div>
           <div class="rating-star-container">
             <star-rating
@@ -71,6 +71,7 @@ export default {
   data() {
     return {
       rating: 0,
+      partner_image: "",
       feedBackPartnerObj: {
         order_id: 0,
         content: "",
@@ -114,6 +115,7 @@ export default {
     getResult() {
       this.feedBackPartnerObj.order_id = this.dataForFeedback.order_id;
       this.feedBackPartnerObj.partner_id = this.dataForFeedback.partner_id;
+      this.partner_image = this.dataForFeedback.partner_image;
     },
   },
   created() {},
@@ -134,9 +136,16 @@ export default {
     font-size: 12px;
     font-weight: 600;
     margin-bottom: 15px;
+    margin-top: 4px;
   }
   .rating-star-container {
     margin-bottom: 15px;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }
 

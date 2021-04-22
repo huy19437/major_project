@@ -147,12 +147,15 @@ export default {
       });
     },
     getDataForFeedback(order) {
+      console.log(order);
       let params = {
         order_id: order.id,
         driver_id: order.driver_id,
         partner_id: order.partner_id,
         driver_name: order.driver.name,
         partner_name: order.partner.name,
+        partner_image: order.partner.image,
+        driver_image: order.driver.image,
       };
       this.dataForFeedback = params;
     },
