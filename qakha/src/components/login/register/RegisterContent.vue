@@ -151,7 +151,11 @@
       </div>
       <button
         class="button button-block"
-        :disabled="$v.userSignup.$invalid || isDisabled"
+        :disabled="
+          $v.userSignup.$invalid || isDisabled || registerError == null
+            ? false
+            : true
+        "
       >
         Sign up
       </button>
@@ -185,7 +189,7 @@
               <form @submit.prevent="handleSubmit">
                 <div class="form-group">
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
                     :class="$v.activeCode.$error ? 'is-invalid' : ''"
                     placeholder="Enter Active Code Here"
@@ -201,7 +205,7 @@
                 <button class="btn btn-primary btn-block btn-forgot">
                   Submit
                 </button>
-                <Spinner :loading="isLoading" />
+                <Spinner :loading="isLoading2" />
               </form>
             </div>
           </div>
@@ -215,6 +219,7 @@
 import Spinner from "@/components/spinner/Spinner";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { validPassword } from "../../../services/validation/validPassword";
+import { openToastMess } from "@/services/toastMessage";
 import {
   required,
   email,
@@ -236,6 +241,7 @@ export default {
       isLogin: false,
       registerSucess: "",
       isLoading: false,
+      isLoading2: false,
       isDisabled: false,
       activeCode: "",
       userSignup: {
@@ -291,6 +297,7 @@ export default {
     },
     ...mapActions({
       registerFuction: "auth/register",
+      activeAccount: "auth/activeAccount",
     }),
     ...mapMutations({
       setRegisterError: "auth/setRegisterError",
@@ -303,6 +310,7 @@ export default {
         if (!this.$v.userSignup.$invalid) {
           this.registerFuction(this.$data.userSignup)
             .then((response) => {
+              openToastMess(response, "success");
               if (response) {
                 this.registerSucess = "Sign up success!";
                 this.clearInput();
@@ -319,10 +327,13 @@ export default {
       }
     },
     handleSubmit() {
-      this.isLoading = true;
+      this.isLoading2 = true;
       this.$v.activeCode.$touch();
       if (!this.$v.activeCode.$invalid) {
-        this.forgotPassword(this.$data.activeCode)
+        let params = {
+          code_activate: this.$data.activeCode,
+        };
+        this.activeAccount(params)
           .then((res) => {
             openToastMess(res, "success");
             console.log(res);
@@ -332,7 +343,7 @@ export default {
             openToastMess(err, "error");
           })
           .finally(() => {
-            this.isLoading = false;
+            this.isLoading2 = false;
           });
       }
     },

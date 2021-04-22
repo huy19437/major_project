@@ -8,7 +8,7 @@ const state = {
     loginError: null,
     registerError: null,
     nowRoute: "",
-    user: {},
+    user: null,
 }
 
 const getters = {
@@ -78,7 +78,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.post('/sign_up', params)
                 .then(response => {
-                    res(response.data);
+                    res(response.data.message);
                 }).catch(err => {
                     commit('setRegisterError', err.response.data.message);
                     rej(err.response.data.message);
@@ -179,6 +179,16 @@ const actions = {
                 })
         })
     },
+    activeAccount({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/activated_account', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response.data.message);
+                })
+        })
+    }
 }
 
 export default {

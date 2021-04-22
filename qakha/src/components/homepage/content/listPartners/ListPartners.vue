@@ -203,7 +203,7 @@ export default {
   },
   created() {
     this.getResult();
-    if (Object.keys(this.getUser).length != 0) {
+    if (this.getUser) {
       this.showUser();
     }
   },

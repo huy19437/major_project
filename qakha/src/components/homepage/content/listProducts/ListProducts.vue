@@ -108,6 +108,10 @@
                           </div>
                           <div class="product-action-2">
                             <a
+                              :class="{
+                                diabledPointer:
+                                  partnerStatus === 'open' ? false : true,
+                              }"
                               title="Add to cart"
                               @click="addToCart(product.id)"
                               >Add to cart</a
@@ -173,6 +177,7 @@ export default {
       slug: this.$route.params.slug,
       activeItem: "",
       partner: {},
+      partnerStatus: "",
     };
   },
   computed: {
@@ -262,8 +267,11 @@ export default {
     getResult() {
       this.setShoppingStatus(true);
       this.showFeedback(true);
+      this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      this.partnerStatus = this.partner.status;
       let token = localStorage.getItem("token");
-      if (token) {
+      console.log(this.partnerStatus);
+      if (token && this.partnerStatus === "open") {
         let params = {
           partner_id: this.slug,
         };
@@ -278,7 +286,7 @@ export default {
           });
       }
       this.getFeedBackToShow();
-      this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      console.log(this.partner);
       this.partnerId(this.partner.id);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
@@ -495,5 +503,10 @@ export default {
 }
 .avg-point {
   color: yellow;
+}
+
+.diabledPointer {
+  pointer-events: none;
+  color: #ccc !important;
 }
 </style>
