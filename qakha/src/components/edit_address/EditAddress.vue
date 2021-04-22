@@ -61,6 +61,24 @@
         <GoogleMap @get-location-partner="getLocationUser" />
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="loadMe"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loader"></div>
+            <div clas="loader-txt">
+              <p>Waiting for Response</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -69,6 +87,7 @@ import GoogleMap from "@/components/googlemap/GoogleMap";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
 import Spinner from "@/components/spinner/Spinner";
+import $ from "jquery";
 export default {
   name: "EditAddress",
   components: { GoogleMap, Spinner },
@@ -104,12 +123,16 @@ export default {
         latitude: location.lat,
         longitude: location.lng,
       };
+      $("#loadMe").modal("show");
       this.addAddress(params)
         .then((response) => {
           openToastMess("Add address successfully!", "success");
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          $("#loadMe").modal("hide");
         });
     },
     deleteOneAddress(id) {

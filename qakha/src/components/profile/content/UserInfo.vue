@@ -171,6 +171,24 @@
         </div> -->
       </div>
     </section>
+    <div
+      class="modal fade"
+      id="loadMe"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loader"></div>
+            <div clas="loader-txt">
+              <p>Waiting for Update Info</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -179,6 +197,7 @@ import { mapActions, mapGetters } from "vuex";
 import { email, minLength, maxLength } from "vuelidate/lib/validators";
 import ProgressBar from "vuejs-progress-bar";
 import { openToastMess } from "@/services/toastMessage";
+import $ from "jquery";
 import axios from "axios";
 export default {
   name: "UserInfo",
@@ -255,6 +274,7 @@ export default {
           .then((res) => {
             console.log(this.userObj);
             this.$v.userObj.$touch();
+            $("#loadMe").modal("show");
             if (!this.$v.userObj.$invalid) {
               this.updateUser(this.$data.userObj)
                 .then((response) => {
@@ -266,6 +286,9 @@ export default {
                 .catch((err) => {
                   this.registerErr = true;
                   openToastMess(err, "error");
+                })
+                .finally(() => {
+                  $("#loadMe").modal("hide");
                 });
             }
           })
@@ -277,6 +300,7 @@ export default {
         this.$v.userObj.$touch();
         if (!this.$v.userObj.$invalid) {
           console.log(this.$data.userObj);
+          $("#loadMe").modal("show");
           this.updateUser(this.$data.userObj)
             .then((response) => {
               if (response) {
@@ -288,6 +312,9 @@ export default {
             .catch((err) => {
               this.registerErr = true;
               openToastMess(err, "error");
+            })
+            .finally(() => {
+              $("#loadMe").modal("hide");
             });
         }
       }
@@ -494,6 +521,11 @@ img {
 @media (max-width: 991px) {
   .about-avatar {
     margin-top: 30px;
+    img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+    }
   }
 }
 
