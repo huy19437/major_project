@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="field-wrap">
+      <div class="field-wrap show-password">
         <input
           required
           autocomplete="off"
@@ -35,8 +35,18 @@
           @blur="$v.userLogin.password.$touch()"
           placeholder="Password*"
           class="form-control"
+          :type="[showPassword ? 'text' : 'password']"
           :class="$v.userLogin.password.$error ? 'is-invalid' : ''"
         />
+        <div class="input-group-append">
+          <span @click="showPassword = !showPassword">
+            <i
+              class="fa"
+              :class="[showPassword ? 'fa-eye' : 'fa-eye-slash']"
+              aria-hidden="true"
+            ></i>
+          </span>
+        </div>
         <div v-if="$v.userLogin.password.$error">
           <p class="errorMessage" v-if="!$v.userLogin.password.required">
             Password is required
@@ -94,6 +104,7 @@ export default {
   components: { Spinner },
   data() {
     return {
+      showPassword: false,
       isLogin: false,
       // status: false,
       registerSucess: "",
@@ -340,6 +351,15 @@ textarea {
 .field-wrap {
   position: relative;
   margin-bottom: 40px;
+  &.show-password {
+    position: relative;
+    .input-group-append {
+      position: absolute;
+      right: 7%;
+      top: 31%;
+      font-size: 1.7rem;
+    }
+  }
 }
 
 .button {
@@ -438,5 +458,13 @@ textarea {
     box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
     top: 4px;
   }
+}
+
+#show-password {
+  box-shadow: none;
+  height: auto;
+  display: inline-block;
+  width: auto;
+  margin-right: 4px;
 }
 </style>

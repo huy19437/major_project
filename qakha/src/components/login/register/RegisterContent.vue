@@ -169,6 +169,45 @@
         </div>
       </div>
     </form>
+    <div
+      class="modal fade"
+      data-backdrop="true"
+      data-keyboard="true"
+      id="enterActiveCodeModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="inner">
+              <form @submit.prevent="handleSubmit">
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control"
+                    :class="$v.activeCode.$error ? 'is-invalid' : ''"
+                    placeholder="Enter Active Code Here"
+                    v-model="activeCode"
+                    @blur="$v.activeCode.$touch()"
+                  />
+                  <div v-if="$v.activeCode.$error">
+                    <p class="errorMessage" v-if="!$v.activeCode.required">
+                      Active code is required
+                    </p>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-block btn-forgot">
+                  Submit
+                </button>
+                <Spinner :loading="isLoading" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -184,6 +223,7 @@ import {
   sameAs,
   numeric,
 } from "vuelidate/lib/validators";
+import $ from "jquery";
 export default {
   props: {
     status: {
@@ -197,6 +237,7 @@ export default {
       registerSucess: "",
       isLoading: false,
       isDisabled: false,
+      activeCode: "",
       userSignup: {
         name: "",
         email: "",
@@ -235,6 +276,9 @@ export default {
         sameAsPassword: sameAs("password"),
       },
     },
+    activeCode: {
+      required,
+    },
   },
   computed: {
     ...mapGetters({
@@ -263,6 +307,7 @@ export default {
                 this.registerSucess = "Sign up success!";
                 this.clearInput();
                 this.$emit("register-success", this.registerSucess);
+                $("#enterActiveCodeModal").modal("show");
               }
             })
             .finally(() => {
@@ -271,6 +316,24 @@ export default {
             });
         }
         return true;
+      }
+    },
+    handleSubmit() {
+      this.isLoading = true;
+      this.$v.activeCode.$touch();
+      if (!this.$v.activeCode.$invalid) {
+        this.forgotPassword(this.$data.activeCode)
+          .then((res) => {
+            openToastMess(res, "success");
+            console.log(res);
+            $("#enterActiveCodeModal").modal("hide");
+          })
+          .catch((err) => {
+            openToastMess(err, "error");
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
       }
     },
     reFillRegister() {
