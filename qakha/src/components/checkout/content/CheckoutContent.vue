@@ -141,7 +141,14 @@
                           class="option"
                           @click="() => (voucher = item)"
                         >
-                          {{ item.code }}
+                          <span class="voucher-code">
+                            {{ item.code }}
+                          </span>
+                          {{
+                            item.description.slice(
+                              item.description.indexOf(":")
+                            )
+                          }}
                         </li>
                       </ul>
                     </div>
@@ -473,7 +480,7 @@ export default {
       this.user.name = this.getUser.name;
       this.user.email = this.getUser.email;
       this.user.phone_number = this.getUser.phone_number;
-      console.log(this.getUser);
+      // console.log(this.getUser);
     },
     validateDeliveryTime(delivery_time) {
       let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
@@ -536,7 +543,9 @@ export default {
   created() {
     this.getAddress().then((res) => {
       this.userObj();
-      this.getVouchersFlPartner({ partner_id: this.slug });
+      this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
+        console.log(res);
+      });
       this.getResult();
       this.coinsUsers();
       // this.validateDeliveryTime();
@@ -679,5 +688,9 @@ export default {
       color: #999;
     }
   }
+}
+
+.voucher-code {
+  font-weight: 700;
 }
 </style>
