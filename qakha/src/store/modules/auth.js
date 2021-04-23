@@ -7,6 +7,7 @@ const state = {
     token: null,
     loginError: null,
     registerError: null,
+    registerPartnerError: null,
     nowRoute: "",
     user: null,
 }
@@ -32,6 +33,9 @@ const getters = {
     },
     getRegisterError(state) {
         return state.registerError;
+    },
+    getRegisterPartnerError(state) {
+        return state.registerPartnerError;
     },
     getNowRoute(state) {
         return state.nowRoute;
@@ -68,6 +72,9 @@ const mutations = {
     setRegisterError(state, data) {
         state.registerError = data;
     },
+    setRegisterPartnerError(state, data) {
+        state.registerPartnerError = data;
+    },
     setNowRoute(state, data) {
         state.nowRoute = data;
     }
@@ -91,7 +98,7 @@ const actions = {
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
-                    commit('setRegisterError', err.response.data.message);
+                    commit('setRegisterPartnerError', err.response.data.message);
                     rej(err.response.data.message);
                 })
         })
@@ -182,6 +189,16 @@ const actions = {
     activeAccount({ commit }, params) {
         return new Promise((res, rej) => {
             httpRequest.post('/activated_account', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response.data.message);
+                })
+        })
+    },
+    activeAccountDriver({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/activated_account_driver', params)
                 .then(response => {
                     res(response.data.message);
                 }).catch(err => {

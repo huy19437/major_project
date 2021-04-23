@@ -243,7 +243,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row loader">
+              <div class="row">
                 <button
                   class="btn btn-lg btn-info"
                   :disabled="
@@ -393,7 +393,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      registerError: "auth/getRegisterError",
+      registerError: "auth/getRegisterPartnerError",
     }),
     time_open() {
       return this.form.time_open;
@@ -407,7 +407,7 @@ export default {
       registerPartner: "auth/registerPartner",
     }),
     ...mapMutations({
-      setRegisterError: "auth/setRegisterError",
+      setRegisterPartnerError: "auth/setRegisterPartnerError",
     }),
     async handleSubmit(event) {
       await this.upload()
@@ -450,7 +450,7 @@ export default {
       this.registerSucess = false;
     },
     reFillRegister() {
-      this.setRegisterError(null);
+      this.setRegisterPartnerError(null);
     },
     handleFileChange: function (event) {
       console.log("handlefilechange", event.target.files);
