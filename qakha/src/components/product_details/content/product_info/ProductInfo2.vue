@@ -69,6 +69,9 @@
                 type="button"
                 style="margin-right: 5px"
                 @click="addToCart"
+                :class="{
+                  diabledPointer: partnerStatus === 'open' ? false : true,
+                }"
               >
                 Add to cart
               </button>
@@ -97,6 +100,7 @@ export default {
       partnerId: 0,
       slug: this.$route.params.slug,
       numberProductInCart: 1,
+      partnerStatus: "",
     };
   },
   methods: {
@@ -149,6 +153,7 @@ export default {
           cat.products.find((obj) => obj.id == this.slug)
         )
       );
+      this.partnerStatus = this.partner.status;
       this.partnerId = this.partner.id;
     },
   },
