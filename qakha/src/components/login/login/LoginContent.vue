@@ -70,8 +70,7 @@
       </button>
       <Spinner :loading="isLoading" />
 
-      <div class="or-seperator"><i>or</i></div>
-      <p class="text-center">Login with your social media account</p>
+      <!-- <p class="text-center">Login with your social media account</p>
       <div class="text-center social-btn">
         <a href="#" class="btn btn-secondary"
           ><i class="fa fa-facebook"></i>&nbsp; Facebook</a
@@ -79,14 +78,64 @@
         <a href="#" class="btn btn-danger"
           ><i class="fa fa-google"></i>&nbsp; Google</a
         >
-      </div>
+      </div> -->
     </form>
+    <div v-if="!active_account">
+      <div class="or-seperator"><i>***</i></div>
+      <button
+        data-toggle="modal"
+        data-target="#enterActiveCodeModal"
+        class="button button-block"
+      >
+        Click to Active account
+      </button>
+    </div>
+    <div
+      class="modal fade"
+      data-backdrop="true"
+      data-keyboard="true"
+      id="enterActiveCodeModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="inner">
+              <form @submit.prevent="handleSubmit">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    :class="$v.activeCode.$error ? 'is-invalid' : ''"
+                    placeholder="Enter Active Code Here"
+                    v-model="activeCode"
+                    @blur="$v.activeCode.$touch()"
+                  />
+                  <div v-if="$v.activeCode.$error">
+                    <p class="errorMessage" v-if="!$v.activeCode.required">
+                      Active code is required
+                    </p>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-block btn-forgot">
+                  Submit
+                </button>
+                <Spinner :loading="isLoading2" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import Spinner from "@/components/spinner/Spinner";
+import { openToastMess } from "@/services/toastMessage";
 import {
   required,
   email,
@@ -95,6 +144,7 @@ import {
   sameAs,
   numeric,
 } from "vuelidate/lib/validators";
+import $ from "jquery";
 export default {
   props: {
     status: {
@@ -104,12 +154,15 @@ export default {
   components: { Spinner },
   data() {
     return {
+      active_account: true,
+      activeCode: "",
       showPassword: false,
       isLogin: false,
       // status: false,
       registerSucess: "",
       errMess: "",
       isLoading: false,
+      isLoading2: false,
       isDisabled: false,
       userLogin: {
         email: "",
@@ -129,6 +182,9 @@ export default {
         maxLength: maxLength(20),
       },
     },
+    activeCode: {
+      required,
+    },
   },
   computed: {
     ...mapGetters({
@@ -138,12 +194,13 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      loginFuction: "auth/login",
+      activeAccount: "auth/activeAccount",
+    }),
     toggleStyleDisplay: function () {
       this.status = !this.status;
     },
-    ...mapActions({
-      loginFuction: "auth/login",
-    }),
     ...mapMutations({
       setLoginError: "auth/setLoginError",
     }),
@@ -163,6 +220,9 @@ export default {
               this.$router.push({ path: "/" });
             }
             console.log(res);
+            if (res.active_account === false) {
+              this.active_account = false;
+            }
           })
           .catch((err) => {
             this.errMess = err;
@@ -184,6 +244,31 @@ export default {
     },
     reFillLogin() {
       this.setLoginError(null);
+    },
+    handleSubmit() {
+      this.active_account = true;
+      $("#enterActiveCodeModal").modal("hide");
+
+      // this.isLoading2 = true;
+      // this.$v.activeCode.$touch();
+      // if (!this.$v.activeCode.$invalid) {
+      //   let params = {
+      //     code_activate: this.$data.activeCode,
+      //   };
+      //   this.activeAccount(params)
+      //     .then((res) => {
+      //       openToastMess(res, "success");
+      //       console.log(res);
+      //       $("#enterActiveCodeModal").modal("hide");
+      //       this.active_account = true;
+      //     })
+      //     .catch((err) => {
+      //       openToastMess(err, "error");
+      //     })
+      //     .finally(() => {
+      //       this.isLoading2 = false;
+      //     });
+      // }
     },
   },
 };
