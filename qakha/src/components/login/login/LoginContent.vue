@@ -1,9 +1,9 @@
 <template>
   <div id="login" v-bind:style="{ display: status ? 'none' : 'block' }">
-    <form @submit.prevent="authenticate" @change="reFillLogin">
+    <form @submit.prevent="authenticate" @input="reFillLogin">
       <div>
-        <div v-if="errMess" class="alert alert-danger" role="alert">
-          {{ errMess }}
+        <div v-if="loginError" class="alert alert-danger" role="alert">
+          {{ loginError }}
         </div>
       </div>
       <div class="field-wrap">
@@ -64,7 +64,11 @@
 
       <button
         class="button button-block"
-        :disabled="$v.userLogin.$invalid || isDisabled"
+        :disabled="
+          $v.userLogin.$invalid || isDisabled || loginError == null
+            ? false
+            : true
+        "
       >
         Log In
       </button>
@@ -207,37 +211,38 @@ export default {
     authenticate(event) {
       this.isLoading = true;
       this.isDisabled = true;
-      // if (this.errMess == "") {
-      this.$v.userLogin.$touch();
-      if (!this.$v.userLogin.$invalid) {
-        this.loginFuction(this.$data.userLogin)
-          .then((res) => {
-            console.log(this.getNowRoute);
-            if (this.getNowRoute) {
+      if (this.loginError == null) {
+        this.$v.userLogin.$touch();
+        if (!this.$v.userLogin.$invalid) {
+          this.loginFuction(this.$data.userLogin)
+            .then((res) => {
               console.log(this.getNowRoute);
-              window.location.href = "http://localhost:8080" + this.getNowRoute;
-            } else {
-              this.$router.push({ path: "/" });
-            }
-            console.log(res);
-            if (res.active_account === false) {
-              this.active_account = false;
-            }
-          })
-          .catch((err) => {
-            this.errMess = err;
-            setTimeout(() => {
-              this.toggleErrMessage();
-            }, 3000);
-          })
-          .finally(() => {
-            this.isLoading = false;
-            this.isDisabled = false;
-          });
-        event.target.reset();
+              if (this.getNowRoute) {
+                console.log(this.getNowRoute);
+                window.location.href =
+                  "http://localhost:8080" + this.getNowRoute;
+              } else {
+                this.$router.push({ path: "/" });
+              }
+              console.log(res);
+            })
+            .catch((err) => {
+              this.errMess = err.message;
+              if (err.active_account === false) {
+                this.active_account = false;
+              }
+              setTimeout(() => {
+                this.toggleErrMessage();
+              }, 3000);
+            })
+            .finally(() => {
+              this.isLoading = false;
+              this.isDisabled = false;
+            });
+          event.target.reset();
+        }
+        return true;
       }
-      return true;
-      // }
     },
     toggleErrMessage() {
       this.errMess = "";
@@ -246,29 +251,29 @@ export default {
       this.setLoginError(null);
     },
     handleSubmit() {
-      this.active_account = true;
-      $("#enterActiveCodeModal").modal("hide");
+      // $("#enterActiveCodeModal").modal("hide");
 
-      // this.isLoading2 = true;
-      // this.$v.activeCode.$touch();
-      // if (!this.$v.activeCode.$invalid) {
-      //   let params = {
-      //     code_activate: this.$data.activeCode,
-      //   };
-      //   this.activeAccount(params)
-      //     .then((res) => {
-      //       openToastMess(res, "success");
-      //       console.log(res);
-      //       $("#enterActiveCodeModal").modal("hide");
-      //       this.active_account = true;
-      //     })
-      //     .catch((err) => {
-      //       openToastMess(err, "error");
-      //     })
-      //     .finally(() => {
-      //       this.isLoading2 = false;
-      //     });
-      // }
+      this.isLoading2 = true;
+      this.$v.activeCode.$touch();
+      if (!this.$v.activeCode.$invalid) {
+        let params = {
+          code_activate: this.$data.activeCode,
+        };
+        this.activeAccount(params)
+          .then((res) => {
+            this.active_account = true;
+            $("#enterActiveCodeModal").modal("hide");
+            this.reFillLogin();
+            openToastMess(res, "success");
+            console.log(res);
+          })
+          .catch((err) => {
+            openToastMess(err, "error");
+          })
+          .finally(() => {
+            this.isLoading2 = false;
+          });
+      }
     },
   },
 };

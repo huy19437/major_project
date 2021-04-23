@@ -115,7 +115,7 @@ const actions = {
                     res(respone.data);
                 }).catch(err => {
                     commit('setLoginError', err.response.data.message);
-                    rej(err.response.data.message);
+                    rej(err.response.data);
                 })
         })
     },

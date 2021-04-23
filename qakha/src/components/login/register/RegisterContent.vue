@@ -177,7 +177,7 @@
       class="modal fade"
       data-backdrop="true"
       data-keyboard="true"
-      id="enterActiveCodeModal"
+      id="enterActiveCodeRegisterModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -205,7 +205,7 @@
                 <button class="btn btn-primary btn-block btn-forgot">
                   Submit
                 </button>
-                <Spinner :loading="isLoading2" />
+                <Spinner :loading="isLoading3" />
               </form>
             </div>
           </div>
@@ -241,7 +241,7 @@ export default {
       isLogin: false,
       registerSucess: "",
       isLoading: false,
-      isLoading2: false,
+      isLoading3: false,
       isDisabled: false,
       activeCode: "",
       userSignup: {
@@ -310,12 +310,12 @@ export default {
         if (!this.$v.userSignup.$invalid) {
           this.registerFuction(this.$data.userSignup)
             .then((response) => {
+              $("#enterActiveCodeRegisterModal").modal("show");
               openToastMess(response, "success");
               if (response) {
                 this.registerSucess = "Sign up success!";
                 this.clearInput();
                 this.$emit("register-success", this.registerSucess);
-                $("#enterActiveCodeModal").modal("show");
               }
             })
             .finally(() => {
@@ -327,7 +327,7 @@ export default {
       }
     },
     handleSubmit() {
-      this.isLoading2 = true;
+      this.isLoading3 = true;
       this.$v.activeCode.$touch();
       if (!this.$v.activeCode.$invalid) {
         let params = {
@@ -337,13 +337,13 @@ export default {
           .then((res) => {
             openToastMess(res, "success");
             console.log(res);
-            $("#enterActiveCodeModal").modal("hide");
+            $("#enterActiveCodeRegisterModal").modal("hide");
           })
           .catch((err) => {
             openToastMess(err, "error");
           })
           .finally(() => {
-            this.isLoading2 = false;
+            this.isLoading3 = false;
           });
       }
     },
