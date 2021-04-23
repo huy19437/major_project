@@ -205,6 +205,16 @@ const actions = {
                     rej(err.response.data.message);
                 })
         })
+    },
+    activeAccountPartner({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/activated_account_partner', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response.data.message);
+                })
+        })
     }
 }
 

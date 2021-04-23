@@ -295,7 +295,7 @@
       class="modal fade"
       data-backdrop="static"
       data-keyboard="false"
-      id="activePartnerModal"
+      id="activeDriverModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -304,7 +304,7 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="inner">
-              <form @submit.prevent="handleSubmitActivePartner">
+              <form @submit.prevent="handleSubmitActiveDriver">
                 <div class="form-group">
                   <input
                     type="text"
@@ -350,7 +350,6 @@ import axios from "axios";
 import ProgressBar from "vuejs-progress-bar";
 import { openToastMess } from "@/services/toastMessage";
 import $ from "jquery";
-
 export default {
   name: "RegisterPartner",
   components: { Spinner, ProgressBar },
@@ -461,8 +460,7 @@ export default {
             if (!this.$v.form.$invalid) {
               this.registerDriver(this.$data.form)
                 .then((response) => {
-                  $("#activePartnerModal").modal("show");
-
+                  $("#activeDriverModal").modal("show");
                   if (response) {
                     openToastMess("Sign up successfully", "success");
                     // event.target.reset();
@@ -485,7 +483,7 @@ export default {
           openToastMess(err, "error");
         });
     },
-    handleSubmitActivePartner() {
+    handleSubmitActiveDriver() {
       this.isLoading4 = true;
       this.$v.activeCode.$touch();
       if (!this.$v.activeCode.$invalid) {
@@ -494,7 +492,7 @@ export default {
         };
         this.activeAccountDriver(params)
           .then((res) => {
-            $("#activePartnerModal").modal("hide");
+            $("#activeDriverModal").modal("hide");
             openToastMess(res, "success");
             console.log(res);
           })

@@ -286,6 +286,45 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="activePartnerModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="inner">
+              <form @submit.prevent="handleSubmitActivePartner">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    :class="$v.activeCode.$error ? 'is-invalid' : ''"
+                    placeholder="Enter Active Code Here"
+                    v-model="activeCode"
+                    @blur="$v.activeCode.$touch()"
+                  />
+                  <div v-if="$v.activeCode.$error">
+                    <p class="errorMessage" v-if="!$v.activeCode.required">
+                      Active code is required
+                    </p>
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-block btn-forgot">
+                  Submit
+                </button>
+                <Spinner :loading="isLoading5" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -304,6 +343,7 @@ import GoogleMap from "@/components/googlemap/GoogleMap";
 import axios from "axios";
 import ProgressBar from "vuejs-progress-bar";
 import { openToastMess } from "@/services/toastMessage";
+import $ from "jquery";
 export default {
   name: "RegisterPartner",
   components: { Spinner, GoogleMap, ProgressBar },
@@ -331,6 +371,7 @@ export default {
       errMess: false,
       registerSucess: false,
       isLoading: false,
+      isLoading5: false,
       isDisabled: false,
       results: null,
       file: null,
@@ -342,6 +383,7 @@ export default {
       options: progressBarOptions,
       fileContents: null,
       formData: null,
+      activeCode: "",
       form: {
         name: "",
         email: "",
@@ -390,6 +432,9 @@ export default {
         required,
       },
     },
+    activeCode: {
+      required,
+    },
   },
   computed: {
     ...mapGetters({
@@ -405,6 +450,7 @@ export default {
   methods: {
     ...mapActions({
       registerPartner: "auth/registerPartner",
+      activeAccountPartner: "auth/activeAccountPartner",
     }),
     ...mapMutations({
       setRegisterPartnerError: "auth/setRegisterPartnerError",
@@ -420,6 +466,7 @@ export default {
               console.log(this.$data.form);
               this.registerPartner(this.$data.form)
                 .then((response) => {
+                  $("#activePartnerModal").modal("show");
                   if (response) {
                     console.log(response);
                     this.registerSucess = true;
@@ -440,6 +487,27 @@ export default {
           openToastMess(error, "error");
         });
       // console.log(this.$data.form);
+    },
+    handleSubmitActivePartner() {
+      this.isLoading5 = true;
+      this.$v.activeCode.$touch();
+      if (!this.$v.activeCode.$invalid) {
+        let params = {
+          code_activate: this.$data.activeCode,
+        };
+        this.activeAccountPartner(params)
+          .then((res) => {
+            $("#activePartnerModal").modal("hide");
+            openToastMess(res, "success");
+            console.log(res);
+          })
+          .catch((err) => {
+            openToastMess(err, "error");
+          })
+          .finally(() => {
+            this.isLoading5 = false;
+          });
+      }
     },
     getLocationPartner(location) {
       this.reFillRegister();
