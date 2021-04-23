@@ -84,15 +84,24 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-6 form-group">
+                <div class="col-6 form-group show-password">
                   <label>Password</label>
                   <input
-                    type="text"
+                    :type="[showPassword ? 'text' : 'password']"
                     placeholder="Enter Password Here.."
                     class="form-control"
                     v-model="form.password"
                     @blur="$v.form.password.$touch()"
                   />
+                  <div class="input-group-append">
+                    <span @click="showPassword = !showPassword">
+                      <i
+                        class="fa"
+                        :class="[showPassword ? 'fa-eye' : 'fa-eye-slash']"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                  </div>
                   <div v-if="$v.form.password.$error">
                     <p class="errorMessage" v-if="!$v.form.password.required">
                       Password is required
@@ -374,6 +383,7 @@ export default {
       },
     };
     return {
+      showPassword: false,
       registerErr: false,
       isLoading: false,
       isLoading4: false,
@@ -668,6 +678,18 @@ $button-color: #f7941d;
     top: 13%;
     width: 52%;
     right: 24%;
+  }
+}
+
+.form-group {
+  &.show-password {
+    position: relative;
+    .input-group-append {
+      position: absolute;
+      right: 7%;
+      top: 39%;
+      font-size: 1.7rem;
+    }
   }
 }
 

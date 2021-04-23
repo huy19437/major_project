@@ -8,18 +8,27 @@
           </div>
         </div>
         <h3>Reset Password</h3>
-        <div class="form-group">
+        <div class="form-group show-password">
           <input
-            type="password"
+            :type="[showPassword ? 'text' : 'password']"
             class="form-control"
-            :class="$v.userReset.password.$error ? 'is-invalid' : ''"
-            placeholder="New Password"
-            v-model="userReset.password"
-            @blur="$v.userReset.password.$touch()"
+            :class="$v.userReset.new_password.$error ? 'is-invalid' : ''"
+            placeholder="New password"
+            v-model="userReset.new_password"
+            @blur="$v.userReset.new_password.$touch()"
           />
-          <div v-if="$v.userReset.password.$error">
-            <p class="errorMessage" v-if="!$v.userReset.password.required">
-              New Password is required
+          <div class="input-group-append">
+            <span @click="showPassword = !showPassword">
+              <i
+                class="fa"
+                :class="[showPassword ? 'fa-eye' : 'fa-eye-slash']"
+                aria-hidden="true"
+              ></i>
+            </span>
+          </div>
+          <div v-if="$v.userReset.new_password.$error">
+            <p class="errorMessage" v-if="!$v.userReset.new_password.required">
+              New password is required
             </p>
           </div>
         </div>
@@ -28,13 +37,16 @@
           <input
             type="text"
             class="form-control"
-            :class="$v.userReset.token.$error ? 'is-invalid' : ''"
+            :class="$v.userReset.verification_code.$error ? 'is-invalid' : ''"
             placeholder="Code"
-            v-model="userReset.token"
-            @blur="$v.userReset.token.$touch()"
+            v-model="userReset.verification_code"
+            @blur="$v.userReset.verification_code.$touch()"
           />
-          <div v-if="$v.userReset.token.$error">
-            <p class="errorMessage" v-if="!$v.userReset.token.required">
+          <div v-if="$v.userReset.verification_code.$error">
+            <p
+              class="errorMessage"
+              v-if="!$v.userReset.verification_code.required"
+            >
               OTP code is required
             </p>
           </div>
@@ -51,25 +63,27 @@
 import { mapActions } from "vuex";
 import { required } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "ResetPass",
   components: { Spinner },
   data() {
     return {
       errMess: "",
+      showPassword: false,
       isLoading: false,
       userReset: {
-        password: "",
-        token: "",
+        new_password: "",
+        verification_code: "",
       },
     };
   },
   validations: {
     userReset: {
-      token: {
+      verification_code: {
         required,
       },
-      password: {
+      new_password: {
         required,
       },
     },
@@ -84,6 +98,7 @@ export default {
       if (!this.$v.userReset.$invalid) {
         this.resetPassword(this.$data.userReset)
           .then((res) => {
+            openToastMess(res, "success");
             console.log(res);
           })
           .catch((err) => {
@@ -126,6 +141,15 @@ export default {
         &:focus {
           outline: none;
           border-color: #f28809;
+        }
+      }
+      &.show-password {
+        position: relative;
+        .input-group-append {
+          position: absolute;
+          right: 7%;
+          top: 17%;
+          font-size: 1.7rem;
         }
       }
     }

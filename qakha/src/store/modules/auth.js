@@ -138,7 +138,7 @@ const actions = {
             httpRequest.post('/passwords/forgot', params)
                 .then(response => {
                     router.push({ path: "/reset" });
-                    res(response.data);
+                    res(response.data.message);
                 }).catch(err => {
                     rej(err.response.data.error);
                 })
@@ -149,9 +149,9 @@ const actions = {
             httpRequest.post('/passwords/reset', params)
                 .then(response => {
                     router.push({ path: "/login" });
-                    res(response.data);
+                    res(response.data.message);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response.data.message);
                 })
         })
     },
