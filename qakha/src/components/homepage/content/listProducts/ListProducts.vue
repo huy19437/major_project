@@ -84,9 +84,9 @@
                             :src="`${product.image.url}`"
                             alt="#"
                           />
-                          <!-- <span class="new">New</span>
-                          <span class="price-dec">30% Off</span>
-                          <span class="out-of-stock">Hot</span> -->
+                          <!-- <span class="new">New</span> -->
+                          <!-- <span class="price-dec">30% Off</span> -->
+                          <!-- <span class="out-of-stock">Hot</span> -->
                         </router-link>
                         <div class="button-head">
                           <div class="product-action">

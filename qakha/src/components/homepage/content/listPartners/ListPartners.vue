@@ -65,6 +65,7 @@
             v-for="partner in visiblePartner"
             :key="partner.id"
             class="col-sm-6 col-lg-4 mb-4"
+            :style="{ display: partner.status == 'locked' ? 'none' : 'blokc' }"
           >
             <div class="partner-list partner-grid">
               <div class="partner-list-image">
@@ -79,6 +80,9 @@
                     :src="`${partner.image.url}`"
                     alt="Partner's image"
                   />
+                  <span :class="`time-tag ${partner.status}`">
+                    {{ partner.status }}
+                  </span>
                 </router-link>
               </div>
               <div class="partner-list-details">
@@ -279,6 +283,32 @@ select.form-control:not([size]):not([multiple]) {
       object-fit: cover;
       border-top-left-radius: $border-radius;
       border-top-right-radius: $border-radius;
+    }
+    .time-tag {
+      display: inline-block;
+      opacity: 1;
+      font-size: 11px;
+      color: #fff;
+      right: 20px;
+      top: 20px;
+      padding: 1px 16px;
+      font-weight: 700;
+      border-radius: 0;
+      text-align: center;
+      position: absolute;
+      text-transform: uppercase;
+      border-radius: 30px;
+      height: 26px;
+      line-height: 24px;
+      &.open {
+        background-color: #8493ca;
+      }
+      &.close {
+        background-color: #ed1b24;
+      }
+      &.locked {
+        background-color: #f7941d;
+      }
     }
   }
 }
