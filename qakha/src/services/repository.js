@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseDomain = "https://b8916912cda8.ngrok.io";
+const baseDomain = "https://05c159fca0da.ngrok.io";
 const baseURL = `${baseDomain}/api/v1`;
 const token = localStorage.getItem('token');
 const headers = {

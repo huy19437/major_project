@@ -95,27 +95,53 @@
                     :class="{ open: isOpen }"
                     @click="isOpen = !isOpen"
                   >
-                    <span class="current">All Category</span>
+                    <span class="current">
+                      {{ selectedTypeRestaurant || "ALL" }}
+                    </span>
                     <ul class="list">
                       <li
-                        data-value="All Category"
-                        class="option selected focus"
+                        v-for="item in restaurantsType"
+                        :key="item.id"
+                        class="option"
+                        @click="
+                          () => {
+                            selectedTypeRestaurant = item;
+                          }
+                        "
                       >
-                        All Category
+                        {{ item }}
                       </li>
-                      <li data-value="watch" class="option">Foods</li>
-                      <li data-value="mobile" class="option">Drinks</li>
-                      <li data-value="kid’s item" class="option">Beverage</li>
                     </ul>
                   </div>
-                  <form>
-                    <input
-                      name="search"
-                      placeholder="Search Products Here....."
-                      type="search"
-                    />
-                    <button class="btnn"><i class="ti-search"></i></button>
-                  </form>
+                  <div class="search-products">
+                    <div class="search-input">
+                      <input
+                        type="text"
+                        class="header__search-input"
+                        placeholder="Search for products"
+                        v-model="searchByName"
+                      />
+                      <div class="header__search-history">
+                        <h3 class="header__search-history-heading">
+                          List of products
+                        </h3>
+                        <ul class="header__search-history-list">
+                          <li
+                            v-for="product in filteredProductByName"
+                            :key="product.id"
+                            class="header__search-history-item"
+                          >
+                            <a>{{ product.name }}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="btn-search">
+                      <div class="search-icon">
+                        <i class="ti-search"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,13 +159,7 @@
                     <div class="dropdown-cart-header">
                       <span>{{ numberOfItem }} Items</span>
                       <!-- <a href="cart">View Cart</a> -->
-                      <router-link
-                        :to="{
-                          name: 'Cart',
-                          params: { slug: this.$route.params.slug || 0 },
-                        }"
-                        >Cart
-                      </router-link>
+                      <a @click="gotoCart()">Cart </a>
                     </div>
                     <ul class="shopping-list">
                       <li v-for="product in products" :key="product.id">
@@ -169,15 +189,9 @@
                         >
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
-                      <router-link
-                        class="btn btn-right"
-                        :to="{
-                          name: 'Checkout',
-                          params: { slug: this.$route.params.slug || 0 },
-                        }"
-                      >
+                      <a class="btn btn-right" @click="gotoCheckout()">
                         Checkout
-                      </router-link>
+                      </a>
                     </div>
                   </div>
                   <!--/ End Shopping Item -->
@@ -270,15 +284,7 @@
                             ></a>
                             <ul class="dropdown">
                               <li>
-                                <router-link
-                                  :to="{
-                                    name: 'Cart',
-                                    params: {
-                                      slug: this.$route.params.slug || 0,
-                                    },
-                                  }"
-                                  >Cart
-                                </router-link>
+                                <a @click="gotoCart()">Cart </a>
                               </li>
                             </ul>
                           </li>
@@ -320,11 +326,31 @@ export default {
       isChanged: false,
       cart: [],
       products: [],
+      partnerIdForSlug: 0,
+      partnerData: [],
       idOfProducts: [],
       qtyOfProducts: [],
       numberOfItem: 0,
       total: 0,
       nameOfUser: "",
+      selectedTypeRestaurant: "ALL",
+      searchByName: "",
+      restaurantsType: [
+        "ALL",
+        "VEGE",
+        "RICEBOX",
+        "STREETFOOD",
+        "SUSHI",
+        "DRINK",
+      ],
+      restaurantsTypeObject: {
+        ALL: "",
+        VEGE: 1,
+        RICEBOX: 2,
+        STREETFOOD: 3,
+        SUSHI: 4,
+        DRINK: 5,
+      },
     };
   },
   computed: {
@@ -340,6 +366,33 @@ export default {
     },
     userChange() {
       return this.getUser;
+    },
+    filteredPartner() {
+      return this.partnerData.filter((partner) => {
+        return (partner.type_id || "")
+          .toString()
+          .includes(this.restaurantsTypeObject[this.selectedTypeRestaurant]);
+      });
+    },
+    getProductsFromPartner() {
+      let categoryFromPartner = this.filteredPartner.reduce(
+        (accumulator, currentValue) => {
+          let arrayTmp = currentValue.categories;
+          return [...accumulator, ...arrayTmp];
+        },
+        []
+      );
+      return categoryFromPartner.reduce((accumulator, currentValue) => {
+        let arrayTmp2 = currentValue.products;
+        return [...accumulator, ...arrayTmp2];
+      }, []);
+    },
+    filteredProductByName() {
+      return this.getProductsFromPartner.filter((product) => {
+        return (this.xoa_dau(product.name) || "")
+          .toLowerCase()
+          .includes(this.xoa_dau(this.searchByName).toLowerCase());
+      });
     },
   },
   methods: {
@@ -363,6 +416,7 @@ export default {
         product_id: id,
         partner_id: this.partner.id,
       };
+      console.log(params);
       this.deleteCart(params)
         .then((res) => {
           if (res) {
@@ -379,6 +433,7 @@ export default {
     },
     getInfoProductInCart() {
       this.cart = this.getCartLocal;
+      console.log(this.cart);
       if (this.cart) {
         // console.log("hi");
         this.idOfProducts = this.cart.map((item) => item.product_id);
@@ -453,10 +508,52 @@ export default {
         this.nameOfUser = null;
       }
     },
+    gePartnerDataFromPartner() {
+      this.partnerData = this.getPartnersLocal;
+      console.log(this.partnerData);
+    },
+    xoa_dau(str) {
+      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+      str = str.replace(/đ/g, "d");
+      str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+      str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+      str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+      str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+      str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+      str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+      str = str.replace(/Đ/g, "D");
+      return str;
+    },
+    getPartnerIdForCart() {
+      this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+      console.log(this.partnerIdForSlug);
+    },
+    gotoCart() {
+      this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+      this.$router.push({
+        name: "Cart",
+        params: { slug: this.partnerIdForSlug || 0 },
+      });
+    },
+    gotoCheckout() {
+      this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+      this.$router.push({
+        name: "Checkout",
+        params: { slug: this.partnerIdForSlug || 0 },
+      });
+    },
+    getResult() {},
   },
   created() {
+    // this.getPartnerIdForCart();
     this.getUserInfoFromLocal();
-    console.log(this.userName);
+    this.gePartnerDataFromPartner();
+    // console.log(this.userName);
     // this.getInfoProductInCart();
   },
   watch: {
@@ -509,6 +606,61 @@ export default {
   margin-bottom: 0 !important;
 }
 
+/* Search History */
+.header__search-history {
+  position: absolute;
+  text-align: left;
+  top: calc(100% + 2px);
+  left: 0;
+  width: calc(100% - 16px);
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 5px rgb(185, 182, 182);
+  display: none;
+  // overflow: hidden;
+  z-index: 10;
+}
+
+.header__search-history-heading {
+  margin: 6px 12px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgb(173, 173, 173);
+}
+
+.header__search-history-list {
+  padding-left: 0;
+  list-style: none;
+  margin: 6px 0 0;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.header__search-history-item {
+  height: 38px;
+  padding: 0 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.header__search-history-item:hover {
+  background-color: #fafafa;
+}
+
+.header__search-history-item a {
+  text-decoration: none;
+  font-size: 1.4rem;
+  line-height: 38px;
+  color: var(--text-color);
+  display: block;
+}
+
+.header__search-input:focus ~ .header__search-history {
+  display: block !important;
+}
+
 .header.shop {
   .logo {
     margin: 6px 0 0 !important;
@@ -517,6 +669,19 @@ export default {
 
   .search-bar-top {
     margin-left: 15%;
+    .search-bar {
+      .search-products {
+        display: flex;
+        justify-content: space-evenly;
+        .search-input {
+          position: relative;
+        }
+        .search-icon {
+          height: 48px;
+          padding-top: 4px;
+        }
+      }
+    }
   }
 
   .right-bar {

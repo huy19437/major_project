@@ -108,6 +108,7 @@ export default {
       setShoppingStatus: "cart/setShoppingStatus",
       addProductToCart: "cart/addProductToCart",
       nowRoute: "auth/nowRoute",
+      getCart: "cart/getCart",
     }),
     inc() {
       this.numberProductInCart++;
@@ -155,6 +156,21 @@ export default {
       );
       this.partnerStatus = this.partner.status;
       this.partnerId = this.partner.id;
+      let token = localStorage.getItem("token");
+      if (token && this.partnerStatus === "open") {
+        let params = {
+          partner_id: this.partner.id,
+        };
+        this.getCart(params)
+          .then((res) => {})
+          .catch((error) => {
+            if (typeof error == "object") {
+              openToastMess(error.toString(), "error");
+            } else {
+              openToastMess(error, "error");
+            }
+          });
+      }
     },
   },
   created() {

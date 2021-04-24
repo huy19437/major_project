@@ -385,6 +385,7 @@ export default {
         latitude: address.latitude,
         longitude: address.longitude,
       };
+      console.log(addressUserForCalcDistance);
       this.getDistance(addressUserForCalcDistance)
         .then((res) => {
           this.shipping_fee = res.shipping_fee;

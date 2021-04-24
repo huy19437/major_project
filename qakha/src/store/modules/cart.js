@@ -83,7 +83,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.post('/carts', params)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     res(response.data);
                     commit('setCart', response.data.carts);
                 }).catch(err => {
@@ -95,7 +95,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.patch('/carts', params)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     commit('setCart', response.data.carts);
                     res(response.data);
                 }).catch(err => {
@@ -108,7 +108,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.delete('/carts', { data: params })
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     commit('setCart', response.data.carts);
                     res(response.data);
                 }).catch(err => {
