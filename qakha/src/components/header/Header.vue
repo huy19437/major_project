@@ -131,7 +131,19 @@
                             :key="product.id"
                             class="header__search-history-item"
                           >
-                            <a>{{ product.name }}</a>
+                            <img
+                              class="product-img"
+                              :src="`${product.image.url}`"
+                              @mousedown="gotoProduct(product.id)"
+                            />
+                            <h4 class="product-title">
+                              <a @mousedown="gotoProduct(product.id)">
+                                {{ product.name }}
+                              </a>
+                              <span class="product-price">
+                                {{ product.price }}đ
+                              </span>
+                            </h4>
                           </li>
                         </ul>
                       </div>
@@ -547,7 +559,13 @@ export default {
         params: { slug: this.partnerIdForSlug || 0 },
       });
     },
-    getResult() {},
+    gotoProduct(id) {
+      console.log(id);
+      this.$router.push({
+        name: "ProductDetail",
+        params: { slug: id },
+      });
+    },
   },
   created() {
     // this.getPartnerIdForCart();
@@ -611,8 +629,8 @@ export default {
   position: absolute;
   text-align: left;
   top: calc(100% + 2px);
-  left: 0;
-  width: calc(100% - 16px);
+  left: -14px;
+  width: calc(100% + 55px);
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 1px 5px rgb(185, 182, 182);
@@ -637,28 +655,49 @@ export default {
 }
 
 .header__search-history-item {
-  height: 38px;
+  height: 90px;
   padding: 0 12px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-}
-
-.header__search-history-item:hover {
-  background-color: #fafafa;
-}
-
-.header__search-history-item a {
-  text-decoration: none;
-  font-size: 1.4rem;
-  line-height: 38px;
-  color: var(--text-color);
-  display: block;
+  display: flex;
+  &:hover {
+    background-color: #eee7e7;
+  }
+  .product-img {
+    width: 40%;
+    object-fit: cover;
+    padding-left: 0;
+    cursor: pointer;
+  }
+  .product-title {
+    font-weight: 700;
+    a {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      text-decoration: none;
+      font-size: 1.4rem;
+      line-height: 38px;
+      color: #000;
+      display: block;
+      cursor: pointer;
+      &:hover {
+        color: #f7941d !important;
+      }
+    }
+    .product-price {
+      font-size: 1.3rem;
+      color: #f7941d;
+    }
+  }
 }
 
 .header__search-input:focus ~ .header__search-history {
   display: block !important;
+}
+
+.header__search-input:focus {
+  outline: none;
+  border: none;
 }
 
 .header.shop {
