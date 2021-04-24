@@ -634,7 +634,7 @@ export default {
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 1px 5px rgb(185, 182, 182);
-  display: none;
+  // display: none;
   // overflow: hidden;
   z-index: 10;
 }
@@ -670,7 +670,7 @@ export default {
   .product-title {
     font-weight: 700;
     a {
-      display: -webkit-box;
+      display: -webkit-box !important;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
       overflow: hidden;
