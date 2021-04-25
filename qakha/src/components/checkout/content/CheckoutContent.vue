@@ -203,7 +203,9 @@
                     Sub Total<span>{{ subTotal }} VNĐ</span>
                   </li>
                   <li>
-                    (+) Shipping<span>{{ shipping_fee }} VNĐ</span>
+                    (+) Shipping({{ distance }}km)<span
+                      >{{ shipping_fee }} VNĐ</span
+                    >
                   </li>
                   <li class="last">
                     Total<span>{{ subTotal + shipping_fee }} VNĐ</span>
@@ -308,6 +310,8 @@ export default {
       voucher: {},
       isOpen2: false,
       isOpen3: false,
+      distance: 0,
+      partnerStatus: "",
       // partnerOpenTime: moment().format("HH:mm"),
       // partnerCloseTime: moment().format("HH:mm"),
       user: {
@@ -378,6 +382,7 @@ export default {
       getVouchersFlPartner: "voucher/getVouchersFlPartner",
       getAddress: "address/getAddress",
       coinsUsers: "order/coinsUsers",
+      getCart: "cart/getCart",
     }),
     changeAddress(address) {
       let addressUserForCalcDistance = {
@@ -385,10 +390,10 @@ export default {
         latitude: address.latitude,
         longitude: address.longitude,
       };
-      console.log(addressUserForCalcDistance);
       this.getDistance(addressUserForCalcDistance)
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
+          this.distance = res.distance;
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -440,7 +445,7 @@ export default {
           longitude: this.user.address.longitude,
           latitude: this.user.address.latitude,
         };
-        console.log(params);
+        // console.log(params);
         $("#loadMe").modal("show");
         this.createOrder(params)
           .then((res) => {
@@ -450,7 +455,7 @@ export default {
               name: "OrderConfirm",
               params: { slug: this.slug },
             });
-            console.log(res);
+            // console.log(res);
           })
           .catch((error) => {
             $("#loadMe").modal("hide");
@@ -472,6 +477,7 @@ export default {
       this.getDistance(addressUserForCalcDistance)
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
+          this.distance = res.distance;
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -481,51 +487,71 @@ export default {
       this.user.name = this.getUser.name;
       this.user.email = this.getUser.email;
       this.user.phone_number = this.getUser.phone_number;
-      // console.log(this.getUser);
     },
-    validateDeliveryTime(delivery_time) {
+    // validateDeliveryTime(delivery_time) {
+    //   let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+
+    //   let time_close = partnerObj.time_close.slice(
+    //     0,
+    //     partnerObj.time_close.lastIndexOf(":")
+    //   );
+    //   let time_open = partnerObj.time_open.slice(
+    //     0,
+    //     partnerObj.time_open.lastIndexOf(":")
+    //   );
+
+    //   // console.log(time_open + "===" + time_close);
+    //   let hourOfDeliveryTime = delivery_time.slice(
+    //     0,
+    //     delivery_time.indexOf(":")
+    //   );
+    //   let hourOfPartnerOpenTime = partnerObj.time_open.slice(
+    //     0,
+    //     partnerObj.time_open.indexOf(":")
+    //   );
+    //   if (hourOfDeliveryTime === hourOfPartnerOpenTime) {
+    //     let minuteDeliveryTime = delivery_time.slice(
+    //       delivery_time.indexOf(":") + 1
+    //     );
+    //     let minutePartnerOpenTime = time_open.slice(time_open.indexOf(":") + 1);
+    //     if (minuteDeliveryTime - minutePartnerOpenTime < 20) {
+    //       this.errMess = true;
+    //       this.errMessage = `Delivery time must be after time open at least 20'. Time open is ${time_open}`;
+    //     }
+    //   }
+
+    //   if (delivery_time < time_open) {
+    //     this.errMess = true;
+    //     this.errMessage = "Delivery time must be after time open";
+    //   }
+    //   if (delivery_time > time_close) {
+    //     this.errMess = true;
+    //     this.errMessage = "Delivery time must be before time close";
+    //   }
+    // },
+    getCartContent() {
       let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
-
-      let time_close = partnerObj.time_close.slice(
-        0,
-        partnerObj.time_close.lastIndexOf(":")
-      );
-      let time_open = partnerObj.time_open.slice(
-        0,
-        partnerObj.time_open.lastIndexOf(":")
-      );
-
-      console.log(time_open + "===" + time_close);
-      let hourOfDeliveryTime = delivery_time.slice(
-        0,
-        delivery_time.indexOf(":")
-      );
-      let hourOfPartnerOpenTime = partnerObj.time_open.slice(
-        0,
-        partnerObj.time_open.indexOf(":")
-      );
-      if (hourOfDeliveryTime === hourOfPartnerOpenTime) {
-        let minuteDeliveryTime = delivery_time.slice(
-          delivery_time.indexOf(":") + 1
-        );
-        let minutePartnerOpenTime = time_open.slice(time_open.indexOf(":") + 1);
-        if (minuteDeliveryTime - minutePartnerOpenTime < 20) {
-          this.errMess = true;
-          this.errMessage = `Delivery time must be after time open at least 20'. Time open is ${time_open}`;
-        }
-      }
-
-      if (delivery_time < time_open) {
-        this.errMess = true;
-        this.errMessage = "Delivery time must be after time open";
-      }
-      if (delivery_time > time_close) {
-        this.errMess = true;
-        this.errMessage = "Delivery time must be before time close";
+      this.partnerStatus = partnerObj.status;
+      let token = localStorage.getItem("token");
+      if (token && this.partnerStatus === "open") {
+        let params = {
+          partner_id: this.slug,
+        };
+        this.getCart(params)
+          .then((res) => {
+            console.log(res);
+            this.subTotal = res.total_price_cart;
+          })
+          .catch((error) => {
+            if (typeof error == "object") {
+              openToastMess(error.toString(), "error");
+            } else {
+              openToastMess(error, "error");
+            }
+          });
       }
     },
     getResult() {
-      this.subTotal = this.getSubtotal;
       if (this.getAddressLocal.length == 0) {
         openToastMess("User have no address", "warning");
       } else {
@@ -533,30 +559,18 @@ export default {
         this.getShipDistance();
       }
       this.getUserInfo();
-      // let addressUserForCalcDistance = {
-      //   partner_id: this.slug,
-      //   latitude: this.getUser.addresses[0].latitude,
-      //   longitude: this.getUser.addresses[0].longitude,
-      // };
-      // this.getShipDistance(addressUserForCalcDistance);
     },
   },
   created() {
     this.getAddress().then((res) => {
       this.userObj();
-      this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
-        console.log(res);
-      });
+      this.getVouchersFlPartner({ partner_id: this.slug });
       this.getResult();
       this.coinsUsers();
-      // this.validateDeliveryTime();
+      this.getCartContent();
     });
   },
-  watch: {
-    // deliveryTime() {
-    //   this.validateDeliveryTime(this.user.delivery_time);
-    // },
-  },
+  watch: {},
 };
 </script>
 

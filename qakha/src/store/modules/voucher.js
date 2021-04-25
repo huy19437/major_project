@@ -23,6 +23,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.get('/orders/vouchers', { params })
                 .then((response) => {
+                    // console.log(response);
                     res(response.data);
                     commit('setVoucher', response.data);
                 }).catch(err => {

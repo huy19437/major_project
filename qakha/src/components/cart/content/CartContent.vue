@@ -139,6 +139,7 @@ export default {
       subTotal: 0,
       toTal: 0,
       slug: this.$route.params.slug,
+      partnerStatus: "",
     };
   },
   computed: {
@@ -155,6 +156,7 @@ export default {
     ...mapActions({
       updateCart: "cart/updateCart",
       deleteCart: "cart/deleteCart",
+      getCart: "cart/getCart",
     }),
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
@@ -225,6 +227,28 @@ export default {
       this.subTotal = this.getSubTotal(this.products);
       this.setSubTotal(this.roundToTwo(this.subTotal));
     },
+    getCartContent() {
+      let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      this.partnerStatus = partnerObj.status;
+      let token = localStorage.getItem("token");
+      if (token && this.partnerStatus === "open") {
+        let params = {
+          partner_id: this.slug,
+        };
+        this.getCart(params)
+          .then((res) => {
+            // console.log(res);
+            this.getResult();
+          })
+          .catch((error) => {
+            if (typeof error == "object") {
+              openToastMess(error.toString(), "error");
+            } else {
+              openToastMess(error, "error");
+            }
+          });
+      }
+    },
     getSubTotal(array) {
       return array.reduce(function (accumulator, currentValue) {
         return accumulator + currentValue.price * currentValue.quantity;
@@ -232,7 +256,8 @@ export default {
     },
   },
   created() {
-    this.getResult();
+    this.getCartContent();
+    // this.getResult();
   },
   watch: {
     cartLocalChange() {

@@ -86,6 +86,7 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.get('/orders/coins_user')
                 .then((response) => {
+                    // console.log(response);
                     commit('setCoinsUser', response.data.coins);
                     res(response.data);
                 }).catch(err => {

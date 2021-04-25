@@ -522,7 +522,7 @@ export default {
     },
     gePartnerDataFromPartner() {
       this.partnerData = this.getPartnersLocal;
-      console.log(this.partnerData);
+      // console.log(this.partnerData);
     },
     xoa_dau(str) {
       str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
