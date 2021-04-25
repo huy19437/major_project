@@ -270,7 +270,7 @@ export default {
       this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
       this.partnerStatus = this.partner.status;
       let token = localStorage.getItem("token");
-      console.log(this.partnerStatus);
+      // console.log(this.partnerStatus);
       if (token && this.partnerStatus === "open") {
         let params = {
           partner_id: this.slug,
