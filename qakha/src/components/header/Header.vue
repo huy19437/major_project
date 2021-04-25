@@ -28,20 +28,27 @@
                     </span>
                   </li>
                   <li>
-                    <a href="" class="language-btn">
-                      <img
+                    <a
+                      v-for="entry in languages"
+                      :key="entry.title"
+                      class="language-btn"
+                      @click="changeLocale(entry.language)"
+                    >
+                      <!-- <img
                         src="@/assets/images/vn_flag.png"
                         alt=""
                         class="language-flag"
-                      />
+                      /> -->
+                      <flag :iso="entry.flag" v-bind:squared="false" />
+                      {{ entry.title }}
                     </a>
-                    <a href="" class="language-btn">
+                    <!-- <a v-for="entry in languages" :key="entry.title" class="language-btn">
                       <img
                         src="@/assets/images/us_flag.png"
                         alt=""
                         class="language-flag"
                       />
-                    </a>
+                    </a> -->
                   </li>
                   <li v-if="userName">
                     <i class="ti-user"></i>
@@ -53,13 +60,15 @@
                   <li v-if="!userName">
                     <i class="ti-power-off"></i>
                     <!-- <a href="login">Login</a> -->
-                    <router-link to="/login">Login</router-link>
+                    <router-link to="/login">{{
+                      $t("header.login")
+                    }}</router-link>
                   </li>
                   <li v-else>
                     <i class="ti-power-off"></i>
-                    <a style="cursor: pointer" @click.prevent="logout"
-                      >Logout</a
-                    >
+                    <a style="cursor: pointer" @click.prevent="logout">{{
+                      $t("header.logout")
+                    }}</a>
                     <!-- <router-link @click.prevent="logoutFuction" to="/login"
                       >Logout</router-link
                     > -->
@@ -120,12 +129,12 @@
                       <input
                         type="text"
                         class="header__search-input"
-                        placeholder="Search for products"
+                        :placeholder="`${$t('header.searchProducts')}`"
                         v-model="searchByName"
                       />
                       <div class="header__search-history">
                         <h3 class="header__search-history-heading">
-                          List of products
+                          {{ $t("header.listOfProducts") }}
                         </h3>
                         <ul class="header__search-history-list">
                           <li
@@ -171,9 +180,14 @@
                   <!-- Shopping Item -->
                   <div v-if="getShoppingStatus" class="shopping-item">
                     <div class="dropdown-cart-header">
-                      <span>{{ numberOfItem }} Items</span>
+                      <span
+                        >{{ numberOfItem }}
+                        {{ $t("header.middleInner.item") }}</span
+                      >
                       <!-- <a href="cart">View Cart</a> -->
-                      <a @click="gotoCart()">Cart </a>
+                      <a @click="gotoCart()"
+                        >{{ $t("header.middleInner.cart") }}
+                      </a>
                     </div>
                     <ul class="shopping-list">
                       <li v-for="product in products" :key="product.id">
@@ -197,14 +211,14 @@
                     </ul>
                     <div class="bottom">
                       <div class="total">
-                        <span>Total</span>
+                        <span>{{ $t("header.middleInner.total") }}</span>
                         <span class="total-amount"
                           >{{ roundNumber(total) }} VNĐ</span
                         >
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
                       <a class="btn btn-right" @click="gotoCheckout()">
-                        Checkout
+                        {{ $t("header.middleInner.checkout") }}
                       </a>
                     </div>
                   </div>
@@ -220,7 +234,7 @@
         <div class="container">
           <div class="cat-nav-head">
             <div class="row">
-              <div class="col-lg-3">
+              <!-- <div class="col-lg-3">
                 <div class="all-category">
                   <h3 class="cat-heading">
                     <i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES
@@ -277,8 +291,8 @@
                     <li><a href="#">top 100 offer</a></li>
                   </ul>
                 </div>
-              </div>
-              <div class="col-lg-9 col-12">
+              </div> -->
+              <div class="col-lg-12">
                 <div class="menu-area">
                   <!-- Main Menu -->
                   <nav class="navbar navbar-expand-lg">
@@ -286,32 +300,52 @@
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
                           <li>
-                            <router-link to="/">Home</router-link>
+                            <router-link to="/">
+                              {{ $t("header.headerInner.home") }}
+                            </router-link>
                           </li>
                           <li>
-                            <a href="#bestseller">Best seller</a>
+                            <a href="#bestseller">{{
+                              $t("header.headerInner.home")
+                            }}</a>
                           </li>
-                          <li><a href="#service">Service</a></li>
+                          <li>
+                            <a href="#service">{{
+                              $t("header.headerInner.bestSeller")
+                            }}</a>
+                          </li>
                           <li class="hasDropDown">
                             <a v-if="getShoppingStatus"
-                              >Store<i class="ti-angle-down"></i
+                              >{{ $t("header.headerInner.store.title")
+                              }}<i class="ti-angle-down"></i
                             ></a>
                             <ul class="dropdown">
                               <li>
-                                <a @click="gotoCart()">Cart </a>
+                                <a @click="gotoCart()"
+                                  >{{ $t("header.headerInner.store.cart") }}
+                                </a>
                               </li>
                             </ul>
                           </li>
-                          <li><a href="#">Pages</a></li>
+                          <!-- <li><a href="#">Pages</a></li> -->
                           <li class="hasDropDown">
-                            <a href="#">Mart<i class="ti-angle-down"></i></a>
+                            <a href="#"
+                              >{{ $t("header.headerInner.mart.title")
+                              }}<i class="ti-angle-down"></i
+                            ></a>
                             <ul class="dropdown">
                               <li>
-                                <a href="blog-single-sidebar.html">Our Mart</a>
+                                <a href="blog-single-sidebar.html">{{
+                                  $t("header.headerInner.mart.ourMart")
+                                }}</a>
                               </li>
                             </ul>
                           </li>
-                          <li><a href="contact.html">Contact Us</a></li>
+                          <li>
+                            <a href="#footer">{{
+                              $t("header.headerInner.contact")
+                            }}</a>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -329,12 +363,17 @@
 </template>
 
 <script>
+import i18n from "@/plugins/i18n";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "Header",
   data() {
     return {
+      languages: [
+        { flag: "us", language: "en", title: "English" },
+        { flag: "vn", language: "vi", title: "Tiếng Việt" },
+      ],
       isOpen: false,
       isOpen2: false,
       isChanged: false,
@@ -421,6 +460,9 @@ export default {
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
     }),
+    changeLocale(locale) {
+      i18n.locale = locale;
+    },
     logout() {
       this.logoutFuction();
     },
@@ -645,6 +687,16 @@ export default {
       display: block;
     }
   }
+  .navbar-nav {
+    margin: 0 auto;
+    li {
+      a {
+        &:focus {
+          background-color: #f9af57;
+        }
+      }
+    }
+  }
 }
 
 .navbar {
@@ -851,15 +903,16 @@ export default {
 
 .language-btn {
   position: relative;
+  cursor: pointer;
 }
 
-.language-btn:nth-child(1)::after {
-  content: " | ";
-  display: block;
-  position: absolute;
-  top: -4px;
-  right: -4.1px;
-}
+// .language-btn:nth-child(1)::after {
+//   content: " | ";
+//   display: block;
+//   position: absolute;
+//   top: -4px;
+//   right: -4.1px;
+// }
 
 @media (max-width: 1199px) {
   .header-inner {

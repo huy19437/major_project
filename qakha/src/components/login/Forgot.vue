@@ -7,7 +7,7 @@
             {{ errMess }}
           </div>
         </div>
-        <h3>Forgot Password</h3>
+        <h3>{{ $t("forgotPassword.title") }}</h3>
         <div class="form-group">
           <input
             type="email"
@@ -27,7 +27,9 @@
           </div>
         </div>
 
-        <button class="btn btn-primary btn-block btn-forgot">Submit</button>
+        <button class="btn btn-primary btn-block btn-forgot">
+          {{ $t("forgotPassword.submit") }}
+        </button>
         <Spinner :loading="isLoading" />
       </form>
     </div>

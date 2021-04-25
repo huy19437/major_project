@@ -14,13 +14,13 @@
       <thead>
         <tr class="table-active">
           <th scope="col">STT</th>
-          <th scope="col">Order code/type</th>
-          <th scope="col">Time</th>
-          <th scope="col">Place</th>
-          <th scope="col">Driver</th>
-          <th scope="col">Total amount</th>
-          <th scope="col">Status</th>
-          <th scope="col">Detail</th>
+          <th scope="col">{{ $t("historyOrders.table.type") }}</th>
+          <th scope="col">{{ $t("historyOrders.table.time") }}</th>
+          <th scope="col">{{ $t("historyOrders.table.place") }}</th>
+          <th scope="col">{{ $t("historyOrders.table.driver") }}</th>
+          <th scope="col">{{ $t("historyOrders.table.totalAmount") }}</th>
+          <th scope="col">{{ $t("historyOrders.table.status") }}</th>
+          <th scope="col">{{ $t("historyOrders.table.detail") }}</th>
         </tr>
       </thead>
       <tbody style="text-align: left">
@@ -28,7 +28,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.type_checkout }}</td>
           <td>
-            Order time:
+            {{ $t("historyOrders.table.body.orderTime") }}:
             {{ item.created_at }}
           </td>
           <td>
@@ -65,7 +65,7 @@
               class="order-detail"
               data-toggle="modal"
               data-target="#staticBackdrop"
-              >View Order Detail</a
+              >{{ $t("historyOrders.table.body.viewOrderDetail") }}</a
             >
           </td>
         </tr>

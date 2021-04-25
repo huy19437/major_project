@@ -1,6 +1,8 @@
 <template>
   <div v-if="getFeedbacksStatus" class="tab-pane" id="reviews">
-    <h2>FeedBacks of <b>Customers</b></h2>
+    <h2>
+      {{ $t("feedback.title") }} <b>{{ $t("feedback.customers") }}</b>
+    </h2>
     <div class="p-4 p-lg-5 bg-white">
       <div class="row">
         <div v-if="visibleFeedbacks" class="col-lg-8">

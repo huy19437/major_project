@@ -39,7 +39,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
+            {{ $t("historyOrders.feedbackModal.close") }}
           </button>
           <button
             @click.prevent="submitAndOpenFeedbackPartnerModal"
@@ -47,7 +47,7 @@
             class="btn btn-primary"
             :disabled="rating == '' ? true : false"
           >
-            Submit
+            {{ $t("historyOrders.feedbackModal.submit") }}
           </button>
         </div>
       </div>

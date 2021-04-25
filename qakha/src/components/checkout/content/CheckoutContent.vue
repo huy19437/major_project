@@ -4,14 +4,14 @@
       <div class="row">
         <div class="col-lg-8 col-12">
           <div class="checkout-form">
-            <h3>Make Your Checkout Here</h3>
-            <p>Deliver to</p>
+            <h3>{{ $t("checkout.title") }}</h3>
+            <p>{{ $t("checkout.deliveryTo") }}</p>
             <!-- Form -->
             <form class="form" method="post" action="#">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label>Name<span>*</span></label>
+                    <label>{{ $t("checkout.name") }}<span>*</span></label>
                     <input
                       type="text"
                       placeholder="Enter Name Here.."
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label>Email<span>*</span></label>
+                    <label>{{ $t("checkout.email") }}<span>*</span></label>
                     <input
                       type="email"
                       placeholder="Enter Email Here..."
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label>Phone Number<span>*</span></label>
+                    <label>{{ $t("checkout.phone") }}<span>*</span></label>
                     <input
                       type="number"
                       placeholder="Enter Phone number Here.."
@@ -93,7 +93,7 @@
                 </div> -->
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label>Address</label>
+                    <label>{{ $t("checkout.address") }}</label>
                     <div
                       class="nice-select"
                       tabindex="0"
@@ -126,7 +126,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label>Voucher</label>
+                    <label>{{ $t("checkout.voucher") }}</label>
                     <div
                       class="nice-select"
                       tabindex="0"
@@ -153,9 +153,11 @@
                       </ul>
                     </div>
                     <div class="button btn-voucher-group">
-                      <a @click="applyVoucher" class="btn btn-apply">Apply</a>
+                      <a @click="applyVoucher" class="btn btn-apply">{{
+                        $t("checkout.button.apply")
+                      }}</a>
                       <a @click="cancelVoucher" class="btn btn-cancel">
-                        Cancel
+                        {{ $t("checkout.button.cancel") }}
                       </a>
                     </div>
                   </div>
@@ -196,19 +198,23 @@
           <div class="order-details">
             <!-- Order Widget -->
             <div class="single-widget">
-              <h2 class="order-details-title">CART TOTALS</h2>
+              <h2 class="order-details-title">
+                {{ $t("checkout.cart.title") }}
+              </h2>
               <div class="content">
                 <ul>
                   <li>
-                    Sub Total<span>{{ subTotal }} VNĐ</span>
+                    {{ $t("checkout.cart.subTotal")
+                    }}<span>{{ subTotal }} VNĐ</span>
                   </li>
                   <li>
-                    (+) Shipping({{ distance }}km)<span
-                      >{{ shipping_fee }} VNĐ</span
-                    >
+                    (+) {{ $t("checkout.cart.shipping") }}({{
+                      distance
+                    }}km)<span>{{ shipping_fee }} VNĐ</span>
                   </li>
                   <li class="last">
-                    Total<span>{{ subTotal + shipping_fee }} VNĐ</span>
+                    {{ $t("checkout.cart.total")
+                    }}<span>{{ subTotal + shipping_fee }} VNĐ</span>
                   </li>
                 </ul>
               </div>
@@ -216,7 +222,9 @@
             <!--/ End Order Widget -->
             <!-- Order Widget -->
             <div class="single-widget">
-              <h2 class="order-details-title">Payments</h2>
+              <h2 class="order-details-title">
+                {{ $t("checkout.cart.payments") }}
+              </h2>
               <div class="content">
                 <div class="checkbox">
                   <input
@@ -225,14 +233,14 @@
                     name="checkout"
                     value="cash"
                   />
-                  Cash On Delivery<br />
+                  {{ $t("checkout.cart.cod") }}<br />
                   <input
                     type="radio"
                     v-model="user.type_checkout"
                     name="checkout"
                     value="coins"
                   />
-                  Coins: {{ getCoinsUser }}<br />
+                  {{ $t("checkout.cart.coins") }}: {{ getCoinsUser }}<br />
                   <div>{{ user.type_checkout }}</div>
                 </div>
               </div>
@@ -253,7 +261,7 @@
                     :disabled="$v.user.$invalid"
                     @click="proceedToCheckout"
                     class="btn"
-                    >proceed to checkout</a
+                    >{{ $t("checkout.cart.proceedToCheckout") }}</a
                   >
                 </div>
               </div>
@@ -275,7 +283,7 @@
           <div class="modal-body text-center">
             <div class="loader"></div>
             <div clas="loader-txt">
-              <p>Waiting for Checkout</p>
+              <p>{{ $t("checkout.modal.title") }}</p>
             </div>
           </div>
         </div>

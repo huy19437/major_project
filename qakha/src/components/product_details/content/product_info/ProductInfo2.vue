@@ -13,7 +13,7 @@
           <div class="details col-md-6">
             <h3 class="product-title">{{ products.name }}</h3>
             <h5 class="partner-name">{{ partner.name }}</h5>
-            <div class="rating">
+            <!-- <div class="rating">
               <div class="stars">
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
@@ -22,15 +22,16 @@
                 <span class="fa fa-star"></span>
               </div>
               <span class="review-no">41 reviews</span>
-            </div>
+            </div> -->
             <p class="product-description">
               {{ products.description }}
             </p>
             <h4 class="price">
-              current price: <span>{{ products.price }} VNĐ</span>
+              {{ $t("productDetails.currentPrice") }}:
+              <span>{{ products.price }} VNĐ</span>
             </h4>
             <h5 class="sold">
-              sold:
+              {{ $t("productDetails.sold") }}:
               <span class="quantity_sold">{{ products.quantity_sold }}</span>
             </h5>
             <div class="qty">
@@ -73,7 +74,7 @@
                   diabledPointer: partnerStatus === 'open' ? false : true,
                 }"
               >
-                Add to cart
+                {{ $t("productDetails.addToCart") }}
               </button>
             </div>
           </div>

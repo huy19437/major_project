@@ -2,10 +2,12 @@
   <div class="container">
     <div class="row back-btn">
       <button class="btn btn-lg">
-        <a @click="hasHistory() ? $router.go(-1) : $router.push('/')">Back</a>
+        <a @click="hasHistory() ? $router.go(-1) : $router.push('/')">{{
+          $t("editAddress.back")
+        }}</a>
       </button>
     </div>
-    <h1 class="well title">User Address Edit</h1>
+    <h1 class="well title">{{ $t("editAddress.title") }}</h1>
 
     <div class="row register-form">
       <div class="col-lg-6 well">
@@ -16,8 +18,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Action</th>
+                    <th>{{ $t("editAddress.name") }}</th>
+                    <th>{{ $t("editAddress.action") }}</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -5,7 +5,7 @@
       class="alert alert-warning"
       role="alert"
     >
-      Go back and push products into the cart!
+      {{ $t("cartContent.goBack") }}
     </div>
     <div v-else class="container">
       <div class="row">
@@ -22,12 +22,18 @@
             </colgroup>
             <thead>
               <tr class="main-hading">
-                <th>PRODUCT</th>
-                <th>NAME AND DESCRIPTION</th>
-                <th class="text-center">UNIT PRICE</th>
-                <th class="text-center">QUANTITY</th>
-                <th class="text-center">TOTAL</th>
-                <th class="text-center">DELETE</th>
+                <th>{{ $t("cartContent.table.product") }}</th>
+                <th>{{ $t("cartContent.table.desc") }}</th>
+                <th class="text-center">
+                  {{ $t("cartContent.table.unitPrice") }}
+                </th>
+                <th class="text-center">
+                  {{ $t("cartContent.table.quantity") }}
+                </th>
+                <th class="text-center">{{ $t("cartContent.table.total") }}</th>
+                <th class="text-center">
+                  {{ $t("cartContent.table.delete") }}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -104,7 +110,8 @@
                 <div class="right">
                   <ul>
                     <li>
-                      Subtotal<span>{{ roundToTwo(subTotal) }} VNĐ</span>
+                      {{ $t("cartContent.Subtotal")
+                      }}<span>{{ roundToTwo(subTotal) }} VNĐ</span>
                     </li>
                     <li class="last"></li>
                   </ul>
@@ -116,9 +123,11 @@
                         params: { slug: slug },
                       }"
                     >
-                      Checkout
+                      {{ $t("cartContent.Checkout") }}
                     </router-link>
-                    <a href="/" class="btn btn-right">Continue shopping</a>
+                    <a href="/" class="btn btn-right">
+                      {{ $t("cartContent.continueShipping") }}</a
+                    >
                   </div>
                 </div>
               </div>

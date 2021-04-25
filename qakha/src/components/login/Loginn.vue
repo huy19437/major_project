@@ -3,7 +3,7 @@
     <div class="form">
       <div class="row back-btn">
         <button class="btn btn-lg">
-          <router-link to="/">Back to Home</router-link>
+          <router-link to="/">{{ $t("login.back") }}</router-link>
         </button>
       </div>
       <div v-if="registerSucess" class="alert alert-success" role="alert">
@@ -25,14 +25,14 @@
           :class="{ active: isLogin }"
           @click="(isLogin = !isLogin), toggleStyleDisplay()"
         >
-          <a href="#signup">Sign Up</a>
+          <a href="#signup">{{ $t("login.way.signup") }}</a>
         </li>
         <li
           class="tab"
           :class="{ active: !isLogin }"
           @click="(isLogin = !isLogin), toggleStyleDisplay()"
         >
-          <a href="#login">Sign In</a>
+          <a href="#login">{{ $t("login.way.signin") }}</a>
         </li>
       </ul>
       <div class="tab-content">

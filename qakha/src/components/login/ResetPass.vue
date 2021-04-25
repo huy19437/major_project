@@ -7,13 +7,13 @@
             {{ errMess.toString() }}
           </div>
         </div>
-        <h3>Reset Password</h3>
+        <h3>{{ $t("resetPassword.title") }}</h3>
         <div class="form-group show-password">
           <input
             :type="[showPassword ? 'text' : 'password']"
             class="form-control"
             :class="$v.userReset.new_password.$error ? 'is-invalid' : ''"
-            placeholder="New password"
+            :placeholder="`${$t('resetPassword.newPassword')}`"
             v-model="userReset.new_password"
             @blur="$v.userReset.new_password.$touch()"
           />
@@ -38,7 +38,7 @@
             type="text"
             class="form-control"
             :class="$v.userReset.verification_code.$error ? 'is-invalid' : ''"
-            placeholder="Code"
+            :placeholder="`${$t('resetPassword.code')}`"
             v-model="userReset.verification_code"
             @blur="$v.userReset.verification_code.$touch()"
           />
@@ -52,7 +52,9 @@
           </div>
         </div>
 
-        <button class="btn btn-primary btn-block btn-forgot">Submit</button>
+        <button class="btn btn-primary btn-block btn-forgot">
+          {{ $t("resetPassword.submit") }}
+        </button>
         <Spinner :loading="isLoading" />
       </form>
     </div>

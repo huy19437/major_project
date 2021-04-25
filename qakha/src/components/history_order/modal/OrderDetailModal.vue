@@ -12,19 +12,19 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">
-            Your order at
+            {{ $t("historyOrders.orderDetailsModal.title") }}
             <span v-if="partnerName" class="partner-name">
               {{ partnerName }}
             </span>
           </h5>
           <h5 v-if="totalOfOrder" class="modal-title" id="staticBackdropLabel">
             <span>
-              fee:
+              {{ $t("historyOrders.orderDetailsModal.fee") }}:
               {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}đ
             </span>
             <br v-if="getOrderDetailsHistory.order.discount" />
             <span v-if="getOrderDetailsHistory.order.discount">
-              discount:
+              {{ $t("historyOrders.orderDetailsModal.discount") }}:
               {{ getOrderDetailsHistory.order.discount }}đ
             </span>
             <br />
@@ -38,13 +38,23 @@
               <table class="table shopping-summery">
                 <thead>
                   <tr class="main-hading">
-                    <th>Member</th>
-                    <th>Dish</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
+                    <th>
+                      {{ $t("historyOrders.orderDetailsModal.table.member") }}
+                    </th>
+                    <th>
+                      {{ $t("historyOrders.orderDetailsModal.table.dish") }}
+                    </th>
+                    <th>
+                      {{ $t("historyOrders.orderDetailsModal.table.quantity") }}
+                    </th>
+                    <th>
+                      {{ $t("historyOrders.orderDetailsModal.table.price") }}
+                    </th>
                     <!-- <th>Fee</th> -->
                     <!-- <th>Discount</th> -->
-                    <th>Total</th>
+                    <th>
+                      {{ $t("historyOrders.orderDetailsModal.table.total") }}
+                    </th>
                   </tr>
                 </thead>
                 <tbody v-if="getOrderDetailsHistory">
@@ -72,7 +82,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
+            {{ $t("historyOrders.feedbackModal.close") }}
           </button>
         </div>
       </div>

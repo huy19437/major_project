@@ -6,8 +6,11 @@
           <div class="col-lg-6">
             <div class="about-text go-to">
               <div class="header-info">
-                <h3 class="dark-color">About Me</h3>
-                <div title="History Order" class="order-history">
+                <h3 class="dark-color">{{ $t("userProfile.aboutMe") }}</h3>
+                <div
+                  :title="`${$t('userProfile.historyOrder')}`"
+                  class="order-history"
+                >
                   <router-link to="/history-order">
                     <font-awesome-icon :icon="['fas', 'clipboard-list']" />
                   </router-link>
@@ -16,7 +19,7 @@
               <div class="row about-list">
                 <div class="col-md-6">
                   <div class="media">
-                    <label>Name</label>
+                    <label>{{ $t("userProfile.name") }}</label>
                     <!-- <p>{{ getUser.name }}</p> -->
                     <input
                       type="text"
@@ -25,11 +28,11 @@
                     />
                   </div>
                   <div class="media">
-                    <label>Role</label>
+                    <label>{{ $t("userProfile.role") }}</label>
                     <p>{{ userDataFromSer.role }}</p>
                   </div>
                   <div class="media">
-                    <label>Address</label>
+                    <label>{{ $t("userProfile.address") }}</label>
                     <p v-if="getAddressLocal.length > 0">
                       {{ getAddressLocal[0].name }}
                     </p>
@@ -44,7 +47,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="media">
-                    <label>E-mail</label>
+                    <label>{{ $t("userProfile.email") }}</label>
                     <!-- <p>{{ getUser.email }}</p> -->
                     <input
                       type="text"
@@ -61,7 +64,7 @@
                     </div>
                   </div>
                   <div class="media">
-                    <label>Phone</label>
+                    <label>{{ $t("userProfile.phone") }}</label>
                     <!-- <p>{{ getUser.phone_number }}</p> -->
                     <input
                       type="text"
@@ -138,7 +141,7 @@
               class="btn btn-primary btn-update-user"
               :disabled="$v.userObj.$invalid || isDisabled"
             >
-              Update
+              {{ $t("userProfile.update") }}
             </button>
           </div>
         </div>

@@ -4,7 +4,9 @@
       <div class="col-12">
         <div class="section-title">
           <h3 class="title-comm">
-            <span class="title-holder">restaurants</span>
+            <span class="title-holder">{{
+              $t("listPartners.restaurants")
+            }}</span>
           </h3>
         </div>
       </div>
@@ -12,13 +14,15 @@
     <div class="row">
       <div class="col-lg-3">
         <div class="sidebar">
-          <label class="justify-content-start mr-2">Search by:</label>
+          <label class="justify-content-start mr-2"
+            >{{ $t("listPartners.searchBy.title") }}:</label
+          >
           <div class="widget border-0">
             <div class="search">
               <input
                 class="form-control"
                 type="text"
-                placeholder="Name"
+                :placeholder="`${$t('listPartners.searchBy.name')}`"
                 v-model="searchByName"
               />
             </div>
@@ -28,7 +32,7 @@
               <input
                 class="form-control"
                 type="text"
-                placeholder="Location"
+                :placeholder="`${$t('listPartners.searchBy.location')}`"
                 v-model="searchByAddress"
               />
             </div>
@@ -40,7 +44,9 @@
           <div class="job-shortby ml-sm-auto d-flex align-items-center">
             <form class="form-inline">
               <div class="form-group mb-0">
-                <label class="justify-content-start mr-2">Sort by:</label>
+                <label class="justify-content-start mr-2"
+                  >{{ $t("listPartners.sortBy") }}:</label
+                >
                 <div class="short-by">
                   <select
                     class="form-control basic-select select2-hidden-accessible"

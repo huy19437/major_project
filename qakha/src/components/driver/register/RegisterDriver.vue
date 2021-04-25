@@ -2,10 +2,10 @@
   <div class="container driver-signup">
     <div class="row back-btn">
       <button class="btn btn-lg">
-        <router-link to="/login">Back to login</router-link>
+        <router-link to="/login">{{ $t("driver.buttons.back") }}</router-link>
       </button>
     </div>
-    <h1 class="well title">Driver Registration</h1>
+    <h1 class="well title">{{ $t("driver.title") }}</h1>
     <div class="row register-form">
       <div class="col-lg-12 well">
         <div class="row">
@@ -16,12 +16,12 @@
           >
             <div class="col-12">
               <div class="row">
-                <div class="col-12 form-group">
-                  <label>Driver Name</label>
+                <div class="col-6 form-group">
+                  <label>{{ $t("driver.name") }}</label>
                   <input
                     type="text"
                     required
-                    placeholder="Enter First Name Here.."
+                    :placeholder="`${$t('driver.placeholder.name')}`"
                     class="form-control"
                     v-model="form.name"
                     @blur="$v.form.name.$touch()"
@@ -32,13 +32,28 @@
                     </p>
                   </div>
                 </div>
+                <div class="col-6 form-group">
+                  <label>{{ $t("driver.address") }}</label>
+                  <input
+                    type="text"
+                    :placeholder="`${$t('driver.placeholder.address')}`"
+                    class="form-control"
+                    v-model="form.address"
+                    @blur="$v.form.address.$touch()"
+                  />
+                  <div v-if="$v.form.address.$error">
+                    <p class="errorMessage" v-if="!$v.form.address.required">
+                      Address is required
+                    </p>
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-6 form-group">
-                  <label>Phone Number</label>
+                  <label>{{ $t("driver.phone") }}</label>
                   <input
                     type="number"
-                    placeholder="Enter Phone Number Here.."
+                    :placeholder="`${$t('driver.placeholder.phone')}`"
                     class="form-control"
                     v-model="form.phone_number"
                     @blur="$v.form.phone_number.$touch()"
@@ -65,10 +80,10 @@
                   </div>
                 </div>
                 <div class="col-6 form-group">
-                  <label>Email</label>
+                  <label>{{ $t("driver.email") }}</label>
                   <input
                     type="email"
-                    placeholder="Enter Email Address Here.."
+                    :placeholder="`${$t('driver.placeholder.email')}`"
                     class="form-control"
                     v-model="form.email"
                     @blur="$v.form.email.$touch()"
@@ -85,10 +100,10 @@
               </div>
               <div class="row">
                 <div class="col-6 form-group show-password">
-                  <label>Password</label>
+                  <label>{{ $t("driver.password") }}</label>
                   <input
                     :type="[showPassword ? 'text' : 'password']"
-                    placeholder="Enter Password Here.."
+                    :placeholder="`${$t('driver.placeholder.password')}`"
                     class="form-control"
                     v-model="form.password"
                     @blur="$v.form.password.$touch()"
@@ -127,10 +142,12 @@
                   </div>
                 </div>
                 <div class="col-6 form-group">
-                  <label>Password confirmation</label>
+                  <label>{{ $t("driver.passwordConfirmation") }}</label>
                   <input
                     type="text"
-                    placeholder="Enter Password Confirm Here.."
+                    :placeholder="`${$t(
+                      'driver.placeholder.passwordConfirmation'
+                    )}`"
                     class="form-control"
                     v-model="form.password_confirmation"
                     @blur="$v.form.password_confirmation.$touch()"
@@ -165,10 +182,10 @@
               </div>
               <div class="row">
                 <div class="col-6 form-group">
-                  <label>ID Card Number</label>
+                  <label>{{ $t("driver.idCard") }}</label>
                   <input
                     type="number"
-                    placeholder="Enter ID Card Number Here..."
+                    :placeholder="`${$t('driver.placeholder.idCard')}`"
                     class="form-control"
                     v-model="form.id_card"
                     @blur="$v.form.id_card.$touch()"
@@ -186,10 +203,10 @@
                   </div>
                 </div>
                 <div class="col-6 form-group">
-                  <label>License Plate</label>
+                  <label>{{ $t("driver.license") }}</label>
                   <input
                     type="text"
-                    placeholder="Enter License Plate Here..."
+                    :placeholder="`${$t('driver.placeholder.license')}`"
                     class="form-control"
                     v-model="form.license_plate"
                     @blur="$v.form.license_plate.$touch()"
@@ -216,12 +233,12 @@
                     <progress-bar :options="options" :value="progress" />
                   </div>
                   <section v-if="results && results.secure_url">
-                    <label>Image Uploaded</label>
+                    <label>{{ $t("driver.imageUpload") }}</label>
                     <img :src="results.secure_url" :alt="results.public_id" />
                   </section>
                 </div>
                 <div class="col-6 form-group image-upload">
-                  <label>Driver's Avatar</label>
+                  <label>{{ $t("driver.driverAvatar") }}</label>
                   <input
                     id="file-input"
                     type="file"
@@ -287,7 +304,7 @@
                     registerErr
                   "
                 >
-                  Submit
+                  {{ $t("driver.buttons.submitRegister") }}
                 </button>
               </div>
             </div>
@@ -330,7 +347,7 @@
                   </div>
                 </div>
                 <button class="btn btn-primary btn-block btn-forgot">
-                  Submit
+                  {{ $t("driver.buttons.submitCode") }}
                 </button>
                 <Spinner :loading="isLoading4" />
               </form>
@@ -402,6 +419,7 @@ export default {
       form: {
         name: "",
         email: "",
+        address: "",
         phone_number: "",
         password: "",
         password_confirmation: "",
@@ -415,6 +433,9 @@ export default {
   validations: {
     form: {
       name: {
+        required,
+      },
+      address: {
         required,
       },
       phone_number: {

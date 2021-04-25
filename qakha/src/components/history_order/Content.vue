@@ -3,13 +3,13 @@
     <div class="row">
       <div class="col-4">
         <div class="form-group">
-          <label>Status</label>
+          <label>{{ $t("historyOrders.content.status") }}</label>
           <DropDownStatus @selet-option="methodToRunOnSelect" />
         </div>
       </div>
       <div class="col-4">
         <div class="form-group">
-          <label>Delivery time</label>
+          <label>{{ $t("historyOrders.content.orderTime") }}</label>
           <input
             type="date"
             name="bday"
@@ -22,7 +22,7 @@
       </div>
       <div class="col-4">
         <div class="form-group">
-          <label>Action</label>
+          <label>{{ $t("historyOrders.content.action") }}</label>
           <div class="row">
             <div class="col-5">
               <button
@@ -30,7 +30,7 @@
                 class="btn btn-primary"
                 @click="searchOrderByParams()"
               >
-                <span>Search</span>
+                <span>{{ $t("historyOrders.content.search") }}</span>
               </button>
             </div>
             <div class="col-5">
@@ -76,7 +76,7 @@ export default {
       dateSearch: "",
       filterObj: {
         status: "",
-        delivery_time: "",
+        created_at: "",
         end_date: "",
       },
     };
@@ -106,7 +106,7 @@ export default {
             if (item[key] != filter[key]) {
               return false;
             }
-            //sort condition for delivery_time
+            //sort condition for created_at
           } else if (
             item[key].slice(0, item[key].indexOf(" ")) != filter[key]
           ) {
@@ -120,11 +120,11 @@ export default {
     setFilterObj() {
       this.filterObj.status = this.searchStatus;
       if (this.dateSearch) {
-        this.filterObj.delivery_time = moment(this.dateSearch).format(
+        this.filterObj.created_at = moment(this.dateSearch).format(
           "DD-MM-YYYY"
         );
       } else {
-        this.filterObj.delivery_time = "";
+        this.filterObj.created_at = "";
       }
     },
     fetchOrderHistoryAgain() {

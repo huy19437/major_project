@@ -29,6 +29,10 @@ import Vuelidate from 'vuelidate'
 import * as VueGoogleMaps from "vue2-google-maps";
 import ProgressBar from 'vuejs-progress-bar'
 import VueGeolocation from 'vue-browser-geolocation';
+import i18n from '@/plugins/i18n';
+import FlagIcon from 'vue-flag-icon';
+
+Vue.use(FlagIcon);
 Vue.use(VueGeolocation);
 Vue.use(ProgressBar)
 
@@ -52,6 +56,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
 new Vue({
+  i18n,
   router,
   store,
   render: h => h(App)

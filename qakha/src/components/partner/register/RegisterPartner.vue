@@ -2,10 +2,10 @@
   <div class="container">
     <div class="row back-btn">
       <button class="btn btn-lg">
-        <router-link to="/login">Back to login</router-link>
+        <router-link to="/login">{{ $t("partner.buttons.back") }}</router-link>
       </button>
     </div>
-    <h1 class="well title">Partner Registration</h1>
+    <h1 class="well title">{{ $t("partner.title") }}</h1>
     <div
       v-if="registerSucess"
       class="alert alert-success success-mess"
@@ -40,11 +40,11 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-12 form-group">
-                  <label>Partner Name</label>
+                  <label>{{ $t("partner.name") }}</label>
                   <input
                     type="text"
                     required
-                    placeholder="Enter First Name Here.."
+                    :placeholder="`${$t('driver.placeholder.name')}`"
                     class="form-control"
                     v-model="form.name"
                     @blur="$v.form.name.$touch()"
@@ -58,9 +58,9 @@
               </div>
               <div class="row">
                 <div class="col-12 formgroup">
-                  <label>Address</label>
+                  <label>{{ $t("partner.address") }}</label>
                   <input
-                    placeholder="Enter Address Here.."
+                    :placeholder="`${$t('partner.placeholder.address')}`"
                     rows="3"
                     required
                     class="form-control"
@@ -76,10 +76,10 @@
               </div>
               <div class="row">
                 <div class="col-12 formgroup">
-                  <label>Phone Number</label>
+                  <label>{{ $t("partner.phone") }}</label>
                   <input
                     type="number"
-                    placeholder="Enter Phone Number Here.."
+                    :placeholder="`${$t('driver.placeholder.phone')}`"
                     class="form-control"
                     v-model="form.phone_number"
                     @blur="$v.form.phone_number.$touch()"
@@ -108,10 +108,10 @@
               </div>
               <div class="row">
                 <div class="col-12 formgroup">
-                  <label>Email</label>
+                  <label>{{ $t("partner.email") }}</label>
                   <input
                     type="email"
-                    placeholder="Enter Email Address Here.."
+                    :placeholder="`${$t('partner.placeholder.email')}`"
                     class="form-control"
                     v-model="form.email"
                     @blur="$v.form.email.$touch()"
@@ -128,10 +128,10 @@
               </div>
               <div class="row">
                 <div class="col-12 formgroup show-password">
-                  <label>Password</label>
+                  <label>{{ $t("partner.password") }}</label>
                   <input
                     :type="[showPassword ? 'text' : 'password']"
-                    placeholder="Enter Password Here.."
+                    :placeholder="`${$t('partner.placeholder.password')}`"
                     class="form-control"
                     v-model="form.password"
                     @blur="$v.form.password.$touch()"
@@ -183,7 +183,7 @@
               </div> -->
               <div class="row">
                 <div class="col-12 formgroup image-upload">
-                  <label>Image</label>
+                  <label>{{ $t("partner.image") }}</label>
                   <input
                     id="file-input"
                     type="file"
@@ -194,7 +194,7 @@
               </div>
               <div class="row">
                 <div class="col-4 form-group">
-                  <label>Time open</label>
+                  <label>{{ $t("partner.timeOpen") }}</label>
                   <input
                     type="time"
                     id="timeOpen"
@@ -215,7 +215,7 @@
                   </div>
                 </div>
                 <div class="col-4 form-group">
-                  <label>Time close</label>
+                  <label>{{ $t("partner.timeClose") }}</label>
                   <input
                     type="time"
                     id="timeClose"
@@ -236,7 +236,9 @@
                   </div>
                 </div>
                 <div class="col-4 form-group">
-                  <label class="justify-content-start mr-2">Type</label>
+                  <label class="justify-content-start mr-2">{{
+                    $t("partner.type")
+                  }}</label>
                   <div class="short-by">
                     <select
                       class="form-control basic-select select2-hidden-accessible"
@@ -259,7 +261,7 @@
                     $v.form.$invalid || isDisabled || filesSelected < 1
                   "
                 >
-                  Submit
+                  {{ $t("partner.buttons.submitRegister") }}
                 </button>
               </div>
             </div>
@@ -288,7 +290,7 @@
               class="image-upload-section"
               v-if="results && results.secure_url"
             >
-              <label>Image Uploaded</label>
+              <label>{{ $t("partner.imageUpload") }}</label>
               <img :src="results.secure_url" :alt="results.public_id" />
             </section>
           </div>
@@ -325,7 +327,7 @@
                   </div>
                 </div>
                 <button class="btn btn-primary btn-block btn-forgot">
-                  Submit
+                  {{ $t("partner.buttons.submitCode") }}
                 </button>
                 <Spinner :loading="isLoading5" />
               </form>

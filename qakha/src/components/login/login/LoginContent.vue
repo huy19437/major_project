@@ -33,7 +33,7 @@
           autocomplete="off"
           v-model="userLogin.password"
           @blur="$v.userLogin.password.$touch()"
-          placeholder="Password*"
+          :placeholder="`${$t('login.password')}*`"
           class="form-control"
           :type="[showPassword ? 'text' : 'password']"
           :class="$v.userLogin.password.$error ? 'is-invalid' : ''"
@@ -60,7 +60,9 @@
         </div>
       </div>
 
-      <p class="forgot"><a href="forgot">Forgot Password?</a></p>
+      <p class="forgot">
+        <a href="forgot">{{ $t("login.forgotPassword") }}</a>
+      </p>
 
       <button
         class="button button-block"
@@ -70,7 +72,7 @@
             : true
         "
       >
-        Log In
+        {{ $t("login.login") }}
       </button>
       <Spinner :loading="isLoading" />
 
@@ -91,7 +93,7 @@
         data-target="#enterActiveCodeModal"
         class="button button-block"
       >
-        Click to Active account
+        {{ $t("login.active") }}
       </button>
     </div>
     <div

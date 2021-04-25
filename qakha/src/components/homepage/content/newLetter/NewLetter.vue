@@ -7,10 +7,9 @@
             <div class="col-lg-8 offset-lg-2 col-12">
               <!-- Start Newsletter Inner -->
               <div class="inner">
-                <h4>Newsletter</h4>
+                <h4>{{ $t("newsletter.title") }}</h4>
                 <p>
-                  Subscribe to our newsletter and get <span>10%</span> off your
-                  first purchase
+                  {{ $t("newsletter.desc") }}
                 </p>
                 <form
                   action="mail/mail.php"
@@ -20,11 +19,11 @@
                 >
                   <input
                     name="EMAIL"
-                    placeholder="Your email address"
+                    :placeholder="`${$t('newsletter.email')}`"
                     required=""
                     type="email"
                   />
-                  <button class="btn">Subscribe</button>
+                  <button class="btn">{{ $t("newsletter.subscribe") }}</button>
                 </form>
               </div>
               <!-- End Newsletter Inner -->

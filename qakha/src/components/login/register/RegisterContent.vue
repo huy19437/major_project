@@ -13,7 +13,7 @@
           autocomplete="off"
           v-model="userSignup.name"
           @blur="$v.userSignup.name.$touch()"
-          placeholder="User Name*"
+          :placeholder="`${$t('registerUser.name')}*`"
           class="form-control"
           :class="$v.userSignup.name.$error ? 'is-invalid' : ''"
         />
@@ -31,7 +31,7 @@
           autocomplete="off"
           v-model="userSignup.phone_number"
           @blur="$v.userSignup.phone_number.$touch()"
-          placeholder="Phone number*"
+          :placeholder="`${$t('registerUser.phone')}*`"
           class="form-control"
           :class="$v.userSignup.phone_number.$error ? 'is-invalid' : ''"
         />
@@ -87,7 +87,7 @@
           autocomplete="off"
           v-model="userSignup.password"
           @blur="$v.userSignup.password.$touch()"
-          placeholder="Password*"
+          :placeholder="`${$t('registerUser.password')}*`"
           :type="[showPassword ? 'text' : 'password']"
           class="form-control"
           :class="$v.userSignup.password.$error ? 'is-invalid' : ''"
@@ -126,7 +126,7 @@
           autocomplete="off"
           v-model="userSignup.password_confirmation"
           @blur="$v.userSignup.password_confirmation.$touch()"
-          placeholder="password confirmation*"
+          :placeholder="`${$t('registerUser.passwordConfirmation')}*`"
           class="form-control"
           :class="
             $v.userSignup.password_confirmation.$error ? 'is-invalid' : ''
@@ -167,18 +167,22 @@
             : true
         "
       >
-        Sign up
+        {{ $t("registerUser.signup") }}
       </button>
       <Spinner :loading="isLoading" />
       <div class="row register-orther">
         <div class="col-6 formgroup">
           <p class="partner-signup">
-            <router-link to="/register-partner">Become a partner</router-link>
+            <router-link to="/register-partner">{{
+              $t("registerUser.becomePartner")
+            }}</router-link>
           </p>
         </div>
         <div class="col-6 formgroup">
           <p class="driver-signup">
-            <router-link to="/register-driver">Become a driver</router-link>
+            <router-link to="/register-driver">{{
+              $t("registerUser.becomeDriver")
+            }}</router-link>
           </p>
         </div>
       </div>

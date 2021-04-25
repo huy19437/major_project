@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="page-header">
-      <h1>History Order</h1>
+      <h1>{{ $t("historyOrders.title") }}</h1>
     </div>
     <div class="row" style="margin-bottom: 48px">
       <div class="col-12">

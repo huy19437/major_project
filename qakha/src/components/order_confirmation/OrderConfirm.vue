@@ -14,7 +14,7 @@
       role="alert"
       style="text-align: center"
     >
-      Go back and make a order
+      {{ $t("orderConfirm.alert") }}
     </div>
     <table v-else border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
@@ -132,7 +132,10 @@
                                 <a
                                   href="/"
                                   style="color: #ffffff; text-decoration: none"
-                                  >Restaurants &nbsp;</a
+                                  >{{
+                                    $t("orderConfirm.restaurants")
+                                  }}
+                                  &nbsp;</a
                                 >
                               </p>
                             </td>
@@ -204,7 +207,7 @@
                           margin: 0;
                         "
                       >
-                        Thank You For Your Order!
+                        {{ $t("orderConfirm.thanks") }}
                       </h2>
                     </td>
                   </tr>
@@ -251,7 +254,7 @@
                               padding: 10px;
                             "
                           >
-                            Your Order
+                            {{ $t("orderConfirm.yourOrder") }}
                           </td>
                           <td
                             width="25%"
@@ -323,7 +326,7 @@
                               padding: 10px;
                             "
                           >
-                            Order Confirmation
+                            {{ $t("orderConfirm.orderConfirm") }}
                           </td>
                           <td
                             width="25%"
@@ -352,7 +355,9 @@
                               padding: 15px 10px 5px 10px;
                             "
                           >
-                            Purchased Item ({{ getOrderDetails.length }})
+                            {{ $t("orderConfirm.purchaseItem") }} ({{
+                              getOrderDetails.length
+                            }})
                           </td>
                           <td
                             width="25%"
@@ -382,7 +387,7 @@
                               padding: 5px 10px;
                             "
                           >
-                            Shipping Fee
+                            {{ $t("orderConfirm.shippingFee") }}
                           </td>
                           <td
                             width="25%"
@@ -425,7 +430,7 @@
                               border-bottom: 3px solid #eeeeee;
                             "
                           >
-                            TOTAL
+                            {{ $t("orderConfirm.total") }}
                           </td>
                           <td
                             width="25%"
@@ -498,7 +503,9 @@
                                 line-height: 24px;
                               "
                             >
-                              <p style="font-weight: 800">Delivery Address</p>
+                              <p style="font-weight: 800">
+                                {{ $t("orderConfirm.address") }}
+                              </p>
                               <p>
                                 {{ getOrder.address.split(",")[0] }}
                                 <br />
@@ -540,7 +547,7 @@
                               "
                             >
                               <p style="font-weight: 800">
-                                Estimated Delivery Date
+                                {{ $t("orderConfirm.date") }}
                               </p>
                               <p>{{ getOrder.delivery_time }}</p>
                             </td>

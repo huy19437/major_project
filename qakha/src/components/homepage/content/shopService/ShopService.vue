@@ -7,8 +7,8 @@
             <!-- Start Single Service -->
             <div class="single-service">
               <i class="ti-rocket"></i>
-              <h4>Free shiping</h4>
-              <p>Orders over $5</p>
+              <h4>{{ $t("shopService.freeShipping.title") }}</h4>
+              <p>{{ $t("shopService.freeShipping.desc") }}</p>
             </div>
             <!-- End Single Service -->
           </div>
@@ -16,8 +16,8 @@
             <!-- Start Single Service -->
             <div class="single-service">
               <i class="ti-reload"></i>
-              <h4>Free Return</h4>
-              <p>Within 1 hour returns</p>
+              <h4>{{ $t("shopService.freeReturn.title") }}</h4>
+              <p>{{ $t("shopService.freeReturn.desc") }}</p>
             </div>
             <!-- End Single Service -->
           </div>
@@ -25,8 +25,8 @@
             <!-- Start Single Service -->
             <div class="single-service">
               <i class="ti-lock"></i>
-              <h4>Secure Payment</h4>
-              <p>100% secure payment</p>
+              <h4>{{ $t("shopService.securePayment.title") }}</h4>
+              <p>{{ $t("shopService.securePayment.desc") }}</p>
             </div>
             <!-- End Single Service -->
           </div>
@@ -34,8 +34,8 @@
             <!-- Start Single Service -->
             <div class="single-service">
               <i class="ti-tag"></i>
-              <h4>Best Price</h4>
-              <p>Guaranteed price</p>
+              <h4>{{ $t("shopService.bestPrice.title") }}</h4>
+              <p>{{ $t("shopService.bestPrice.desc") }}</p>
             </div>
             <!-- End Single Service -->
           </div>

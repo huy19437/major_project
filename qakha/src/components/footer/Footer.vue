@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="footer">
     <footer class="footer">
       <!-- Footer Top -->
       <div class="footer-top section">
@@ -14,12 +14,11 @@
                   /></a>
                 </div>
                 <p class="text">
-                  Praesent dapibus, neque id cursus ucibus, tortor neque egestas
-                  augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi,
-                  tincidunt quis, accumsan porttitor, facilisis luctus, metus.
+                  {{ $t("footer.session1.desc") }}
                 </p>
                 <p class="call">
-                  Got Question? Call us 24/7<span
+                  {{ $t("footer.session1.contact")
+                  }}<span
                     ><a href="tel:+84 589 273 382">+84 589 273 382</a></span
                   >
                 </p>
@@ -29,13 +28,25 @@
             <div class="col-lg-2 col-md-6 col-12">
               <!-- Single Widget -->
               <div class="single-footer links">
-                <h4>Information</h4>
+                <h4>{{ $t("footer.session2.title") }}</h4>
                 <ul class="footer-list-info">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Faq</a></li>
-                  <li><a href="#">Terms & Conditions</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="#">Help</a></li>
+                  <li>
+                    <a href="#">{{ $t("footer.session2.aboutUs") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session2.Faq") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{
+                      $t("footer.session2.termsAndConditions")
+                    }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session2.ContactUs") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session2.help") }}</a>
+                  </li>
                 </ul>
               </div>
               <!-- End Single Widget -->
@@ -43,13 +54,23 @@
             <div class="col-lg-2 col-md-6 col-12">
               <!-- Single Widget -->
               <div class="single-footer links">
-                <h4>Customer Service</h4>
+                <h4>{{ $t("footer.session3.title") }}</h4>
                 <ul class="footer-list-info">
-                  <li><a href="#">Payment Methods</a></li>
-                  <li><a href="#">Money-back</a></li>
-                  <li><a href="#">Returns</a></li>
-                  <li><a href="#">Shipping</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
+                  <li>
+                    <a href="#">{{ $t("footer.session3.paymentMethods") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session3.moneyBack") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session3.returns") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session3.shipping") }}</a>
+                  </li>
+                  <li>
+                    <a href="#">{{ $t("footer.session3.privacy") }}</a>
+                  </li>
                 </ul>
               </div>
               <!-- End Single Widget -->
@@ -57,7 +78,7 @@
             <div class="col-lg-3 col-md-6 col-12">
               <!-- Single Widget -->
               <div class="single-footer social">
-                <h4>Get In Touch</h4>
+                <h4>{{ $t("footer.session4.title") }}</h4>
                 <!-- Single Widget -->
                 <div class="contact">
                   <ul class="footer-list-info">
