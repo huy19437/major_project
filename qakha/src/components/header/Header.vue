@@ -197,7 +197,7 @@
                       <div class="total">
                         <span>Total</span>
                         <span class="total-amount"
-                          >${{ roundNumber(total) }}</span
+                          >{{ roundNumber(total) }} VNĐ</span
                         >
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
@@ -743,6 +743,12 @@ export default {
         }
         .total-count {
           top: -16px !important;
+        }
+      }
+      .shopping-item {
+        .dropdown-cart-header {
+          display: flex;
+          justify-content: space-between;
         }
       }
     }
