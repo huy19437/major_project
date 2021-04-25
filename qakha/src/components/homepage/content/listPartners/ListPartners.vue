@@ -91,6 +91,7 @@
                     class="img-fluid"
                     :src="`${partner.image.url}`"
                     alt="Partner's image"
+                    onload="this.style.opacity = 1"
                   />
                   <span :class="`time-tag ${partner.status}`">
                     <!-- {{ partner.status }} -->
@@ -352,6 +353,8 @@ select.form-control:not([size]):not([multiple]) {
     img {
       height: 150px;
       width: 100%;
+      opacity: 0;
+      transition-duration: 500ms;
     }
   }
   .partner-list-details {

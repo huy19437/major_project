@@ -16,12 +16,12 @@ const messages = {
                 bestSeller: 'Best seller',
                 service: 'Service',
                 store: {
-                    title: 'Store',
-                    cart: 'Cart',
+                    title: 'Cart',
+                    cart: 'View Cart',
                 },
                 mart: {
-                    title: 'Mart',
-                    ourMart: 'Our Mart'
+                    title: 'Restaurants',
+                    ourMart: 'Our Restaurants'
                 },
                 contact: 'Contact Us',
             },
@@ -310,16 +310,16 @@ const messages = {
             searchProducts: 'Tìm kiếm sản phẩm',
             listOfProducts: 'Danh sách sản phẩm',
             headerInner: {
-                home: 'Trang chủ',
+                home: 'Trang Chủ',
                 bestSeller: 'Bán chạy',
                 service: 'Dịch vụ',
                 store: {
-                    title: 'Cửa hàng',
-                    cart: 'Giỏ hàng',
+                    title: 'Giỏ Hàng',
+                    cart: 'Xem Giỏ hàng',
                 },
                 mart: {
-                    title: 'Siêu thị',
-                    ourMart: 'Siêu thị của chúng tôi'
+                    title: 'Cửa hàng',
+                    ourMart: 'Quán ăn của chúng tôi'
                 },
                 contact: 'Liên hệ',
             },

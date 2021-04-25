@@ -123,6 +123,7 @@
                 title="User Avatar"
                 alt="User Avatar"
                 class="user-avatar"
+                onload="this.style.opacity = 1"
               />
             </div>
             <!-- <div v-else-if="results && results.secure_url" class="about-avatar">
@@ -460,6 +461,8 @@ img {
     height: 30vh;
     object-fit: cover;
     border-radius: 50%;
+    opacity: 0;
+    transition-duration: 500ms;
   }
 }
 @media (max-width: 767px) {

@@ -329,13 +329,13 @@
                           </li>
                           <!-- <li><a href="#">Pages</a></li> -->
                           <li class="hasDropDown">
-                            <a href="#"
+                            <a
                               >{{ $t("header.headerInner.mart.title")
                               }}<i class="ti-angle-down"></i
                             ></a>
                             <ul class="dropdown">
                               <li>
-                                <a href="blog-single-sidebar.html">{{
+                                <a href="/">{{
                                   $t("header.headerInner.mart.ourMart")
                                 }}</a>
                               </li>
