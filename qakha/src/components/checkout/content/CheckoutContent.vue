@@ -567,7 +567,13 @@ export default {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
       console.log(this.getSubtotal);
-      if (this.getSubtotal === 0) this.getCartContent();
+      if (
+        this.getSubtotal === 0 ||
+        this.getSubtotal === null ||
+        this.getSubtotal === undefined ||
+        this.getSubtotal < 0
+      )
+        this.getCartContent();
       this.getResult();
       this.coinsUsers();
     });
