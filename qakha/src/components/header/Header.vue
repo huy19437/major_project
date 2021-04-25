@@ -634,7 +634,7 @@ export default {
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 1px 5px rgb(185, 182, 182);
-  // display: none;
+  display: none;
   // overflow: hidden;
   z-index: 10;
 }
