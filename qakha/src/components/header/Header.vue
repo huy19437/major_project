@@ -22,7 +22,11 @@
                   <li>
                     <i class="ti-location-pin"></i>
                     <button type="button" class="map-button">
-                      <a href="#">Da Nang City</a>
+                      <a>
+                        {{ userCurrentAddress.locality }},
+                        {{ userCurrentAddress.city }},
+                        {{ userCurrentAddress.countryName }}
+                      </a>
                     </button>
                   </li>
                   <li>
@@ -347,6 +351,7 @@ export default {
       nameOfUser: "",
       selectedTypeRestaurant: "ALL",
       searchByName: "",
+      userCurrentAddress: "",
       restaurantsType: [
         "ALL",
         "VEGE",
@@ -413,6 +418,7 @@ export default {
       getUserInfoFromLocal: "auth/getUserInfoFromLocal",
       setCartsNull: "cart/setCartsNull",
       deleteCart: "cart/deleteCart",
+      getUserCurrentAddress: "address/getUserCurrentAddress",
     }),
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
@@ -566,11 +572,34 @@ export default {
         params: { slug: id },
       });
     },
+    getUserLocation() {
+      let coordinatesObj = {};
+      let options = {
+        enableHighAccuracy: Boolean, //defaults to false
+        timeout: 3000, //defaults to Infinity
+        maximumAge: 0, //defaults to 0
+      };
+      this.$getLocation(options).then((coordinates) => {
+        // console.log(coordinates);
+        coordinatesObj = coordinates;
+      });
+
+      let params = {
+        latitude: coordinatesObj.lat,
+        longitude: coordinatesObj.lng,
+        localityLanguage: "vn",
+      };
+      this.getUserCurrentAddress(params).then((res) => {
+        console.log(res);
+        this.userCurrentAddress = res;
+      });
+    },
   },
   created() {
     // this.getPartnerIdForCart();
     this.getUserInfoFromLocal();
     this.gePartnerDataFromPartner();
+    this.getUserLocation();
     // console.log(this.userName);
     // this.getInfoProductInCart();
   },

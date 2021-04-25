@@ -37,6 +37,17 @@ const actions = {
                 });
         })
     },
+    getUserCurrentAddress({ commit }, params) {
+        return new Promise((res, rej) => {
+            axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client', { params })
+                .then((response) => {
+                    res(response.data);
+                    // commit('setAddress', response.data);
+                }).catch(err => {
+                    rej(err.response.data.error);
+                });
+        })
+    },
     addAddress({ commit }, params) {
         // console.log(params);
         return new Promise((res, rej) => {

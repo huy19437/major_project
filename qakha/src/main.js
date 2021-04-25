@@ -28,6 +28,8 @@ import '@/assets/asset_login_item/css/login-register.css'
 import Vuelidate from 'vuelidate'
 import * as VueGoogleMaps from "vue2-google-maps";
 import ProgressBar from 'vuejs-progress-bar'
+import VueGeolocation from 'vue-browser-geolocation';
+Vue.use(VueGeolocation);
 Vue.use(ProgressBar)
 
 // import VueToast from 'vue-toast-notification';
