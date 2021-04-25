@@ -305,13 +305,13 @@
                             </router-link>
                           </li>
                           <li>
-                            <a href="#bestseller">{{
-                              $t("header.headerInner.home")
+                            <a href="/#bestseller">{{
+                              $t("header.headerInner.bestSeller")
                             }}</a>
                           </li>
                           <li>
-                            <a href="#service">{{
-                              $t("header.headerInner.bestSeller")
+                            <a href="/#service">{{
+                              $t("header.headerInner.service")
                             }}</a>
                           </li>
                           <li class="hasDropDown">
@@ -342,7 +342,7 @@
                             </ul>
                           </li>
                           <li>
-                            <a href="#footer">{{
+                            <a href="/#footer">{{
                               $t("header.headerInner.contact")
                             }}</a>
                           </li>

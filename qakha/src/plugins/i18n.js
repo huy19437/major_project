@@ -39,7 +39,11 @@ const messages = {
                 title: 'Search by',
                 name: 'Name',
                 location: 'Location'
-            }
+            },
+            open: 'open',
+            close: 'close',
+            locked: 'locked',
+            not_activated: 'not activated'
 
         },
         carousel: {
@@ -334,8 +338,11 @@ const messages = {
                 title: 'Tìm kiếm theo',
                 name: 'Tên',
                 location: 'Địa điểm'
-            }
-
+            },
+            open: 'mở',
+            close: 'đóng',
+            locked: 'khoá',
+            not_activated: 'chưa kích hoạt'
         },
         carousel: {
             bestSeller: 'SẢN PHẨM',

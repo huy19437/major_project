@@ -71,7 +71,13 @@
             v-for="partner in visiblePartner"
             :key="partner.id"
             class="col-sm-6 col-lg-4 mb-4"
-            :style="{ display: partner.status == 'locked' ? 'none' : 'blokc' }"
+            :style="{
+              display:
+                partner.status === 'locked' ||
+                partner.status === 'not_activated'
+                  ? 'none'
+                  : 'block',
+            }"
           >
             <div class="partner-list partner-grid">
               <div class="partner-list-image">
@@ -87,7 +93,8 @@
                     alt="Partner's image"
                   />
                   <span :class="`time-tag ${partner.status}`">
-                    {{ partner.status }}
+                    <!-- {{ partner.status }} -->
+                    {{ $t(`listPartners.${partner.status}`) }}
                   </span>
                 </router-link>
               </div>

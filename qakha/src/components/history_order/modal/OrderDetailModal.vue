@@ -28,7 +28,10 @@
               {{ getOrderDetailsHistory.order.discount }}đ
             </span>
             <br />
-            <span class="total-order">Total: {{ totalOfOrder }}đ</span>
+            <span class="total-order"
+              >{{ $t("historyOrders.orderDetailsModal.table.total") }}:
+              {{ totalOfOrder }}đ</span
+            >
           </h5>
         </div>
         <div class="modal-body">
