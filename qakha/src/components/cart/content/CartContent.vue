@@ -12,6 +12,14 @@
         <div class="col-12">
           <!-- Shopping Summery -->
           <table class="table shopping-summery">
+            <colgroup>
+              <col style="width: 10%" />
+              <col style="width: 30%" />
+              <col style="width: 10%" />
+              <col style="width: 12%" />
+              <col style="width: 20%" />
+              <col style="width: 2%" />
+            </colgroup>
             <thead>
               <tr class="main-hading">
                 <th>PRODUCT</th>
@@ -273,7 +281,14 @@ export default {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
+}
+
+.image {
+  img {
+    object-fit: contain;
+    width: 150px !important;
+  }
 }
 
 .price {
