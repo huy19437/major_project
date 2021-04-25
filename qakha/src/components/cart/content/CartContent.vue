@@ -178,7 +178,7 @@ export default {
         quantity: quantity,
         partner_id: this.partner.id,
       };
-      console.log(params);
+      // console.log(params);
       this.updateCart(params)
         .then((res) => {
           if (res) {

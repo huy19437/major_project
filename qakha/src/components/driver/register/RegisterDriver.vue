@@ -461,7 +461,7 @@ export default {
       setRegisterError: "auth/setRegisterError",
     }),
     async handleSubmit(event) {
-      console.log(this.registerErr);
+      // console.log(this.registerErr);
       await this.upload()
         .then((res) => {
           this.isLoading = true;
@@ -485,7 +485,7 @@ export default {
                   this.isLoading = false;
                   this.isDisabled = false;
                 });
-              console.log(event.target.value);
+              // console.log(event.target.value);
             }
           }
         })
@@ -504,7 +504,7 @@ export default {
           .then((res) => {
             $("#activeDriverModal").modal("hide");
             openToastMess(res, "success");
-            console.log(res);
+            // console.log(res);
           })
           .catch((err) => {
             openToastMess(err, "error");

@@ -347,7 +347,7 @@ export default {
         this.activeAccount(params)
           .then((res) => {
             openToastMess(res, "success");
-            console.log(res);
+            // console.log(res);
             $("#enterActiveCodeRegisterModal").modal("hide");
           })
           .catch((err) => {

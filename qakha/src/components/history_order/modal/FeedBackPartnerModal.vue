@@ -85,7 +85,7 @@ export default {
       return this.dataForFeedback;
     },
     partnerName() {
-      console.log(this.dataForFeedback.partner_name);
+      // console.log(this.dataForFeedback.partner_name);
       return this.dataForFeedback.partner_name;
     },
   },
@@ -93,14 +93,14 @@ export default {
     ...mapActions({ addFeedbackPartner: "feedback/addFeedbackPartner" }),
     setRating: function (rating) {
       this.rating = rating;
-      console.log(this.rating);
+      // console.log(this.rating);
     },
     submitAndOpenFeedbackPartnerModal() {
       this.feedBackPartnerObj.point = this.rating;
-      console.log(this.feedBackPartnerObj);
+      // console.log(this.feedBackPartnerObj);
       this.addFeedbackPartner(this.feedBackPartnerObj)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           openToastMess("Add feedback partner successfully!", "success");
           window.location.reload();
         })

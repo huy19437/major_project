@@ -428,7 +428,7 @@ export default {
         product_id: id,
         partner_id: this.partner.id,
       };
-      console.log(params);
+      // console.log(params);
       this.deleteCart(params)
         .then((res) => {
           if (res) {
@@ -445,7 +445,7 @@ export default {
     },
     getInfoProductInCart() {
       this.cart = this.getCartLocal;
-      console.log(this.cart);
+      // console.log(this.cart);
       if (this.cart) {
         // console.log("hi");
         this.idOfProducts = this.cart.map((item) => item.product_id);

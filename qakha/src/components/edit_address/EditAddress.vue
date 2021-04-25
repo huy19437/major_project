@@ -115,7 +115,7 @@ export default {
       updateAddress: "address/updateAddress",
     }),
     getLocationUser(location, place) {
-      console.log(this.locationUser);
+      // console.log(this.locationUser);
       let tmp = place.split(",");
       this.address = tmp[0] + "," + tmp[1] + "," + tmp[2];
       let params = {
@@ -169,7 +169,7 @@ export default {
     },
     getAddressChange(e) {
       this.addressUpdate = e.target.value;
-      console.log(this.addressUpdate);
+      // console.log(this.addressUpdate);
     },
     getResult() {
       this.getAddress(this.getUser.id);

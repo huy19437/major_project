@@ -106,7 +106,7 @@ const actions = {
         })
     },
     orderDetails({ commit }, params) {
-        console.log(params);
+        // console.log(params);
         return new Promise((res, rej) => {
             httpRequest.get('/order_details', { params })
                 .then((response) => {

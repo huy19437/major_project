@@ -579,8 +579,8 @@ export default {
       setShoppingStatus: "cart/setShoppingStatus",
     }),
     showOrder() {
-      console.log(this.getOrder);
-      console.log(this.getOrderDetails);
+      // console.log(this.getOrder);
+      // console.log(this.getOrderDetails);
     },
     getInfoProduct() {
       if (this.getOrderDetails) {

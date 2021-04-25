@@ -143,11 +143,11 @@ export default {
       this.orderDetails(params).then((response) => {
         this.totalOfOrder = response.order.total;
         this.partnerName = response.order.partner.name;
-        console.log(response);
+        // console.log(response);
       });
     },
     getDataForFeedback(order) {
-      console.log(order);
+      // console.log(order);
       let params = {
         order_id: order.id,
         driver_id: order.driver_id,

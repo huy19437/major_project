@@ -539,7 +539,7 @@ export default {
         };
         this.getCart(params)
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             this.subTotal = res.total_price_cart;
           })
           .catch((error) => {
@@ -566,7 +566,7 @@ export default {
     this.getAddress().then((res) => {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
-      console.log(this.getSubtotal);
+      // console.log(this.getSubtotal);
       if (
         this.getSubtotal === 0 ||
         this.getSubtotal === null ||

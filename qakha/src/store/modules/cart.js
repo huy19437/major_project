@@ -104,7 +104,7 @@ const actions = {
         })
     },
     deleteCart({ commit }, params) {
-        console.log(params);
+        // console.log(params);
         return new Promise((res, rej) => {
             httpRequest.delete('/carts', { data: params })
                 .then((response) => {

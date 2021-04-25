@@ -98,7 +98,7 @@ export default {
       });
 
       var filter = this.filterObj;
-      console.log(filter);
+      // console.log(filter);
       this.orderHistoryData = this.orderHistoryData.filter((item) => {
         for (let key in filter) {
           //sort condition for status
@@ -115,7 +115,7 @@ export default {
         }
         return true;
       });
-      console.log(this.orderHistoryData);
+      // console.log(this.orderHistoryData);
     },
     setFilterObj() {
       this.filterObj.status = this.searchStatus;
@@ -134,7 +134,7 @@ export default {
     getResult() {
       this.historyOrders().then((res) => {
         this.orderHistoryData = this.getHistoryOrder;
-        console.log(this.orderHistoryData);
+        // console.log(this.orderHistoryData);
       });
     },
   },

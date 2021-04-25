@@ -94,14 +94,14 @@ export default {
     ...mapActions({ addFeedbacks: "feedback/addFeedbacks" }),
     setRating: function (rating) {
       this.rating = rating;
-      console.log(this.rating);
+      // console.log(this.rating);
     },
     submitAndOpenFeedbackPartnerModal() {
       this.feedBackDriverObj.point = this.rating;
-      console.log(this.feedBackDriverObj);
+      // console.log(this.feedBackDriverObj);
       this.addFeedbacks(this.feedBackDriverObj)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           openToastMess("Add feedback driver successfully!", "success");
           $("#feedBackPartnerModal").modal("show");
         })
@@ -114,7 +114,7 @@ export default {
       this.feedBackDriverObj.content = "";
     },
     getResult() {
-      console.log(this.dataForFeedback);
+      // console.log(this.dataForFeedback);
       this.feedBackDriverObj.order_id = this.dataForFeedback.order_id;
       this.feedBackDriverObj.driver_id = this.dataForFeedback.driver_id;
       this.feedBackDriverObj.partner_id = this.dataForFeedback.partner_id;

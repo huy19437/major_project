@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     getResult() {
-      console.log(this.getOrderDetailsHistory);
+      // console.log(this.getOrderDetailsHistory);
     },
   },
   created() {

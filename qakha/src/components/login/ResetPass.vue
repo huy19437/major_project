@@ -99,7 +99,7 @@ export default {
         this.resetPassword(this.$data.userReset)
           .then((res) => {
             openToastMess(res, "success");
-            console.log(res);
+            // console.log(res);
           })
           .catch((err) => {
             this.errMess = err;

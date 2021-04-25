@@ -70,7 +70,7 @@ export default {
         this.forgotPassword(this.$data.userForgot)
           .then((res) => {
             openToastMess(res, "success");
-            console.log(res);
+            // console.log(res);
           })
           .catch((err) => {
             this.errMess = err;

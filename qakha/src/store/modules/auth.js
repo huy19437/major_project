@@ -61,7 +61,7 @@ const mutations = {
         } else if (data === null) {
             state.userInfo = null;
         }
-        console.log(state.userInfo);
+        // console.log(state.userInfo);
     },
     setToken(state) {
         state.token = localStorage.getItem('token');;

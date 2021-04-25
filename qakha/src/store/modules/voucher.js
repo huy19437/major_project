@@ -34,7 +34,7 @@ const actions = {
     },
     applyVouchers({ commit }, params) {
         return new Promise((res, rej) => {
-            console.log(params);
+            // console.log(params);
             httpRequest.post('/orders/voucher', params)
                 .then((response) => {
                     res(response.data.total_after_discount);
@@ -45,7 +45,7 @@ const actions = {
     },
     cancelVouchers({ commit }, params) {
         return new Promise((res, rej) => {
-            console.log(params);
+            // console.log(params);
             httpRequest.delete('/orders/voucher', { data: params })
                 .then((response) => {
                     res(response.data.total_before_discount);

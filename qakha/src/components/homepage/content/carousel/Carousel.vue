@@ -152,7 +152,7 @@ export default {
         partner_id: this.partner.id,
         quantity: 1,
       };
-      console.log(params);
+      // console.log(params);
       this.addProductToCart(params);
     },
     setTrendingProducts() {
@@ -191,7 +191,7 @@ export default {
           this.setTrendingProducts();
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     },
   },

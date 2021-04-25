@@ -38,11 +38,11 @@ const actions = {
         })
     },
     addAddress({ commit }, params) {
-        console.log(params);
+        // console.log(params);
         return new Promise((res, rej) => {
             httpRequest.post('/addresses', params)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     res(response.data);
                     commit('pushAddress', response.data);
                 }).catch(err => {
@@ -51,7 +51,7 @@ const actions = {
         })
     },
     updateAddress({ commit }, params) {
-        console.log(params.id);
+        // console.log(params.id);
         return new Promise((res, rej) => {
             httpRequest.patch('/addresses/' + params.id, { name: params.name })
                 .then((response) => {
@@ -62,11 +62,11 @@ const actions = {
         })
     },
     deleteAddress({ commit }, params) {
-        console.log(params);
+        // console.log(params);
         return new Promise((res, rej) => {
             httpRequest.delete('/addresses/' + params)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     // commit('setAddress', response.data);
                     res(response.data);
                 }).catch(err => {

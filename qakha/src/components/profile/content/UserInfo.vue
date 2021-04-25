@@ -270,10 +270,10 @@ export default {
     }),
     async submitData() {
       if (this.filesSelected != 0) {
-        console.log("1");
+        // console.log("1");
         await this.upload()
           .then((res) => {
-            console.log(this.userObj);
+            // console.log(this.userObj);
             this.$v.userObj.$touch();
             $("#loadMe").modal("show");
             if (!this.$v.userObj.$invalid) {
@@ -297,15 +297,15 @@ export default {
             openToastMess(err, "error");
           });
       } else {
-        console.log("2");
+        // console.log("2");
         this.$v.userObj.$touch();
         if (!this.$v.userObj.$invalid) {
-          console.log(this.$data.userObj);
+          // console.log(this.$data.userObj);
           $("#loadMe").modal("show");
           this.updateUser(this.$data.userObj)
             .then((response) => {
               if (response) {
-                console.log("3");
+                // console.log("3");
                 openToastMess("Sign up successfully", "success");
                 this.getResult();
               }

@@ -218,13 +218,13 @@ export default {
             .then((res) => {
               console.log(this.getNowRoute);
               if (this.getNowRoute) {
-                console.log(this.getNowRoute);
+                // console.log(this.getNowRoute);
                 window.location.href =
                   "http://localhost:8080" + this.getNowRoute;
               } else {
                 this.$router.push({ path: "/" });
               }
-              console.log(res);
+              // console.log(res);
             })
             .catch((err) => {
               this.errMess = err.message;

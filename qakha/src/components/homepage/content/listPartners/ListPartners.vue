@@ -201,7 +201,7 @@ export default {
           this.partnerData = this.getPartnersLocal;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     },
   },
