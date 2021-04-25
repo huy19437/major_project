@@ -552,6 +552,7 @@ export default {
       }
     },
     getResult() {
+      this.subTotal = this.getSubtotal;
       if (this.getAddressLocal.length == 0) {
         openToastMess("User have no address", "warning");
       } else {
@@ -565,9 +566,10 @@ export default {
     this.getAddress().then((res) => {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
+      console.log(this.getSubtotal);
+      if (this.getSubtotal === 0) this.getCartContent();
       this.getResult();
       this.coinsUsers();
-      this.getCartContent();
     });
   },
   watch: {},
