@@ -228,7 +228,7 @@ export default {
           partner_id: this.slug,
           quantity: 1,
         };
-        console.log(params);
+        // console.log(params);
         this.addProductToCart(params)
           .then((res) => {
             if (res) {
@@ -286,7 +286,7 @@ export default {
           });
       }
       this.getFeedBackToShow();
-      console.log(this.partner);
+      // console.log(this.partner);
       this.partnerId(this.partner.id);
       if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
         this.categories = this.getPartnersLocal.find(
