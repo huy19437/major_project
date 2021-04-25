@@ -21,13 +21,11 @@
                 <ul class="list-main">
                   <li>
                     <i class="ti-location-pin"></i>
-                    <button type="button" class="map-button">
-                      <a>
-                        {{ userCurrentAddress.locality }},
-                        {{ userCurrentAddress.city }},
-                        {{ userCurrentAddress.countryName }}
-                      </a>
-                    </button>
+                    <span>
+                      {{ userCurrentAddress.locality }},
+                      {{ userCurrentAddress.city }},
+                      {{ userCurrentAddress.countryName }}
+                    </span>
                   </li>
                   <li>
                     <a href="" class="language-btn">
@@ -549,7 +547,7 @@ export default {
     },
     getPartnerIdForCart() {
       this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-      console.log(this.partnerIdForSlug);
+      // console.log(this.partnerIdForSlug);
     },
     gotoCart() {
       this.partnerIdForSlug = this.getCartLocal[0].partner_id;
@@ -590,7 +588,7 @@ export default {
         localityLanguage: "vn",
       };
       this.getUserCurrentAddress(params).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.userCurrentAddress = res;
       });
     },
