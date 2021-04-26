@@ -450,11 +450,11 @@ h3.title-comm:before {
 .title-holder:before {
   content: "";
   position: absolute;
-  right: -15px;
-  border-width: 0px;
+  right: -18px;
+  // border-width: 0px;
   bottom: 0px;
   border-style: solid;
-  border-color: #ea3a3c transparent;
+  // border-color: #ea3a3c transparent;
   display: block;
   width: 0;
   height: 0;
@@ -466,11 +466,11 @@ h3.title-comm:before {
 .title-holder:after {
   content: "";
   position: absolute;
-  left: -15px;
-  border-width: 0px;
+  left: -18px;
+  // border-width: 0px;
   bottom: 0px;
   border-style: solid;
-  border-color: #ea3a3c transparent;
+  // border-color: #ea3a3c transparent;
   display: block;
   width: 0;
   height: 0;

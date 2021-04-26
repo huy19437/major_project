@@ -136,7 +136,10 @@
                         <h3 class="header__search-history-heading">
                           {{ $t("header.listOfProducts") }}
                         </h3>
-                        <ul class="header__search-history-list">
+                        <ul
+                          v-if="getPartnersLocal"
+                          class="header__search-history-list"
+                        >
                           <li
                             v-for="product in filteredProductByName"
                             :key="product.id"
