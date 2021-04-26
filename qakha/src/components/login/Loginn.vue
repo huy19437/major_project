@@ -40,6 +40,7 @@
         <RegisterContent
           :status="status"
           @register-success="showSuccesMessage"
+          @active-account-success="showLoginForm"
         />
       </div>
       <!-- tab-content -->
@@ -73,9 +74,11 @@ export default {
     },
     showSuccesMessage(registerSucess) {
       console.log("hi");
-      this.status = !this.status;
       this.registerSucess = !this.registerSucess;
       setTimeout(this.toggleSuccesMessage, 4000);
+    },
+    showLoginForm() {
+      this.status = !this.status;
     },
   },
 };

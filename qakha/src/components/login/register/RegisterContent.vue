@@ -325,13 +325,14 @@ export default {
         if (!this.$v.userSignup.$invalid) {
           this.registerFuction(this.$data.userSignup)
             .then((response) => {
-              $("#enterActiveCodeRegisterModal").modal("show");
+              // console.log(response);
               openToastMess(response, "success");
-              if (response) {
-                this.registerSucess = "Sign up success!";
-                this.clearInput();
-                this.$emit("register-success", this.registerSucess);
-              }
+              // if (response) {
+              $("#enterActiveCodeRegisterModal").modal("show");
+              this.registerSucess = "Sign up success!";
+              this.clearInput();
+              this.$emit("register-success", this.registerSucess);
+              // }
             })
             .finally(() => {
               this.isLoading = false;
@@ -353,6 +354,7 @@ export default {
             openToastMess(res, "success");
             // console.log(res);
             $("#enterActiveCodeRegisterModal").modal("hide");
+            this.$emit("active-account-success");
           })
           .catch((err) => {
             openToastMess(err, "error");

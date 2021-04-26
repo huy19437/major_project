@@ -284,12 +284,14 @@ export default {
               this.updateUser(this.$data.userObj)
                 .then((response) => {
                   if (response) {
+                    this.isDisabled = true;
                     openToastMess("Sign up successfully", "success");
                     this.getResult();
                   }
                 })
                 .catch((err) => {
                   this.registerErr = true;
+                  this.isDisabled = false;
                   openToastMess(err, "error");
                 })
                 .finally(() => {
@@ -309,6 +311,7 @@ export default {
           this.updateUser(this.$data.userObj)
             .then((response) => {
               if (response) {
+                this.isDisabled = true;
                 // console.log("3");
                 openToastMess("Sign up successfully", "success");
                 this.getResult();
@@ -316,6 +319,7 @@ export default {
             })
             .catch((err) => {
               this.registerErr = true;
+              this.isDisabled = false;
               openToastMess(err, "error");
             })
             .finally(() => {
@@ -323,7 +327,7 @@ export default {
             });
         }
       }
-      this.isDisabled = true;
+      // this.isDisabled = true;
       this.filesSelected = 0;
     },
     handleFileChange: function (event) {
@@ -339,6 +343,7 @@ export default {
       this.formData.append("file", this.fileContents);
     },
     upload: function () {
+      this.isDisabled = true;
       return new Promise((res, rej) => {
         if (this.preset.length < 1 || this.cloudName.length < 1) {
           openToastMess(

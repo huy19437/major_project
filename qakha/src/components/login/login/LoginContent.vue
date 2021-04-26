@@ -1,6 +1,6 @@
 <template>
   <div id="login" v-bind:style="{ display: status ? 'none' : 'block' }">
-    <form @submit.prevent="authenticate" @input="reFillLogin">
+    <form @submit.prevent="authenticate" @input="reFillLogin" autocomplete="on">
       <div>
         <div v-if="loginError" class="alert alert-danger" role="alert">
           {{ loginError }}
@@ -30,7 +30,6 @@
       <div class="field-wrap show-password">
         <input
           required
-          autocomplete="off"
           v-model="userLogin.password"
           @blur="$v.userLogin.password.$touch()"
           :placeholder="`${$t('login.password')}*`"
