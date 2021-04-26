@@ -10,7 +10,7 @@
         <!-- {{ registerSucess }} -->
         Sign up successfully!
         <br />
-        Click Sign in to Login
+        <!-- Click Sign in to Login -->
         <button
           @click="registerSucess = false"
           type="button"
@@ -72,6 +72,8 @@ export default {
       this.registerSucess = false;
     },
     showSuccesMessage(registerSucess) {
+      console.log("hi");
+      this.status = !this.status;
       this.registerSucess = !this.registerSucess;
       setTimeout(this.toggleSuccesMessage, 4000);
     },

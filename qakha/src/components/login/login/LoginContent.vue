@@ -224,7 +224,8 @@ export default {
                 window.location.href =
                   "http://localhost:8080" + this.getNowRoute;
               } else {
-                this.$router.push({ path: "/" });
+                window.location.href = "/";
+                // this.$router.push({ path: "/" });
               }
               // console.log(res);
             })
