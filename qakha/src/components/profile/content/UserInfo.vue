@@ -105,7 +105,7 @@
           <div class="col-lg-6">
             <div class="upload-image">
               <div class="item-upload btn-up">
-                <label title="Change avatar">
+                <!-- <label title="Change avatar">
                   <span class="icon icon-upload">
                     <font-awesome-icon :icon="['fas', 'camera']" />
                   </span>
@@ -114,12 +114,24 @@
                     accept=".png,.jpg,.jpeg"
                     @change="handleFileChange($event)"
                   />
-                </label>
+                </label> -->
+                <div v-if="!image">
+                  <span class="icon icon-upload">
+                    <font-awesome-icon :icon="['fas', 'camera']" />
+                  </span>
+                  <input type="file" @change="handleFileChange($event)" />
+                </div>
+                <div v-else class="image-to-upload">
+                  <!-- <img :src="image" /> -->
+                  <button class="btn btn-primary" @click="removeImage">
+                    Remove image
+                  </button>
+                </div>
               </div>
             </div>
             <div v-if="userDataFromSer.image" class="about-avatar">
               <img
-                :src="`${userDataFromSer.image.url}`"
+                :src="image || `${userDataFromSer.image.url}`"
                 title="User Avatar"
                 alt="User Avatar"
                 class="user-avatar"
@@ -228,6 +240,7 @@ export default {
       },
     };
     return {
+      image: "",
       isDisabled: true,
       userDataFromSer: {},
       results: null,
@@ -285,6 +298,7 @@ export default {
                 .then((response) => {
                   if (response) {
                     this.isDisabled = true;
+                    this.image = "";
                     openToastMess("Sign up successfully", "success");
                     this.getResult();
                   }
@@ -312,6 +326,7 @@ export default {
             .then((response) => {
               if (response) {
                 this.isDisabled = true;
+                this.image = "";
                 // console.log("3");
                 openToastMess("Sign up successfully", "success");
                 this.getResult();
@@ -336,6 +351,9 @@ export default {
       //returns an array of files even though multiple not used
       this.file = event.target.files[0];
       this.filesSelected = event.target.files.length;
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
     },
     prepareFormData: function () {
       this.formData = new FormData();
@@ -405,6 +423,19 @@ export default {
           reader.readAsDataURL(this.file);
         }
       });
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (e) {
+      this.image = "";
     },
     getUserChange(e) {
       // this.addressUpdate = e.target.value;
@@ -630,7 +661,7 @@ mark {
 .upload-image {
   display: flex;
   padding: 10px 0;
-  overflow: auto;
+  // overflow: auto;
 }
 
 .item-upload {
@@ -648,5 +679,12 @@ mark {
 .icon-upload {
   font-size: 20px;
   background-position: -337px -335px;
+}
+
+img {
+  width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
 }
 </style>
