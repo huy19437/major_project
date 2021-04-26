@@ -89,7 +89,7 @@
                           <!-- <span class="out-of-stock">Hot</span> -->
                         </router-link>
                         <div class="button-head">
-                          <div class="product-action">
+                          <!-- <div class="product-action">
                             <a
                               data-toggle="modal"
                               data-target="#exampleModal"
@@ -105,7 +105,7 @@
                               ><i class="ti-bar-chart-alt"></i
                               ><span>Add to Compare</span></a
                             >
-                          </div>
+                          </div> -->
                           <div class="product-action-2">
                             <a
                               :class="{

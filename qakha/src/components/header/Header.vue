@@ -451,6 +451,9 @@ export default {
           .includes(this.xoa_dau(this.searchByName).toLowerCase());
       });
     },
+    getPartnersLocalChange() {
+      return this.getPartnersLocal;
+    },
   },
   methods: {
     ...mapActions({
@@ -570,7 +573,7 @@ export default {
       }
     },
     gePartnerDataFromPartner() {
-      this.partnerData = this.getPartnersLocal;
+      this.partnerData = this.getPartnersLocal || [];
       // console.log(this.partnerData);
     },
     xoa_dau(str) {
@@ -652,6 +655,9 @@ export default {
     },
     userChange() {
       this.getNameFromUserObj(this.getUser);
+    },
+    getPartnersLocalChange() {
+      this.gePartnerDataFromPartner();
     },
   },
 };
