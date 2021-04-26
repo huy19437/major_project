@@ -44,7 +44,7 @@
                   <input
                     type="text"
                     required
-                    :placeholder="`${$t('driver.placeholder.name')}`"
+                    :placeholder="`${$t('partner.placeholder.name')}`"
                     class="form-control"
                     v-model="form.name"
                     @blur="$v.form.name.$touch()"
@@ -181,7 +181,7 @@
                   </section>
                 </div>
               </div> -->
-              <div class="row">
+              <div v-if="!image" class="row">
                 <div class="col-12 formgroup image-upload">
                   <label>{{ $t("partner.image") }}</label>
                   <input
@@ -190,6 +190,14 @@
                     accept="image/png, image/jpeg"
                     @change="handleFileChange($event)"
                   />
+                </div>
+              </div>
+              <div v-if="image" class="row">
+                <div class="col-12 formgroup image-upload">
+                  <label>{{ $t("partner.image") }}</label>
+                  <button class="btn btn-primary" @click="removeImage">
+                    Remove image
+                  </button>
                 </div>
               </div>
               <div class="row">
@@ -201,7 +209,7 @@
                     class="form-control"
                     v-model="form.time_open"
                     @blur="$v.form.time_open.$touch()"
-                    @input="errMess = !errMess"
+                    @input="errMess = false"
                   />
                   <div v-if="$v.form.time_open.$error">
                     <p class="errorMessage" v-if="!$v.form.time_open.required">
@@ -222,7 +230,7 @@
                     class="form-control"
                     v-model="form.time_close"
                     @blur="$v.form.time_close.$touch()"
-                    @input="errMess = !errMess"
+                    @input="errMess = false"
                   />
                   <div v-if="$v.form.time_close.$error">
                     <p class="errorMessage" v-if="!$v.form.time_close.required">
@@ -288,10 +296,10 @@
             </div>
             <section
               class="image-upload-section"
-              v-if="results && results.secure_url"
+              v-if="image || (results && results.secure_url)"
             >
               <label>{{ $t("partner.imageUpload") }}</label>
-              <img :src="results.secure_url" :alt="results.public_id" />
+              <img :src="image || results.secure_url" />
             </section>
           </div>
         </div>
@@ -326,7 +334,10 @@
                     </p>
                   </div>
                 </div>
-                <button class="btn btn-primary btn-block btn-forgot">
+                <button
+                  class="btn btn-primary btn-block btn-forgot"
+                  :disabled="$v.activeCode.$invalid"
+                >
                   {{ $t("partner.buttons.submitCode") }}
                 </button>
                 <Spinner :loading="isLoading5" />
@@ -379,6 +390,7 @@ export default {
       },
     };
     return {
+      image: "",
       showPassword: false,
       errMess: false,
       registerSucess: false,
@@ -452,10 +464,10 @@ export default {
     ...mapGetters({
       registerError: "auth/getRegisterPartnerError",
     }),
-    time_open() {
+    timeOpen() {
       return this.form.time_open;
     },
-    time_close() {
+    timeClose() {
       return this.form.time_close;
     },
   },
@@ -478,6 +490,7 @@ export default {
               console.log(this.$data.form);
               this.registerPartner(this.$data.form)
                 .then((response) => {
+                  this.image = "";
                   $("#activePartnerModal").modal("show");
                   if (response) {
                     console.log(response);
@@ -485,6 +498,9 @@ export default {
                     this.clearInput();
                     setTimeout(this.toggleSuccesMessage, 5000);
                   }
+                })
+                .catch((error) => {
+                  openToastMess(error, "error");
                 })
                 .finally(() => {
                   this.isLoading = false;
@@ -537,6 +553,9 @@ export default {
       //returns an array of files even though multiple not used
       this.file = event.target.files[0];
       this.filesSelected = event.target.files.length;
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
     },
     prepareFormData: function () {
       this.formData = new FormData();
@@ -599,6 +618,19 @@ export default {
         }
       });
     },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (e) {
+      this.image = "";
+    },
     clearInput() {
       this.$v.form.$reset();
       this.form.name = "";
@@ -607,6 +639,7 @@ export default {
       this.form.password = "";
       this.form.address = "";
       this.form.image = "";
+      this.activeCode = "";
     },
     getTypePartner(event) {
       this.form.type_id = event.target.value;
@@ -614,13 +647,15 @@ export default {
     },
   },
   watch: {
-    time_open() {
+    timeOpen() {
       if (this.form.time_open > this.form.time_close) {
+        console.log(this.form.time_open+'===='+this.form.time_close);
         this.errMess = true;
       }
     },
-    time_close() {
+    timeClose() {
       if (this.form.time_open > this.form.time_close) {
+        console.log(this.form.time_open+'===='+this.form.time_close);
         this.errMess = true;
       }
     },
@@ -702,6 +737,7 @@ $button-color: #f7941d;
   .image-upload-section {
     img {
       height: 40vh;
+      width: auto;
     }
   }
 }
@@ -791,5 +827,10 @@ $button-color: #f7941d;
   .header {
     margin-bottom: 30px;
   }
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
 }
 </style>

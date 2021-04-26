@@ -577,7 +577,7 @@ const messages = {
             },
             activeCode: 'Active code is required',
             placeholder: {
-                name: 'Nhập tên tài xế ở đây...',
+                name: 'Nhập tên đối tác ở đây...',
                 address: 'Nhập địa chỉ ở đây...',
                 phone: "Nhập số điện thoại ở đây...",
                 email: 'Nhập email ở đây...',

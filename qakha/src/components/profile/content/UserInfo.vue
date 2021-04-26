@@ -119,7 +119,11 @@
                   <span class="icon icon-upload">
                     <font-awesome-icon :icon="['fas', 'camera']" />
                   </span>
-                  <input type="file" @change="handleFileChange($event)" />
+                  <input
+                    type="file"
+                    accept=".png,.jpg,.jpeg"
+                    @change="handleFileChange($event)"
+                  />
                 </div>
                 <div v-else class="image-to-upload">
                   <!-- <img :src="image" /> -->

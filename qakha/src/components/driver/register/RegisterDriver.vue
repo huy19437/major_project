@@ -232,12 +232,12 @@
                   <div v-show="showProgress">
                     <progress-bar :options="options" :value="progress" />
                   </div>
-                  <section v-if="results && results.secure_url">
+                  <section v-if="image || (results && results.secure_url)">
                     <label>{{ $t("driver.imageUpload") }}</label>
-                    <img :src="results.secure_url" :alt="results.public_id" />
+                    <img :src="image || results.secure_url" />
                   </section>
                 </div>
-                <div class="col-6 form-group image-upload">
+                <div v-if="!image" class="col-6 form-group image-upload">
                   <label>{{ $t("driver.driverAvatar") }}</label>
                   <input
                     id="file-input"
@@ -245,6 +245,12 @@
                     accept="image/png, image/jpeg"
                     @change="handleFileChange($event)"
                   />
+                </div>
+                <div v-if="image" class="col-6 form-group image-upload">
+                  <label>{{ $t("driver.driverAvatar") }}</label>
+                  <button class="btn btn-primary" @click="removeImage">
+                    Remove image
+                  </button>
                 </div>
               </div>
               <!-- <div class="row">
@@ -346,7 +352,10 @@
                     </p>
                   </div>
                 </div>
-                <button class="btn btn-primary btn-block btn-forgot">
+                <button
+                  class="btn btn-primary btn-block btn-forgot"
+                  :disabled="$v.activeCode.$invalid"
+                >
                   {{ $t("driver.buttons.submitCode") }}
                 </button>
                 <Spinner :loading="isLoading4" />
@@ -400,6 +409,7 @@ export default {
       },
     };
     return {
+      image: "",
       showPassword: false,
       registerErr: false,
       isLoading: false,
@@ -493,6 +503,7 @@ export default {
                 .then((response) => {
                   $("#activeDriverModal").modal("show");
                   if (response) {
+                    this.image = "";
                     openToastMess("Sign up successfully", "success");
                     // event.target.reset();
                     this.clearInput();
@@ -543,6 +554,9 @@ export default {
       //returns an array of files even though multiple not used
       this.file = event.target.files[0];
       this.filesSelected = event.target.files.length;
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
     },
     prepareFormData: function () {
       this.formData = new FormData();
@@ -612,6 +626,19 @@ export default {
           reader.readAsDataURL(this.file);
         }
       });
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (e) {
+      this.image = "";
     },
     clearInput() {
       this.$v.form.$reset();
@@ -787,5 +814,10 @@ $button-color: #f7941d;
   .header {
     margin-bottom: 30px;
   }
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
 }
 </style>
