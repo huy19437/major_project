@@ -46,13 +46,18 @@ const messages = {
             not_activated: 'not activated'
 
         },
+        listProducts: {
+            categoriesList: 'CATEGORIES LIST',
+            productsList: 'PRODUCTS LIST'
+        },
         carousel: {
             bestSeller: 'BEST SELLER',
             products: 'PRODUCTS'
         },
         feedback: {
             title: 'Feedback of',
-            customers: 'Customers'
+            customers: 'Customers',
+            reviews: 'Reviews'
         },
         shopService: {
             freeShipping: {
@@ -344,13 +349,18 @@ const messages = {
             locked: 'khoá',
             not_activated: 'chưa kích hoạt'
         },
+        listProducts: {
+            categoriesList: 'DANH MỤC',
+            productsList: 'DANH SÁCH SẢN PHẨM'
+        },
         carousel: {
             bestSeller: 'SẢN PHẨM',
             products: 'BÁN CHẠY NHẤT'
         },
         feedback: {
             title: 'Đánh giá của',
-            customers: 'Khánh hàng'
+            customers: 'Khánh hàng',
+            reviews: 'Đánh giá'
         },
         shopService: {
             freeShipping: {

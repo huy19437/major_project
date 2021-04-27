@@ -3,7 +3,8 @@ import httpRequest from '../../services/repository'
 const state = {
     feedbacks: [],
     showFeedback: false,
-    avg_point: 0
+    avg_point: 0,
+    number_of_reviews: 0
 }
 
 const getters = {
@@ -15,12 +16,16 @@ const getters = {
     },
     getAveragePoint(state) {
         return state.avg_point
+    },
+    getNumberOfReviews(state) {
+        return state.number_of_reviews
     }
 }
 
 const mutations = {
     setFeedbacks(state, data) {
         state.avg_point = data.avg_point
+        state.number_of_reviews = data.number_of_reviews
         state.feedbacks = []
         data.feedbacks.forEach(element => {
             state.feedbacks.unshift(element)
@@ -31,7 +36,7 @@ const mutations = {
     },
     setAveragePoint(state, data) {
         state.avg_point = data
-    }
+    },
 }
 
 const actions = {

@@ -11,9 +11,15 @@
             :key="feedback.id"
             class="media mb-3"
           >
-            <img
-              class="rounded-circle"
+            <!-- <img
+              class="user-img"
               :src="`${feedback.user.image.url}`"
+              alt=""
+              width="50"
+            /> -->
+            <img
+              class="user-img"
+              src="@/assets/images/logo_qakha2.png"
               alt=""
               width="50"
             />
@@ -143,5 +149,13 @@ export default {
   span {
     color: #f7941d !important;
   }
+}
+
+.user-img {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: contain;
 }
 </style>

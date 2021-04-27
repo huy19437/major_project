@@ -11,13 +11,15 @@
       <h3 class="vi-left-title pull-left">
         {{ partner.name }} -
         {{ getAveragePoint }}
-        <span class="fa fa-star checked avg-point"></span>
+        <span class="fa fa-star checked avg-point"></span> -
+        {{ getNumberOfReviews }}
+        <span style="color: rgb(0 253 31)">{{ $t("feedback.reviews") }}</span>
       </h3>
     </div>
     <div class="row">
       <div class="col-12">
         <div class="section-title">
-          <h2>Categories List</h2>
+          <h2>{{ $t("listProducts.categoriesList") }}</h2>
         </div>
       </div>
     </div>
@@ -47,7 +49,7 @@
           <div class="tab-content" id="myTabContent">
             <div id="nz-div-4">
               <h3 class="product-list-title">
-                <span>Products List</span>
+                <span>{{ $t("listProducts.productsList") }}</span>
               </h3>
             </div>
             <!-- Start Single Tab -->
@@ -185,6 +187,7 @@ export default {
       getPartnersLocal: "partner/getPartnersLocal",
       getNowRoute: "auth/getNowRoute",
       getAveragePoint: "feedback/getAveragePoint",
+      getNumberOfReviews: "feedback/getNumberOfReviews",
       getFeedbacksStatus: "feedback/getFeedbacksStatus",
     }),
     listProducts() {
