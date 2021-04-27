@@ -374,8 +374,8 @@ export default {
   data() {
     return {
       languages: [
-        { flag: "us", language: "en", title: "English" },
-        { flag: "vn", language: "vi", title: "Tiếng Việt" },
+        { flag: "us", language: "en", title: "US" },
+        { flag: "vn", language: "vi", title: "VN" },
       ],
       isOpen: false,
       isOpen2: false,

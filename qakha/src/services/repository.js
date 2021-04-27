@@ -15,7 +15,7 @@ const instance = axios.create({
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') },
     timeout: 1000 * 5
 });
-console.log(instance.headers);
+// console.log(instance.headers);
 
 const httpRequest = {
     get(link, params) {

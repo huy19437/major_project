@@ -23,7 +23,9 @@
                     required=""
                     type="email"
                   />
-                  <button class="btn">{{ $t("newsletter.subscribe") }}</button>
+                  <button class="btn" style="top: -2px">
+                    {{ $t("newsletter.subscribe") }}
+                  </button>
                 </form>
               </div>
               <!-- End Newsletter Inner -->

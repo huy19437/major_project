@@ -266,7 +266,10 @@
                 <button
                   class="btn btn-lg btn-info"
                   :disabled="
-                    $v.form.$invalid || isDisabled || filesSelected < 1
+                    $v.form.$invalid ||
+                    isDisabled ||
+                    filesSelected < 1 ||
+                    errMess
                   "
                 >
                   {{ $t("partner.buttons.submitRegister") }}
@@ -648,14 +651,14 @@ export default {
   },
   watch: {
     timeOpen() {
-      if (this.form.time_open > this.form.time_close) {
-        console.log(this.form.time_open+'===='+this.form.time_close);
+      if (this.form.time_open >= this.form.time_close) {
+        console.log(this.form.time_open + "====" + this.form.time_close);
         this.errMess = true;
       }
     },
     timeClose() {
-      if (this.form.time_open > this.form.time_close) {
-        console.log(this.form.time_open+'===='+this.form.time_close);
+      if (this.form.time_open >= this.form.time_close) {
+        console.log(this.form.time_open + "====" + this.form.time_close);
         this.errMess = true;
       }
     },
