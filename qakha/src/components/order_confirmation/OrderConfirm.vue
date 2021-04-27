@@ -151,12 +151,24 @@
                               <a
                                 href="/"
                                 style="color: #ffffff; text-decoration: none"
-                                ><img
+                              >
+                                <!-- <img
                                   src="https://img.icons8.com/color/48/000000/small-business.png"
                                   width="27"
                                   height="23"
                                   style="display: block; border: 0px"
-                              /></a>
+                                /> -->
+                                <font-awesome-icon
+                                  width="40"
+                                  height="40"
+                                  style="
+                                    display: block;
+                                    border: 0px;
+                                    margin: 0 0 4px 4px;
+                                  "
+                                  :icon="['fas', 'store']"
+                                />
+                              </a>
                             </td>
                           </tr>
                         </table>
@@ -283,7 +295,10 @@
                               padding: 15px 10px 5px 10px;
                             "
                           >
-                            <img :src="`${product.image.url}`" width="90" />
+                            <img
+                              class="product-img"
+                              :src="`${product.image.url}`"
+                            />
                             {{ product.name }}
                           </td>
                           <td
@@ -549,7 +564,7 @@
                               <p style="font-weight: 800">
                                 {{ $t("orderConfirm.date") }}
                               </p>
-                              <p>{{ getOrder.delivery_time }}</p>
+                              <p>{{ getOrder.created_at }}</p>
                             </td>
                           </tr>
                         </table>
@@ -697,5 +712,10 @@ a[x-apple-data-detectors] {
 
 div[style*="margin: 16px 0;"] {
   margin: 0 !important;
+}
+
+.product-img {
+  margin: 0;
+  display: inline-block;
 }
 </style>

@@ -23,9 +23,9 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.get('/orders/vouchers', { params })
                 .then((response) => {
-                    // console.log(response);
                     res(response.data);
                     commit('setVoucher', response.data);
+                    // console.log(state.vouchers);
                 }).catch(err => {
                     rej(err.response ? err.response.data.message : err);
                 });
@@ -37,7 +37,8 @@ const actions = {
             // console.log(params);
             httpRequest.post('/orders/voucher', params)
                 .then((response) => {
-                    res(response.data.total_after_discount);
+                    // console.log(response.data);
+                    res(response.data);
                 }).catch(err => {
                     rej(err.response ? err.response.data.message : err);
                 });
@@ -48,6 +49,7 @@ const actions = {
             // console.log(params);
             httpRequest.delete('/orders/voucher', { data: params })
                 .then((response) => {
+                    // console.log(response.data);
                     res(response.data.total_before_discount);
                 }).catch(err => {
                     rej(err.response ? err.response.data.message : err);

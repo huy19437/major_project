@@ -123,7 +123,7 @@
                     <a href="https://www.facebook.com/me/" target="_blank"
                       >QakhaDelivery</a
                     >
-                    > - All Rights Reserved.
+                    - All Rights Reserved.
                   </p>
                 </div>
               </div>

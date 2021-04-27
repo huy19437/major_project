@@ -125,6 +125,7 @@ const messages = {
         },
         checkout: {
             title: 'Make Your Checkout Here',
+            fee: 'ORDER COST',
             deliveryTo: 'Deliver to',
             name: 'Name',
             email: 'Email',
@@ -139,6 +140,7 @@ const messages = {
                 cartTotal: 'CART TOTALS',
                 subTotal: 'Sub Total',
                 shipping: 'Shipping',
+                discount: 'Discount',
                 total: 'Total',
                 payments: 'Payments',
                 cod: 'Cash On Delivery',
@@ -263,7 +265,7 @@ const messages = {
             shippingFee: 'Shipping Fee',
             total: 'TOTAL',
             address: 'Delivery Address',
-            date: 'Estimated Delivery Date'
+            date: 'Order Time'
         },
         partner: {
             title: 'Partner Registration',
@@ -428,6 +430,7 @@ const messages = {
         },
         checkout: {
             title: 'Tạo thanh toán tại đây',
+            fee: 'CHI PHÍ ĐƠN HÀNG',
             deliveryTo: 'Giao hàng đến',
             name: 'Tên',
             email: 'Email',
@@ -442,6 +445,7 @@ const messages = {
                 title: 'TỔNG GIỎ HÀNG',
                 subTotal: 'Tiền sản phẩm',
                 shipping: 'Phí vận chuyển',
+                discount: 'Giảm giá',
                 total: 'Tổng',
                 payments: 'Thanh toán',
                 cod: 'Thanh toán khi nhận hàng',
@@ -566,7 +570,7 @@ const messages = {
             shippingFee: 'Phí vận chuyển',
             total: 'TỔNG',
             address: 'Địa chỉ giao hàng',
-            date: 'Thời gian ước lượng giao hàng'
+            date: 'Thời gian đặt hàng'
         },
         partner: {
             title: 'Đăng ký Đối tác',

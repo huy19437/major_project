@@ -220,7 +220,11 @@
                         >
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
-                      <a class="btn btn-right" @click="gotoCheckout()">
+                      <a
+                        :disabled="!isHaveItemInCart"
+                        class="btn btn-right"
+                        @click="gotoCheckout()"
+                      >
                         {{ $t("header.middleInner.checkout") }}
                       </a>
                     </div>
@@ -381,6 +385,7 @@ export default {
       isOpen2: false,
       isChanged: false,
       cart: [],
+      isHaveItemInCart: false,
       products: [],
       partnerIdForSlug: 0,
       partnerData: [],
@@ -497,6 +502,13 @@ export default {
     },
     getInfoProductInCart() {
       this.cart = this.getCartLocal;
+      if (this.cart != null && this.cart != undefined) {
+        if (this.cart.length > 0) {
+          this.isHaveItemInCart = true;
+        } else {
+          this.isHaveItemInCart = false;
+        }
+      }
       // console.log(this.cart);
       if (this.cart) {
         // console.log("hi");

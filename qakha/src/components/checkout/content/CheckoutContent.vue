@@ -152,18 +152,27 @@
                             {{ item.code }}
                           </span>
                           {{
-                            item.description.slice(
-                              item.description.indexOf(":")
-                            )
+                            item.description
+                              ? item.description.slice(
+                                  item.description.indexOf(":")
+                                )
+                              : ""
                           }}
                         </li>
                       </ul>
                     </div>
                     <div class="button btn-voucher-group">
-                      <a @click="applyVoucher" class="btn btn-apply">{{
-                        $t("checkout.button.apply")
-                      }}</a>
-                      <a @click="cancelVoucher" class="btn btn-cancel">
+                      <a
+                        :disabled="voucher.code ? false : true"
+                        @click="applyVoucher"
+                        class="btn btn-apply"
+                        >{{ $t("checkout.button.apply") }}</a
+                      >
+                      <a
+                        :disabled="voucher.code ? false : true"
+                        @click="cancelVoucher"
+                        class="btn btn-cancel"
+                      >
                         {{ $t("checkout.button.cancel") }}
                       </a>
                     </div>
@@ -206,7 +215,7 @@
             <!-- Order Widget -->
             <div class="single-widget">
               <h2 class="order-details-title">
-                {{ $t("checkout.cart.title") }}
+                {{ $t("checkout.fee") }}
               </h2>
               <div class="content">
                 <ul>
@@ -218,6 +227,10 @@
                     (+) {{ $t("checkout.cart.shipping") }}({{
                       distance
                     }}km)<span>{{ shipping_fee }} VNĐ</span>
+                  </li>
+                  <li>
+                    (-) {{ $t("checkout.cart.discount")
+                    }}<span>{{ discount }} VNĐ</span>
                   </li>
                   <li class="last">
                     {{ $t("checkout.cart.total")
@@ -234,31 +247,45 @@
               </h2>
               <div class="content">
                 <div class="checkbox">
-                  <input
-                    type="radio"
-                    v-model="user.type_checkout"
-                    name="checkout"
-                    value="cash"
-                  />
-                  {{ $t("checkout.cart.cod") }}<br />
-                  <input
-                    type="radio"
-                    v-model="user.type_checkout"
-                    name="checkout"
-                    value="coins"
-                  />
-                  {{ $t("checkout.cart.coins") }}: {{ getCoinsUser }}<br />
+                  <div class="cod-payment">
+                    <input
+                      type="radio"
+                      id="cod"
+                      v-model="user.type_checkout"
+                      name="checkout"
+                      value="cash"
+                    />
+                    <label for="cod">
+                      {{ $t("checkout.cart.cod") }}
+                    </label>
+                  </div>
+                  <!-- {{ $t("checkout.cart.cod") }} -->
+                  <!-- <br /> -->
+                  <div class="coin-payment">
+                    <input
+                      type="radio"
+                      id="coin"
+                      v-model="user.type_checkout"
+                      name="checkout"
+                      value="coins"
+                    />
+                    <label for="coin">
+                      {{ $t("checkout.cart.coins") }}: {{ getCoinsUser }}
+                    </label>
+                  </div>
+                  <!-- {{ $t("checkout.cart.coins") }}: {{ getCoinsUser }} -->
+                  <!-- <br /> -->
                   <div>{{ user.type_checkout }}</div>
                 </div>
               </div>
             </div>
             <!--/ End Order Widget -->
             <!-- Payment Method Widget -->
-            <div class="single-widget payement">
+            <!-- <div class="single-widget payement">
               <div class="content">
                 <img src="@/assets/images/payment-method3.png" alt="#" />
               </div>
-            </div>
+            </div> -->
             <!--/ End Payment Method Widget -->
             <!-- Button Widget -->
             <div class="single-widget get-button">
@@ -328,6 +355,7 @@ export default {
       isOpen2: false,
       isOpen3: false,
       distance: 0,
+      discount: 0,
       partnerStatus: "",
       // partnerOpenTime: moment().format("HH:mm"),
       // partnerCloseTime: moment().format("HH:mm"),
@@ -424,7 +452,8 @@ export default {
       this.applyVouchers(params)
         .then((res) => {
           openToastMess("Apply Voucher Successfully!", "success");
-          this.subTotal = res;
+          this.subTotal = res.total_after_discount;
+          this.discount = res.voucher.discount;
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -439,6 +468,7 @@ export default {
         .then((res) => {
           openToastMess("Cancel Voucher Successfully!", "success");
           this.subTotal = res;
+          this.discount = 0;
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -583,7 +613,7 @@ export default {
     this.getAddress().then((res) => {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
-      // console.log(this.getSubtotal);
+      // console.log(this.getVouchersLocal);
       if (
         this.getSubtotal === 0 ||
         this.getSubtotal === null ||
@@ -732,5 +762,26 @@ export default {
 
 .voucher-code {
   font-weight: 700;
+}
+
+.shop.checkout .single-widget .checkbox label::before,
+.shop.checkout .single-widget .checkbox label::after {
+  display: none;
+}
+
+.coin-payment,
+.cod-payment {
+  display: flex;
+  margin-bottom: 10px;
+  input {
+    margin: 0 !important;
+  }
+  label {
+    padding-left: 10px !important;
+  }
+}
+
+.order-details-title::after {
+  display: none;
 }
 </style>
