@@ -43,7 +43,7 @@ const actions = {
                     commit('setFeedbacks', response.data);
                     // commit('setAveragePoint', response.data.avg_point);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -53,7 +53,7 @@ const actions = {
                 .then((response) => {
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -63,7 +63,7 @@ const actions = {
                 .then((response) => {
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },

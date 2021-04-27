@@ -25,7 +25,7 @@ const actions = {
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -36,7 +36,7 @@ const actions = {
                     res(response.data);
                     commit('setUser', response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },

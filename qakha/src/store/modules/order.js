@@ -66,7 +66,7 @@ const actions = {
                     res(response.data);
                     commit('setDistance', response.data);
                 }).catch(err => {
-                    rej(err.response);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -78,7 +78,7 @@ const actions = {
                     commit('setOrder', response.data.order);
                     commit('setOrderDetails', response.data.order_details);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -90,7 +90,7 @@ const actions = {
                     commit('setCoinsUser', response.data.coins);
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -101,7 +101,7 @@ const actions = {
                     commit('setHistoryOrder', response.data);
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -113,7 +113,7 @@ const actions = {
                     commit('setOrderDetailsHistory', response.data);
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },

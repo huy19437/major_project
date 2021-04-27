@@ -1130,7 +1130,7 @@ const actions = {
                     res(response.data);
                     commit('setPartners', JSON.parse(localStorage.getItem('partners')));
                 }).catch(err => {
-                    rej(err.response);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },

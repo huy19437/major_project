@@ -27,7 +27,7 @@ const actions = {
                     res(response.data);
                     commit('setVoucher', response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
 
@@ -39,7 +39,7 @@ const actions = {
                 .then((response) => {
                     res(response.data.total_after_discount);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -50,7 +50,7 @@ const actions = {
                 .then((response) => {
                     res(response.data.total_before_discount);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     }

@@ -81,23 +81,25 @@
           >
             <div class="partner-list partner-grid">
               <div class="partner-list-image">
-                <router-link
-                  :to="{
-                    name: 'ListProducts',
-                    params: { slug: partner.id },
-                  }"
-                >
-                  <img
-                    class="img-fluid"
-                    :src="`${partner.image.url}`"
-                    alt="Partner's image"
-                    onload="this.style.opacity = 1"
-                  />
-                  <span :class="`time-tag ${partner.status}`">
-                    <!-- {{ partner.status }} -->
-                    {{ $t(`listPartners.${partner.status}`) }}
-                  </span>
-                </router-link>
+                <div class="img-box">
+                  <router-link
+                    :to="{
+                      name: 'ListProducts',
+                      params: { slug: partner.id },
+                    }"
+                  >
+                    <img
+                      class="img-fluid"
+                      :src="`${partner.image.url}`"
+                      alt="Partner's image"
+                      onload="this.style.opacity = 1"
+                    />
+                    <span :class="`time-tag ${partner.status}`">
+                      <!-- {{ partner.status }} -->
+                      {{ $t(`listPartners.${partner.status}`) }}
+                    </span>
+                  </router-link>
+                </div>
               </div>
               <div class="partner-list-details">
                 <div class="partner-list-info">
@@ -477,5 +479,9 @@ h3.title-comm:before {
   border-top: 23px solid transparent;
   border-bottom: 22px solid transparent;
   border-right: 15px solid #ea3a3c;
+}
+
+.img-box {
+  height: 160px;
 }
 </style>

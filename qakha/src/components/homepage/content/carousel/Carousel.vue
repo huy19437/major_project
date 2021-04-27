@@ -394,4 +394,12 @@ h2::after {
     color: #ffc000;
   }
 }
+
+.img-fluid {
+  width: 100%;
+  height: 100% !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+}
 </style>

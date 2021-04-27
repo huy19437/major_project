@@ -87,8 +87,8 @@ const actions = {
                 .then(response => {
                     res(response.data.message);
                 }).catch(err => {
-                    commit('setRegisterError', err.response.data.message);
-                    rej(err.response.data.message);
+                    commit('setRegisterError', err.response ? err.response.data.message : err);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -98,8 +98,8 @@ const actions = {
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
-                    commit('setRegisterPartnerError', err.response.data.message);
-                    rej(err.response.data.message);
+                    commit('setRegisterPartnerError', err.response ? err.response.data.message : err);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -109,7 +109,7 @@ const actions = {
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -121,8 +121,9 @@ const actions = {
                     // router.push({ path: "/" });
                     res(respone.data);
                 }).catch(err => {
-                    commit('setLoginError', err.response.data.message);
-                    rej(err.response.data);
+                    console.log(err);
+                    commit('setLoginError', err.response ? err.response.data.message : err);
+                    rej(err.response ? err.response.data : err);
                 })
         })
     },
@@ -140,7 +141,7 @@ const actions = {
                     router.push({ path: "/reset" });
                     res(response.data.message);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -151,7 +152,7 @@ const actions = {
                     router.push({ path: "/login" });
                     res(response.data.message);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -171,7 +172,7 @@ const actions = {
                 .then(response => {
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -182,7 +183,7 @@ const actions = {
                     res(response.data);
                     commit('setUser', response.data);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -192,7 +193,7 @@ const actions = {
                 .then(response => {
                     res(response.data.message);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -202,7 +203,7 @@ const actions = {
                 .then(response => {
                     res(response.data.message);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     },
@@ -212,7 +213,7 @@ const actions = {
                 .then(response => {
                     res(response.data.message);
                 }).catch(err => {
-                    rej(err.response.data.message);
+                    rej(err.response ? err.response.data.message : err);
                 })
         })
     }

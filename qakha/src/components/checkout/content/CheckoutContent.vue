@@ -93,7 +93,14 @@
                 </div> -->
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label>{{ $t("checkout.address") }}</label>
+                    <label
+                      style="display: flex; justify-content: space-between"
+                    >
+                      {{ $t("checkout.address") }}
+                      <router-link to="/edit-address">
+                        <font-awesome-icon :icon="['fas', 'edit']" />
+                      </router-link>
+                    </label>
                     <div
                       class="nice-select"
                       tabindex="0"
@@ -102,9 +109,9 @@
                     >
                       <span class="current">
                         {{ user.address.name }}
-                        <router-link to="/edit-address">
+                        <!-- <router-link to="/edit-address">
                           <font-awesome-icon :icon="['fas', 'edit']" />
-                        </router-link>
+                        </router-link> -->
                       </span>
                       <ul class="list">
                         <li
@@ -274,6 +281,8 @@
     <div
       class="modal fade"
       id="loadMe"
+      data-backdrop="static"
+      data-keyboard="false"
       tabindex="-1"
       role="dialog"
       aria-labelledby="loadMeLabel"

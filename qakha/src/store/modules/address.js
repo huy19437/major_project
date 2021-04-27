@@ -33,7 +33,7 @@ const actions = {
                     res(response.data);
                     commit('setAddress', response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -44,7 +44,7 @@ const actions = {
                     res(response.data);
                     // commit('setAddress', response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -57,7 +57,7 @@ const actions = {
                     res(response.data);
                     commit('pushAddress', response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -68,7 +68,7 @@ const actions = {
                 .then((response) => {
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },
@@ -81,7 +81,7 @@ const actions = {
                     // commit('setAddress', response.data);
                     res(response.data);
                 }).catch(err => {
-                    rej(err.response.data.error);
+                    rej(err.response ? err.response.data.message : err);
                 });
         })
     },

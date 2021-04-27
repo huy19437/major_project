@@ -350,6 +350,23 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="loadMe"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loader"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -485,7 +502,9 @@ export default {
     async handleSubmit(event) {
       await this.upload()
         .then((res) => {
-          this.isLoading = true;
+          // this.isLoading = true;
+          $("#loadMe").modal("show");
+
           // this.isDisabled = true;
           if (this.registerError == null && !this.errMess) {
             this.$v.form.$touch();
@@ -503,10 +522,13 @@ export default {
                   }
                 })
                 .catch((error) => {
+                  console.log(error);
                   openToastMess(error, "error");
                 })
                 .finally(() => {
-                  this.isLoading = false;
+                  // this.isLoading = false;
+                  $("#loadMe").modal("hide");
+
                   this.isDisabled = false;
                   // this.filesSelected = 0;
                 });
@@ -753,6 +775,7 @@ $button-color: #f7941d;
       right: 7%;
       top: 39%;
       font-size: 1.7rem;
+      cursor: pointer;
     }
   }
 }
