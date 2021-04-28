@@ -1,11 +1,11 @@
 <template>
-  <div v-if="getFeedbacksStatus" class="tab-pane" id="reviews">
+  <div v-if="getFeedbacksStatus" class="container tab-pane" id="reviews">
     <h2>
       {{ $t("feedback.title") }} <b>{{ $t("feedback.customers") }}</b>
     </h2>
     <div class="p-4 p-lg-5 bg-white">
       <div class="row">
-        <div v-if="visibleFeedbacks" class="col-lg-8">
+        <div v-if="visibleFeedbacks" class="col-lg-12">
           <div
             v-for="feedback in visibleFeedbacks"
             :key="feedback.id"
@@ -131,6 +131,17 @@ export default {
     }
   }
 }
+
+.media {
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 0 !important;
+  &:hover {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+      rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  }
+}
 .media-body {
   text-align: left;
   margin-left: 10px;
@@ -166,6 +177,6 @@ export default {
   height: 50px;
   margin: 0;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
 }
 </style>

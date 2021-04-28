@@ -10,6 +10,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
+        <h2>{{ $t("feedback.modal") }}</h2>
         <div class="modal-body">
           <div class="content">
             <!-- <div class="user-img">
@@ -77,7 +78,7 @@ export default {
 
     getResult() {
       this.feedBackData = this.detailsFeedBack;
-      console.log(this.feedBackData);
+      // console.log(this.feedBackData);
     },
   },
   created() {
@@ -124,7 +125,6 @@ export default {
     flex: 1;
     text-align: left;
     display: flex;
-    align-items: center;
     .name {
       font-size: 1.6rem;
       font-weight: 700;

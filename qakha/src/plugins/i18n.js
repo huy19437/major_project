@@ -57,7 +57,8 @@ const messages = {
         feedback: {
             title: 'Feedback of',
             customers: 'Customers',
-            reviews: 'Reviews'
+            reviews: 'Reviews',
+            modal: 'FeedBack Details'
         },
         shopService: {
             freeShipping: {
@@ -362,7 +363,8 @@ const messages = {
         feedback: {
             title: 'Đánh giá của',
             customers: 'Khánh hàng',
-            reviews: 'Đánh giá'
+            reviews: 'Đánh giá',
+            modal: 'Chi Tiết Đánh Giá'
         },
         shopService: {
             freeShipping: {
