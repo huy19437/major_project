@@ -899,11 +899,15 @@ export default {
       }
     }
   }
+  .middle-inner {
+    padding: 13px 0 !important;
+  }
 }
 
 .middle-inner .logo .header-logo {
   width: 153px;
   height: 50px;
+  max-width: 140% !important;
 }
 
 .right-content .map-button {
@@ -950,6 +954,9 @@ export default {
     .logo {
       margin: 6px 0 0 !important;
       padding-left: 0;
+    }
+    .middle-inner {
+      padding: 9px 0 !important;
     }
   }
 }

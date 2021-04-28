@@ -36,6 +36,34 @@
               v-model="feedBackPartnerObj.content"
             ></textarea>
           </div>
+          <div class="upload-image">
+            <div class="item-upload btn-up">
+              <div v-if="!image">
+                <span class="icon icon-upload">
+                  <font-awesome-icon :icon="['fas', 'camera']" />
+                </span>
+                <input
+                  type="file"
+                  accept=".png,.jpg,.jpeg"
+                  @change="handleFileChange($event)"
+                />
+              </div>
+              <div v-else class="image-to-upload">
+                <!-- <img :src="image" /> -->
+                <button class="btn btn-primary" @click="removeImage">
+                  Remove image
+                </button>
+              </div>
+            </div>
+            <div class="image-feedback" v-if="image">
+              <img :src="image" />
+              <div>
+                <div v-show="showProgress">
+                  <progress-bar :options="options" :value="progress" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -43,9 +71,8 @@
           </button>
           <button
             @click.prevent="submitAndOpenFeedbackPartnerModal"
-            data-dismiss="modal"
             class="btn btn-primary"
-            :disabled="rating == '' ? true : false"
+            :disabled="rating == '' ? true : false || isDisabled"
           >
             {{ $t("historyOrders.feedbackModal.submit") }}
           </button>
@@ -59,6 +86,8 @@
 import { mapActions, mapGetters } from "vuex";
 import StarRating from "vue-star-rating";
 import { openToastMess } from "@/services/toastMessage";
+import axios from "axios";
+import $ from "jquery";
 export default {
   props: {
     dataForFeedback: {
@@ -69,9 +98,40 @@ export default {
     StarRating,
   },
   data() {
+    const progressBarOptions = {
+      text: {
+        shadowColor: "black",
+        fontSize: 14,
+        fontFamily: "Helvetica",
+        dynamicPosition: true,
+      },
+      progress: {
+        color: "#E8C401",
+        backgroundColor: "#000000",
+      },
+      layout: {
+        height: 35,
+        width: 140,
+        type: "line",
+        progressPadding: 0,
+        verticalTextAlign: 63,
+      },
+    };
     return {
+      image: "",
+      isDisabled: false,
       rating: 0,
       partner_image: "",
+      results: null,
+      file: null,
+      filesSelected: 0,
+      cloudName: "qakhadelivery",
+      preset: "vue_upload",
+      progress: 0,
+      showProgress: false,
+      options: progressBarOptions,
+      fileContents: null,
+      formData: null,
       feedBackPartnerObj: {
         order_id: 0,
         content: "",
@@ -95,22 +155,145 @@ export default {
       this.rating = rating;
       // console.log(this.rating);
     },
-    submitAndOpenFeedbackPartnerModal() {
-      this.feedBackPartnerObj.point = this.rating;
-      // console.log(this.feedBackPartnerObj);
-      this.addFeedbackPartner(this.feedBackPartnerObj)
-        .then((res) => {
-          // console.log(res);
-          openToastMess("Add feedback partner successfully!", "success");
-          window.location.reload();
-        })
-        .catch((error) => {
-          openToastMess(error, "error");
-        })
-        .finally(() => {
-          this.rating = 0;
-        });
+    async submitAndOpenFeedbackPartnerModal() {
+      if (this.filesSelected != 0) {
+        await this.upload()
+          .then((res) => {
+            this.feedBackPartnerObj.point = this.rating;
+            // console.log(this.feedBackPartnerObj);
+            this.addFeedbackPartner(this.feedBackPartnerObj)
+              .then((res) => {
+                this.image = "";
+                // console.log(res);
+                openToastMess("Add feedback partner successfully!", "success");
+                $("#feedBackPartnerModal").modal("hide");
+
+                window.location.reload();
+              })
+              .catch((error) => {
+                openToastMess(error, "error");
+              })
+              .finally(() => {
+                this.rating = 0;
+                this.isDisabled = false;
+              });
+            this.feedBackPartnerObj.content = "";
+          })
+          .catch((err) => {
+            openToastMess(err, "error");
+          });
+      } else {
+        this.addFeedbackPartner(this.feedBackPartnerObj)
+          .then((res) => {
+            this.image = "";
+            // console.log(res);
+            openToastMess("Add feedback partner successfully!", "success");
+            $("#feedBackPartnerModal").modal("hide");
+
+            window.location.reload();
+          })
+          .catch((error) => {
+            openToastMess(error, "error");
+          })
+          .finally(() => {
+            this.rating = 0;
+            this.isDisabled = false;
+          });
+      }
       this.feedBackPartnerObj.content = "";
+      this.filesSelected = 0;
+    },
+    handleFileChange: function (event) {
+      this.isDisabled = false;
+      console.log("handlefilechange", event.target.files);
+      //returns an array of files even though multiple not used
+      this.file = event.target.files[0];
+      this.filesSelected = event.target.files.length;
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    prepareFormData: function () {
+      this.formData = new FormData();
+      this.formData.append("upload_preset", this.preset);
+      this.formData.append("file", this.fileContents);
+    },
+    upload: function () {
+      this.isDisabled = true;
+      return new Promise((res, rej) => {
+        if (this.preset.length < 1 || this.cloudName.length < 1) {
+          openToastMess(
+            "You must enter a cloud name and preset to upload",
+            "error"
+          );
+          return;
+        }
+        console.log("upload", this.file.name);
+        let reader = new FileReader();
+        // attach listener to be called when data from file
+        reader.addEventListener(
+          "load",
+          function () {
+            this.fileContents = reader.result;
+            this.prepareFormData();
+            let cloudinaryUploadURL = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
+            let requestObj = {
+              url: cloudinaryUploadURL,
+              method: "POST",
+              data: this.formData,
+              onUploadProgress: function (progressEvent) {
+                console.log("progress", progressEvent);
+                this.progress = Math.round(
+                  (progressEvent.loaded * 100.0) / progressEvent.total
+                );
+                console.log(this.progress);
+                //bind "this" to access vue state during callback
+              }.bind(this),
+            };
+            //show progress bar at beginning of post
+            this.showProgress = true;
+            axios(requestObj)
+              .then((response) => {
+                this.results = response.data;
+                this.feedBackPartnerObj.image = this.results.secure_url;
+                console.log(this.feedBackPartnerObj.image);
+                console.log(this.results);
+                console.log("public_id", this.results.public_id);
+                res();
+              })
+              .catch((error) => {
+                console.log(this.error);
+                rej(error);
+              })
+              .finally(() => {
+                setTimeout(
+                  function () {
+                    this.showProgress = false;
+                  }.bind(this),
+                  1000
+                );
+              });
+          }.bind(this),
+          false
+        );
+        // call for file read if there is a file
+        if (this.file && this.file.name) {
+          reader.readAsDataURL(this.file);
+        }
+      });
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (e) {
+      this.image = "";
     },
     getResult() {
       this.feedBackPartnerObj.order_id = this.dataForFeedback.order_id;
@@ -154,7 +337,11 @@ export default {
 }
 
 .modal-body {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
   .block-comment {
+    flex-grow: 1;
     background-color: #fff;
     border-radius: 5px;
     padding: 10px;
@@ -192,5 +379,24 @@ export default {
       color: #fff;
     }
   }
+}
+
+.upload-image {
+  display: flex;
+  flex: 1;
+  padding: 10px 0;
+  .image-feedback {
+    width: 475px;
+    img {
+      width: 50%;
+      display: inline-block;
+    }
+  }
+  // overflow: auto;
+}
+
+.icon-upload {
+  font-size: 20px;
+  background-position: -337px -335px;
 }
 </style>
