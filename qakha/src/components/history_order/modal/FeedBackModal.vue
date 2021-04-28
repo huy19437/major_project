@@ -1,55 +1,74 @@
 <template>
-  <div
-    class="modal fade"
-    id="feedBackModal"
-    data-backdrop="true"
-    data-keyboard="true"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <img :src="`${driver_image.url}`" alt="" />
-          <div class="shipper-name">{{ driverName }}</div>
-          <div class="rating-star-container">
-            <star-rating
-              @rating-selected="setRating"
-              :star-size="30"
-              :animate="true"
-              :padding="9"
-              :rounded-corners="true"
-              :show-rating="false"
-              v-model="rating"
-            ></star-rating>
+  <div>
+    <div
+      class="modal fade"
+      id="feedBackModal"
+      data-backdrop="true"
+      data-keyboard="true"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <img :src="`${driver_image.url}`" alt="" />
+            <div class="shipper-name">{{ driverName }}</div>
+            <div class="rating-star-container">
+              <star-rating
+                @rating-selected="setRating"
+                :star-size="30"
+                :animate="true"
+                :padding="9"
+                :rounded-corners="true"
+                :show-rating="false"
+                v-model="rating"
+              ></star-rating>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="block-comment">
+              <textarea
+                class="comment-text"
+                name=""
+                id=""
+                placeholder="Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh."
+                maxlength="300"
+                v-model="feedBackDriverObj.content"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              {{ $t("historyOrders.feedbackModal.close") }}
+            </button>
+            <button
+              @click.prevent="submitAndOpenFeedbackPartnerModal"
+              data-dismiss="modal"
+              class="btn btn-primary"
+              :disabled="rating == '' ? true : false"
+            >
+              {{ $t("historyOrders.feedbackModal.submit") }}
+            </button>
           </div>
         </div>
-        <div class="modal-body">
-          <div class="block-comment">
-            <textarea
-              class="comment-text"
-              name=""
-              id=""
-              placeholder="Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh."
-              maxlength="300"
-              v-model="feedBackDriverObj.content"
-            ></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            {{ $t("historyOrders.feedbackModal.close") }}
-          </button>
-          <button
-            @click.prevent="submitAndOpenFeedbackPartnerModal"
-            data-dismiss="modal"
-            class="btn btn-primary"
-            :disabled="rating == '' ? true : false"
-          >
-            {{ $t("historyOrders.feedbackModal.submit") }}
-          </button>
-        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="loadMe"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div style="height: 100vh" class="modal-dialog modal-sm" role="document">
+        <div id="loader"></div>
       </div>
     </div>
   </div>
@@ -97,19 +116,22 @@ export default {
       // console.log(this.rating);
     },
     submitAndOpenFeedbackPartnerModal() {
+      $("#loadMe").modal("show");
+
       this.feedBackDriverObj.point = this.rating;
       // console.log(this.feedBackDriverObj);
       this.addFeedbacks(this.feedBackDriverObj)
         .then((res) => {
+          $("#feedBackPartnerModal").modal("show");
           // console.log(res);
           openToastMess("Add feedback driver successfully!", "success");
-          $("#feedBackPartnerModal").modal("show");
         })
         .catch((error) => {
           openToastMess(error, "error");
         })
         .finally(() => {
           this.rating = 0;
+          $("#loadMe").modal("hide");
         });
       this.feedBackDriverObj.content = "";
     },
@@ -195,6 +217,40 @@ export default {
       border-color: #f7941d;
       color: #fff;
     }
+  }
+}
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #000;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

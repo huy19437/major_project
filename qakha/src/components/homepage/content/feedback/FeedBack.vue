@@ -107,7 +107,7 @@ export default {
     },
     getResult() {
       this.feedBackData = this.getFeedbacks;
-      // console.log(this.feedBackData);
+      console.log(this.feedBackData);
     },
   },
   created() {},

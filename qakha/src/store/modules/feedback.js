@@ -72,7 +72,17 @@ const actions = {
                 });
         })
     },
-
+    checkFeedbackDriver({ commit }, params) {
+        return new Promise((res, rej) => {
+            console.log(params);
+            httpRequest.get('/feedbacks/check_feedback_driver', { params })
+                .then((response) => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                });
+        })
+    },
     showFeedback({ commit }, data) {
         commit('setShowFeeddBack', data);
     }

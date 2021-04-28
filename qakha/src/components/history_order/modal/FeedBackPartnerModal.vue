@@ -160,7 +160,7 @@ export default {
         await this.upload()
           .then((res) => {
             this.feedBackPartnerObj.point = this.rating;
-            // console.log(this.feedBackPartnerObj);
+            console.log(this.feedBackPartnerObj);
             this.addFeedbackPartner(this.feedBackPartnerObj)
               .then((res) => {
                 this.image = "";
@@ -183,9 +183,10 @@ export default {
             openToastMess(err, "error");
           });
       } else {
+        this.feedBackPartnerObj.point = this.rating;
+        console.log(this.feedBackPartnerObj);
         this.addFeedbackPartner(this.feedBackPartnerObj)
           .then((res) => {
-            this.image = "";
             // console.log(res);
             openToastMess("Add feedback partner successfully!", "success");
             $("#feedBackPartnerModal").modal("hide");
@@ -294,6 +295,7 @@ export default {
     },
     removeImage: function (e) {
       this.image = "";
+      this.filesSelected = 0;
     },
     getResult() {
       this.feedBackPartnerObj.order_id = this.dataForFeedback.order_id;

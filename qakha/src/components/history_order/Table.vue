@@ -48,8 +48,6 @@
                     ? true
                     : false,
               }"
-              data-toggle="modal"
-              data-target="#feedBackModal"
               @click="getDataForFeedback(item)"
               >{{ item.rate_status }}</a
             >
@@ -132,6 +130,7 @@ export default {
   methods: {
     ...mapActions({
       orderDetails: "order/orderDetails",
+      checkFeedbackDriver: "feedback/checkFeedbackDriver",
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
@@ -147,7 +146,7 @@ export default {
       });
     },
     getDataForFeedback(order) {
-      // console.log(order);
+      console.log(order);
       let params = {
         order_id: order.id,
         driver_id: order.driver_id,
@@ -158,6 +157,20 @@ export default {
         driver_image: order.driver.image,
       };
       this.dataForFeedback = params;
+      let checkFeedbackDriver = {
+        order_id: order.id,
+      };
+      this.checkFeedbackDriver(checkFeedbackDriver)
+        .then((res) => {
+          if (res.rated_driver) {
+            $("#feedBackPartnerModal").modal("show");
+          } else {
+            $("#feedBackModal").modal("show");
+          }
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
     },
   },
   watch: {
