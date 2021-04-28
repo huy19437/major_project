@@ -10,19 +10,23 @@
             v-for="feedback in visibleFeedbacks"
             :key="feedback.id"
             class="media mb-3"
+            style="cursor: pointer"
+            data-toggle="modal"
+            data-target="#detailsFeedBackModal"
+            @click="getDetailsFeedback(feedback)"
           >
-            <!-- <img
+            <img
               class="user-img"
               :src="`${feedback.user.image.url}`"
               alt=""
               width="50"
-            /> -->
-            <img
+            />
+            <!-- <img
               class="user-img"
               src="@/assets/images/logo_qakha2.png"
               alt=""
               width="50"
-            />
+            /> -->
             <div class="media-body">
               <h6 class="mb-0 text-uppercase">
                 {{ feedback.user.name }}
@@ -52,6 +56,7 @@
           :pageSize="pageSize"
         />
       </div>
+      <ShowFeedBackModal :detailsFeedBack="detailsFeedBack" />
     </div>
   </div>
 </template>
@@ -60,14 +65,16 @@
 import { mapActions, mapGetters } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
 import PaginationCustom from "@/components/pagination/PaginationCustom";
+import ShowFeedBackModal from "./ShowFeedBackModal";
 export default {
   name: "FeedBack",
-  components: { PaginationCustom },
+  components: { PaginationCustom, ShowFeedBackModal },
   data() {
     return {
       currentPage: 0,
       pageSize: 3,
       feedBackData: [],
+      detailsFeedBack: {},
     };
   },
   computed: {
@@ -94,6 +101,9 @@ export default {
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
+    },
+    getDetailsFeedback(feedBackData) {
+      this.detailsFeedBack = feedBackData;
     },
     getResult() {
       this.feedBackData = this.getFeedbacks;

@@ -335,7 +335,7 @@
                             </ul>
                           </li>
                           <!-- <li><a href="#">Pages</a></li> -->
-                          <li class="hasDropDown">
+                          <li class="hasDropDown" style="cursor: default">
                             <a
                               >{{ $t("header.headerInner.mart.title")
                               }}<i class="ti-angle-down"></i
