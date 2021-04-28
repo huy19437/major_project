@@ -147,17 +147,72 @@
                           :key="item.id"
                           class="option"
                           @click="() => (voucher = item)"
+                          :class="{
+                            disabled:
+                              subTotal < item.condition ||
+                              item.usage_limit == 0 ||
+                              item.expiry_date < dateNow,
+                          }"
                         >
-                          <span class="voucher-code">
+                          <span
+                            class="voucher-code"
+                            :class="{
+                              disabled:
+                                subTotal < item.condition ||
+                                item.usage_limit == 0 ||
+                                item.expiry_date < dateNow,
+                            }"
+                          >
                             {{ item.code }}
                           </span>
-                          {{
-                            item.description
-                              ? item.description.slice(
-                                  item.description.indexOf(":")
-                                )
-                              : ""
-                          }}
+                          <div class="constraint-voucher">
+                            <div
+                              class="description"
+                              :class="{
+                                disabled:
+                                  subTotal < item.condition ||
+                                  item.usage_limit == 0 ||
+                                  item.expiry_date < dateNow,
+                              }"
+                            >
+                              {{ item.description ? item.description : "" }}
+                            </div>
+                            <div
+                              class="condition"
+                              :class="{
+                                disabled:
+                                  subTotal < item.condition ||
+                                  item.usage_limit == 0 ||
+                                  item.expiry_date < dateNow,
+                              }"
+                            >
+                              For order from
+                              <span>{{ item.condition }}đ up</span>
+                            </div>
+                            <div
+                              class="expiry-date"
+                              :class="{
+                                disabled:
+                                  subTotal < item.condition ||
+                                  item.usage_limit == 0 ||
+                                  item.expiry_date < dateNow,
+                              }"
+                            >
+                              Expiration date:
+                              {{ item.expiry_date }}
+                            </div>
+                            <div
+                              class="usage-limit"
+                              :class="{
+                                disabled:
+                                  subTotal < item.condition ||
+                                  item.usage_limit == 0 ||
+                                  item.expiry_date < dateNow,
+                              }"
+                            >
+                              Usage limit:{{ item.usage_limit }}
+                            </div>
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -350,13 +405,14 @@ export default {
       errMessage: "",
       slug: this.$route.params.slug,
       shipping_fee: 0,
-      subTotal: 0,
+      subTotal: 50000,
       voucher: {},
       isOpen2: false,
       isOpen3: false,
       distance: 0,
       discount: 0,
       partnerStatus: "",
+      dateNow: moment(new Date()).format("DD-MM-YYYY HH:mm"),
       // partnerOpenTime: moment().format("HH:mm"),
       // partnerCloseTime: moment().format("HH:mm"),
       user: {
@@ -416,6 +472,10 @@ export default {
     // deliveryTime() {
     //   return this.user.delivery_time;
     // },
+    isExpired() {
+      console.log(this.voucher.expiry_date + "----" + this.dateNow);
+      return this.voucher.expiry_date - this.dateNow;
+    },
   },
   methods: {
     ...mapActions({
@@ -760,10 +820,6 @@ export default {
   }
 }
 
-.voucher-code {
-  font-weight: 700;
-}
-
 .shop.checkout .single-widget .checkbox label::before,
 .shop.checkout .single-widget .checkbox label::after {
   display: none;
@@ -783,5 +839,71 @@ export default {
 
 .order-details-title::after {
   display: none;
+}
+
+.disabled {
+  pointer-events: none;
+  color: #ccc !important;
+  cursor: default;
+}
+
+.shop.checkout .nice-select .list {
+  padding-top: 17px;
+  overflow: auto !important;
+  li {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.nice-select .option {
+  display: flex;
+  margin: 5px 12px 25px 12px;
+  overflow: hidden;
+  // border: 1px solid #ccc;
+  padding: 0 !important;
+  border-radius: 5px !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  span {
+    padding: 4px 10px 4px 0;
+  }
+  .voucher-code {
+    align-self: center;
+    font-weight: 700;
+    color: #f79c2d;
+    position: relative;
+    padding: 10px;
+    word-wrap: break-word;
+    width: 73px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+      overflow: visible;
+      width: 100%;
+    }
+  }
+  .constraint-voucher {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1rem;
+    padding: 10px 10px 0 0;
+    div {
+      margin-bottom: 10px;
+    }
+    .condition {
+      color: #03c312;
+    }
+    .description {
+      color: #f79c2d;
+    }
+    .expiry-date {
+      color: red;
+    }
+    .usage-limit {
+      color: blue;
+    }
+  }
 }
 </style>
