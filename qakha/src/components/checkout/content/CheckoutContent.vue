@@ -151,7 +151,7 @@
                             disabled:
                               subTotal < item.condition ||
                               item.usage_limit == 0 ||
-                              item.expiry_date < dateNow,
+                              compare(item.expiry_date < dateNow),
                           }"
                         >
                           <span
@@ -160,7 +160,7 @@
                               disabled:
                                 subTotal < item.condition ||
                                 item.usage_limit == 0 ||
-                                item.expiry_date < dateNow,
+                                compare(item.expiry_date < dateNow),
                             }"
                           >
                             {{ item.code }}
@@ -172,7 +172,7 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  item.expiry_date < dateNow,
+                                  compare(item.expiry_date < dateNow),
                               }"
                             >
                               {{ item.description ? item.description : "" }}
@@ -183,7 +183,7 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  item.expiry_date < dateNow,
+                                  compare(item.expiry_date < dateNow),
                               }"
                             >
                               For order from
@@ -195,7 +195,7 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  item.expiry_date < dateNow,
+                                  compare(item.expiry_date < dateNow),
                               }"
                             >
                               Expiration date:
@@ -207,7 +207,7 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  item.expiry_date < dateNow,
+                                  compare(item.expiry_date < dateNow),
                               }"
                             >
                               Usage limit:{{ item.usage_limit }}
@@ -517,6 +517,11 @@ export default {
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
+            console.log(res);
+          });
         });
     },
     cancelVoucher() {
@@ -532,6 +537,11 @@ export default {
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
+            console.log(res);
+          });
         });
     },
     proceedToCheckout() {
@@ -594,6 +604,54 @@ export default {
       this.user.name = this.getUser.name;
       this.user.email = this.getUser.email;
       this.user.phone_number = this.getUser.phone_number;
+    },
+    compare(a, b) {
+      // Compare two dates (could be of any type supported by the convert
+      // function above) and returns:
+      //  -1 : if a < b
+      //   0 : if a = b
+      //   1 : if a > b
+      // NaN : if a or b is an illegal date
+      // NOTE: The code inside isFinite does an assignment (=).
+      return isFinite((a = this.convert(a).valueOf())) &&
+        isFinite((b = this.convert(b).valueOf()))
+        ? (a > b) - (a < b)
+        : NaN;
+    },
+    inRange(d, start, end) {
+      // Checks if date in d is between dates in start and end.
+      // Returns a boolean or NaN:
+      //    true  : if d is between start and end (inclusive)
+      //    false : if d is before start or after end
+      //    NaN   : if one or more of the dates is illegal.
+      // NOTE: The code inside isFinite does an assignment (=).
+      return isFinite((d = this.convert(d).valueOf())) &&
+        isFinite((start = this.convert(start).valueOf())) &&
+        isFinite((end = this.convert(end).valueOf()))
+        ? start <= d && d <= end
+        : NaN;
+    },
+    convert(d) {
+      // Converts the date in d to a date-object. The input can be:
+      //   a date object: returned without modification
+      //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+      //   a number     : Interpreted as number of milliseconds
+      //                  since 1 Jan 1970 (a timestamp)
+      //   a string     : Any format supported by the javascript engine, like
+      //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+      //  an object     : Interpreted as an object with year, month and date
+      //                  attributes.  **NOTE** month is 0-11.
+      return d.constructor === Date
+        ? d
+        : d.constructor === Array
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     // validateDeliveryTime(delivery_time) {
     //   let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
@@ -850,6 +908,7 @@ export default {
 .shop.checkout .nice-select .list {
   padding-top: 17px;
   overflow: auto !important;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   li {
     border-bottom: 1px solid #ccc;
   }

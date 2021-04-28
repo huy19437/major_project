@@ -23,52 +23,13 @@ const state = {
     //         "discount": 15000.0,
     //         "condition": 40000.0,
     //         "status": "effective",
-    //         "expiry_date": "30-08-2021 00:00",
+    //         "expiry_date": "26-08-2021 00:00",
     //         "usage_limit": 10,
     //         "description": "Code 15k off, min order 40k",
     //         "partner_id": 20,
     //         "created_at": "2021-04-28T10:04:19.264+07:00",
     //         "updated_at": "2021-04-28T10:04:19.264+07:00"
     //     },
-    //     {
-    //         "id": 2,
-    //         "code": "ALLFREE",
-    //         "discount": 15000.0,
-    //         "condition": 40000.0,
-    //         "status": "effective",
-    //         "expiry_date": "30-08-2021 00:00",
-    //         "usage_limit": 10,
-    //         "description": "Code 15k off, min order 40k",
-    //         "partner_id": 20,
-    //         "created_at": "2021-04-28T10:04:19.264+07:00",
-    //         "updated_at": "2021-04-28T10:04:19.264+07:00"
-    //     },
-    //     {
-    //         "id": 2,
-    //         "code": "ALLFREE",
-    //         "discount": 15000.0,
-    //         "condition": 40000.0,
-    //         "status": "effective",
-    //         "expiry_date": "30-08-2021 00:00",
-    //         "usage_limit": 10,
-    //         "description": "Code 15k off, min order 40k",
-    //         "partner_id": 20,
-    //         "created_at": "2021-04-28T10:04:19.264+07:00",
-    //         "updated_at": "2021-04-28T10:04:19.264+07:00"
-    //     },
-    //     {
-    //         "id": 2,
-    //         "code": "ALLFREE",
-    //         "discount": 15000.0,
-    //         "condition": 40000.0,
-    //         "status": "effective",
-    //         "expiry_date": "30-08-2021 00:00",
-    //         "usage_limit": 10,
-    //         "description": "Code 15k off, min order 40k",
-    //         "partner_id": 20,
-    //         "created_at": "2021-04-28T10:04:19.264+07:00",
-    //         "updated_at": "2021-04-28T10:04:19.264+07:00"
-    //     }
     // ],
     vouchers: [],
 }
