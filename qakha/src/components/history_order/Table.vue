@@ -78,6 +78,23 @@
     <OrderDetailModal :totalOfOrder="totalOfOrder" :partnerName="partnerName" />
     <FeedBackModal :dataForFeedback="dataForFeedback" />
     <FeedBackPartnerModal :dataForFeedback="dataForFeedback" />
+    <div
+      class="modal fade"
+      id="loadBeforeFeedbackDriver"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div
+        style="height: 100vh; margin: 166px"
+        class="modal-dialog modal-sm"
+        role="document"
+      >
+        <div id="loader"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -160,6 +177,8 @@ export default {
       let checkFeedbackDriver = {
         order_id: order.id,
       };
+      $("#loadMe").modal("show");
+
       this.checkFeedbackDriver(checkFeedbackDriver)
         .then((res) => {
           if (res.rated_driver) {
@@ -170,6 +189,9 @@ export default {
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          $("#loadMe").modal("hide");
         });
     },
   },

@@ -1,7 +1,9 @@
 <template>
   <div v-if="getFeedbacksStatus" class="container tab-pane" id="reviews">
     <h2>
-      {{ $t("feedback.title") }} <b>{{ $t("feedback.customers") }}</b>
+      {{ $t("feedback.title") }}
+      <b>{{ $t("feedback.customers") }} </b>
+      <span v-if="feedBackData"> ({{ feedBackData.length }}) </span>
     </h2>
     <div class="p-4 p-lg-5 bg-white">
       <div class="row">

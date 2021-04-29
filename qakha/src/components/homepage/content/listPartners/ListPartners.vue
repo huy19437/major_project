@@ -211,6 +211,7 @@ export default {
     getResult() {
       this.getPartners()
         .then((res) => {
+          console.log("call here");
           this.setCartsNull();
           this.setShoppingStatus(false);
           this.showFeedback(false);

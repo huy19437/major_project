@@ -189,6 +189,7 @@ export default {
     getPartnersFromSer() {
       this.getPartners()
         .then((res) => {
+          console.log("call here");
           this.partnersFromSer = this.getPartnersLocal;
           this.setTrendingProducts();
         })

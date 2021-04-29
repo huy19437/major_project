@@ -67,7 +67,11 @@
       role="dialog"
       aria-labelledby="loadMeLabel"
     >
-      <div style="height: 100vh" class="modal-dialog modal-sm" role="document">
+      <div
+        style="height: 100vh; margin: 166px"
+        class="modal-dialog modal-sm"
+        role="document"
+      >
         <div id="loader"></div>
       </div>
     </div>
