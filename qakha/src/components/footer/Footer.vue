@@ -129,7 +129,11 @@
               </div>
               <div class="col-lg-6 col-12">
                 <div class="right">
-                  <img src="@/assets/asset_item/images/payments.png" alt="#" />
+                  <img
+                    class="payment-icon"
+                    src="@/assets/asset_item/images/payments.png"
+                    alt="#"
+                  />
                 </div>
               </div>
             </div>
@@ -154,7 +158,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .footer {
   color: #fff;
   font-weight: 400;
@@ -170,5 +174,15 @@ export default {
 .footer-list-social,
 .footer-list-info {
   padding: 0;
+}
+
+.copyright {
+  .right {
+    .payment-icon {
+      margin: 0 0;
+      display: inline;
+      width: 100%;
+    }
+  }
 }
 </style>

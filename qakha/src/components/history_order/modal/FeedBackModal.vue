@@ -68,7 +68,7 @@
       aria-labelledby="loadMeLabel"
     >
       <div
-        style="height: 100vh; margin: 166px"
+        style="height: 100vh; width: 100vh !important; margin-top: 23vh"
         class="modal-dialog modal-sm"
         role="document"
       >

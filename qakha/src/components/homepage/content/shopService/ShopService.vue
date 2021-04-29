@@ -50,4 +50,7 @@ export default {};
 </script>
 
 <style>
+.single-service {
+  text-align: left;
+}
 </style>

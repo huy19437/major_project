@@ -116,15 +116,13 @@
                     <li class="last"></li>
                   </ul>
                   <div class="button5">
-                    <router-link
+                    <a
+                      :disabled="!isHaveItemInCart"
                       class="btn btn-right"
-                      :to="{
-                        name: 'Checkout',
-                        params: { slug: slug },
-                      }"
+                      @click="gotoCheckout()"
                     >
                       {{ $t("cartContent.Checkout") }}
-                    </router-link>
+                    </a>
                     <a href="/" class="btn btn-right">
                       {{ $t("cartContent.continueShipping") }}</a
                     >
@@ -157,6 +155,7 @@ export default {
       toTal: 0,
       slug: this.$route.params.slug,
       partnerStatus: "",
+      isHaveItemInCart: false,
     };
   },
   computed: {
@@ -223,6 +222,13 @@ export default {
     },
     getResult() {
       this.cart = this.getCartLocal;
+      if (this.cart != null && this.cart != undefined) {
+        if (this.cart.length > 0) {
+          this.isHaveItemInCart = true;
+        } else {
+          this.isHaveItemInCart = false;
+        }
+      }
       let idOfProducts = this.cart.map((item) => item.product_id);
       this.qtyOfProducts = this.cart.map((item) => item.quantity);
       const prods = [];
@@ -265,6 +271,12 @@ export default {
             }
           });
       }
+    },
+    gotoCheckout() {
+      this.$router.push({
+        name: "Checkout",
+        params: { slug: this.slug || 0 },
+      });
     },
     getSubTotal(array) {
       return array.reduce(function (accumulator, currentValue) {

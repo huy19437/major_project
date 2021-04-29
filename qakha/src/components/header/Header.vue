@@ -188,8 +188,8 @@
                         {{ $t("header.middleInner.item") }}</span
                       >
                       <!-- <a href="cart">View Cart</a> -->
-                      <a @click="gotoCart()"
-                        >{{ $t("header.middleInner.cart") }}
+                      <a @click="gotoCart()" style="cursor: pointer">
+                        {{ $t("header.middleInner.cart") }}
                       </a>
                     </div>
                     <ul class="shopping-list">
@@ -198,6 +198,7 @@
                           @click="deleteProductInCart(product.id)"
                           class="remove"
                           title="Remove this item"
+                          style="cursor: pointer"
                           ><i class="fa fa-remove"></i
                         ></a>
                         <a class="cart-img" href="#"
@@ -207,8 +208,10 @@
                         /></a>
                         <h4>{{ product.name }}</h4>
                         <p class="quantity">
-                          {{ product.quantity }}x -
-                          <span class="amount">${{ product.price }} </span>
+                          <span class="quantity-product">
+                            {{ product.quantity }}x
+                          </span>
+                          <span class="amount">{{ product.price }}đ</span>
                         </p>
                       </li>
                     </ul>
@@ -321,11 +324,11 @@
                               $t("header.headerInner.service")
                             }}</a>
                           </li>
-                          <li class="hasDropDown">
-                            <a v-if="getShoppingStatus"
-                              >{{ $t("header.headerInner.store.title")
-                              }}<i class="ti-angle-down"></i
-                            ></a>
+                          <li class="hasDropDown" style="cursor: default">
+                            <a v-if="getShoppingStatus">
+                              {{ $t("header.headerInner.store.title") }}
+                              <i class="ti-angle-down"></i>
+                            </a>
                             <ul class="dropdown">
                               <li>
                                 <a @click="gotoCart()"
@@ -610,11 +613,15 @@ export default {
       // console.log(this.partnerIdForSlug);
     },
     gotoCart() {
-      this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-      this.$router.push({
-        name: "Cart",
-        params: { slug: this.partnerIdForSlug || 0 },
-      });
+      if (this.getCartLocal.length != 0) {
+        this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+        this.$router.push({
+          name: "Cart",
+          params: { slug: this.partnerIdForSlug || 0 },
+        });
+      } else {
+        openToastMess("Nothing in Cart!!!", "warning");
+      }
     },
     gotoCheckout() {
       this.partnerIdForSlug = this.getCartLocal[0].partner_id;
@@ -766,6 +773,8 @@ export default {
     object-fit: cover;
     padding-left: 0;
     cursor: pointer;
+    display: inline;
+    margin: 0 0;
   }
   .product-title {
     font-weight: 700;
@@ -917,9 +926,30 @@ export default {
   font-size: 1.2rem;
 }
 
-.shopping-list {
-  max-height: 40vh;
-  overflow-y: auto;
+.header {
+  .shopping-list {
+    max-height: 40vh;
+    overflow-y: auto;
+    .cart-img {
+      img {
+        object-fit: cover;
+        margin-bottom: 0;
+      }
+    }
+    .quantity {
+      line-height: 22px;
+      font-size: 13px;
+      padding-bottom: 0px !important;
+      margin: 0 0 -3px !important;
+      .quantity-product {
+        font-weight: 600;
+      }
+      .amount {
+        color: #f7941d;
+        font-weight: 600;
+      }
+    }
+  }
 }
 
 .language-flag {
