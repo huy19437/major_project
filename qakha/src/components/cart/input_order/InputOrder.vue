@@ -13,12 +13,7 @@
       </div>
       <input disabled type="text" class="input-number" :value="`${quantity}`" />
       <div class="button plus">
-        <button
-          type="button"
-          class="btn btn-primary btn-number"
-          @click="inc"
-          :disabled="quantity > 9"
-        >
+        <button type="button" class="btn btn-primary btn-number" @click="inc">
           <i class="ti-plus"></i>
         </button>
       </div>

@@ -170,6 +170,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      setShoppingStatus: "cart/setShoppingStatus",
       updateCart: "cart/updateCart",
       deleteCart: "cart/deleteCart",
       getCart: "cart/getCart",
@@ -285,6 +286,7 @@ export default {
     },
   },
   created() {
+    this.setShoppingStatus(false);
     this.getCartContent();
     // this.getResult();
   },

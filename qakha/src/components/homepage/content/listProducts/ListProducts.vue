@@ -68,7 +68,7 @@
                     :key="product.id"
                     class="col-xl-3 col-lg-4 col-md-4 col-12"
                   >
-                    <div class="single-product">
+                    <!-- <div class="single-product">
                       <div class="product-img">
                         <router-link
                           :to="{
@@ -86,12 +86,10 @@
                             :src="`${product.image.url}`"
                             alt="#"
                           />
-                          <!-- <span class="new">New</span> -->
-                          <!-- <span class="price-dec">30% Off</span> -->
-                          <!-- <span class="out-of-stock">Hot</span> -->
+                          
                         </router-link>
                         <div class="button-head">
-                          <!-- <div class="product-action">
+                          <div class="product-action">
                             <a
                               data-toggle="modal"
                               data-target="#exampleModal"
@@ -107,7 +105,21 @@
                               ><i class="ti-bar-chart-alt"></i
                               ><span>Add to Compare</span></a
                             >
-                          </div> -->
+                          </div>
+                          <div class="product-action">
+                            <InputOrderHover
+                              @inc="
+                                (value) => {
+                                  product.qty = value;
+                                }
+                              "
+                              @dec="
+                                (value) => {
+                                  product.qty = value;
+                                }
+                              "
+                            />
+                          </div>
                           <div class="product-action-2">
                             <a
                               :class="{
@@ -115,7 +127,7 @@
                                   partnerStatus === 'open' ? false : true,
                               }"
                               title="Add to cart"
-                              @click="addToCart(product.id)"
+                              @click="addToCart(product)"
                               >Add to cart</a
                             >
                           </div>
@@ -131,13 +143,16 @@
                           >
                             {{ product.name }}
                           </router-link>
-                          <!-- <a href="product-details">{{ product.name }}</a> -->
                         </h3>
                         <div class="product-price">
                           <span>{{ product.price }} VNĐ</span>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
+                    <SingleProduct
+                      :product="product"
+                      :partnerStatus="partnerStatus"
+                    />
                   </div>
                 </div>
               </div>
@@ -165,10 +180,14 @@
 import { mapGetters, mapActions } from "vuex";
 import PaginationCustom from "@/components/pagination/PaginationCustom";
 import { openToastMess } from "@/services/toastMessage";
+import InputOrderHover from "./InputOrderHover";
+import SingleProduct from "./SingleProduct";
 export default {
   name: "ListProducts",
   components: {
     PaginationCustom,
+    InputOrderHover,
+    SingleProduct,
   },
   data() {
     return {
@@ -223,29 +242,30 @@ export default {
     isActive(menuItem) {
       return this.activeItem === menuItem;
     },
-    addToCart(id) {
-      let token = localStorage.getItem("token");
-      if (token) {
-        let params = {
-          product_id: id,
-          partner_id: this.slug,
-          quantity: 1,
-        };
-        // console.log(params);
-        this.addProductToCart(params)
-          .then((res) => {
-            if (res) {
-              openToastMess("Product have been added to Cart", "success");
-            }
-          })
-          .catch((error) => {
-            openToastMess(error, "error");
-          });
-      } else {
-        this.nowRoute(this.$route.path);
-        this.$router.push({ path: "/login" });
-      }
-    },
+    // addToCart(product) {
+    //   console.log("1");
+    //   let token = localStorage.getItem("token");
+    //   if (token) {
+    //     let params = {
+    //       product_id: product.id,
+    //       partner_id: this.slug,
+    //       quantity: product.qty,
+    //     };
+    //     // console.log(params);
+    //     this.addProductToCart(params)
+    //       .then((res) => {
+    //         if (res) {
+    //           openToastMess("Product have been added to Cart", "success");
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         openToastMess(error, "error");
+    //       });
+    //   } else {
+    //     this.nowRoute(this.$route.path);
+    //     this.$router.push({ path: "/login" });
+    //   }
+    // },
     getProductsByCategory(cateId, menuItem) {
       this.activeItem = menuItem;
       this.cateId = cateId;
@@ -267,11 +287,8 @@ export default {
           });
       }
     },
-    getResult() {
-      this.setShoppingStatus(true);
-      this.showFeedback(true);
-      this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
-      this.partnerStatus = this.partner.status;
+    getDataCartFromServe(partnerObj) {
+      this.partnerStatus = partnerObj.status;
       let token = localStorage.getItem("token");
       // console.log(this.partnerStatus);
       if (token && this.partnerStatus === "open") {
@@ -288,13 +305,18 @@ export default {
             }
           });
       }
-      this.getFeedBackToShow();
-      // console.log(this.partner);
-      this.partnerId(this.partner.id);
-      if (this.getPartnersLocal.find((obj) => obj.id == this.slug)) {
-        this.categories = this.getPartnersLocal.find(
-          (obj) => obj.id == this.slug
-        ).categories;
+    },
+    setQtyForProduct() {
+      this.categories.find((cat) => {
+        cat.products.find((obj) => {
+          obj.qty = 0;
+        });
+      });
+    },
+    setCategoriesFromPartnerData(partnerObj) {
+      if (partnerObj) {
+        this.categories = partnerObj.categories;
+        this.setQtyForProduct();
       }
       if (this.categories) {
         if (this.categories.length > 0) {
@@ -302,6 +324,15 @@ export default {
           this.activeItem = this.categories[0].name;
         }
       }
+    },
+    getResult() {
+      this.setShoppingStatus(true);
+      this.showFeedback(true);
+      this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      this.getDataCartFromServe(this.partner);
+      this.getFeedBackToShow();
+      this.partnerId(this.partner.id);
+      this.setCategoriesFromPartnerData(this.partner);
     },
   },
   created() {
@@ -371,6 +402,11 @@ export default {
   padding: 12px 12px;
   .product-action {
     margin-right: 12px !important;
+    .btn-plus,
+    .btn-minus {
+      background-color: transparent;
+      border: none;
+    }
   }
   .product-action-2 {
     margin-left: 12px !important;
@@ -510,6 +546,7 @@ export default {
 
 .diabledPointer {
   pointer-events: none;
+  cursor: default;
   color: #ccc !important;
 }
 </style>

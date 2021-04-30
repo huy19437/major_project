@@ -582,7 +582,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   name: "OrderConfirm",
   data() {
@@ -596,6 +596,9 @@ export default {
     }),
   },
   methods: {
+    ...mapMutations({
+      setCart: "cart/setCart",
+    }),
     ...mapActions({
       getCart: "cart/getCart",
       setShoppingStatus: "cart/setShoppingStatus",

@@ -307,7 +307,18 @@ const messages = {
             email: 'Email',
             phone: 'Phone',
             update: 'Update',
-            historyOrder: 'History Order'
+            historyOrder: 'History Order',
+            changePassWord: {
+                title: 'Change Password',
+                placeholder: {
+                    currentPassword: 'Current Password',
+                    newPassword: 'New Password',
+                    passwordConfirmation: 'Password Confirmation'
+                },
+                close: 'Close',
+                submit: 'Submit'
+
+            }
         }
     },
     'vi': {
@@ -614,6 +625,16 @@ const messages = {
             phone: 'Điện thoại',
             update: 'Cập nhật',
             historyOrder: 'Lịch sử đặt hàng',
+            changePassWord: {
+                title: 'Đặt lại mật khẩu',
+                placeholder: {
+                    currentPassword: 'Mật khẩu hiện tại',
+                    newPassword: 'Mật khẩu mới',
+                    passwordConfirmation: 'Xác nhận mật khẩu mới'
+                },
+                close: 'Đóng',
+                submit: 'Gửi'
+            }
         }
     }
 };

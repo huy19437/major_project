@@ -89,6 +89,18 @@
                       </p>
                     </div>
                   </div>
+                  <div class="media">
+                    <label>Mật khẩu</label>
+                    <div>
+                      <button
+                        data-toggle="modal"
+                        data-target="#changePassModal"
+                        class="btn btn-primary btn-update-password"
+                      >
+                        {{ $t("userProfile.changePassWord.title") }}
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-6 form-group">
                   <div v-show="showProgress">
@@ -212,19 +224,21 @@
         </div>
       </div>
     </div>
+    <ChangePassModal />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { email, minLength, maxLength } from "vuelidate/lib/validators";
+import ChangePassModal from "./ChangePassModal";
 import ProgressBar from "vuejs-progress-bar";
 import { openToastMess } from "@/services/toastMessage";
 import $ from "jquery";
 import axios from "axios";
 export default {
   name: "UserInfo",
-  components: { ProgressBar },
+  components: { ProgressBar, ChangePassModal },
   data() {
     const progressBarOptions = {
       text: {
@@ -644,7 +658,12 @@ mark {
   justify-content: flex-end;
 }
 
-.btn.btn-primary.btn-update-user {
+.btn-update-password {
+  line-height: 1rem !important;
+}
+
+.btn.btn-primary.btn-update-user,
+.btn.btn-primary.btn-update-password {
   color: #fff;
   background-color: #000;
   border-color: #000;
