@@ -16,7 +16,7 @@ const instance = axios.create({
     // timeout: 1000 * 5
 });
 
-instance.defaults.timeout = 9000;
+instance.defaults.timeout = 1000 * 60 * 1;
 // console.log(instance.headers);
 
 const httpRequest = {

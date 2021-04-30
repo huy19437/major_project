@@ -181,6 +181,7 @@ export default {
 
       this.checkFeedbackDriver(checkFeedbackDriver)
         .then((res) => {
+          console.log(res);
           if (res.rated_driver) {
             $("#feedBackPartnerModal").modal("show");
           } else {

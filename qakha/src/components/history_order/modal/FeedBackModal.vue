@@ -101,7 +101,7 @@ export default {
         content: "",
         point: 0,
         driver_id: 0,
-        partner_id: 0,
+        // partner_id: 0,
       },
     };
   },
@@ -143,7 +143,7 @@ export default {
       // console.log(this.dataForFeedback);
       this.feedBackDriverObj.order_id = this.dataForFeedback.order_id;
       this.feedBackDriverObj.driver_id = this.dataForFeedback.driver_id;
-      this.feedBackDriverObj.partner_id = this.dataForFeedback.partner_id;
+      // this.feedBackDriverObj.partner_id = this.dataForFeedback.partner_id;
       this.driver_image = this.dataForFeedback.driver_image;
     },
   },
