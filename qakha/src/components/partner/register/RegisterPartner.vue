@@ -258,6 +258,8 @@
                       <option value="1" data-select2-id="3">VEGE</option>
                       <option value="2">RICE BOX</option>
                       <option value="3">STREETFOOD</option>
+                      <option value="4">SUSHI</option>
+                      <option value="5">DRINK</option>
                     </select>
                   </div>
                 </div>

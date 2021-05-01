@@ -140,7 +140,7 @@ const messages = {
             cart: {
                 cartTotal: 'CART TOTALS',
                 subTotal: 'Sub Total',
-                shipping: 'Shipping',
+                shipping: 'Shipping Fee',
                 discount: 'Discount',
                 total: 'Total',
                 payments: 'Payments',
@@ -300,7 +300,7 @@ const messages = {
             addToCart: 'Add to cart'
         },
         userProfile: {
-            aboutMe: 'About Me',
+            aboutMe: 'Personal Information',
             name: 'Name',
             role: 'Role',
             address: 'Address',
@@ -308,6 +308,8 @@ const messages = {
             phone: 'Phone',
             update: 'Update',
             historyOrder: 'History Order',
+            upload: 'Uploading',
+            changeAvatar: 'Change Avatar User',
             changePassWord: {
                 title: 'Change Password',
                 placeholder: {
@@ -625,6 +627,8 @@ const messages = {
             phone: 'Điện thoại',
             update: 'Cập nhật',
             historyOrder: 'Lịch sử đặt hàng',
+            upload: 'Đang tải lên',
+            changeAvatar: 'Thay Đổi Ảnh đại diện Người dùng',
             changePassWord: {
                 title: 'Đặt lại mật khẩu',
                 placeholder: {
@@ -640,8 +644,8 @@ const messages = {
 };
 
 const i18n = new VueI18n({
-    locale: 'vi', // set locale
-    fallbackLocale: 'vi', // set fallback locale
+    locale: 'en', // set locale
+    fallbackLocale: 'en', // set fallback locale
     messages, // set locale messages
 });
 

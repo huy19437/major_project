@@ -104,6 +104,7 @@
                 </div>
                 <div class="col-6 form-group">
                   <div v-show="showProgress">
+                    <label>{{ $t("userProfile.upload") }}</label>
                     <progress-bar :options="options" :value="progress" />
                   </div>
                   <!-- <section v-if="results && results.secure_url">
@@ -128,18 +129,29 @@
                   />
                 </label> -->
                 <div v-if="!image">
-                  <span class="icon icon-upload">
-                    <font-awesome-icon :icon="['fas', 'camera']" />
-                  </span>
+                  <label
+                    :title="`${$t('userProfile.changeAvatar')}`"
+                    for="user-img"
+                    class="img-user-upload"
+                  >
+                    <span class="icon icon-upload">
+                      <font-awesome-icon :icon="['fas', 'camera']" />
+                    </span>
+                  </label>
                   <input
+                    id="user-img"
                     type="file"
                     accept=".png,.jpg,.jpeg"
                     @change="handleFileChange($event)"
+                    hidden
                   />
                 </div>
                 <div v-else class="image-to-upload">
                   <!-- <img :src="image" /> -->
-                  <button class="btn btn-primary" @click="removeImage">
+                  <button
+                    class="btn btn-primary remove-image"
+                    @click="removeImage"
+                  >
                     Remove image
                   </button>
                 </div>
@@ -512,13 +524,20 @@ img {
 
 .about-avatar {
   margin-top: 30px;
+  margin-top: 30px;
+  width: 400px;
+  height: 400px;
   .user-avatar {
-    width: 25vw;
-    height: 30vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 50%;
     opacity: 0;
     transition-duration: 500ms;
+    border: 5px solid #ccc;
+    &:hover {
+      border: 5px solid #f6931d;
+    }
   }
 }
 @media (max-width: 767px) {
@@ -663,7 +682,8 @@ mark {
 }
 
 .btn.btn-primary.btn-update-user,
-.btn.btn-primary.btn-update-password {
+.btn.btn-primary.btn-update-password,
+.btn.btn-primary.remove-image {
   color: #fff;
   background-color: #000;
   border-color: #000;
@@ -687,14 +707,15 @@ mark {
   display: flex;
   padding: 10px 0;
   // overflow: auto;
+  .img-user-upload {
+    cursor: pointer;
+  }
 }
 
 .item-upload {
   position: relative;
-  height: 70px;
   margin-right: 10px;
   width: 50px;
-  height: 50px !important;
 }
 
 .btn-up {

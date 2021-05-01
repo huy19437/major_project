@@ -8,6 +8,10 @@
       {{ $t("cartContent.goBack") }}
     </div>
     <div v-else class="container">
+      <div class="page-header">
+        <h1>{{ partnerName }}</h1>
+        <h4>{{ partnerAddress }}</h4>
+      </div>
       <div class="row">
         <div class="col-12">
           <!-- Shopping Summery -->
@@ -156,6 +160,8 @@ export default {
       slug: this.$route.params.slug,
       partnerStatus: "",
       isHaveItemInCart: false,
+      partnerName: "",
+      partnerAddress: "",
     };
   },
   computed: {
@@ -253,6 +259,10 @@ export default {
     },
     getCartContent() {
       let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      this.partnerName = partnerObj.name;
+      this.partnerAddress = partnerObj.address;
+      console.log(partnerObj);
+
       this.partnerStatus = partnerObj.status;
       let token = localStorage.getItem("token");
       if (token && this.partnerStatus === "open") {

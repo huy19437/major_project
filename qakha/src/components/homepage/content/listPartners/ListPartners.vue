@@ -277,7 +277,7 @@ select.form-control:not([size]):not([multiple]) {
     -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
       rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-    position: relative;
+    // position: relative;
     z-index: 99;
     a.partner-list-favourite {
       color: #e74c3c;

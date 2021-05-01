@@ -313,7 +313,7 @@
                               padding: 15px 10px 5px 10px;
                             "
                           >
-                            {{ product.price }} VNĐ
+                            {{ product.quantity }} x {{ product.price }}đ
                           </td>
                         </tr>
                       </table>

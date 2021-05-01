@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseDomain = "https://408fbc39d9a7.ngrok.io";
+const baseDomain = "https://f1274e41bfc0.ngrok.io";
 const baseURL = `${baseDomain}/api/v1`;
 const token = localStorage.getItem('token');
 // const headers = {
@@ -16,6 +16,7 @@ const instance = axios.create({
     // timeout: 1000 * 5
 });
 
+//one minute for waiting response
 instance.defaults.timeout = 1000 * 60 * 1;
 // console.log(instance.headers);
 

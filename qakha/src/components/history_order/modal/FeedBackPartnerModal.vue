@@ -177,7 +177,6 @@ export default {
                 this.rating = 0;
                 this.isDisabled = false;
               });
-            this.feedBackPartnerObj.content = "";
           })
           .catch((err) => {
             openToastMess(err, "error");

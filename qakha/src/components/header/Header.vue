@@ -173,7 +173,13 @@
             </div>
             <div class="col-lg-2 col-md-2 col-12">
               <div class="right-bar">
-                <div v-if="userName" class="sinlge-bar shopping">
+                <div
+                  v-if="userName"
+                  class="sinlge-bar shopping"
+                  :class="{
+                    diabledPointer: getShoppingStatus ? false : true,
+                  }"
+                >
                   <a class="single-icon">
                     <font-awesome-icon :icon="['fas', 'shopping-cart']" />
                     <span v-if="getCartLocal" class="total-count">
@@ -838,6 +844,9 @@ export default {
     top: 20px !important;
     .nice-select {
       border-right: none;
+      .option {
+        justify-content: center;
+      }
     }
     .nice-select::after {
       right: 39px;
@@ -988,6 +997,21 @@ export default {
     .middle-inner {
       padding: 9px 0 !important;
     }
+  }
+}
+
+.diabledPointer {
+  pointer-events: none;
+  cursor: default;
+  color: #ccc !important;
+}
+
+.nice-select {
+  .option {
+    justify-content: center;
+  }
+  .list {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
   }
 }
 </style>

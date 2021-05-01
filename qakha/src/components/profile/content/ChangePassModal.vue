@@ -102,7 +102,7 @@
 
                 <div class="form-group">
                   <input
-                    type="text"
+                    type="password"
                     class="form-control"
                     :class="
                       $v.userNewPass.password_confirmation.$error
@@ -139,12 +139,12 @@
                 >
                   {{ $t("userProfile.changePassWord.submit") }}
                 </button>
-                <Spinner :loading="isLoading" />
               </form>
             </div>
           </div>
         </div>
         <div class="modal-footer">
+          <Spinner :loading="isLoading" />
           <button
             type="button"
             class="btn btn-secondary"
