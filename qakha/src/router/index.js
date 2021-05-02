@@ -13,7 +13,6 @@ import RegisterPartner from '@/components/partner/register/RegisterPartner.vue'
 import RegisterDriver from '@/components/driver/register/RegisterDriver.vue'
 import EditAddress from '@/components/edit_address/EditAddress.vue'
 import HistoryOrder from '@/components/history_order/HistoryOrder.vue'
-import $ from 'jquery'
 import { home } from './home'
 Vue.use(VueRouter)
 
@@ -118,7 +117,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.querySelectorAll(".modal.show").forEach((m) => m.remove());
-  $(document.body).removeClass('modal-open');
+  document.body.classList.remove('modal-open');
   document
     .querySelectorAll("body>.modal-backdrop.show")
     .forEach((m) => m.remove());

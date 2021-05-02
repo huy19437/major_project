@@ -47,23 +47,6 @@
                 </div>
                 <div class="col-md-6">
                   <div class="media">
-                    <label>{{ $t("userProfile.email") }}</label>
-                    <!-- <p>{{ getUser.email }}</p> -->
-                    <input
-                      type="text"
-                      v-model="userObj.email"
-                      @blur="
-                        $v.userObj.email.$touch();
-                        isDisabled = false;
-                      "
-                    />
-                    <div v-if="$v.userObj.email.$error">
-                      <p class="errorMessage" v-if="!$v.userObj.email.email">
-                        Email is invalid
-                      </p>
-                    </div>
-                  </div>
-                  <div class="media">
                     <label>{{ $t("userProfile.phone") }}</label>
                     <!-- <p>{{ getUser.phone_number }}</p> -->
                     <input
@@ -88,6 +71,31 @@
                         Phone number maximum is 10 characters
                       </p>
                     </div>
+                  </div>
+                  <div class="media">
+                    <label>{{ $t("userProfile.email") }}</label>
+                    <p class="email-user">{{ userDataFromSer.email }}</p>
+                    <a
+                      data-toggle="modal"
+                      data-target="#changeEmailModal"
+                      title="Edit User Email"
+                      style="color: #000; cursor: pointer"
+                    >
+                      <font-awesome-icon :icon="['fas', 'edit']" />
+                    </a>
+                    <!-- <input
+                      type="text"
+                      v-model="userObj.email"
+                      @blur="
+                        $v.userObj.email.$touch();
+                        isDisabled = false;
+                      "
+                    />
+                    <div v-if="$v.userObj.email.$error">
+                      <p class="errorMessage" v-if="!$v.userObj.email.email">
+                        Email is invalid
+                      </p>
+                    </div> -->
                   </div>
                   <div class="media">
                     <label>Mật khẩu</label>
@@ -237,6 +245,10 @@
       </div>
     </div>
     <ChangePassModal />
+    <ChangeEmailModal
+      :userDataFromSer="userDataFromSer"
+      @emailChanged="emailChanged"
+    />
   </div>
 </template>
 
@@ -244,13 +256,14 @@
 import { mapActions, mapGetters } from "vuex";
 import { email, minLength, maxLength } from "vuelidate/lib/validators";
 import ChangePassModal from "./ChangePassModal";
+import ChangeEmailModal from "./ChangeEmailModal";
 import ProgressBar from "vuejs-progress-bar";
 import { openToastMess } from "@/services/toastMessage";
 import $ from "jquery";
 import axios from "axios";
 export default {
   name: "UserInfo",
-  components: { ProgressBar, ChangePassModal },
+  components: { ProgressBar, ChangePassModal, ChangeEmailModal },
   data() {
     const progressBarOptions = {
       text: {
@@ -331,7 +344,7 @@ export default {
                   if (response) {
                     this.isDisabled = true;
                     this.image = "";
-                    openToastMess("Sign up successfully", "success");
+                    openToastMess("Update successfully", "success");
                     this.getResult();
                   }
                 })
@@ -360,7 +373,7 @@ export default {
                 this.isDisabled = true;
                 this.image = "";
                 // console.log("3");
-                openToastMess("Sign up successfully", "success");
+                openToastMess("Update successfully", "success");
                 this.getResult();
               }
             })
@@ -479,6 +492,9 @@ export default {
       this.userObj.name = this.userDataFromSer.name;
       this.userObj.email = this.userDataFromSer.email;
     },
+    emailChanged() {
+      this.getResult();
+    },
     getResult() {
       this.showUser()
         .then((res) => {
@@ -577,6 +593,12 @@ img {
   padding-top: 10px;
   .media {
     padding: 5px 0;
+    p.email-user {
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      text-overflow: ellipsis;
+    }
     &:nth-child(3) {
       p {
         overflow: hidden;

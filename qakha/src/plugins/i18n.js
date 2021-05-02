@@ -320,6 +320,16 @@ const messages = {
                 close: 'Close',
                 submit: 'Submit'
 
+            },
+            changeEmail: {
+                title: 'Change Email',
+                placeholder: {
+                    newEmail: 'New Email',
+                    code: 'Code confirm'
+                },
+                close: 'Close',
+                submit: 'Submit'
+
             }
         }
     },
@@ -638,6 +648,16 @@ const messages = {
                 },
                 close: 'Đóng',
                 submit: 'Gửi'
+            },
+            changeEmail: {
+                title: 'Thay đổi Email',
+                placeholder: {
+                    newEmail: 'Email mới',
+                    code: 'Mã xác nhận'
+                },
+                close: 'Đóng',
+                submit: 'Gửi'
+
             }
         }
     }

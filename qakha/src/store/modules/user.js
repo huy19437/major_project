@@ -49,7 +49,17 @@ const actions = {
                     rej(err.response ? err.response.data.message : err);
                 })
         })
-    }
+    },
+    changeEmail({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.patch('/user/change_email', params)
+                .then(response => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                })
+        })
+    },
 }
 
 export default {
