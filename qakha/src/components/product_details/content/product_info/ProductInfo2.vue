@@ -57,7 +57,6 @@
                     type="button"
                     class="btn btn-primary btn-number"
                     @click="inc"
-                    :disabled="numberProductInCart > 9"
                   >
                     <i class="ti-plus"></i>
                   </button>

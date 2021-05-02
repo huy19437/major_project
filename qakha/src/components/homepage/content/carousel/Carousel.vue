@@ -121,6 +121,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import _, { map } from "underscore";
 export default {
   name: "Carousel",
   data() {
@@ -162,19 +163,33 @@ export default {
       var productsHasTrend = [];
       var tmp = [];
       var index = 0;
-      this.partnersFromSer.filter((pl) =>
+      // this.partnersFromSer.filter((pl) =>
+      this.getPartnersLocal.filter((pl) =>
         pl.categories.filter((cat) =>
           cat.products.filter((product) => {
-            if (product.quantity_sold > 7) {
-              productsHasTrend.push(product);
-            }
+            // if (product.quantity_sold > 10) {
+            productsHasTrend.push(product);
+            // }
           })
         )
       );
-      for (let j = 0; j < Math.ceil(productsHasTrend.length / 4); j++) {
+
+      // productsHasTrend
+      //   .sort(function (a, b) {
+      //     return a.quantity_sold - b.quantity_sold;
+      //   })
+      //   .reverse();
+
+      var sortedObjs = _.sortBy(productsHasTrend, "quantity_sold")
+        .reverse()
+        .slice(0, 20);
+      // var sortedObjs = productsHasTrend.slice(0, 20);
+      console.log(sortedObjs);
+
+      for (let j = 0; j < Math.ceil(sortedObjs.length / 4); j++) {
         for (let i = 0; i < 4; i++) {
-          if (index == productsHasTrend.length) break;
-          tmp.push(productsHasTrend[index]);
+          if (index == sortedObjs.length) break;
+          tmp.push(sortedObjs[index]);
           index++;
         }
         this.trendProducts.push(tmp);
@@ -199,7 +214,8 @@ export default {
     },
   },
   created() {
-    this.getPartnersFromSer();
+    this.setTrendingProducts();
+    // this.getPartnersFromSer();
   },
 };
 </script>
