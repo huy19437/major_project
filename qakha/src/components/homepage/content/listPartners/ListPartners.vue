@@ -60,6 +60,8 @@
                     <option value="3">STREETFOOD</option>
                     <option value="4">SUSHI</option>
                     <option value="5">DRINK</option>
+                    <option value="6">BEST RATED</option>
+                    <option value="7">NEAR BY</option>
                   </select>
                 </div>
               </div>
@@ -142,6 +144,8 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import PaginationCustom from "../../../pagination/PaginationCustom";
+import { openToastMess } from "@/services/toastMessage";
+import axios from "axios";
 export default {
   name: "ListPartners",
   components: {
@@ -154,22 +158,20 @@ export default {
     }),
     filteredList() {
       return this.partnerData.filter((partner) => {
-        // if (partner.type_id && partner.name && partner.address) {
         return (
-          (partner.type_id || "")
-            .toString()
+          (this.xoa_dau(partner.name) || "")
             .toLowerCase()
-            .includes(this.typePartner.toLowerCase()) &&
-          (partner.name || "")
+            .includes(this.xoa_dau(this.searchByName).toLowerCase()) &&
+          (this.xoa_dau(partner.address) || "")
             .toLowerCase()
-            .includes(this.searchByName.toLowerCase()) &&
-          (partner.address || "")
-            .toLowerCase()
-            .includes(this.searchByAddress.toLowerCase())
+            .includes(this.xoa_dau(this.searchByAddress).toLowerCase()) &&
+          (this.typePartner === "6" || this.typePartner === "7"
+            ? true
+            : (partner.type_id || "")
+                .toString()
+                .toLowerCase()
+                .includes(this.typePartner.toLowerCase()))
         );
-        // } else {
-        //   return false;
-        // }
       });
     },
     visiblePartner() {
@@ -195,6 +197,8 @@ export default {
   methods: {
     ...mapActions({
       getPartners: "partner/getPartners",
+      getPartnersBestRated: "partner/getPartnersBestRated",
+      getPartnersNearBy: "partner/getPartnersNearBy",
       setCartsNull: "cart/setCartsNull",
       setShoppingStatus: "cart/setShoppingStatus",
       user: "auth/user",
@@ -206,7 +210,58 @@ export default {
       this.currentPage = pageNumber;
     },
     getTypePartner(event) {
-      this.typePartner = event.target.value.toString();
+      if (event.target.value.toString() == "6") {
+        this.bestRatedPartner(event.target.value.toString());
+      } else if (event.target.value.toString() == "7") {
+        this.getUserLocation(event.target.value.toString());
+      } else {
+        this.partnerData = this.getPartnersLocal;
+        this.typePartner = event.target.value.toString();
+      }
+    },
+    bestRatedPartner(typePartner) {
+      this.getPartnersBestRated().then((res) => {
+        this.partnerData = res;
+        this.typePartner = typePartner;
+      });
+    },
+    getUserLocation(typePartner) {
+      let options = {
+        enableHighAccuracy: Boolean, //defaults to false
+        timeout: 3000, //defaults to Infinity
+        maximumAge: 0, //defaults to 0
+      };
+      this.$getLocation(options).then((coordinates) => {
+        let params = {
+          latitude: coordinates.lat,
+          longitude: coordinates.lng,
+          localityLanguage: "vn",
+        };
+        this.getPartnersNearByUserLocation(params, typePartner);
+      });
+    },
+    getPartnersNearByUserLocation(params, typePartner) {
+      this.getPartnersNearBy(params).then((res) => {
+        this.partnerData = res;
+        this.typePartner = typePartner;
+      });
+    },
+    xoa_dau(str) {
+      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+      str = str.replace(/đ/g, "d");
+      str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+      str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+      str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+      str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+      str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+      str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+      str = str.replace(/Đ/g, "D");
+      return str.toLowerCase();
     },
     getResult() {
       this.getPartners()
@@ -216,9 +271,11 @@ export default {
           this.setShoppingStatus(false);
           this.showFeedback(false);
           this.partnerData = this.getPartnersLocal;
+          console.log(this.partnerData);
         })
-        .catch((err) => {
-          // console.log(err);
+        .catch((error) => {
+          console.log(error);
+          openToastMess(error, "error");
         });
     },
   },

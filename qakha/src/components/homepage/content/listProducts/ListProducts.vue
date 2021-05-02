@@ -272,16 +272,11 @@ export default {
     },
     getFeedBackToShow() {
       if (this.getFeedbacksStatus) {
-        // console.log("this.getFeedbacksStatus " + this.getFeedbacksStatus);
         let params = {
           partner_id: this.$route.params.slug,
         };
-        // console.log(params);
         this.Feedbacks(params)
-          .then((res) => {
-            // console.log("hi");
-            // console.log(res);
-          })
+          .then((res) => {})
           .catch((error) => {
             openToastMess(error, "error");
           });
@@ -290,7 +285,6 @@ export default {
     getDataCartFromServe(partnerObj) {
       this.partnerStatus = partnerObj.status;
       let token = localStorage.getItem("token");
-      // console.log(this.partnerStatus);
       if (token && this.partnerStatus === "open") {
         let params = {
           partner_id: this.slug,

@@ -36,6 +36,26 @@ const actions = {
                 });
         })
     },
+    getPartnersBestRated({ commit }) {
+        return new Promise((res, rej) => {
+            httpRequest.get('/suggest_partners')
+                .then((response) => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                });
+        })
+    },
+    getPartnersNearBy({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/suggest_partners_nearby', params)
+                .then((response) => {
+                    res(response.data);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                });
+        })
+    },
     partnerId({ commit }, params) {
         commit('setPartnerId', params)
     }

@@ -114,7 +114,12 @@ const router = new VueRouter({
   routes
 })
 
+
 router.beforeEach((to, from, next) => {
+  document.querySelectorAll(".modal.show").forEach((m) => m.remove());
+  document
+    .querySelectorAll("body>.modal-backdrop.show")
+    .forEach((m) => m.remove());
   if (to.matched.some((record) => record.meta.auth)) {
     if (localStorage.getItem('token') === null) {
       next({ path: '/login' });

@@ -406,6 +406,7 @@ export default {
       selectedTypeRestaurant: "ALL",
       searchByName: "",
       userCurrentAddress: "",
+      coordinatesObj: {},
       restaurantsType: [
         "ALL",
         "VEGE",
@@ -644,24 +645,23 @@ export default {
       });
     },
     getUserLocation() {
-      let coordinatesObj = {};
       let options = {
         enableHighAccuracy: Boolean, //defaults to false
         timeout: 3000, //defaults to Infinity
         maximumAge: 0, //defaults to 0
       };
       this.$getLocation(options).then((coordinates) => {
-        // console.log(coordinates);
-        coordinatesObj = coordinates;
+        this.coordinatesObj = coordinates;
+        let params = {
+          latitude: this.coordinatesObj.lat,
+          longitude: this.coordinatesObj.lng,
+          localityLanguage: "vn",
+        };
+        this.getUserAddress(params);
       });
-
-      let params = {
-        latitude: coordinatesObj.lat,
-        longitude: coordinatesObj.lng,
-        localityLanguage: "vn",
-      };
+    },
+    getUserAddress(params) {
       this.getUserCurrentAddress(params).then((res) => {
-        // console.log(res);
         this.userCurrentAddress = res;
       });
     },

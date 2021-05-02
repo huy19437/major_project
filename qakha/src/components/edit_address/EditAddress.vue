@@ -174,7 +174,11 @@ export default {
       // console.log(this.addressUpdate);
     },
     getResult() {
-      this.getAddress(this.getUser.id);
+      this.getAddress(this.getUser.id)
+        .then((response) => {})
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
     },
     hasHistory() {
       return window.history.length > 2;

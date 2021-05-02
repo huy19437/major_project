@@ -480,12 +480,20 @@ export default {
       this.userObj.email = this.userDataFromSer.email;
     },
     getResult() {
-      this.showUser().then((res) => {
-        this.setShoppingStatus(false);
-        // this.user();
-        this.getAddress(this.user.id);
-        this.setUserInfo();
-      });
+      this.showUser()
+        .then((res) => {
+          this.setShoppingStatus(false);
+          // this.user();
+          this.getAddress(this.user.id)
+            .then((res) => {})
+            .catch((error) => {
+              openToastMess(error, "error");
+            });
+          this.setUserInfo();
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
     },
   },
   created() {

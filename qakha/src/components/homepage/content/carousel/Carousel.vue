@@ -163,8 +163,8 @@ export default {
       var productsHasTrend = [];
       var tmp = [];
       var index = 0;
-      // this.partnersFromSer.filter((pl) =>
-      this.getPartnersLocal.filter((pl) =>
+      this.partnersFromSer.filter((pl) =>
+        // this.getPartnersLocal.filter((pl) =>
         pl.categories.filter((cat) =>
           cat.products.filter((product) => {
             // if (product.quantity_sold > 10) {
@@ -182,9 +182,8 @@ export default {
 
       var sortedObjs = _.sortBy(productsHasTrend, "quantity_sold")
         .reverse()
-        .slice(0, 20);
+        .slice(0, 40);
       // var sortedObjs = productsHasTrend.slice(0, 20);
-      console.log(sortedObjs);
 
       for (let j = 0; j < Math.ceil(sortedObjs.length / 4); j++) {
         for (let i = 0; i < 4; i++) {
@@ -214,8 +213,8 @@ export default {
     },
   },
   created() {
-    this.setTrendingProducts();
-    // this.getPartnersFromSer();
+    // this.setTrendingProducts();
+    this.getPartnersFromSer();
   },
 };
 </script>
