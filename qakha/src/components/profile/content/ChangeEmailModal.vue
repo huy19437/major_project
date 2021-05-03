@@ -228,7 +228,7 @@ export default {
 <style scoped lang="scss">
 .wrapper {
   display: flex;
-  height: 16vh;
+  height: 20vh;
   align-items: center;
   .inner {
     background: #fff;

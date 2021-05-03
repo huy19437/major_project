@@ -284,10 +284,34 @@ export default {
       }
     },
     gotoCheckout() {
-      this.$router.push({
-        name: "Checkout",
-        params: { slug: this.slug || 0 },
-      });
+      let params = {
+        partner_id: this.slug,
+      };
+      this.getCart(params)
+        .then((res) => {
+          console.log(res);
+          if (res.carts.length !== 0) {
+            this.directToCheckout();
+          }
+          if (res.carts.length === 0) {
+            this.getCartContent();
+          }
+        })
+        .catch((error) => {
+          if (typeof error == "object") {
+            openToastMess(error.toString(), "error");
+          } else {
+            openToastMess(error, "error");
+          }
+        });
+    },
+    directToCheckout() {
+      if (this.getCartLocal.length != 0) {
+        this.$router.push({
+          name: "Checkout",
+          params: { slug: this.slug || 0 },
+        });
+      }
     },
     getSubTotal(array) {
       return array.reduce(function (accumulator, currentValue) {
