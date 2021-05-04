@@ -474,7 +474,7 @@ export default {
     //   return this.user.delivery_time;
     // },
     isExpired() {
-      console.log(this.voucher.expiry_date + "----" + this.dateNow);
+      // console.log(this.voucher.expiry_date + "----" + this.dateNow);
       return this.voucher.expiry_date - this.dateNow;
     },
   },
@@ -528,7 +528,7 @@ export default {
         })
         .finally(() => {
           this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
-            console.log(res);
+            // console.log(res);
           });
         });
     },
@@ -548,7 +548,7 @@ export default {
         })
         .finally(() => {
           this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
-            console.log(res);
+            // console.log(res);
           });
         });
     },

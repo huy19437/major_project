@@ -217,7 +217,7 @@ export default {
         if (!this.$v.userLogin.$invalid) {
           this.loginFuction(this.$data.userLogin)
             .then((res) => {
-              console.log(this.getNowRoute);
+              // console.log(this.getNowRoute);
               if (this.getNowRoute) {
                 // console.log(this.getNowRoute);
                 window.location.href =

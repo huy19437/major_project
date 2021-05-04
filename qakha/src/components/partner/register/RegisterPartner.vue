@@ -511,20 +511,20 @@ export default {
           if (this.registerError == null && !this.errMess) {
             this.$v.form.$touch();
             if (!this.$v.form.$invalid) {
-              console.log(this.$data.form);
+              // console.log(this.$data.form);
               this.registerPartner(this.$data.form)
                 .then((response) => {
                   this.image = "";
                   $("#activePartnerModal").modal("show");
                   if (response) {
-                    console.log(response);
+                    // console.log(response);
                     this.registerSucess = true;
                     this.clearInput();
                     setTimeout(this.toggleSuccesMessage, 5000);
                   }
                 })
                 .catch((error) => {
-                  console.log(error);
+                  // console.log(error);
                   openToastMess(error, "error");
                 })
                 .finally(() => {
@@ -554,7 +554,7 @@ export default {
           .then((res) => {
             $("#activePartnerModal").modal("hide");
             openToastMess(res, "success");
-            console.log(res);
+            // console.log(res);
           })
           .catch((err) => {
             openToastMess(err, "error");

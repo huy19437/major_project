@@ -514,10 +514,10 @@ export default {
       this.getResult();
     },
     getResult() {
+      this.setShoppingStatus(false);
       this.showUser()
         .then((res) => {
           this.setUserInfo();
-          this.setShoppingStatus(false);
           // this.user();
           this.getAddress(this.user.id)
             .then((res) => {})

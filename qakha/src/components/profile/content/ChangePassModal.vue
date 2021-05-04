@@ -214,7 +214,7 @@ export default {
       this.isDisabled = true;
       this.$v.userNewPass.$touch();
       if (!this.$v.userNewPass.$invalid) {
-        console.log(this.$data.userNewPass);
+        // console.log(this.$data.userNewPass);
 
         this.changePassWord(this.$data.userNewPass)
           .then((res) => {

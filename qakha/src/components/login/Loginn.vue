@@ -73,7 +73,7 @@ export default {
       this.registerSucess = false;
     },
     showSuccesMessage(registerSucess) {
-      console.log("hi");
+      // console.log("hi");
       this.registerSucess = !this.registerSucess;
       setTimeout(this.toggleSuccesMessage, 4000);
     },

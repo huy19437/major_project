@@ -160,7 +160,7 @@ export default {
         await this.upload()
           .then((res) => {
             this.feedBackPartnerObj.point = this.rating;
-            console.log(this.feedBackPartnerObj);
+            // console.log(this.feedBackPartnerObj);
             this.addFeedbackPartner(this.feedBackPartnerObj)
               .then((res) => {
                 this.image = "";
@@ -183,7 +183,7 @@ export default {
           });
       } else {
         this.feedBackPartnerObj.point = this.rating;
-        console.log(this.feedBackPartnerObj);
+        // console.log(this.feedBackPartnerObj);
         this.addFeedbackPartner(this.feedBackPartnerObj)
           .then((res) => {
             // console.log(res);

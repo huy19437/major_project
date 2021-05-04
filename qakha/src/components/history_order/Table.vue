@@ -169,7 +169,7 @@ export default {
       });
     },
     getDataForFeedback(order) {
-      console.log(order);
+      // console.log(order);
       let params = {
         order_id: order.id,
         driver_id: order.driver_id,
@@ -187,7 +187,7 @@ export default {
 
       this.checkFeedbackDriver(checkFeedbackDriver)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.rated_driver) {
             $("#feedBackPartnerModal").modal("show");
           } else {

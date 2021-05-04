@@ -269,7 +269,7 @@ export default {
       let partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
       this.partnerName = partnerObj.name;
       this.partnerAddress = partnerObj.address;
-      console.log(partnerObj);
+      // console.log(partnerObj);
 
       this.partnerStatus = partnerObj.status;
       let token = localStorage.getItem("token");
@@ -297,7 +297,7 @@ export default {
       };
       this.getCart(params)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.carts.length !== 0) {
             this.directToCheckout();
           }

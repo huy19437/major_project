@@ -160,7 +160,7 @@ export default {
         this.updateUser(params)
           .then((res) => {
             this.codeActive = !this.codeActive;
-            console.log(res);
+            // console.log(res);
             openToastMess("Get verification code in your Email!", "success");
           })
           .catch((err) => {
@@ -184,7 +184,7 @@ export default {
           new_email: this.new_email,
           code_activate: this.code_active,
         };
-        console.log(params);
+        // console.log(params);
         this.changeEmail(params)
           .then((res) => {
             this.codeActive = !this.codeActive;
@@ -220,7 +220,7 @@ export default {
   watch: {
     userDataFromSerChange() {
       this.current_email = this.userDataFromSer.email;
-      console.log(this.current_email);
+      // console.log(this.current_email);
     },
   },
 };
