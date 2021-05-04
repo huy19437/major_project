@@ -628,12 +628,16 @@ export default {
       // console.log(this.partnerIdForSlug);
     },
     gotoCart() {
-      if (this.getCartLocal.length != 0) {
-        this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-        this.$router.push({
-          name: "Cart",
-          params: { slug: this.partnerIdForSlug || 0 },
-        });
+      if (this.getCartLocal) {
+        if (this.getCartLocal.length != 0) {
+          this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+          this.$router.push({
+            name: "Cart",
+            params: { slug: this.partnerIdForSlug || 0 },
+          });
+        } else {
+          openToastMess("Nothing in Cart!!!", "warning");
+        }
       } else {
         openToastMess("Nothing in Cart!!!", "warning");
       }
