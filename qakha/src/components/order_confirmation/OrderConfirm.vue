@@ -386,7 +386,7 @@
                               padding: 15px 10px 5px 10px;
                             "
                           >
-                            {{ getOrder.subtotal }} VNĐ
+                            {{ formatVND(getOrder.subtotal) }}
                           </td>
                         </tr>
                         <tr>
@@ -416,7 +416,7 @@
                               padding: 5px 10px;
                             "
                           >
-                            {{ getOrder.shipping_fee }} VNĐ
+                            {{ formatVND(getOrder.shipping_fee) }}
                           </td>
                         </tr>
                       </table>
@@ -461,7 +461,7 @@
                               border-bottom: 3px solid #eeeeee;
                             "
                           >
-                            {{ getOrder.total }} VNĐ
+                            {{ formatVND(getOrder.total) }}
                           </td>
                         </tr>
                       </table>
@@ -603,6 +603,12 @@ export default {
       getCart: "cart/getCart",
       setShoppingStatus: "cart/setShoppingStatus",
     }),
+    formatVND(number) {
+      return number.toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      });
+    },
     showOrder() {
       // console.log(this.getOrder);
       // console.log(this.getOrderDetails);

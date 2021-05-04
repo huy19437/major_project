@@ -144,6 +144,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "@/assets/style/_mixins.scss";
 .dropdown-status {
   width: 100% !important;
   margin: 0;
@@ -155,11 +156,16 @@ export default {
       .row {
         .col-5 {
           button {
+            @include buttonStyle();
             background-color: #000;
             border-color: #000;
+            border-radius: 0;
             &:hover {
               background-color: #f7941d;
               border-color: #f7941d;
+            }
+            &:focus {
+              box-shadow: none;
             }
           }
         }

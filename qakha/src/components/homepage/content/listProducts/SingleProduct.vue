@@ -52,7 +52,7 @@
         <!-- <a href="product-details">{{ product.name }}</a> -->
       </h3>
       <div class="product-price">
-        <span>{{ product.price }} VNĐ</span>
+        <span>{{ product.price | formatVND }}</span>
       </div>
     </div>
   </div>
@@ -62,7 +62,6 @@
 import { openToastMess } from "@/services/toastMessage";
 import { mapGetters, mapActions } from "vuex";
 import InputOrderHover from "./InputOrderHover";
-
 export default {
   props: {
     product: {
@@ -86,6 +85,12 @@ export default {
       addProductToCart: "cart/addProductToCart",
       nowRoute: "auth/nowRoute",
     }),
+    // formatVND(number) {
+    //   return number.toLocaleString("vi-VN", {
+    //     style: "currency",
+    //     currency: "VND",
+    //   });
+    // },
     addToCart(product) {
       console.log("2");
       let token = localStorage.getItem("token");

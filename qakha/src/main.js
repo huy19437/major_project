@@ -10,6 +10,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCaretLeft, faCaretRight, faCoffee, faAnchor, faArrowUp, faShoppingCart, faEdit, faTrashAlt, faUndo, faClipboardList, faCamera, faStore } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import formatVND from '@/services/formatVND'
 import '@/assets/asset_item/css/bootstrap.css'
 import '@/assets/asset_item/css/font-awesome.css'
 import '@/assets/asset_item/css/themify-icons.css'
@@ -36,6 +37,7 @@ Vue.use(FlagIcon);
 Vue.use(VueGeolocation);
 Vue.use(ProgressBar)
 
+
 // import VueToast from 'vue-toast-notification';
 // import 'vue-toast-notification/dist/theme-sugar.css';
 
@@ -54,6 +56,13 @@ Vue.use(Vuelidate)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
+
+Vue.filter('formatVND', function (value) {
+  return value.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+})
 
 new Vue({
   i18n,

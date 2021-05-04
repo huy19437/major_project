@@ -422,7 +422,7 @@ export default {
 
 .product-info {
   .nav {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   .nav-tabs {
     display: flex;

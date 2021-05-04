@@ -52,7 +52,7 @@
               >{{ item.rate_status }}</a
             >
           </td>
-          <td>{{ item.total }}</td>
+          <td>{{ item.total | formatVND }}</td>
           <td>
             <span :class="`order-status-${item.status}`">
               {{ item.status }}
@@ -149,6 +149,12 @@ export default {
       orderDetails: "order/orderDetails",
       checkFeedbackDriver: "feedback/checkFeedbackDriver",
     }),
+    // formatVND(number) {
+    //   return number.toLocaleString("vi-VN", {
+    //     style: "currency",
+    //     currency: "VND",
+    //   });
+    // },
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },

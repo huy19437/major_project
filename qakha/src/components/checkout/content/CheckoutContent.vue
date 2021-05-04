@@ -277,20 +277,20 @@
                 <ul>
                   <li>
                     {{ $t("checkout.cart.subTotal")
-                    }}<span>{{ subTotal }} VNĐ</span>
+                    }}<span>{{ subTotal | formatVND }}</span>
                   </li>
                   <li>
                     (+) {{ $t("checkout.cart.shipping") }}({{
                       distance
-                    }}km)<span>{{ shipping_fee }} VNĐ</span>
+                    }}km)<span>{{ shipping_fee | formatVND }}</span>
                   </li>
                   <li>
                     (-) {{ $t("checkout.cart.discount")
-                    }}<span>{{ discount }} VNĐ</span>
+                    }}<span>{{ discount | formatVND }}</span>
                   </li>
                   <li class="last">
                     {{ $t("checkout.cart.total")
-                    }}<span>{{ subTotal + shipping_fee }} VNĐ</span>
+                    }}<span>{{ (subTotal + shipping_fee) | formatVND }}</span>
                   </li>
                 </ul>
               </div>
@@ -491,6 +491,12 @@ export default {
       getCart: "cart/getCart",
       setShoppingStatus: "cart/setShoppingStatus",
     }),
+    // formatVND(number) {
+    //   return number.toLocaleString("vi-VN", {
+    //     style: "currency",
+    //     currency: "VND",
+    //   });
+    // },
     changeAddress(address) {
       let addressUserForCalcDistance = {
         partner_id: this.slug,
@@ -729,6 +735,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/style/_mixins.scss";
 .form-group {
   .errorMessage {
     color: red !important;
@@ -788,6 +795,7 @@ export default {
 
 .shop.checkout .single-widget.get-button .btn {
   line-height: 33px !important;
+  @include buttonStyle();
 }
 
 .btn-apply,
@@ -798,6 +806,7 @@ export default {
   text-transform: uppercase;
   color: #fff !important;
   margin-right: 20px;
+  @include buttonStyle();
 }
 
 .current {

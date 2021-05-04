@@ -1,0 +1,11 @@
+@mixin buttonStyle {
+  transition: all 200ms ease;
+  color: #fff;
+  &:active {
+    -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+    top: 2px;
+    outline: 0;
+    box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+  }
+}

@@ -52,7 +52,7 @@
                   </p>
                 </td>
                 <td class="price" data-title="Price">
-                  <span>{{ product.price }} VNĐ</span>
+                  <span>{{ product.price | formatVND }}</span>
                 </td>
                 <td class="qty" data-title="Qty">
                   <!-- Input Order -->
@@ -75,7 +75,9 @@
                 </td>
                 <td class="total-amount" data-title="Total">
                   <span>
-                    {{ roundToTwo(product.price * product.quantity) }} VNĐ
+                    {{
+                      roundToTwo(product.price * product.quantity) | formatVND
+                    }}
                   </span>
                 </td>
                 <td class="action delete">
@@ -115,7 +117,7 @@
                   <ul>
                     <li>
                       {{ $t("cartContent.Subtotal")
-                      }}<span>{{ roundToTwo(subTotal) }} VNĐ</span>
+                      }}<span>{{ roundToTwo(subTotal) | formatVND }}</span>
                     </li>
                     <li class="last"></li>
                   </ul>
@@ -184,6 +186,12 @@ export default {
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
     }),
+    // formatVND(number) {
+    //   return number.toLocaleString("vi-VN", {
+    //     style: "currency",
+    //     currency: "VND",
+    //   });
+    // },
     updateProduct(id, quantity) {
       this.partner = this.getPartnersLocal.find((pl) =>
         pl.categories.find((cat) => cat.products.find((obj) => obj.id == id))
@@ -333,6 +341,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/style/_mixins.scss";
 .product-des {
   text-align: left;
   overflow: hidden;
@@ -380,6 +389,7 @@ export default {
   .button5 {
     .btn-right {
       line-height: 31px !important;
+      @include buttonStyle();
     }
   }
   .left {

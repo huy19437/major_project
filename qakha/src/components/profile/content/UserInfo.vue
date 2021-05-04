@@ -537,6 +537,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/style/_mixins.scss";
 .user-info {
   text-align: left;
 }
@@ -727,6 +728,9 @@ mark {
   .order-history {
     a {
       color: #000;
+      &:hover {
+        color: #f7941d;
+      }
     }
     font-size: 3rem;
   }
@@ -743,9 +747,11 @@ mark {
 .btn.btn-primary.btn-update-user,
 .btn.btn-primary.btn-update-password,
 .btn.btn-primary.remove-image {
+  @include buttonStyle();
   color: #fff;
   background-color: #000;
   border-color: #000;
+  border-radius: 0 !important;
   &:hover {
     background-color: #f7941d;
     border-color: #f7941d;

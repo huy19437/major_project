@@ -64,8 +64,8 @@
               </div>
             </div>
             <div class="action">
-              <button
-                class="add-to-cart btn btn-default"
+              <a
+                class="add-to-cart btn"
                 type="button"
                 style="margin-right: 5px"
                 @click="addToCart"
@@ -74,7 +74,7 @@
                 }"
               >
                 {{ $t("productDetails.addToCart") }}
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -180,6 +180,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/style/_mixins.scss";
 .container {
   overflow-x: hidden;
 }
@@ -241,6 +242,10 @@ img {
 .wrapper {
   height: 100%;
   align-items: top;
+
+  .btn {
+    @include buttonStyle();
+  }
 }
 
 @media screen and (min-width: 997px) {

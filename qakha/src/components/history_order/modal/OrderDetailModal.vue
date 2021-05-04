@@ -20,17 +20,19 @@
           <h5 v-if="totalOfOrder" class="modal-title" id="staticBackdropLabel">
             <span>
               {{ $t("historyOrders.orderDetailsModal.fee") }}:
-              {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}đ
+              {{
+                Math.ceil(getOrderDetailsHistory.order.shipping_fee) | formatVND
+              }}
             </span>
             <br v-if="getOrderDetailsHistory.order.discount" />
             <span v-if="getOrderDetailsHistory.order.discount">
               {{ $t("historyOrders.orderDetailsModal.discount") }}:
-              {{ getOrderDetailsHistory.order.discount }}đ
+              {{ getOrderDetailsHistory.order.discount | formatVND }}
             </span>
             <br />
             <span class="total-order"
               >{{ $t("historyOrders.orderDetailsModal.table.total") }}:
-              {{ totalOfOrder }}đ</span
+              {{ totalOfOrder | formatVND }}</span
             >
           </h5>
         </div>
@@ -68,13 +70,13 @@
                     <td>{{ getOrderDetailsHistory.order.name }}</td>
                     <td>{{ order.product.name }}</td>
                     <td>{{ order.quantity }}</td>
-                    <td>{{ order.price }}</td>
+                    <td>{{ order.price | formatVND }}</td>
                     <!-- <td>
                       {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}
                     </td> -->
                     <!-- <td>{{ getOrderDetailsHistory.order.discount }}</td> -->
                     <td>
-                      {{ order.quantity * order.price }}
+                      {{ (order.quantity * order.price) | formatVND }}
                     </td>
                   </tr>
                 </tbody>
@@ -115,6 +117,12 @@ export default {
     }),
   },
   methods: {
+    // formatVND(number) {
+    //   return number.toLocaleString("vi-VN", {
+    //     style: "currency",
+    //     currency: "VND",
+    //   });
+    // },
     getResult() {
       // console.log(this.getOrderDetailsHistory);
     },

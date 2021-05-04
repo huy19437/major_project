@@ -155,7 +155,7 @@
                                 {{ product.name }}
                               </a>
                               <span class="product-price">
-                                {{ product.price }}đ
+                                {{ product.price | formatVND }}
                               </span>
                             </h4>
                           </li>
@@ -217,16 +217,18 @@
                           <span class="quantity-product">
                             {{ product.quantity }}x
                           </span>
-                          <span class="amount">{{ product.price }}đ</span>
+                          <span class="amount">
+                            {{ product.price | formatVND }}
+                          </span>
                         </p>
                       </li>
                     </ul>
                     <div class="bottom">
                       <div class="total">
                         <span>{{ $t("header.middleInner.total") }}</span>
-                        <span class="total-amount"
-                          >{{ roundNumber(total) }} VNĐ</span
-                        >
+                        <span class="total-amount">
+                          {{ roundNumber(total) | formatVND }}
+                        </span>
                       </div>
                       <!-- <a href="checkout" class="btn animate">Checkout</a> -->
                       <a
@@ -481,6 +483,12 @@ export default {
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
     }),
+    // formatVND(number) {
+    //   return number.toLocaleString("vi-VN", {
+    //     style: "currency",
+    //     currency: "VND",
+    //   });
+    // },
     changeLocale(locale) {
       i18n.locale = locale;
     },
@@ -690,6 +698,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/style/_mixins.scss";
 .header-sticky {
   position: sticky;
   top: -158px;
@@ -819,7 +828,7 @@ export default {
 .header.shop {
   .logo {
     margin: 6px 0 0 !important;
-    padding-left: 50px;
+    width: 206px;
   }
 
   .search-bar-top {
@@ -868,6 +877,11 @@ export default {
         .dropdown-cart-header {
           display: flex;
           justify-content: space-between;
+        }
+        .bottom {
+          .btn-right {
+            @include buttonStyle();
+          }
         }
       }
     }
@@ -924,9 +938,11 @@ export default {
 }
 
 .middle-inner .logo .header-logo {
-  width: 153px;
-  height: 50px;
+  width: 100%;
+  // height: 50px;
   max-width: 140% !important;
+  cursor: pointer;
+  object-fit: contain;
 }
 
 .right-content .map-button {

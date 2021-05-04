@@ -183,6 +183,12 @@ export default {
     partnerDataOnChange() {
       return this.partnerData;
     },
+    searchByAddressOnChange() {
+      return this.searchByAddress;
+    },
+    searchByNameOnChange() {
+      return this.searchByName;
+    },
   },
   data() {
     return {
@@ -287,6 +293,12 @@ export default {
   },
   watch: {
     partnerDataOnChange() {
+      this.currentPage = 0;
+    },
+    searchByAddressOnChange() {
+      this.currentPage = 0;
+    },
+    searchByNameOnChange() {
       this.currentPage = 0;
     },
   },
