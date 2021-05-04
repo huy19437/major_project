@@ -638,7 +638,7 @@ export default {
       });
     },
     gotoProduct(id) {
-      console.log(id);
+      // console.log(id);
       this.$router.push({
         name: "ProductDetail",
         params: { slug: id },
@@ -661,16 +661,17 @@ export default {
       });
     },
     getUserAddress(params) {
+      console.log(params);
       this.getUserCurrentAddress(params).then((res) => {
         this.userCurrentAddress = res;
       });
     },
   },
   created() {
-    // this.getPartnerIdForCart();
+    this.getUserLocation();
     this.getUserInfoFromLocal();
     this.gePartnerDataFromPartner();
-    this.getUserLocation();
+    // this.getPartnerIdForCart();
     // console.log(this.userName);
     // this.getInfoProductInCart();
   },

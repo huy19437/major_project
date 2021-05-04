@@ -120,7 +120,7 @@ export default {
 }
 
 .modal-body {
-  display: flex;
+  // display: flex;
   .content {
     flex: 1;
     text-align: left;

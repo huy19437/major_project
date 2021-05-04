@@ -24,8 +24,16 @@
                     <input
                       type="text"
                       v-model="userObj.name"
-                      @blur="isDisabled = false"
+                      @blur="
+                        $v.userObj.name.$touch();
+                        isDisabled = false;
+                      "
                     />
+                    <div v-if="$v.userObj.name.$error">
+                      <p class="errorMessage" v-if="!$v.userObj.name.required">
+                        Name is required
+                      </p>
+                    </div>
                   </div>
                   <div class="media">
                     <label>{{ $t("userProfile.role") }}</label>
@@ -58,6 +66,12 @@
                       "
                     />
                     <div v-if="$v.userObj.phone_number.$error">
+                      <p
+                        class="errorMessage"
+                        v-if="!$v.userObj.phone_number.required"
+                      >
+                        Phone number is required
+                      </p>
                       <p
                         class="errorMessage"
                         v-if="!$v.userObj.phone_number.minLength"
@@ -254,7 +268,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { email, minLength, maxLength } from "vuelidate/lib/validators";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from "vuelidate/lib/validators";
 import ChangePassModal from "./ChangePassModal";
 import ChangeEmailModal from "./ChangeEmailModal";
 import ProgressBar from "vuejs-progress-bar";
@@ -300,17 +319,17 @@ export default {
       formData: null,
       userObj: {
         name: "",
-        email: "",
         phone_number: "",
       },
     };
   },
   validations: {
     userObj: {
-      email: {
-        email,
+      name: {
+        required,
       },
       phone_number: {
+        required,
         minLength: minLength(10),
         maxLength: maxLength(10),
       },
@@ -490,7 +509,6 @@ export default {
       this.userDataFromSer = this.getUser;
       this.userObj.phone_number = this.userDataFromSer.phone_number;
       this.userObj.name = this.userDataFromSer.name;
-      this.userObj.email = this.userDataFromSer.email;
     },
     emailChanged() {
       this.getResult();
@@ -498,6 +516,7 @@ export default {
     getResult() {
       this.showUser()
         .then((res) => {
+          this.setUserInfo();
           this.setShoppingStatus(false);
           // this.user();
           this.getAddress(this.user.id)
@@ -505,7 +524,6 @@ export default {
             .catch((error) => {
               openToastMess(error, "error");
             });
-          this.setUserInfo();
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -606,6 +624,17 @@ img {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
         width: 41%;
+      }
+    }
+    .input {
+      position: relative;
+    }
+    div {
+      p {
+        position: absolute;
+        top: 29px;
+        right: -92px;
+        width: 100%;
       }
     }
   }

@@ -266,15 +266,15 @@ export default {
     getResult() {
       this.getPartners()
         .then((res) => {
-          console.log("call here");
+          // console.log("call here");
           this.setCartsNull();
           this.setShoppingStatus(false);
           this.showFeedback(false);
           this.partnerData = this.getPartnersLocal;
-          console.log(this.partnerData);
+          // console.log(this.partnerData);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
           openToastMess(error, "error");
         });
     },

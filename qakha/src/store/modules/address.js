@@ -41,6 +41,7 @@ const actions = {
         return new Promise((res, rej) => {
             axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client', { params })
                 .then((response) => {
+                    console.log(response);
                     res(response.data);
                     // commit('setAddress', response.data);
                 }).catch(err => {
