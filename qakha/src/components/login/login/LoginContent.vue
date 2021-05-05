@@ -65,11 +65,7 @@
 
       <button
         class="button button-block"
-        :disabled="
-          $v.userLogin.$invalid || isDisabled || loginError == null
-            ? false
-            : true
-        "
+        :disabled="$v.userLogin.$invalid || isDisabled || loginError != null"
       >
         {{ $t("login.login") }}
       </button>
@@ -203,12 +199,12 @@ export default {
       loginFuction: "auth/login",
       activeAccount: "auth/activeAccount",
     }),
-    toggleStyleDisplay: function () {
-      this.status = !this.status;
-    },
     ...mapMutations({
       setLoginError: "auth/setLoginError",
     }),
+    toggleStyleDisplay: function () {
+      this.status = !this.status;
+    },
     authenticate(event) {
       this.isLoading = true;
       this.isDisabled = true;
@@ -277,6 +273,9 @@ export default {
           });
       }
     },
+  },
+  created() {
+    this.setLoginError(null);
   },
 };
 </script>

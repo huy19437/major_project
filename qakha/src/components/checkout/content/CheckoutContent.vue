@@ -768,6 +768,8 @@ export default {
   .checkbox {
     label {
       margin-left: 0;
+      margin-bottom: 4px !important;
+      font-size: 1.8rem !important;
     }
   }
 }

@@ -162,9 +162,7 @@
       <button
         class="button button-block"
         :disabled="
-          $v.userSignup.$invalid || isDisabled || registerError == null
-            ? false
-            : true
+          $v.userSignup.$invalid || isDisabled || registerError != null
         "
       >
         {{ $t("registerUser.signup") }}
@@ -216,7 +214,10 @@
                     </p>
                   </div>
                 </div>
-                <button class="btn btn-primary btn-block btn-forgot">
+                <button
+                  class="btn btn-primary btn-block btn-forgot"
+                  :disabled="$v.activeCode.$invalid || isDisabled"
+                >
                   Submit
                 </button>
                 <Spinner :loading="isLoading3" />
@@ -344,6 +345,7 @@ export default {
     },
     handleSubmit() {
       this.isLoading3 = true;
+      this.isDisabled = true;
       this.$v.activeCode.$touch();
       if (!this.$v.activeCode.$invalid) {
         let params = {
@@ -361,6 +363,7 @@ export default {
           })
           .finally(() => {
             this.isLoading3 = false;
+            this.isDisabled = false;
           });
       }
     },
@@ -375,6 +378,9 @@ export default {
       this.userSignup.password = "";
       this.userSignup.password_confirmation = "";
     },
+  },
+  created() {
+    this.setRegisterError(null);
   },
 };
 </script>
