@@ -500,6 +500,8 @@ export default {
     },
     removeImage: function (e) {
       this.image = "";
+      this.file = null;
+      this.filesSelected = 0;
     },
     getUserChange(e) {
       // this.addressUpdate = e.target.value;
@@ -774,6 +776,9 @@ mark {
   // overflow: auto;
   .img-user-upload {
     cursor: pointer;
+    svg {
+      font-size: 3rem;
+    }
   }
 }
 

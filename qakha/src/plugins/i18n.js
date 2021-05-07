@@ -38,7 +38,7 @@ const messages = {
             searchBy: {
                 title: 'Search by',
                 name: 'Name',
-                location: 'Location'
+                location: 'Address'
             },
             open: 'open',
             close: 'close',
