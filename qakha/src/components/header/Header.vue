@@ -84,7 +84,7 @@
       <div class="middle-inner">
         <div class="container">
           <div class="row">
-            <div class="col-lg-2 col-md-2 col-12">
+            <div class="col-lg-2 col-md-2 col-12 hidden-on-tablet">
               <!-- Logo -->
               <div class="logo">
                 <a href="/">
@@ -1009,18 +1009,6 @@ export default {
   }
 }
 
-@media (max-width: 991px) {
-  .header.shop {
-    .logo {
-      margin: 6px 0 0 !important;
-      padding-left: 0;
-    }
-    .middle-inner {
-      padding: 9px 0 !important;
-    }
-  }
-}
-
 .diabledPointer {
   pointer-events: none;
   cursor: default;
@@ -1033,6 +1021,49 @@ export default {
   }
   .list {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .header.shop {
+    .logo {
+      margin: 6px 0 0 !important;
+      padding-left: 0;
+    }
+    .middle-inner {
+      padding: 9px 0 !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .topbar {
+    .container {
+      .row {
+        .col-lg-5.col-md-12.col-12,
+        .col-lg-7.col-md-12.col-12 {
+          display: flex;
+          justify-content: center;
+        }
+        .col-lg-7.col-md-12.col-12 {
+          .right-content {
+            .list-main {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .middle-inner {
+    .container {
+      .row {
+        margin-bottom: 6px;
+        .col-lg-2.col-md-2.col-12.hidden-on-tablet {
+          display: none !important;
+        }
+      }
+    }
   }
 }
 </style>

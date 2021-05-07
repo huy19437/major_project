@@ -49,4 +49,10 @@ export default {};
 .shop-newsletter .newsletter-inner input {
   font-size: 16px;
 }
+
+@media only screen and (min-width: 991px) and (max-width: 1199px) {
+  .shop-newsletter .newsletter-inner input {
+    width: 380px !important;
+  }
+}
 </style>
