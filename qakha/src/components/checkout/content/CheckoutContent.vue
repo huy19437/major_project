@@ -152,7 +152,10 @@
                             disabled:
                               subTotal < item.condition ||
                               item.usage_limit == 0 ||
-                              compare(item.expiry_date < dateNow),
+                              compare(item.expiry_date < dateNow) ||
+                              item.distance_condition === null
+                                ? false
+                                : distance > item.distance_condition,
                           }"
                         >
                           <span
@@ -161,7 +164,10 @@
                               disabled:
                                 subTotal < item.condition ||
                                 item.usage_limit == 0 ||
-                                compare(item.expiry_date < dateNow),
+                                compare(item.expiry_date < dateNow) ||
+                                item.distance_condition === null
+                                  ? false
+                                  : distance > item.distance_condition,
                             }"
                           >
                             {{ item.code }}
@@ -173,7 +179,10 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow),
+                                  compare(item.expiry_date < dateNow) ||
+                                  item.distance_condition === null
+                                    ? false
+                                    : distance > item.distance_condition,
                               }"
                             >
                               {{ item.description ? item.description : "" }}
@@ -184,7 +193,10 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow),
+                                  compare(item.expiry_date < dateNow) ||
+                                  item.distance_condition === null
+                                    ? false
+                                    : distance > item.distance_condition,
                               }"
                             >
                               For order from
@@ -196,7 +208,10 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow),
+                                  compare(item.expiry_date < dateNow) ||
+                                  item.distance_condition === null
+                                    ? false
+                                    : distance > item.distance_condition,
                               }"
                             >
                               Expiration date:
@@ -208,7 +223,10 @@
                                 disabled:
                                   subTotal < item.condition ||
                                   item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow),
+                                  compare(item.expiry_date < dateNow) ||
+                                  item.distance_condition === null
+                                    ? false
+                                    : distance > item.distance_condition,
                               }"
                             >
                               Usage limit:{{ item.usage_limit }}
@@ -290,7 +308,9 @@
                   </li>
                   <li class="last">
                     {{ $t("checkout.cart.total")
-                    }}<span>{{ (subTotal + shipping_fee) | formatVND }}</span>
+                    }}<span>{{
+                      (subTotal + shipping_fee - discount) | formatVND
+                    }}</span>
                   </li>
                 </ul>
               </div>
@@ -348,7 +368,7 @@
               <div class="content">
                 <div class="button">
                   <a
-                    :disabled="$v.user.$invalid"
+                    :disabled="$v.user.$invalid || isDisabled"
                     @click="proceedToCheckout"
                     class="btn"
                     >{{ $t("checkout.cart.proceedToCheckout") }}</a
@@ -403,11 +423,13 @@ export default {
   data() {
     return {
       errMess: false,
+      isDisabled: false,
       errMessage: "",
       slug: this.$route.params.slug,
       shipping_fee: 0,
       subTotal: 50000,
       voucher: {},
+      voucherObjFromSer: {},
       isOpen2: false,
       isOpen3: false,
       distance: 0,
@@ -517,16 +539,22 @@ export default {
         code: this.voucher.code,
         partner_id: this.slug,
       };
+      this.isDisabled = true;
+      if (this.voucher.distance_condition !== null)
+        params.distance = this.distance;
       this.applyVouchers(params)
         .then((res) => {
           openToastMess("Apply Voucher Successfully!", "success");
-          this.subTotal = res.total_after_discount;
+          this.subTotal = res.subtotal;
           this.discount = res.voucher.discount;
+          this.voucherObjFromSer = res;
+          // console.log(this.voucherObjFromSer);
         })
         .catch((error) => {
           openToastMess(error, "error");
         })
         .finally(() => {
+          this.isDisabled = false;
           this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
             // console.log(res);
           });
@@ -537,16 +565,20 @@ export default {
         voucher_id: this.voucher.id,
         partner_id: this.slug,
       };
+      this.isDisabled = true;
       this.cancelVouchers(params)
         .then((res) => {
+          // console.log(res);
           openToastMess("Cancel Voucher Successfully!", "success");
-          this.subTotal = res;
+          this.subTotal = res.subtotal;
           this.discount = 0;
+          this.voucherObjFromSer = {};
         })
         .catch((error) => {
           openToastMess(error, "error");
         })
         .finally(() => {
+          this.isDisabled = false;
           this.getVouchersFlPartner({ partner_id: this.slug }).then((res) => {
             // console.log(res);
           });
@@ -562,14 +594,16 @@ export default {
           name: this.user.name,
           phone_number: this.user.phone_number,
           address: this.user.address.name,
-          // delivery_time:
-          //   moment().format("YYYY-MM-DD") + " " + this.user.delivery_time,
           partner_id: this.slug,
           shipping_fee: this.shipping_fee,
           type_checkout: this.user.type_checkout,
           longitude: this.user.address.longitude,
           latitude: this.user.address.latitude,
         };
+        if (this.voucherObjFromSer.hasOwnProperty("voucher")) {
+          params.discount = this.voucherObjFromSer.voucher.discount;
+          params.voucher_id = this.voucherObjFromSer.voucher.id;
+        }
         // console.log(params);
         $("#loadMe").modal("show");
         this.createOrder(params)
@@ -718,7 +752,6 @@ export default {
     this.getAddress().then((res) => {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
-      // console.log(this.getVouchersLocal);
       if (
         this.getSubtotal === 0 ||
         this.getSubtotal === null ||

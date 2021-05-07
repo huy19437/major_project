@@ -419,6 +419,36 @@
                             {{ formatVND(getOrder.shipping_fee) }}
                           </td>
                         </tr>
+                        <tr v-if="getOrder.discount">
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                            "
+                          >
+                            {{ $t("orderConfirm.discount") }}
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                            "
+                          >
+                            {{ formatVND(getOrder.discount) }}
+                          </td>
+                        </tr>
                       </table>
                     </td>
                   </tr>

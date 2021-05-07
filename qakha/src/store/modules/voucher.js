@@ -78,7 +78,7 @@ const actions = {
             httpRequest.delete('/orders/voucher', { data: params })
                 .then((response) => {
                     // console.log(response.data);
-                    res(response.data.total_before_discount);
+                    res(response.data);
                 }).catch(err => {
                     rej(err.response ? err.response.data.message : err);
                 });

@@ -264,6 +264,7 @@ const messages = {
             orderConfirm: 'Order Confirmation',
             purchaseItem: 'Purchase Item',
             shippingFee: 'Shipping Fee',
+            discount: 'Discount',
             total: 'TOTAL',
             address: 'Delivery Address',
             date: 'Order Time'
@@ -593,6 +594,7 @@ const messages = {
             orderConfirm: 'Xác nhận đơn hàng',
             purchaseItem: 'Sản phẩm đã mua',
             shippingFee: 'Phí vận chuyển',
+            discount: 'Giảm giá',
             total: 'TỔNG',
             address: 'Địa chỉ giao hàng',
             date: 'Thời gian đặt hàng'
