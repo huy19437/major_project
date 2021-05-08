@@ -123,6 +123,7 @@
       <div class="field-wrap">
         <input
           required
+          type="password"
           autocomplete="off"
           v-model="userSignup.password_confirmation"
           @blur="$v.userSignup.password_confirmation.$touch()"

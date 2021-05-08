@@ -144,7 +144,7 @@
                 <div class="col-6 form-group">
                   <label>{{ $t("driver.passwordConfirmation") }}</label>
                   <input
-                    type="text"
+                    type="password"
                     :placeholder="`${$t(
                       'driver.placeholder.passwordConfirmation'
                     )}`"
