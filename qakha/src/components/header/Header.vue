@@ -1230,6 +1230,12 @@ export default {
   }
 }
 
+@media (max-width: 487px) {
+  .vi-left-title:after {
+    display: none;
+  }
+}
+
 @media (max-width: 991px) {
   .header.shop {
     .logo {
