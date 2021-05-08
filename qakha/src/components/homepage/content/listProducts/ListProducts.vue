@@ -21,31 +21,35 @@
         <div class="section-title">
           <h2>{{ $t("listProducts.categoriesList") }}</h2>
         </div>
+        <div class="nav-main">
+          <!-- Tab Nav -->
+          <ul
+            class="nav nav-tabs mobile-category__list"
+            id="myTab"
+            role="tablist"
+          >
+            <li
+              v-for="category in categories"
+              :key="category.id"
+              class="nav-item mobile-category__item"
+            >
+              <a
+                class="mobile-category__link"
+                data-toggle="tab"
+                :href="`${category.name}`"
+                role="tab"
+                @click="getProductsByCategory(category.id, category.name)"
+                >{{ category.name }}</a
+              >
+            </li>
+          </ul>
+          <!--/ End Tab Nav -->
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <div class="product-info">
-          <div class="nav-main">
-            <!-- Tab Nav -->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li
-                v-for="category in categories"
-                :key="category.id"
-                class="nav-item"
-              >
-                <a
-                  class="nav-link"
-                  data-toggle="tab"
-                  :href="`${category.name}`"
-                  role="tab"
-                  @click="getProductsByCategory(category.id, category.name)"
-                  >{{ category.name }}</a
-                >
-              </li>
-            </ul>
-            <!--/ End Tab Nav -->
-          </div>
           <div class="tab-content" id="myTabContent">
             <div id="nz-div-4">
               <h3 class="product-list-title">
@@ -420,6 +424,10 @@ export default {
   margin-top: 84px;
 }
 
+.nav-tabs {
+  border-bottom: 0 !important;
+}
+
 .product-info {
   .nav {
     flex-wrap: wrap;
@@ -487,6 +495,47 @@ export default {
   top: 0;
   left: 100%;
   content: "";
+}
+
+.nav.nav-tabs.mobile-category__list {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.mobile-category__item {
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.mobile-category__link {
+  --line-height: 2rem;
+  text-decoration: none;
+  color: #000;
+  font-size: 1.4rem;
+  line-height: var(--line-height);
+  height: calc(var(--line-heighht) * 2);
+  overflow: hidden;
+  text-align: center;
+  width: 110px;
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  border-radius: 4px;
+  font-weight: 300;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 0 7px;
+  font-weight: 700;
+}
+
+.nav.nav-tabs.mobile-category__list::-webkit-scrollbar {
+  display: none;
 }
 
 /* Product list title */
