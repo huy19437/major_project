@@ -504,7 +504,6 @@ export default {
   max-width: 100%;
   overflow-x: auto;
   flex-wrap: nowrap;
-  justify-content: center;
 }
 
 .mobile-category__item {
@@ -591,5 +590,11 @@ export default {
   pointer-events: none;
   cursor: default;
   color: #ccc !important;
+}
+
+@media (max-width: 991px) {
+  .vi-left-title:after {
+    display: none;
+  }
 }
 </style>
