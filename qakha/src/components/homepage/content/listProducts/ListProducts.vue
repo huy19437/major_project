@@ -504,6 +504,18 @@ export default {
   max-width: 100%;
   overflow-x: auto;
   flex-wrap: nowrap;
+  li {
+    a {
+      color: #000;
+      text-align: left;
+    }
+    a.active,
+    &:hover a {
+      background: transparent;
+      color: #f7941d;
+      border-color: transparent;
+    }
+  }
 }
 
 .mobile-category__item {
