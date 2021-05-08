@@ -109,7 +109,7 @@
             Password must be at least 8 characters
           </p>
           <p class="errorMessage" v-else-if="!$v.userSignup.password.maxLength">
-            Password must be at least 20 characters
+            Password must be at least 128 characters
           </p>
           <p
             class="errorMessage"
@@ -149,13 +149,13 @@
             class="errorMessage"
             v-else-if="!$v.userSignup.password_confirmation.maxLength"
           >
-            passwordConfirmation must be at least 20 characters
+            Password confirmation must be at least 128 characters
           </p>
           <p
             class="errorMessage"
             v-else-if="!$v.userSignup.password_confirmation.sameAsPassword"
           >
-            passwordConfirmation not match
+            Password confirmation not match
           </p>
         </div>
       </div>
@@ -288,13 +288,13 @@ export default {
       password: {
         required,
         minLength: minLength(6),
-        maxLength: maxLength(20),
+        maxLength: maxLength(128),
         validPassword,
       },
       password_confirmation: {
         required,
         minLength: minLength(5),
-        maxLength: maxLength(20),
+        maxLength: maxLength(128),
         sameAsPassword: sameAs("password"),
       },
     },

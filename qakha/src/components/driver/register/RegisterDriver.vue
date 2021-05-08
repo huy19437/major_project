@@ -131,7 +131,7 @@
                       class="errorMessage"
                       v-else-if="!$v.form.password.maxLength"
                     >
-                      Password is maximum is 20 characters
+                      Password is maximum is 128 characters
                     </p>
                     <p
                       class="errorMessage"
@@ -169,7 +169,7 @@
                       class="errorMessage"
                       v-else-if="!$v.form.password_confirmation.maxLength"
                     >
-                      passwordConfirmation is maximum is 20 characters
+                      passwordConfirmation is maximum is 128 characters
                     </p>
                     <p
                       class="errorMessage"
@@ -473,7 +473,7 @@ export default {
       password_confirmation: {
         required,
         minLength: minLength(6),
-        maxLength: maxLength(20),
+        maxLength: maxLength(128),
         sameAsPassword: sameAs("password"),
       },
       email: {
@@ -483,7 +483,7 @@ export default {
       password: {
         required,
         minLength: minLength(6),
-        maxLength: maxLength(20),
+        maxLength: maxLength(128),
         validPassword,
       },
       id_card: {
