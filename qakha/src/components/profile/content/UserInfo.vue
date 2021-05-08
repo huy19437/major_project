@@ -577,6 +577,7 @@ img {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    text-align: center;
     opacity: 0;
     transition-duration: 500ms;
     border: 5px solid #ccc;

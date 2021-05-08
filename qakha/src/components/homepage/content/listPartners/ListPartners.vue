@@ -50,12 +50,12 @@
                 <div class="short-by">
                   <select
                     class="form-control basic-select select2-hidden-accessible"
-                    data-select2-id="1"
                     tabindex="-1"
                     aria-hidden="true"
                     @change="getTypePartner($event)"
                   >
-                    <option value="1" data-select2-id="3">VEGE</option>
+                    <option value="">ALL</option>
+                    <option value="1">VEGE</option>
                     <option value="2">RICE BOX</option>
                     <option value="3">STREETFOOD</option>
                     <option value="4">SUSHI</option>
@@ -195,7 +195,7 @@ export default {
       currentPage: 0,
       pageSize: 6,
       partnerData: [],
-      typePartner: "1",
+      typePartner: "",
       searchByName: "",
       searchByAddress: "",
     };
@@ -216,6 +216,7 @@ export default {
       this.currentPage = pageNumber;
     },
     getTypePartner(event) {
+      console.log(event.target.value.toString());
       if (event.target.value.toString() == "6") {
         this.bestRatedPartner(event.target.value.toString());
       } else if (event.target.value.toString() == "7") {
