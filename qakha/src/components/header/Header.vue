@@ -2,7 +2,7 @@
   <div class="header-sticky">
     <header class="header shop">
       <!-- Topbar -->
-      <div class="topbar">
+      <div class="topbar hide-on-mobile-tablet">
         <div class="container">
           <div class="row">
             <div class="col-lg-5 col-md-12 col-12">
@@ -84,9 +84,18 @@
       <div class="middle-inner">
         <div class="container">
           <div class="row">
-            <div class="col-lg-2 col-md-2 col-12 hidden-on-tablet">
+            <div class="col-lg-2 col-md-2 col-12">
+              <div>
+                <label
+                  for="nav__mobile-input"
+                  class="nav__bars-btn"
+                  style="margin-bottom: 10px"
+                >
+                  <font-awesome-icon :icon="['fas', 'list']" />
+                </label>
+              </div>
               <!-- Logo -->
-              <div class="logo">
+              <div class="logo hidden-on-tablet">
                 <a href="/">
                   <img
                     src="@/assets/images/logo_qakha2.png"
@@ -97,6 +106,64 @@
               </div>
               <!--/ End Logo -->
             </div>
+
+            <input
+              type="checkbox"
+              hidden
+              class="nav__input"
+              name=""
+              id="nav__mobile-input"
+            />
+
+            <label for="nav__mobile-input" class="nav__overlay"></label>
+
+            <nav class="nav__mobile">
+              <div v-if="userObj.image" class="nav__mobile-heading">
+                <img
+                  :src="`${userObj.image.url}`"
+                  alt=""
+                  class="nav__mobile-img"
+                />
+                <h3 class="nav__mobile-name" v-if="userName">
+                  <router-link to="/profile">
+                    {{ nameOfUser || userName }}
+                  </router-link>
+                </h3>
+                <label for="nav__mobile-input" class="nav__mobile-close">
+                  <i class="ti-close"></i>
+                </label>
+              </div>
+              <ul class="nav__mobile-list">
+                <li class="nav__mobile-item">
+                  <div class="content">
+                    <a
+                      v-for="entry in languages"
+                      :key="entry.title"
+                      class="language-btn"
+                      @click="changeLocale(entry.language)"
+                    >
+                      <flag :iso="entry.flag" v-bind:squared="false" />
+                      {{ entry.title }}
+                    </a>
+                  </div>
+                </li>
+                <li class="nav__mobile-item" v-if="!userName">
+                  <div class="content">
+                    <router-link to="/login">{{
+                      $t("header.login")
+                    }}</router-link>
+                  </div>
+                </li>
+                <li class="nav__mobile-item" v-else>
+                  <div class="content">
+                    <a style="cursor: pointer" @click.prevent="logout">{{
+                      $t("header.logout")
+                    }}</a>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+
             <div class="col-lg-8 col-md-8 col-12">
               <div class="search-bar-top">
                 <div class="search-bar">
@@ -405,6 +472,7 @@ export default {
       numberOfItem: 0,
       total: 0,
       nameOfUser: "",
+      userObj: {},
       selectedTypeRestaurant: "ALL",
       searchByName: "",
       userCurrentAddress: "",
@@ -475,6 +543,7 @@ export default {
   methods: {
     ...mapActions({
       logoutFuction: "auth/logout",
+      showUser: "auth/showUser",
       getUserInfoFromLocal: "auth/getUserInfoFromLocal",
       setCartsNull: "cart/setCartsNull",
       deleteCart: "cart/deleteCart",
@@ -483,12 +552,7 @@ export default {
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
     }),
-    // formatVND(number) {
-    //   return number.toLocaleString("vi-VN", {
-    //     style: "currency",
-    //     currency: "VND",
-    //   });
-    // },
+
     changeLocale(locale) {
       i18n.locale = locale;
     },
@@ -683,6 +747,10 @@ export default {
     this.getUserLocation();
     this.getUserInfoFromLocal();
     this.gePartnerDataFromPartner();
+    this.showUser().then((res) => {
+      this.userObj = res;
+      console.log(this.userObj.image);
+    });
     // this.getPartnerIdForCart();
     // console.log(this.userName);
     // this.getInfoProductInCart();
@@ -991,14 +1059,6 @@ export default {
   cursor: pointer;
 }
 
-// .language-btn:nth-child(1)::after {
-//   content: " | ";
-//   display: block;
-//   position: absolute;
-//   top: -4px;
-//   right: -4.1px;
-// }
-
 @media (max-width: 1199px) {
   .header-inner {
     height: 59px;
@@ -1021,6 +1081,152 @@ export default {
   }
   .list {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px !important;
+  }
+}
+
+.nav__bars-btn {
+  width: 28px;
+  height: 28px;
+  color: #000;
+  display: none;
+}
+
+.nav__input:checked ~ .nav__overlay {
+  display: block;
+}
+
+.nav__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 3;
+}
+
+.nav__mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 100%;
+  background-color: #fff;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform linear 0.2s, opav linear 0.2s;
+  z-index: 3;
+}
+
+.nav__mobile-link {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 8px 0;
+  font-size: 1.4rem;
+}
+
+.nav__mobile-close {
+  font-size: 1.4rem;
+  color: #666;
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.nav__input:checked ~ .nav__mobile {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.nav__mobile-heading {
+  display: flex;
+  padding: 16px;
+  border-bottom: 1px solid rgb(207, 203, 203);
+}
+
+.nav__mobile-img {
+  width: 60px;
+  height: 60px;
+  margin-right: 16px;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.nav__mobile-name {
+  font-size: 1.6rem;
+  margin: 20px;
+  a {
+    color: #000;
+    font-weight: 700;
+  }
+}
+
+.nav__mobile-list {
+  padding-right: 70px;
+  list-style: none;
+  margin-top: 24px;
+  text-align: left;
+  font-size: 1.5rem !important;
+}
+
+.nav__mobile-item {
+  position: relative;
+  margin-bottom: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  .content {
+    a,
+    span {
+      color: #000;
+    }
+  }
+}
+
+.nav__mobile-item:first-child::before {
+  display: none;
+}
+
+.nav__mobile-link {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 16px 0;
+  text-transform: uppercase;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .middle-inner {
+    .col-lg-2.col-md-2.col-12:nth-child(1) {
+      margin-bottom: 9px;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        border-top: 1px solid #e1e1e1;
+      }
+    }
   }
 }
 
@@ -1059,11 +1265,36 @@ export default {
     .container {
       .row {
         margin-bottom: 6px;
-        .col-lg-2.col-md-2.col-12.hidden-on-tablet {
-          display: none !important;
+        .col-lg-2.col-md-2.col-12 {
+          &:nth-child(1) {
+            display: flex;
+            align-items: flex-end;
+          }
+          .logo.hidden-on-tablet {
+            display: none !important;
+          }
         }
       }
     }
+  }
+
+  .nav__bars-btn {
+    display: block;
+    cursor: pointer;
+    svg {
+      font-size: 4rem;
+    }
+  }
+
+  .hide-on-mobile-tablet {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .nav__overlay,
+  .nav__mobile {
+    display: none !important;
   }
 }
 </style>
