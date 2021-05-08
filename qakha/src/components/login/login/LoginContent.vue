@@ -217,7 +217,7 @@ export default {
               if (this.getNowRoute) {
                 // console.log(this.getNowRoute);
                 window.location.href =
-                  "http://localhost:8080" + this.getNowRoute;
+                  "https://qakha.herokuapp.com" + this.getNowRoute;
               } else {
                 window.location.href = "/";
                 // this.$router.push({ path: "/" });
