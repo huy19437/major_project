@@ -623,7 +623,7 @@ export default {
   .section-title {
     margin-bottom: 23px !important;
     margin-top: 50px !important;
-    padding: 0px 109px;
+    padding: 0 !important;
   }
 }
 </style>
