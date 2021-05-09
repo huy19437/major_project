@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row list-products">
       <div class="col-12">
         <div class="product-info">
           <div class="tab-content" id="myTabContent">
@@ -347,6 +347,9 @@ export default {
 <style lang="scss">
 .container {
   .row {
+    &.list-products {
+      margin-top: 100px !important;
+    }
     &.pagination-custom {
       display: contents;
       padding-top: 33px;
@@ -413,7 +416,9 @@ export default {
 
 .section-title {
   padding: 50px 0 10px;
+  position: relative;
   h2 {
+    text-align: left !important;
     &::after {
       display: none;
     }
@@ -421,7 +426,6 @@ export default {
 }
 
 .tab-content {
-  margin-top: 84px;
 }
 
 .nav-tabs {
@@ -498,12 +502,17 @@ export default {
 }
 
 .nav.nav-tabs.mobile-category__list {
+  position: absolute;
   display: flex;
   list-style: none;
   padding-left: 0;
   max-width: 100%;
-  overflow-x: auto;
+  overflow: hidden;
   flex-wrap: nowrap;
+  &:hover {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
   li {
     a {
       color: #000;
@@ -546,7 +555,7 @@ export default {
 }
 
 .nav.nav-tabs.mobile-category__list::-webkit-scrollbar {
-  display: none;
+  // display: none;
 }
 
 /* Product list title */
@@ -607,6 +616,14 @@ export default {
 @media (max-width: 991px) {
   .vi-left-title:after {
     display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .section-title {
+    margin-bottom: 23px !important;
+    margin-top: 50px !important;
+    padding: 0px 109px;
   }
 }
 </style>

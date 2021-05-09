@@ -165,7 +165,8 @@
                       class="errorMessage"
                       v-else-if="!$v.form.password.validPassword"
                     >
-                      Password is invalid
+                      Password must have 1 uppercase, 1 lowercase, 1 number
+                      characters, 1 special character
                     </p>
                   </div>
                 </div>

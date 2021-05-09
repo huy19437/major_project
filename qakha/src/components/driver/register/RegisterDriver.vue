@@ -137,7 +137,8 @@
                       class="errorMessage"
                       v-else-if="!$v.form.password.validPassword"
                     >
-                      Password is invalid
+                      Password must have 1 uppercase, 1 lowercase, 1 number
+                      characters, 1 special character
                     </p>
                   </div>
                 </div>
@@ -157,25 +158,25 @@
                       class="errorMessage"
                       v-if="!$v.form.password_confirmation.required"
                     >
-                      passwordConfirmation is required
+                      Password confirmation is required
                     </p>
                     <p
                       class="errorMessage"
                       v-else-if="!$v.form.password_confirmation.minLength"
                     >
-                      passwordConfirmation is minimum is 6 characters
+                      Password confirmation is minimum is 6 characters
                     </p>
                     <p
                       class="errorMessage"
                       v-else-if="!$v.form.password_confirmation.maxLength"
                     >
-                      passwordConfirmation is maximum is 128 characters
+                      Password confirmation is maximum is 128 characters
                     </p>
                     <p
                       class="errorMessage"
                       v-else-if="!$v.form.password_confirmation.sameAsPassword"
                     >
-                      passwordConfirmation not match
+                      Password confirmation not match
                     </p>
                   </div>
                 </div>

@@ -115,7 +115,8 @@
             class="errorMessage"
             v-else-if="!$v.userSignup.password.validPassword"
           >
-            Password must have 1 uppercase, 1 lowercase, 1 number characters
+            Password must have 1 uppercase, 1 lowercase, 1 number characters, 1
+            special character
           </p>
         </div>
       </div>

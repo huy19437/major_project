@@ -47,8 +47,8 @@ const messages = {
 
         },
         listProducts: {
-            categoriesList: 'CATEGORIES LIST',
-            productsList: 'PRODUCTS LIST'
+            categoriesList: 'CATEGORIES',
+            productsList: 'PRODUCTS'
         },
         carousel: {
             bestSeller: 'BEST SELLER',
