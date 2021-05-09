@@ -48,7 +48,9 @@ const messages = {
         },
         listProducts: {
             categoriesList: 'CATEGORIES',
-            productsList: 'PRODUCTS'
+            productsList: 'PRODUCTS',
+            quantity_sold: "Sold",
+            addToCart: "Add to Cart",
         },
         carousel: {
             bestSeller: 'BEST SELLER',
@@ -378,7 +380,9 @@ const messages = {
         },
         listProducts: {
             categoriesList: 'DANH MỤC',
-            productsList: 'DANH SÁCH SẢN PHẨM'
+            productsList: 'DANH SÁCH SẢN PHẨM',
+            quantity_sold: "Đã bán",
+            addToCart: "Thêm vào Giỏ",
         },
         carousel: {
             bestSeller: 'SẢN PHẨM',

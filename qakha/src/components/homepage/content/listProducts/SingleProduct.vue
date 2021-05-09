@@ -9,6 +9,10 @@
       >
         <img class="default-img" :src="`${product.image.url}`" alt="#" />
         <img class="hover-img" :src="`${product.image.url}`" alt="#" />
+        <!-- <span class="new"
+          >{{ $t("listProducts.quantity_sold") }}:
+          {{ product.quantity_sold }}</span
+        > -->
       </router-link>
       <div class="button-head">
         <div class="product-action">
@@ -34,10 +38,19 @@
             title="Add to cart"
             @click="addToCart(product)"
           >
-            Add to cart
+            <font-awesome-icon :icon="['fas', 'cart-plus']" />
+            <div class="add-icon">
+              {{ $t("listProducts.addToCart") }}
+            </div>
           </a>
         </div>
       </div>
+    </div>
+    <div class="home-product-item__favourite">
+      <span
+        >{{ $t("listProducts.quantity_sold") }}
+        {{ product.quantity_sold }}</span
+      >
     </div>
     <div class="product-content">
       <h3>
@@ -119,5 +132,37 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+.single-product .product-img a span.new {
+  right: 5px;
+  top: 5px;
+}
+
+.home-product-item__favourite {
+  position: absolute;
+  z-index: 1;
+  top: 79px;
+  left: 11px;
+  color: #f6931d;
+  background-color: currentColor;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.6rem;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 5px;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    border-right: 4px solid currentColor;
+    border-bottom: 4px solid transparent;
+    filter: brightness(60%);
+  }
+  span {
+    color: #fff;
+    letter-spacing: 1px;
+  }
+}
 </style>

@@ -82,6 +82,15 @@
             }"
           >
             <div class="partner-list partner-grid">
+              <div
+                v-if="typePartner === '6'"
+                class="home-product-item__best-rated"
+              >
+                <span
+                  class="icon icon-quality-merchant"
+                  title="This is one of the best rated Merchants on Qakha"
+                ></span>
+              </div>
               <div class="partner-list-image">
                 <div class="img-box">
                   <router-link
@@ -388,7 +397,7 @@ select.form-control:not([size]):not([multiple]) {
       height: 26px;
       line-height: 24px;
       &.open {
-        background-color: #8493ca;
+        background-color: #1fbb3c;
       }
       &.close {
         background-color: #ed1b24;
@@ -443,7 +452,7 @@ select.form-control:not([size]):not([multiple]) {
           a {
             color: #000;
             font-weight: 600 !important;
-            font-size: 1.5rem !important;
+            font-size: 1.8rem !important;
             color: #000;
             overflow: hidden;
             display: -webkit-box;
@@ -554,5 +563,51 @@ h3.title-comm:before {
 
 .img-box {
   height: 160px;
+}
+
+.home-product-item__best-rated {
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  left: 11px;
+  color: #9a9797;
+  background-color: currentColor;
+  font-size: 1.5rem;
+  line-height: 1rem;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 3px;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    border-right: 4px solid currentColor;
+    border-bottom: 4px solid transparent;
+    filter: brightness(60%);
+  }
+  span {
+    color: #fff;
+    letter-spacing: 1px;
+  }
+}
+
+.icon {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+.icon-quality-merchant {
+  width: 25px;
+  height: 25px;
+}
+
+.icon-quality-merchant,
+.icon-quality-merchant-medi {
+  background-image: url("../../../../assets/images/best-rated.png");
+  background-size: cover;
 }
 </style>

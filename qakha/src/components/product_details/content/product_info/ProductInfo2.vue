@@ -28,7 +28,7 @@
             </p>
             <h4 class="price">
               {{ $t("productDetails.currentPrice") }}:
-              <span>{{ products.price }} VNĐ</span>
+              <span>{{ products.price | formatVND }}</span>
             </h4>
             <h5 class="sold">
               {{ $t("productDetails.sold") }}:

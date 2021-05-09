@@ -364,14 +364,50 @@ export default {
   transition: all 0.3s ease-in-out;
   border: 1px solid #eeeeee;
   border-radius: 7px;
+  .product-img {
+    img {
+      display: block;
+      max-height: 161px;
+      height: auto;
+      object-fit: cover;
+    }
+    padding: 12px 12px;
+    .button-head {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      .product-action {
+        margin-right: 12px !important;
+        position: relative;
+        .btn-plus,
+        .btn-minus {
+          background-color: transparent;
+          border: none;
+        }
+      }
+      .product-action-2 {
+        margin-left: 12px !important;
+        position: relative;
+        a {
+          display: inline-flex;
+          align-items: baseline;
+          svg {
+            font-size: 2rem;
+            margin-right: 3px;
+          }
+        }
+      }
+    }
+  }
   .product-content {
     padding: 0 20px 20px;
     margin-top: -13px !important;
     h3 {
+      margin-top: 20px;
       a {
         color: #000;
         font-weight: 600 !important;
-        font-size: 1.5rem !important;
+        font-size: 1.8rem !important;
         color: #000;
         overflow: hidden;
         display: -webkit-box;
@@ -393,32 +429,13 @@ export default {
       rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   }
 }
-.product-img {
-  img {
-    display: block;
-    max-height: 161px;
-    height: auto;
-    object-fit: cover;
-  }
-  padding: 12px 12px;
-  .product-action {
-    margin-right: 12px !important;
-    .btn-plus,
-    .btn-minus {
-      background-color: transparent;
-      border: none;
-    }
-  }
-  .product-action-2 {
-    margin-left: 12px !important;
-  }
-}
 
 .section-title {
   padding: 50px 0 10px;
   position: relative;
   h2 {
     text-align: left !important;
+    letter-spacing: 3px;
     &::after {
       display: none;
     }
@@ -593,6 +610,7 @@ export default {
   position: relative;
   display: inline-block;
   margin: 0;
+  letter-spacing: 2px;
 }
 
 #nz-div-4 h3.product-list-title {
@@ -615,6 +633,9 @@ export default {
 
 @media (max-width: 991px) {
   .vi-left-title:after {
+    display: none;
+  }
+  .add-icon {
     display: none;
   }
 }
