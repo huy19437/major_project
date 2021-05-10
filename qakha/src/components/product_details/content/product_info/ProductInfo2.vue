@@ -310,6 +310,13 @@ img {
   margin-bottom: 15px;
 }
 
+.product-title,
+.partner-name,
+.product-description {
+  text-align: left;
+  line-height: 3.5rem;
+}
+
 .product-title {
   margin-top: 0;
 }
