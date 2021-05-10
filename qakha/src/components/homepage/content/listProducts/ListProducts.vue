@@ -436,6 +436,7 @@ export default {
   h2 {
     text-align: left !important;
     letter-spacing: 3px;
+    font-weight: 600;
     &::after {
       display: none;
     }

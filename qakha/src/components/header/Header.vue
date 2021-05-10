@@ -859,7 +859,7 @@ export default {
   .product-img {
     width: 40%;
     object-fit: cover;
-    padding-left: 0;
+    padding: 0 12px 12px 0;
     cursor: pointer;
     display: inline;
     margin: 0 0;

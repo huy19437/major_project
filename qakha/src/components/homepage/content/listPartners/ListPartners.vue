@@ -83,7 +83,7 @@
           >
             <div class="partner-list partner-grid">
               <div
-                v-if="typePartner === '6'"
+                v-if="typePartner === '5'"
                 class="home-product-item__best-rated"
               >
                 <span
@@ -570,7 +570,7 @@ h3.title-comm:before {
   z-index: 1;
   top: 20px;
   left: 11px;
-  color: #9a9797;
+  color: #4652a5;
   background-color: currentColor;
   font-size: 1.5rem;
   line-height: 1rem;
