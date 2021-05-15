@@ -535,6 +535,7 @@ export default {
     a {
       color: #000;
       text-align: left;
+      padding-left: 0;
     }
     a.active,
     &:hover a {

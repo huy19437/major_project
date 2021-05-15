@@ -179,7 +179,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="userDataFromSer.image" class="about-avatar">
+            <div v-if="userDataFromSer.image || image" class="about-avatar">
               <img
                 :src="image || `${userDataFromSer.image.url}`"
                 title="User Avatar"

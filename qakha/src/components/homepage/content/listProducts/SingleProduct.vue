@@ -47,10 +47,12 @@
       </div>
     </div>
     <div class="home-product-item__favourite">
-      <span
-        >{{ $t("listProducts.quantity_sold") }}
-        {{ product.quantity_sold }}</span
-      >
+      <span>
+        {{ $t("listProducts.quantity_sold") }}
+      </span>
+      <span class="qty-number">
+        {{ product.quantity_sold }}
+      </span>
     </div>
     <div class="product-content">
       <h3>
@@ -163,6 +165,11 @@ export default {
   span {
     color: #fff;
     letter-spacing: 1px;
+  }
+  .qty-number {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #000;
   }
 }
 </style>

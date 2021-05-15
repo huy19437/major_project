@@ -68,7 +68,10 @@
             </form>
           </div>
         </div>
-        <div class="row">
+        <div v-if="isLoading" class="row spinner-loading">
+          <Spinner :loading="isLoading" />
+        </div>
+        <div v-else-if="!isLoading" class="row">
           <div
             v-for="partner in visiblePartner"
             :key="partner.id"
@@ -154,11 +157,13 @@
 import { mapActions, mapGetters } from "vuex";
 import PaginationCustom from "../../../pagination/PaginationCustom";
 import { openToastMess } from "@/services/toastMessage";
+import Spinner from "@/components/spinner/Spinner";
 import axios from "axios";
 export default {
   name: "ListPartners",
   components: {
     PaginationCustom,
+    Spinner,
   },
   computed: {
     ...mapGetters({
@@ -207,6 +212,7 @@ export default {
       typePartner: "",
       searchByName: "",
       searchByAddress: "",
+      isLoading: false,
     };
   },
   methods: {
@@ -236,10 +242,15 @@ export default {
       }
     },
     bestRatedPartner(typePartner) {
-      this.getPartnersBestRated().then((res) => {
-        this.partnerData = res;
-        this.typePartner = typePartner;
-      });
+      this.isLoading = true;
+      this.getPartnersBestRated()
+        .then((res) => {
+          this.partnerData = res;
+          this.typePartner = typePartner;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     getUserLocation(typePartner) {
       let options = {
@@ -257,10 +268,15 @@ export default {
       });
     },
     getPartnersNearByUserLocation(params, typePartner) {
-      this.getPartnersNearBy(params).then((res) => {
-        this.partnerData = res;
-        this.typePartner = typePartner;
-      });
+      this.isLoading = true;
+      this.getPartnersNearBy(params)
+        .then((res) => {
+          this.partnerData = res;
+          this.typePartner = typePartner;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     xoa_dau(str) {
       str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -609,5 +625,9 @@ h3.title-comm:before {
 .icon-quality-merchant-medi {
   background-image: url("../../../../assets/images/best-rated.png");
   background-size: cover;
+}
+
+.row.spinner-loading {
+  display: block;
 }
 </style>
