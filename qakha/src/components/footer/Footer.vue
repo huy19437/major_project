@@ -9,9 +9,13 @@
               <!-- Single Widget -->
               <div class="single-footer about">
                 <div class="logo">
-                  <a href="index.html"
-                    ><img src="@/assets/images/logo_qakha2.png" alt="#"
-                  /></a>
+                  <a href="index.html">
+                    <img
+                      style="margin: 0"
+                      src="@/assets/images/logo_qakha2.png"
+                      alt="#"
+                    />
+                  </a>
                 </div>
                 <p class="text">
                   {{ $t("footer.session1.desc") }}

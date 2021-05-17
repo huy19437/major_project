@@ -72,7 +72,11 @@
           <Spinner :loading="isLoading" />
         </div>
         <div v-else-if="!isLoading" class="row">
+          <div style="margin: 0 auto" v-if="partnerData.length === 0">
+            <h3>No Data</h3>
+          </div>
           <div
+            v-else-if="partnerData.length !== 0"
             v-for="partner in visiblePartner"
             :key="partner.id"
             class="col-sm-6 col-lg-4 mb-4"
@@ -86,7 +90,7 @@
           >
             <div class="partner-list partner-grid">
               <div
-                v-if="typePartner === '5'"
+                v-if="typePartner === '6'"
                 class="home-product-item__best-rated"
               >
                 <span
@@ -296,6 +300,7 @@ export default {
       return str.toLowerCase();
     },
     getResult() {
+      this.isLoading = true;
       this.getPartners()
         .then((res) => {
           // console.log("call here");
@@ -308,6 +313,9 @@ export default {
         .catch((error) => {
           // console.log(error);
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },

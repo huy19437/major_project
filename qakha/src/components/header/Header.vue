@@ -747,10 +747,16 @@ export default {
     this.getUserLocation();
     this.getUserInfoFromLocal();
     this.gePartnerDataFromPartner();
-    this.showUser().then((res) => {
-      this.userObj = res;
-      console.log(this.userObj.image);
-    });
+    if (this.userName) {
+      this.showUser()
+        .then((res) => {
+          this.userObj = res;
+          console.log(this.userObj.image);
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    }
     // this.getPartnerIdForCart();
     // console.log(this.userName);
     // this.getInfoProductInCart();
