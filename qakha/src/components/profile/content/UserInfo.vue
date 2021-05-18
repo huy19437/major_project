@@ -1,7 +1,10 @@
 <template>
   <div>
     <section class="section about-section gray-bg" id="about">
-      <div class="container">
+      <div v-if="isLoadingSpinner">
+        <Spinner :loading="isLoadingSpinner" />
+      </div>
+      <div v-else-if="!isLoadingSpinner" class="container">
         <div class="row align-items-center flex-row-reverse user-info">
           <div class="col-lg-6">
             <div class="about-text go-to">
@@ -278,11 +281,12 @@ import ChangePassModal from "./ChangePassModal";
 import ChangeEmailModal from "./ChangeEmailModal";
 import ProgressBar from "vuejs-progress-bar";
 import { openToastMess } from "@/services/toastMessage";
+import Spinner from "@/components/spinner/Spinner";
 import $ from "jquery";
 import axios from "axios";
 export default {
   name: "UserInfo",
-  components: { ProgressBar, ChangePassModal, ChangeEmailModal },
+  components: { ProgressBar, ChangePassModal, ChangeEmailModal, Spinner },
   data() {
     const progressBarOptions = {
       text: {
@@ -304,6 +308,7 @@ export default {
       },
     };
     return {
+      isLoadingSpinner: false,
       image: "",
       isDisabled: true,
       userDataFromSer: {},
@@ -517,6 +522,7 @@ export default {
     },
     getResult() {
       this.setShoppingStatus(false);
+      this.isLoadingSpinner = true;
       this.showUser()
         .then((res) => {
           this.setUserInfo();
@@ -529,6 +535,9 @@ export default {
         })
         .catch((error) => {
           openToastMess(error, "error");
+        })
+        .finally(() => {
+          this.isLoadingSpinner = false;
         });
     },
   },

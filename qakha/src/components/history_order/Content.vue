@@ -50,19 +50,26 @@
       </div>
     </div>
 
-    <Table :historyOrderData="orderHistoryData" />
+    <div v-if="isLoading">
+      <Spinner :loading="isLoading" />
+    </div>
+    <div v-else-if="!isLoading">
+      <Table :historyOrderData="orderHistoryData" />
+    </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Table from "./Table";
 import DropDownStatus from "./DropDownStatus";
+import Spinner from "@/components/spinner/Spinner";
 import moment from "moment";
 export default {
   name: "ContentCampaign",
   components: {
     DropDownStatus,
     Table,
+    Spinner,
   },
   computed: {
     ...mapGetters({
@@ -71,6 +78,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       orderHistoryData: [],
       searchStatus: "",
       dateSearch: "",
@@ -132,10 +140,16 @@ export default {
       this.getResult();
     },
     getResult() {
-      this.historyOrders().then((res) => {
-        this.orderHistoryData = this.getHistoryOrder;
-        // console.log(this.orderHistoryData);
-      });
+      this.isLoading = true;
+
+      this.historyOrders()
+        .then((res) => {
+          this.orderHistoryData = this.getHistoryOrder;
+          // console.log(this.orderHistoryData);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
   created() {

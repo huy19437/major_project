@@ -1,102 +1,108 @@
 <template>
   <div class="shopping-cart section">
-    <div
-      v-if="getCartLocal.length == 0 ? true : false"
-      class="alert alert-warning"
-      role="alert"
-    >
-      {{ $t("cartContent.goBack") }}
+    <div v-if="isLoading">
+      <Spinner :loading="isLoading" />
     </div>
-    <div v-else class="container">
-      <div class="page-header">
-        <h1>{{ partnerName }}</h1>
-        <h4>{{ partnerAddress }}</h4>
+    <div v-else-if="!isLoading">
+      <div
+        v-if="getCartLocal.length == 0 ? true : false"
+        class="alert alert-warning"
+        role="alert"
+      >
+        {{ $t("cartContent.goBack") }}
       </div>
-      <div class="row">
-        <div class="col-12">
-          <!-- Shopping Summery -->
-          <table class="table shopping-summery">
-            <colgroup>
-              <col style="width: 10%" />
-              <col style="width: 30%" />
-              <col style="width: 10%" />
-              <col style="width: 12%" />
-              <col style="width: 20%" />
-              <col style="width: 2%" />
-            </colgroup>
-            <thead>
-              <tr class="main-hading">
-                <th>{{ $t("cartContent.table.product") }}</th>
-                <th>{{ $t("cartContent.table.desc") }}</th>
-                <th class="text-center">
-                  {{ $t("cartContent.table.unitPrice") }}
-                </th>
-                <th class="text-center">
-                  {{ $t("cartContent.table.quantity") }}
-                </th>
-                <th class="text-center">{{ $t("cartContent.table.total") }}</th>
-                <th class="text-center">
-                  {{ $t("cartContent.table.delete") }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="product in products" :key="product.id">
-                <td class="image" data-title="No">
-                  <img :src="`${product.image.url}`" alt="#" />
-                </td>
-                <td class="product-des" data-title="Description">
-                  <p class="product-name">{{ product.name }}</p>
-                  <p class="product-des">
-                    {{ product.description }}
-                  </p>
-                </td>
-                <td class="price" data-title="Price">
-                  <span>{{ product.price | formatVND }}</span>
-                </td>
-                <td class="qty" data-title="Qty">
-                  <!-- Input Order -->
-                  <InputOrder
-                    @inc="
-                      (value) => {
-                        product.quantity = value;
-                        updateProduct(product.id, product.quantity);
-                      }
-                    "
-                    @dec="
-                      (value) => {
-                        product.quantity = value;
-                        updateProduct(product.id, product.quantity);
-                      }
-                    "
-                    :quantity="product.quantity"
-                  />
-                  <!--/ End Input Order -->
-                </td>
-                <td class="total-amount" data-title="Total">
-                  <span>
-                    {{
-                      roundToTwo(product.price * product.quantity) | formatVND
-                    }}
-                  </span>
-                </td>
-                <td class="action delete">
-                  <a @click="deleteProductInCart(product.id)"
-                    ><i class="ti-trash remove-icon"></i
-                  ></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!--/ End Shopping Summery -->
+      <div v-else class="container">
+        <div class="page-header">
+          <h1>{{ partnerName }}</h1>
+          <h4>{{ partnerAddress }}</h4>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <!-- Total Amount -->
-          <div class="total-amount">
-            <div class="row">
-              <!-- <div class="col-lg-8 col-md-5 col-12">
+        <div class="row">
+          <div class="col-12">
+            <!-- Shopping Summery -->
+            <table class="table shopping-summery">
+              <colgroup>
+                <col style="width: 10%" />
+                <col style="width: 30%" />
+                <col style="width: 10%" />
+                <col style="width: 12%" />
+                <col style="width: 20%" />
+                <col style="width: 2%" />
+              </colgroup>
+              <thead>
+                <tr class="main-hading">
+                  <th>{{ $t("cartContent.table.product") }}</th>
+                  <th>{{ $t("cartContent.table.desc") }}</th>
+                  <th class="text-center">
+                    {{ $t("cartContent.table.unitPrice") }}
+                  </th>
+                  <th class="text-center">
+                    {{ $t("cartContent.table.quantity") }}
+                  </th>
+                  <th class="text-center">
+                    {{ $t("cartContent.table.total") }}
+                  </th>
+                  <th class="text-center">
+                    {{ $t("cartContent.table.delete") }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product in products" :key="product.id">
+                  <td class="image" data-title="No">
+                    <img :src="`${product.image.url}`" alt="#" />
+                  </td>
+                  <td class="product-des" data-title="Description">
+                    <p class="product-name">{{ product.name }}</p>
+                    <p class="product-des">
+                      {{ product.description }}
+                    </p>
+                  </td>
+                  <td class="price" data-title="Price">
+                    <span>{{ product.price | formatVND }}</span>
+                  </td>
+                  <td class="qty" data-title="Qty">
+                    <!-- Input Order -->
+                    <InputOrder
+                      @inc="
+                        (value) => {
+                          product.quantity = value;
+                          updateProduct(product.id, product.quantity);
+                        }
+                      "
+                      @dec="
+                        (value) => {
+                          product.quantity = value;
+                          updateProduct(product.id, product.quantity);
+                        }
+                      "
+                      :quantity="product.quantity"
+                    />
+                    <!--/ End Input Order -->
+                  </td>
+                  <td class="total-amount" data-title="Total">
+                    <span>
+                      {{
+                        roundToTwo(product.price * product.quantity) | formatVND
+                      }}
+                    </span>
+                  </td>
+                  <td class="action delete">
+                    <a @click="deleteProductInCart(product.id)"
+                      ><i class="ti-trash remove-icon"></i
+                    ></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!--/ End Shopping Summery -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <!-- Total Amount -->
+            <div class="total-amount">
+              <div class="row">
+                <!-- <div class="col-lg-8 col-md-5 col-12">
                 <div class="left">
                   <div class="coupon">
                     <form action="#" target="_blank" class="coupon-input">
@@ -112,32 +118,33 @@
                   </div>
                 </div>
               </div> -->
-              <div class="col-lg-4 col-md-7 col-12">
-                <div class="right">
-                  <ul>
-                    <li>
-                      {{ $t("cartContent.Subtotal")
-                      }}<span>{{ roundToTwo(subTotal) | formatVND }}</span>
-                    </li>
-                    <li class="last"></li>
-                  </ul>
-                  <div class="button5">
-                    <a
-                      :disabled="!isHaveItemInCart"
-                      class="btn btn-right"
-                      @click="gotoCheckout()"
-                    >
-                      {{ $t("cartContent.Checkout") }}
-                    </a>
-                    <a href="/" class="btn btn-right">
-                      {{ $t("cartContent.continueShipping") }}</a
-                    >
+                <div class="col-lg-4 col-md-7 col-12">
+                  <div class="right">
+                    <ul>
+                      <li>
+                        {{ $t("cartContent.Subtotal")
+                        }}<span>{{ roundToTwo(subTotal) | formatVND }}</span>
+                      </li>
+                      <li class="last"></li>
+                    </ul>
+                    <div class="button5">
+                      <a
+                        :disabled="!isHaveItemInCart"
+                        class="btn btn-right"
+                        @click="gotoCheckout()"
+                      >
+                        {{ $t("cartContent.Checkout") }}
+                      </a>
+                      <a href="/" class="btn btn-right">
+                        {{ $t("cartContent.continueShipping") }}</a
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!--/ End Total Amount -->
           </div>
-          <!--/ End Total Amount -->
         </div>
       </div>
     </div>
@@ -148,9 +155,11 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import InputOrder from "../input_order/InputOrder";
 import { openToastMess } from "@/services/toastMessage";
+import Spinner from "@/components/spinner/Spinner";
+
 export default {
   name: "CartContent",
-  components: { InputOrder },
+  components: { InputOrder, Spinner },
   data() {
     return {
       cart: [],
@@ -162,6 +171,7 @@ export default {
       slug: this.$route.params.slug,
       partnerStatus: "",
       isHaveItemInCart: false,
+      isLoading: false,
       partnerName: "",
       partnerAddress: "",
     };
@@ -277,6 +287,8 @@ export default {
         let params = {
           partner_id: this.slug,
         };
+
+        this.isLoading = true;
         this.getCart(params)
           .then((res) => {
             // console.log(res);
@@ -288,6 +300,9 @@ export default {
             } else {
               openToastMess(error, "error");
             }
+          })
+          .finally(() => {
+            this.isLoading = false;
           });
       }
     },

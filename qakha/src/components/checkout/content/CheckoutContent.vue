@@ -169,9 +169,8 @@
                                   ? false
                                   : distance > item.distance_condition,
                             }"
+                            >{{ item.code }}</span
                           >
-                            {{ item.code }}
-                          </span>
                           <div class="constraint-voucher">
                             <div
                               class="description"
@@ -957,12 +956,12 @@ export default {
     position: relative;
     padding: 10px;
     word-wrap: break-word;
-    width: 73px;
+    // width: 73px;
     overflow: hidden;
     text-overflow: ellipsis;
     &:hover {
       overflow: visible;
-      width: 100%;
+      width: 150px;
     }
   }
   .constraint-voucher {
@@ -973,6 +972,7 @@ export default {
     font-size: 1.5rem;
     line-height: 1rem;
     padding: 10px 10px 0 0;
+    overflow-x: scroll;
     div {
       margin-bottom: 10px;
     }
@@ -988,6 +988,22 @@ export default {
     .usage-limit {
       color: blue;
     }
+  }
+
+  .constraint-voucher::-webkit-scrollbar {
+    height: 12px;
+    // background-color: #eff1f5;
+  }
+
+  .constraint-voucher::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background-color: transparent;
+  }
+
+  .constraint-voucher::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #515769;
+    border: 2px solid #eff1f5;
   }
 }
 </style>

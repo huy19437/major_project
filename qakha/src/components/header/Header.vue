@@ -737,8 +737,9 @@ export default {
       });
     },
     getUserAddress(params) {
-      console.log(params);
+      // console.log(params);
       this.getUserCurrentAddress(params).then((res) => {
+        console.log(res);
         this.userCurrentAddress = res;
       });
     },

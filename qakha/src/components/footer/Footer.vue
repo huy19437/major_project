@@ -106,7 +106,7 @@
                   <ul class="footer-list-info">
                     <li>256 Nguyen Van Linh</li>
                     <li>Da Nang, Viet Nam</li>
-                    <li>nguyenduchuy19437@gmail.com</li>
+                    <li>qakhadelivery@gmail.com</li>
                     <li>+84 589 273 382</li>
                   </ul>
                 </div>
