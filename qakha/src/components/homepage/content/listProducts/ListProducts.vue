@@ -525,12 +525,12 @@ export default {
   list-style: none;
   padding-left: 0;
   max-width: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   flex-wrap: nowrap;
-  &:hover {
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
+  // &:hover {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  // }
   li {
     a {
       color: #000;
@@ -571,10 +571,6 @@ export default {
   -webkit-user-select: none;
   padding: 0 7px;
   font-weight: 700;
-}
-
-.nav.nav-tabs.mobile-category__list::-webkit-scrollbar {
-  // display: none;
 }
 
 .nav.nav-tabs.mobile-category__list::-webkit-scrollbar {
@@ -662,6 +658,12 @@ export default {
     margin-bottom: 23px !important;
     margin-top: 50px !important;
     padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .nav.nav-tabs.mobile-category__list::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>
