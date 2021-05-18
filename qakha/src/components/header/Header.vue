@@ -1067,6 +1067,9 @@ export default {
 }
 
 @media (max-width: 1199px) {
+  .header-sticky {
+    top: -93px;
+  }
   .header-inner {
     height: 59px;
   }
