@@ -9,7 +9,7 @@
               <!-- Single Widget -->
               <div class="single-footer about">
                 <div class="logo">
-                  <a href="index.html">
+                  <a href="/">
                     <img
                       style="margin: 0"
                       src="@/assets/images/logo_qakha2.png"
@@ -35,21 +35,29 @@
                 <h4>{{ $t("footer.session2.title") }}</h4>
                 <ul class="footer-list-info">
                   <li>
-                    <a href="#">{{ $t("footer.session2.aboutUs") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session2.aboutUs") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session2.Faq") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session2.Faq") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{
-                      $t("footer.session2.termsAndConditions")
-                    }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session2.termsAndConditions") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session2.ContactUs") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session2.ContactUs") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session2.help") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session2.help") }}
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -61,19 +69,29 @@
                 <h4>{{ $t("footer.session3.title") }}</h4>
                 <ul class="footer-list-info">
                   <li>
-                    <a href="#">{{ $t("footer.session3.paymentMethods") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session3.paymentMethods") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session3.moneyBack") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session3.moneyBack") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session3.returns") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session3.returns") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session3.shipping") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session3.shipping") }}
+                    </a>
                   </li>
                   <li>
-                    <a href="#">{{ $t("footer.session3.privacy") }}</a>
+                    <a href="javascript:void(0)">
+                      {{ $t("footer.session3.privacy") }}
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -95,16 +113,22 @@
                 <!-- End Single Widget -->
                 <ul class="footer-list-social">
                   <li>
-                    <a title="facebook" href="#"><i class="ti-facebook"></i></a>
+                    <a title="facebook" href="javascript:void(0)"
+                      ><i class="ti-facebook"></i
+                    ></a>
                   </li>
                   <li>
-                    <a title="twitter" href="#"><i class="ti-twitter"></i></a>
+                    <a title="twitter" href="javascript:void(0)"
+                      ><i class="ti-twitter"></i
+                    ></a>
                   </li>
                   <li>
-                    <a title="flickr" href="#"><i class="ti-flickr"></i></a>
+                    <a title="flickr" href="javascript:void(0)"
+                      ><i class="ti-flickr"></i
+                    ></a>
                   </li>
                   <li>
-                    <a title="instagram" href="#"
+                    <a title="instagram" href="javascript:void(0)"
                       ><i class="ti-instagram"></i
                     ></a>
                   </li>

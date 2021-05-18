@@ -2,8 +2,8 @@
   <div
     class="modal fade"
     id="feedBackPartnerModal"
-    data-backdrop="true"
-    data-keyboard="true"
+    data-backdrop="static"
+    data-keyboard="false"
     tabindex="-1"
     aria-labelledby="staticBackdropLabel"
     aria-hidden="true"
@@ -66,7 +66,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            :disabled="isDisabled"
+            data-dismiss="modal"
+          >
             {{ $t("historyOrders.feedbackModal.close") }}
           </button>
           <button

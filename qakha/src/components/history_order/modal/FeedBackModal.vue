@@ -3,8 +3,8 @@
     <div
       class="modal fade"
       id="feedBackModal"
-      data-backdrop="true"
-      data-keyboard="true"
+      data-backdrop="static"
+      data-keyboard="false"
       tabindex="-1"
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
@@ -42,6 +42,7 @@
             <button
               type="button"
               class="btn btn-secondary"
+              :disabled="isDisabled"
               data-dismiss="modal"
             >
               {{ $t("historyOrders.feedbackModal.close") }}
@@ -50,7 +51,7 @@
               @click.prevent="submitAndOpenFeedbackPartnerModal"
               data-dismiss="modal"
               class="btn btn-primary"
-              :disabled="rating == '' ? true : false"
+              :disabled="rating == '' ? true : false || isDisabled"
             >
               {{ $t("historyOrders.feedbackModal.submit") }}
             </button>
@@ -95,6 +96,7 @@ export default {
   data() {
     return {
       rating: 0,
+      isDisabled: false,
       driver_image: "",
       feedBackDriverObj: {
         order_id: 0,
@@ -120,14 +122,15 @@ export default {
       // console.log(this.rating);
     },
     submitAndOpenFeedbackPartnerModal() {
+      this.isDisabled = true;
       $("#loadMe").modal("show");
 
       this.feedBackDriverObj.point = this.rating;
       // console.log(this.feedBackDriverObj);
       this.addFeedbacks(this.feedBackDriverObj)
         .then((res) => {
+          $("#feedBackModal").modal("hide");
           $("#feedBackPartnerModal").modal("show");
-          // console.log(res);
           openToastMess("Add feedback driver successfully!", "success");
         })
         .catch((error) => {
@@ -135,6 +138,7 @@ export default {
         })
         .finally(() => {
           this.rating = 0;
+          this.isDisabled = false;
           $("#loadMe").modal("hide");
         });
       this.feedBackDriverObj.content = "";
