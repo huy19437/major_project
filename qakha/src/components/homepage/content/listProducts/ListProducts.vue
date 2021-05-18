@@ -577,6 +577,21 @@ export default {
   // display: none;
 }
 
+.nav.nav-tabs.mobile-category__list::-webkit-scrollbar {
+  height: 12px;
+  // background-color: #eff1f5;
+}
+
+.nav.nav-tabs.mobile-category__list::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+.nav.nav-tabs.mobile-category__list::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #515769;
+  border: 2px solid #eff1f5;
+}
 /* Product list title */
 
 #nz-div-4 h3.product-list-title :after {
