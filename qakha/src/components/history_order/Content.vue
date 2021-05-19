@@ -37,7 +37,7 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                title="Reload History Order"
+                :title="`${$t('historyOrders.content.button.reload')}`"
                 @click="fetchOrderHistoryAgain()"
               >
                 <span

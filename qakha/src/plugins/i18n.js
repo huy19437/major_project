@@ -9,7 +9,7 @@ const messages = {
         header: {
             login: 'Login',
             logout: 'Logout',
-            searchProducts: 'Search for products',
+            searchProducts: 'Search by Products Name',
             listOfProducts: 'List of products',
             headerInner: {
                 home: 'Home',
@@ -196,7 +196,10 @@ const messages = {
                 status: 'Status',
                 orderTime: 'Order time',
                 search: 'Search',
-                action: 'Action'
+                action: 'Action',
+                button: {
+                    reload: 'Reload History Order'
+                }
             },
             table: {
                 type: 'Order code/type',
@@ -341,7 +344,7 @@ const messages = {
         header: {
             login: 'Đăng nhập',
             logout: 'Đăng xuất',
-            searchProducts: 'Tìm kiếm sản phẩm',
+            searchProducts: 'Tìm kiếm theo tên Sản phẩm',
             listOfProducts: 'Danh sách sản phẩm',
             headerInner: {
                 home: 'Trang Chủ',
@@ -528,7 +531,10 @@ const messages = {
                 status: 'Trạng thái',
                 orderTime: 'Thời gian đặt hàng',
                 search: 'Tìm kiếm',
-                action: 'Hành động'
+                action: 'Hành động',
+                button: {
+                    reload: 'Tải lại Lịch sử Đặt hàng'
+                }
             },
             table: {
                 type: 'Loại thanh toán',
