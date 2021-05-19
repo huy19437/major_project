@@ -10,7 +10,7 @@
               <div class="top-left">
                 <ul class="list-main">
                   <li><i class="ti-headphone-alt"></i>+84 589 273 382</li>
-                  <li><i class="ti-email"></i> nguyenduchuy19437@gmail.com</li>
+                  <li><i class="ti-email"></i>qakhadelivery@gmail.com</li>
                 </ul>
               </div>
               <!--/ End Top Left -->
@@ -533,7 +533,7 @@ export default {
       return this.getProductsFromPartner.filter((product) => {
         return (this.xoa_dau(product.name) || "")
           .toLowerCase()
-          .includes(this.xoa_dau(this.searchByName).toLowerCase());
+          .includes(this.xoa_dau(this.searchByName.trim()).toLowerCase());
       });
     },
     getPartnersLocalChange() {

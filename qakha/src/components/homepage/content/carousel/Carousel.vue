@@ -57,6 +57,12 @@
                       </p>
                     </div>
                   </div>
+                  <div class="home-product-item__favourite">
+                    <span>
+                      {{ $t("listProducts.quantity_sold") }}
+                    </span>
+                    <span class="qty-number"> {{ product.quantity_sold }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -101,6 +107,12 @@
                         <span>{{ product.price | formatVND }}</span>
                       </p>
                     </div>
+                  </div>
+                  <div class="home-product-item__favourite">
+                    <span>
+                      {{ $t("listProducts.quantity_sold") }}
+                    </span>
+                    <span class="qty-number"> {{ product.quantity_sold }}</span>
                   </div>
                 </div>
               </div>
@@ -417,5 +429,38 @@ h2::after {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   object-fit: cover;
+}
+
+.home-product-item__favourite {
+  position: absolute;
+  z-index: 1;
+  top: 13px;
+  left: 11px;
+  color: #b7b0b0;
+  background-color: currentColor;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.6rem;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 5px;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    border-right: 4px solid currentColor;
+    border-bottom: 4px solid transparent;
+    filter: brightness(60%);
+  }
+  span {
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .qty-number {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: red;
+  }
 }
 </style>

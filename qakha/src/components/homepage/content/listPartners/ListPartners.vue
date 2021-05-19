@@ -179,10 +179,12 @@ export default {
         return (
           (this.xoa_dau(partner.name) || "")
             .toLowerCase()
-            .includes(this.xoa_dau(this.searchByName).toLowerCase()) &&
+            .includes(this.xoa_dau(this.searchByName.trim()).toLowerCase()) &&
           (this.xoa_dau(partner.address) || "")
             .toLowerCase()
-            .includes(this.xoa_dau(this.searchByAddress).toLowerCase()) &&
+            .includes(
+              this.xoa_dau(this.searchByAddress.trim()).toLowerCase()
+            ) &&
           (this.typePartner === "6" || this.typePartner === "7"
             ? true
             : (partner.type_id || "")
