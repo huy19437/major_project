@@ -6,7 +6,7 @@
       v-if="selectedOption.status !== undefined"
     >
       {{ selectedOption.status }}
-      <span class="caret"></span>
+      <span class="caret" :class="{ isClick: showMenu }"></span>
     </li>
 
     <li
@@ -123,7 +123,16 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  &::after {
+    display: none;
+  }
 }
+
+.isClick {
+  transform: rotate(180deg) !important;
+  transition: 0.5s all ease-in-out;
+}
+
 .dropdown-toggle:hover {
   background: #e1e1e1;
   cursor: pointer;
@@ -184,13 +193,16 @@ export default {
   position: absolute;
   top: 19px;
   height: 0;
-  margin-left: -24px;
+  // margin-left: -24px;
+  margin: 0;
   vertical-align: middle;
-  border-top: 4px dashed;
-  border-top: 4px solid \9;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
+  border-top: 8px dashed;
+  border-top: 8px solid \9;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
   right: 10px;
+  transform: rotate(0deg);
+  transition: 0.5s all ease-in-out;
 }
 
 li {
