@@ -261,6 +261,7 @@
         </div>
       </div>
     </div>
+
     <ChangePassModal />
     <ChangeEmailModal
       :userDataFromSer="userDataFromSer"
@@ -361,10 +362,12 @@ export default {
           .then((res) => {
             // console.log(this.userObj);
             this.$v.userObj.$touch();
-            $("#loadMe").modal("show");
             if (!this.$v.userObj.$invalid) {
+              $("#loadMe").modal("show");
+
               this.updateUser(this.$data.userObj)
                 .then((response) => {
+                  $("#loadMe").modal("hide");
                   if (response) {
                     this.isDisabled = true;
                     this.image = "";
@@ -373,13 +376,14 @@ export default {
                   }
                 })
                 .catch((err) => {
+                  $("#loadMe").modal("hide");
                   this.registerErr = true;
                   this.isDisabled = false;
                   openToastMess(err, "error");
-                })
-                .finally(() => {
-                  $("#loadMe").modal("hide");
                 });
+              // .finally(() => {
+              //   $("#loadMe").modal("hide");
+              // });
             }
           })
           .catch((err) => {
@@ -531,6 +535,9 @@ export default {
             .then((res) => {})
             .catch((error) => {
               openToastMess(error, "error");
+            })
+            .finally(() => {
+              $("#loadMe").modal("hide");
             });
         })
         .catch((error) => {
@@ -538,6 +545,7 @@ export default {
         })
         .finally(() => {
           this.isLoadingSpinner = false;
+          $("#loadMe").modal("hide");
         });
     },
   },

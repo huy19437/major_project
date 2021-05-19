@@ -30,6 +30,13 @@
             <p class="errorMessage" v-if="!$v.userReset.new_password.required">
               New password is required
             </p>
+            <p
+              class="errorMessage"
+              v-else-if="!$v.userReset.new_password.validPassword"
+            >
+              Password must have 1 uppercase, 1 lowercase, 1 number characters,
+              1 special character
+            </p>
           </div>
         </div>
 
@@ -64,6 +71,7 @@
 <script>
 import { mapActions } from "vuex";
 import { required } from "vuelidate/lib/validators";
+import { validPassword } from "@/services/validation/validPassword";
 import Spinner from "@/components/spinner/Spinner";
 import { openToastMess } from "@/services/toastMessage";
 export default {
@@ -87,6 +95,7 @@ export default {
       },
       new_password: {
         required,
+        validPassword,
       },
     },
   },
