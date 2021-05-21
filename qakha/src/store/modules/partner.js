@@ -2,9 +2,8 @@ import httpRequest from '../../services/repository'
 
 const state = {
     // partners2: null,
-    get partners2() {
+    get partners() {
         try {
-            console.log("call");
             const storage = localStorage.getItem('partners');
             if (storage) {
                 return JSON.parse(storage);
@@ -14,21 +13,15 @@ const state = {
         }
         return [];
     },
+    set partners(data) {
+        // this.partners2 = data;
+    },
     partnerId: 0,
 }
 
 const getters = {
     getPartnersLocal(state) {
-        return state.partners2;
-        // try {
-        //     const storage = localStorage.getItem('partners');
-        //     if (storage) {
-        //         return JSON.parse(storage);
-        //     }
-        // } catch (e) {
-        //     return [];
-        // }
-        // return [];
+        return state.partners;
     },
     getPartnerId(state) {
         return state.partnerId;
@@ -36,9 +29,9 @@ const getters = {
 }
 
 const mutations = {
-    // setPartners(state, data) {
-    //     state.partners2 = data;
-    // },
+    setPartners(state, data) {
+        state.partners = data;
+    },
     setPartnerId(state, data) {
         state.partnerId = data
     }
@@ -51,7 +44,7 @@ const actions = {
                 .then((response) => {
                     localStorage.setItem('partners', JSON.stringify(response.data));
                     res(response.data);
-                    // commit('setPartners', JSON.parse(localStorage.getItem('partners')));
+                    commit('setPartners', JSON.parse(localStorage.getItem('partners')));
                 }).catch(err => {
                     rej(err.response ? err.response.data.message : err);
                 });
