@@ -529,11 +529,11 @@ export default {
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
           this.distance = res.distance;
-          if (res.distance > 20) {
+          res.distance > 20
+            ? (this.isDisabled = true)
+            : (this.isDisabled = false);
+          if (this.isDisabled) {
             openToastMess("Your location is so far from food store", "error");
-            this.isDisabled = true;
-          } else {
-            this.isDisabled = false;
           }
         })
         .catch((error) => {
@@ -612,37 +612,41 @@ export default {
           params.voucher_id = this.voucherObjFromSer.voucher.id;
         }
         // console.log(params);
-        $("#loadMe").modal("show");
-        this.getPartners()
-          .then((res) => {
-            let partnerObj = this.getPartnersLocal.find(
-              (obj) => obj.id == this.slug
-            );
-            this.partnerStatus = partnerObj.status;
-            if (this.partnerStatus === "open") {
-              this.createOrder(params)
-                .then((res) => {
-                  $("#loadMe").modal("hide");
-                  openToastMess("Order created", "success");
-                  this.$router.push({
-                    name: "OrderConfirm",
-                    params: { slug: this.slug },
+        if (this.distance <= 20) {
+          $("#loadMe").modal("show");
+          this.getPartners()
+            .then((res) => {
+              let partnerObj = this.getPartnersLocal.find(
+                (obj) => obj.id == this.slug
+              );
+              this.partnerStatus = partnerObj.status;
+              if (this.partnerStatus === "open") {
+                this.createOrder(params)
+                  .then((res) => {
+                    $("#loadMe").modal("hide");
+                    openToastMess("Order created", "success");
+                    this.$router.push({
+                      name: "OrderConfirm",
+                      params: { slug: this.slug },
+                    });
+                    // console.log(res);
+                  })
+                  .catch((error) => {
+                    $("#loadMe").modal("hide");
+                    openToastMess(error, "error");
                   });
-                  // console.log(res);
-                })
-                .catch((error) => {
-                  $("#loadMe").modal("hide");
-                  openToastMess(error, "error");
-                });
-            } else {
+              } else {
+                $("#loadMe").modal("hide");
+                openToastMess("Food store is Close", "warning");
+              }
+            })
+            .catch((error) => {
               $("#loadMe").modal("hide");
-              openToastMess("Food store is Close", "warning");
-            }
-          })
-          .catch((error) => {
-            $("#loadMe").modal("hide");
-            openToastMess(error, "error");
-          });
+              openToastMess(error, "error");
+            });
+        } else {
+          openToastMess("Your location is so far from food store", "error");
+        }
       }
       // }
     },
