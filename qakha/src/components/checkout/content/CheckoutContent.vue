@@ -537,6 +537,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.isDisabled = false;
           openToastMess(error, "error");
         });
     },
