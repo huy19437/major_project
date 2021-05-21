@@ -176,6 +176,7 @@
     </div>
 
     <!-- <Carousel /> -->
+    <NotifyCloseModal />
   </div>
 </template>
 
@@ -186,12 +187,15 @@ import PaginationCustom from "@/components/pagination/PaginationCustom";
 import { openToastMess } from "@/services/toastMessage";
 import InputOrderHover from "./InputOrderHover";
 import SingleProduct from "./SingleProduct";
+import NotifyCloseModal from "@/components/notify_modal/NotifyCloseModal";
+import $ from "jquery";
 export default {
   name: "ListProducts",
   components: {
     PaginationCustom,
     InputOrderHover,
     SingleProduct,
+    NotifyCloseModal,
   },
   data() {
     return {
@@ -234,6 +238,7 @@ export default {
     ...mapActions({
       setShoppingStatus: "cart/setShoppingStatus",
       getCart: "cart/getCart",
+      setCartsNull: "cart/setCartsNull",
       addProductToCart: "cart/addProductToCart",
       nowRoute: "auth/nowRoute",
       partnerId: "partner/partnerId",
@@ -332,8 +337,16 @@ export default {
       this.partnerId(this.partner.id);
       this.setCategoriesFromPartnerData(this.partner);
     },
+    checkPartnerIsClose() {
+      var partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      console.log(partnerObj);
+      if (partnerObj.status === "close") {
+        openToastMess("Food store is close, Please come back later", "warning");
+      }
+    },
   },
   created() {
+    this.checkPartnerIsClose();
     this.getResult();
   },
   watch: {

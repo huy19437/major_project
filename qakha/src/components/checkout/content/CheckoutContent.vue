@@ -426,7 +426,7 @@ export default {
       errMessage: "",
       slug: this.$route.params.slug,
       shipping_fee: 0,
-      subTotal: 50000,
+      subTotal: 0,
       voucher: {},
       voucherObjFromSer: {},
       isOpen2: false,
@@ -502,6 +502,7 @@ export default {
   methods: {
     ...mapActions({
       userObj: "auth/user",
+      getPartners: "partner/getPartners",
       getDistance: "order/getDistanceForShip",
       createOrder: "order/createOrder",
       applyVouchers: "voucher/applyVouchers",
@@ -605,15 +606,31 @@ export default {
         }
         // console.log(params);
         $("#loadMe").modal("show");
-        this.createOrder(params)
+        this.getPartners()
           .then((res) => {
-            $("#loadMe").modal("hide");
-            openToastMess("Order created", "success");
-            this.$router.push({
-              name: "OrderConfirm",
-              params: { slug: this.slug },
-            });
-            // console.log(res);
+            let partnerObj = this.getPartnersLocal.find(
+              (obj) => obj.id == this.slug
+            );
+            this.partnerStatus = partnerObj.status;
+            if (this.partnerStatus === "open") {
+              this.createOrder(params)
+                .then((res) => {
+                  $("#loadMe").modal("hide");
+                  openToastMess("Order created", "success");
+                  this.$router.push({
+                    name: "OrderConfirm",
+                    params: { slug: this.slug },
+                  });
+                  // console.log(res);
+                })
+                .catch((error) => {
+                  $("#loadMe").modal("hide");
+                  openToastMess(error, "error");
+                });
+            } else {
+              $("#loadMe").modal("hide");
+              openToastMess("Food store is Close", "warning");
+            }
           })
           .catch((error) => {
             $("#loadMe").modal("hide");

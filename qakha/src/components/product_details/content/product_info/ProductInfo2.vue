@@ -88,11 +88,6 @@ import { mapGetters, mapActions } from "vuex";
 import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "ProductInfo2",
-  computed: {
-    ...mapGetters({
-      getPartnersLocal: "partner/getPartnersLocal",
-    }),
-  },
   data() {
     return {
       products: {},
@@ -102,6 +97,14 @@ export default {
       numberProductInCart: 1,
       partnerStatus: "",
     };
+  },
+  computed: {
+    ...mapGetters({
+      getPartnersLocal: "partner/getPartnersLocal",
+    }),
+    slugChange() {
+      return this.$route.params.slug;
+    },
   },
   methods: {
     ...mapActions({
@@ -175,6 +178,13 @@ export default {
   },
   created() {
     this.getResult();
+  },
+  watch: {
+    slugChange() {
+      if (this.$route.params.slug !== this.slug) {
+        window.location.reload();
+      }
+    },
   },
 };
 </script>

@@ -40,7 +40,7 @@ const routes = [
         name: 'Checkout',
         component: Checkout,
         meta: {
-          // auth: true
+          auth: true
         },
       },
       {

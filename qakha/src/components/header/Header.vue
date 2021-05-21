@@ -477,6 +477,7 @@ export default {
       searchByName: "",
       userCurrentAddress: "",
       coordinatesObj: {},
+      partnerStatus: "",
       restaurantsType: [
         "ALL",
         "VEGE",
@@ -539,6 +540,9 @@ export default {
     getPartnersLocalChange() {
       return this.getPartnersLocal;
     },
+    getShoppingStatusChange() {
+      return this.getShoppingStatus;
+    },
   },
   methods: {
     ...mapActions({
@@ -583,8 +587,14 @@ export default {
       this.$router.push({ path: "/profile" });
     },
     getInfoProductInCart() {
+      this.products = [];
+      this.numberOfItem = 0;
+      this.total = 0;
+      this.isHaveItemInCart = false;
+      this.setSubTotal(0);
+
       this.cart = this.getCartLocal;
-      if (this.cart != null && this.cart != undefined) {
+      if (this.cart !== null && this.cart !== undefined) {
         if (this.cart.length > 0) {
           this.isHaveItemInCart = true;
         } else {
@@ -668,7 +678,6 @@ export default {
     },
     gePartnerDataFromPartner() {
       this.partnerData = this.getPartnersLocal || [];
-      // console.log(this.partnerData);
     },
     xoa_dau(str) {
       str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -694,11 +703,19 @@ export default {
     gotoCart() {
       if (this.getCartLocal) {
         if (this.getCartLocal.length != 0) {
-          this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-          this.$router.push({
-            name: "Cart",
-            params: { slug: this.partnerIdForSlug || 0 },
-          });
+          let partnerObj = this.getPartnersLocal.find(
+            (obj) => obj.id == this.getCartLocal[0].partner_id
+          );
+          this.partnerStatus = partnerObj.status;
+          if (this.partnerStatus === "open") {
+            this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+            this.$router.push({
+              name: "Cart",
+              params: { slug: this.partnerIdForSlug || 0 },
+            });
+          } else {
+            openToastMess("Food store is close", "warning");
+          }
         } else {
           openToastMess("Nothing in Cart!!!", "warning");
         }
@@ -707,18 +724,27 @@ export default {
       }
     },
     gotoCheckout() {
-      this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-      this.$router.push({
-        name: "Checkout",
-        params: { slug: this.partnerIdForSlug || 0 },
-      });
+      let partnerObj = this.getPartnersLocal.find(
+        (obj) => obj.id == this.getCartLocal[0].partner_id
+      );
+      this.partnerStatus = partnerObj.status;
+      if (this.partnerStatus === "open") {
+        this.partnerIdForSlug = this.getCartLocal[0].partner_id;
+        this.$router.push({
+          name: "Checkout",
+          params: { slug: this.partnerIdForSlug || 0 },
+        });
+      } else {
+        openToastMess("Food store is close", "warning");
+      }
     },
     gotoProduct(id) {
-      // console.log(id);
-      this.$router.push({
-        name: "ProductDetail",
-        params: { slug: id },
-      });
+      if (this.$route.params.slug != id) {
+        this.$router.push({
+          name: "ProductDetail",
+          params: { slug: id },
+        });
+      }
     },
     getUserLocation() {
       let options = {
@@ -743,6 +769,26 @@ export default {
         this.userCurrentAddress = res;
       });
     },
+    setCartsNullIfPartnerClose() {
+      if (this.getCartLocal) {
+        if (this.getCartLocal.length != 0) {
+          var partnerObj = this.getPartnersLocal.find(
+            (obj) => obj.id == this.getCartLocal[0].partner_id
+          );
+          if (partnerObj.status === "close") {
+            this.setCartsNull();
+            this.getInfoProductInCart();
+          }
+        }
+      }
+      // var partnerObj = this.getPartnersLocal.find(
+      //   (obj) => obj.id == this.$route.params.slug
+      // );
+      // if (partnerObj.status === "close") {
+      //   this.setCartsNull();
+      //   this.getInfoProductInCart();
+      // }
+    },
   },
   created() {
     this.getUserLocation();
@@ -763,6 +809,11 @@ export default {
     // this.getInfoProductInCart();
   },
   watch: {
+    getShoppingStatusChange() {
+      if (this.getShoppingStatus) {
+        this.setCartsNullIfPartnerClose();
+      }
+    },
     cartsChange() {
       this.getInfoProductInCart();
     },
