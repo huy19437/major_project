@@ -529,7 +529,7 @@ export default {
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
           this.distance = res.distance;
-          if (this.distance > 20) {
+          if (res.distance > 20) {
             openToastMess("Your location is so far from food store", "error");
             this.isDisabled = true;
           } else {
