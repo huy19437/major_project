@@ -523,7 +523,7 @@ export default {
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
           this.distance = res.distance;
-          res.distance > 20
+          res.distance > 15
             ? (this.isDisabled = true)
             : (this.isDisabled = false);
           if (this.isDisabled) {
@@ -606,7 +606,7 @@ export default {
           params.voucher_id = this.voucherObjFromSer.voucher.id;
         }
         // console.log(params);
-        if (this.distance <= 20) {
+        if (this.distance <= 15) {
           $("#loadMe").modal("show");
           this.getPartners()
             .then((res) => {
@@ -659,7 +659,7 @@ export default {
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
           this.distance = res.distance;
-          res.distance > 20
+          res.distance > 15
             ? (this.isDisabled = true)
             : (this.isDisabled = false);
           if (this.isDisabled) {
