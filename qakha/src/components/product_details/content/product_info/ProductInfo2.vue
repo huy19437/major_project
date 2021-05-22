@@ -12,7 +12,12 @@
           </div>
           <div class="details col-md-6">
             <h3 class="product-title">{{ products.name }}</h3>
-            <h5 class="partner-name">{{ partner.name }}</h5>
+            <h5 class="partner-name">
+              <span class="icon icon-location">
+                <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
+              </span>
+              {{ partner.name }}
+            </h5>
             <!-- <div class="rating">
               <div class="stars">
                 <span class="fa fa-star checked"></span>
@@ -451,5 +456,9 @@ img {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
+}
+
+.icon {
+  margin-right: 5px;
 }
 </style>
