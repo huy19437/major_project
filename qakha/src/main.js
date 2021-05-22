@@ -7,7 +7,7 @@ import "jquery"
 import "popper.js"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCaretLeft, faCaretRight, faCoffee, faAnchor, faArrowUp, faShoppingCart, faEdit, faTrashAlt, faUndo, faClipboardList, faCamera, faStore, faList, faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCaretLeft, faCaretRight, faCoffee, faAnchor, faArrowUp, faShoppingCart, faEdit, faTrashAlt, faUndo, faClipboardList, faCamera, faStore, faList, faCartPlus, faCoins } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import formatVND from '@/services/formatVND'
@@ -50,7 +50,7 @@ Vue.use(VueGoogleMaps, {
 });
 
 
-library.add(faCaretLeft, faCaretRight, faCoffee, faAnchor, faGoogle, faFacebook, faArrowUp, faShoppingCart, faEdit, faTrashAlt, faUndo, faClipboardList, faCamera, faStore, faList, faCartPlus)
+library.add(faCaretLeft, faCaretRight, faCoffee, faAnchor, faGoogle, faFacebook, faArrowUp, faShoppingCart, faEdit, faTrashAlt, faUndo, faClipboardList, faCamera, faStore, faList, faCartPlus, faCoins)
 Vue.use(Vuelidate)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

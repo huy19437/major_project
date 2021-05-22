@@ -38,9 +38,16 @@
                       </p>
                     </div>
                   </div>
-                  <div class="media">
+                  <!-- <div class="media">
                     <label>{{ $t("userProfile.role") }}</label>
                     <p>{{ userDataFromSer.role }}</p>
+                  </div> -->
+                  <div class="media">
+                    <label>{{ $t("userProfile.coin") }}</label>
+                    <p>{{ getCoinsUser }}</p>
+                    <span class="coins-icon">
+                      <font-awesome-icon :icon="['fas', 'coins']" />
+                    </span>
                   </div>
                   <div class="media">
                     <label>{{ $t("userProfile.address") }}</label>
@@ -310,6 +317,7 @@ export default {
     };
     return {
       isLoadingSpinner: false,
+      coinOfUser: "",
       image: "",
       isDisabled: true,
       userDataFromSer: {},
@@ -345,6 +353,7 @@ export default {
     ...mapGetters({
       getUser: "auth/getUser",
       getAddressLocal: "address/getAddressLocal",
+      getCoinsUser: "order/getCoinsUser",
     }),
   },
   methods: {
@@ -354,6 +363,7 @@ export default {
       setShoppingStatus: "cart/setShoppingStatus",
       showUser: "auth/showUser",
       updateUser: "auth/updateUser",
+      coinsUsers: "order/coinsUsers",
     }),
     async submitData() {
       if (this.filesSelected != 0) {
@@ -551,6 +561,7 @@ export default {
   },
   created() {
     this.getResult();
+    this.coinsUsers();
   },
 };
 </script>
@@ -632,6 +643,12 @@ img {
   padding-top: 10px;
   .media {
     padding: 5px 0;
+    .coins-icon {
+      margin: 0 4px;
+      svg {
+        color:#F6931D
+      }
+    }
     p.email-user {
       overflow: hidden;
       -webkit-box-orient: vertical;

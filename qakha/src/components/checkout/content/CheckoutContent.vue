@@ -513,12 +513,6 @@ export default {
       getCart: "cart/getCart",
       setShoppingStatus: "cart/setShoppingStatus",
     }),
-    // formatVND(number) {
-    //   return number.toLocaleString("vi-VN", {
-    //     style: "currency",
-    //     currency: "VND",
-    //   });
-    // },
     changeAddress(address) {
       let addressUserForCalcDistance = {
         partner_id: this.slug,
@@ -645,6 +639,7 @@ export default {
               openToastMess(error, "error");
             });
         } else {
+          this.isDisabled = true;
           openToastMess("Your location is so far from food store", "error");
         }
       }
@@ -664,6 +659,12 @@ export default {
         .then((res) => {
           this.shipping_fee = res.shipping_fee;
           this.distance = res.distance;
+          res.distance > 20
+            ? (this.isDisabled = true)
+            : (this.isDisabled = false);
+          if (this.isDisabled) {
+            openToastMess("Your location is so far from food store", "error");
+          }
         })
         .catch((error) => {
           openToastMess(error, "error");

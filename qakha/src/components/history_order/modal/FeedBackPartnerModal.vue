@@ -81,6 +81,7 @@
           >
             {{ $t("historyOrders.feedbackModal.submit") }}
           </button>
+          <p class="notice-feedback">completed feedback to get 500 coins</p>
         </div>
       </div>
     </div>
@@ -171,6 +172,7 @@ export default {
                 this.image = "";
                 // console.log(res);
                 openToastMess("Add feedback partner successfully!", "success");
+                openToastMess("You have recieved 500 coins!", "info");
                 $("#feedBackPartnerModal").modal("hide");
 
                 window.location.reload();
@@ -193,6 +195,7 @@ export default {
           .then((res) => {
             // console.log(res);
             openToastMess("Add feedback partner successfully!", "success");
+            openToastMess("You have recieved 500 coins!", "info");
             $("#feedBackPartnerModal").modal("hide");
 
             window.location.reload();
@@ -377,6 +380,7 @@ export default {
 
 .modal-footer {
   justify-content: center;
+  position: relative;
   button {
     background-color: #000;
     &:hover {
@@ -384,6 +388,61 @@ export default {
       border-color: #f7941d;
       color: #fff;
     }
+  }
+  .notice-feedback {
+    position: absolute;
+    right: 97px;
+    font-size: 19px;
+    font-weight: bold;
+    -webkit-animation: my 2000ms infinite;
+    -moz-animation: my 2000ms infinite;
+    -o-animation: my 2000ms infinite;
+    animation: my 2000ms infinite;
+  }
+}
+
+@-webkit-keyframes my {
+  0% {
+    color: #f8cd0a;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #f8cd0a;
+  }
+}
+@-moz-keyframes my {
+  0% {
+    color: #f8cd0a;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #f8cd0a;
+  }
+}
+@-o-keyframes my {
+  0% {
+    color: #f8cd0a;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #f8cd0a;
+  }
+}
+@keyframes my {
+  0% {
+    color: #f8cd0a;
+  }
+  50% {
+    color: #fff;
+  }
+  100% {
+    color: #f8cd0a;
   }
 }
 
