@@ -89,7 +89,8 @@ const messages = {
         },
         footer: {
             session1: {
-                desc: 'Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.',
+                appname: 'QAKHA Delivery System.',
+                desc: 'Department Of Information Technology, Duy Tan University',
                 contact: 'Got Question? Call us 24/7',
             },
             session2: {
@@ -425,7 +426,8 @@ const messages = {
         },
         footer: {
             session1: {
-                desc: 'Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.',
+                appname: 'Hệ thống QAKHA Delivery.',
+                desc: 'Khoa Công Nghệ Thông Tin, Đại Học Duy Tân',
                 contact: 'Có thắc mắc? Liên hệ chúng tôi 24/7',
             },
             session2: {

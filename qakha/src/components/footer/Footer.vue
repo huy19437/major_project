@@ -12,12 +12,14 @@
                   <a href="/">
                     <img
                       style="margin: 0"
-                      src="@/assets/images/logo_qakha2.png"
+                      src="@/assets/dtu_logo.png"
                       alt="#"
                     />
                   </a>
                 </div>
                 <p class="text">
+                  {{ $t("footer.session1.appname") }}
+                  <br />
                   {{ $t("footer.session1.desc") }}
                 </p>
                 <p class="call">
