@@ -434,9 +434,14 @@
                             </ul>
                           </li>
                           <li>
-                            <a href="/#footer">{{
+                            <router-link to="/contact-us">{{
                               $t("header.headerInner.contact")
-                            }}</a>
+                            }}</router-link>
+                          </li>
+                          <li>
+                            <router-link to="/about-us">{{
+                              $t("header.headerInner.about")
+                            }}</router-link>
                           </li>
                         </ul>
                       </div>

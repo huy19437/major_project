@@ -24,6 +24,7 @@ const messages = {
                     ourMart: 'Our Restaurants'
                 },
                 contact: 'Contact Us',
+                about: 'About Us',
             },
             middleInner: {
                 item: 'Items',
@@ -339,6 +340,15 @@ const messages = {
                 submit: 'Submit'
 
             }
+        },
+        contactUs: {
+            title: 'Contact Us',
+            discuss: "Let's Discuss",
+            slogan: "We're here to answer your questions and feedback.",
+            email: "Your Email Address",
+            name: "Your Name",
+            text: 'Write something...',
+            submit: 'Submit'
         }
     },
     'vi': {
@@ -361,6 +371,7 @@ const messages = {
                     ourMart: 'Quán ăn của chúng tôi'
                 },
                 contact: 'Liên hệ',
+                about: 'Về chúng tôi'
             },
             middleInner: {
                 item: 'Sản phẩm',
@@ -675,6 +686,15 @@ const messages = {
                 submit: 'Gửi'
 
             }
+        },
+        contactUs: {
+            title: 'Liên Hệ Với Chúng Tôi',
+            discuss: "Hãy cùng thảo luận",
+            slogan: "Chúng tôi ở đây để trả lời những câu hỏi và phản hồi của bạn.",
+            email: "Địa chỉ mail của bạn",
+            name: "Tên của bạn",
+            text: 'Viết gì đó...',
+            submit: 'Gửi'
         }
     }
 };

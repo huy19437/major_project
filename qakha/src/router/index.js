@@ -13,6 +13,8 @@ import RegisterPartner from '@/components/partner/register/RegisterPartner.vue'
 import RegisterDriver from '@/components/driver/register/RegisterDriver.vue'
 import EditAddress from '@/components/edit_address/EditAddress.vue'
 import HistoryOrder from '@/components/history_order/HistoryOrder.vue'
+import ContactUs from "@/components/homepage/content/contact/ContactUs.vue/"
+import AboutUs from "@/components/homepage/content/about/AboutUs.vue/"
 import { home } from './home'
 Vue.use(VueRouter)
 
@@ -67,6 +69,16 @@ const routes = [
           auth: true
         },
       },
+      {
+        path: 'contact-us/',
+        name: 'ContactUs',
+        component: ContactUs,
+      },
+      {
+        path: 'about-us/',
+        name: 'AboutUs',
+        component: AboutUs,
+      }
     ],
   },
   {
