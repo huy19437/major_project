@@ -1,13 +1,13 @@
 <template>
   <div class="col-12">
     <div class="row">
-      <div class="col-4">
+      <div class="col-md-4 mb-2 mb-md-4">
         <div class="form-group">
           <label>{{ $t("historyOrders.content.status") }}</label>
           <DropDownStatus @selet-option="methodToRunOnSelect" />
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 mb-2 mb-md-4">
         <div class="form-group">
           <label>{{ $t("historyOrders.content.orderTime") }}</label>
           <input
@@ -20,7 +20,7 @@
           />
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 mb-2 mb-md-4">
         <div class="form-group">
           <label>{{ $t("historyOrders.content.action") }}</label>
           <div class="row">
@@ -83,6 +83,19 @@ export default {
     return {
       isLoading: false,
       orderHistoryData: [],
+      // orderHistoryData: [
+      //   {
+      //     id: 1,
+      //     type_checkout: 2,
+      //     created_at: 3,
+      //     partner: { name: 1 },
+      //     address: 1,
+      //     driver: { name: 1 },
+      //     rate_status: "rated",
+      //     total: 1,
+      //     status: "shiping",
+      //   },
+      // ],
       searchStatus: "",
       dateSearch: "",
       filterObj: {
@@ -159,7 +172,7 @@ export default {
     },
   },
   created() {
-    this.getResult();
+    // this.getResult();
   },
 };
 </script>
@@ -171,7 +184,7 @@ export default {
 }
 
 .col-12 {
-  .col-4 {
+  .col-md-4 {
     .form-group {
       .row {
         .col-5 {

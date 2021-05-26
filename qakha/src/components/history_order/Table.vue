@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-responsive">
     <table class="table">
       <colgroup>
         <col style="width: 5%" />
