@@ -77,7 +77,10 @@
     />
     <OrderDetailModal :totalOfOrder="totalOfOrder" :partnerName="partnerName" />
     <FeedBackModal :dataForFeedback="dataForFeedback" />
-    <FeedBackPartnerModal :dataForFeedback="dataForFeedback" />
+    <FeedBackPartnerModal
+      :dataForFeedback="dataForFeedback"
+      @completedFeedback="completedFeedback"
+    />
     <div
       class="modal fade"
       id="loadBeforeFeedbackDriver"
@@ -149,6 +152,9 @@ export default {
       orderDetails: "order/orderDetails",
       checkFeedbackDriver: "feedback/checkFeedbackDriver",
     }),
+    completedFeedback() {
+      this.$emit("completedFeedback");
+    },
     // formatVND(number) {
     //   return number.toLocaleString("vi-VN", {
     //     style: "currency",

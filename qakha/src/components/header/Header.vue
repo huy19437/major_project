@@ -136,6 +136,13 @@
               <ul class="nav__mobile-list">
                 <li class="nav__mobile-item">
                   <div class="content">
+                    <router-link to="/">
+                      {{ $t("header.headerInner.home") }}
+                    </router-link>
+                  </div>
+                </li>
+                <li class="nav__mobile-item">
+                  <div class="content">
                     <a
                       v-for="entry in languages"
                       :key="entry.title"

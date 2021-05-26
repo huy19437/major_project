@@ -54,7 +54,10 @@
       <Spinner :loading="isLoading" />
     </div>
     <div v-else-if="!isLoading">
-      <Table :historyOrderData="orderHistoryData" />
+      <Table
+        :historyOrderData="orderHistoryData"
+        @completedFeedback="completedFeedback"
+      />
     </div>
   </div>
 </template>
@@ -93,6 +96,9 @@ export default {
     ...mapActions({
       historyOrders: "order/historyOrders",
     }),
+    completedFeedback() {
+      this.getResult();
+    },
     methodToRunOnSelect(payload) {
       this.searchStatus = payload;
     },

@@ -75,7 +75,7 @@
             {{ $t("historyOrders.feedbackModal.close") }}
           </button>
           <button
-            @click.prevent="submitAndOpenFeedbackPartnerModal"
+            @click.prevent="submitPartnerFeedback"
             class="btn btn-primary"
             :disabled="rating == '' ? true : false || isDisabled"
           >
@@ -161,7 +161,7 @@ export default {
       this.rating = rating;
       // console.log(this.rating);
     },
-    async submitAndOpenFeedbackPartnerModal() {
+    async submitPartnerFeedback() {
       if (this.filesSelected != 0) {
         await this.upload()
           .then((res) => {
@@ -175,7 +175,8 @@ export default {
                 openToastMess("You have recieved 500 coins!", "info");
                 $("#feedBackPartnerModal").modal("hide");
 
-                window.location.reload();
+                // window.location.reload();
+                this.$emit("completedFeedback");
               })
               .catch((error) => {
                 openToastMess(error, "error");
@@ -198,7 +199,8 @@ export default {
             openToastMess("You have recieved 500 coins!", "info");
             $("#feedBackPartnerModal").modal("hide");
 
-            window.location.reload();
+            // window.location.reload();
+            this.$emit("completedFeedback");
           })
           .catch((error) => {
             openToastMess(error, "error");
