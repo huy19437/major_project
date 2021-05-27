@@ -14,95 +14,18 @@
           <span>M</span>
         </div>
         <div class="row mt-5">
-          <div class="col-lg-4">
+          <div v-for="person in member" :key="person.id" class="col-lg-4">
             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
               <img
-                src="./thay_thi.jpg"
+                :src="person.img"
                 alt=""
                 class="img-fluid rounded-circle mb-3"
               />
-              <h5 class="name">Trịnh Sử Trường Thi</h5>
-              <h4 class="major">Mentor</h4>
-              <p class="font-weight-light mb-0">"Be all you can be."</p>
+              <h5 class="name">{{ person.name }}</h5>
+              <h4 class="major">{{ person.major }}</h4>
+              <p class="font-weight-light mb-0">{{ person.slogan }}</p>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img
-                src="./huy.jpeg"
-                alt=""
-                class="img-fluid rounded-circle mb-3"
-              />
-              <h5 class="name">Nguyễn Đức Huy</h5>
-              <h4 class="major">Front-End</h4>
-              <p class="font-weight-light mb-0">
-                "Enjoy the little things in life for one day you’ll look back
-                and realize they were the big things!"
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img
-                src="./anh.jpg"
-                alt=""
-                class="img-fluid rounded-circle mb-3"
-              />
-              <h5 class="name">Phan Tuấn Anh</h5>
-              <h4 class="major">Back-End</h4>
-              <p class="font-weight-light mb-0">
-                "The closer you let people get to you,the easier it gets for
-                them to hurt you."
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img
-                src="./quynh.jpg"
-                alt=""
-                class="img-fluid rounded-circle mb-3"
-              />
-              <h5 class="name">Lê Thị Diễm Quỳnh</h5>
-              <h4 class="major">Tester</h4>
-              <p class="font-weight-light mb-0">
-                "Learn from yesterday, live for today, hope for tomorrow. The
-                important is to not stop questioning."
-              </p>
-            </div>
-          </div>
-          <!-- <div class="col-lg-12 flex-center"> -->
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img
-                src="./an.jpg"
-                alt=""
-                class="img-fluid rounded-circle mb-3"
-              />
-              <h5 class="name">Võ Văn An</h5>
-              <h4 class="major">Mobile</h4>
-              <p class="font-weight-light mb-0">
-                "It’s better to cross the line and suffer the consequences than
-                to just stare at the line for the rest of your life."
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img
-                src="./khang1.jpg"
-                alt=""
-                class="img-fluid rounded-circle mb-3"
-              />
-              <h5 class="name">Võ Văn Khang</h5>
-              <h4 class="major">Mobile</h4>
-              <p class="font-weight-light mb-0">
-                "Life is not about waitng for the storm to pass, it’s about
-                learning to dance in the rain."
-              </p>
-            </div>
-          </div>
-          <!-- </div> -->
         </div>
       </div>
     </section>
@@ -110,7 +33,61 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      member: [
+        {
+          id: 1,
+          img: require("./thay_thi.jpg"),
+          name: "Trịnh Sử Trường Thi",
+          major: "Mentor",
+          slogan: '"Be all you can be."',
+        },
+        {
+          id: 2,
+          img: require("./huy.jpeg"),
+          name: "Nguyễn Đức Huy",
+          major: "Front-End",
+          slogan:
+            '"Enjoy the little things in life for one day you’ll look back and realize they were the big things!"',
+        },
+        {
+          id: 3,
+          img: require("./anh.jpg"),
+          name: "Phan Tuấn Anh",
+          major: "Back-End",
+          slogan:
+            '"The closer you let people get to you,the easier it gets for them to hurt you."',
+        },
+        {
+          id: 4,
+          img: require("./quynh.jpg"),
+          name: "Lê Thị Diễm Quỳnh",
+          major: "Tester",
+          slogan:
+            '"Learn from yesterday, live for today, hope for tomorrow. The important is to not stop questioning."',
+        },
+        {
+          id: 5,
+          img: require("./an.jpg"),
+          name: "Võ Văn An",
+          major: "Mobile",
+          slogan:
+            '"It’s better to cross the line and suffer the consequences than to just stare at the line for the rest of your life."',
+        },
+        {
+          id: 6,
+          img: require("./khang1.jpg"),
+          name: "Trịnh Sử Trường Thi",
+          major: "Mobile",
+          slogan:
+            '"Life is not about waitng for the storm to pass, it’s about learning to dance in the rain."',
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
