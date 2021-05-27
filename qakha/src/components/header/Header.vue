@@ -134,10 +134,24 @@
                 </label>
               </div>
               <ul class="nav__mobile-list">
-                <li class="nav__mobile-item">
+                <li class="nav__mobile-item show-on-mobile">
                   <div class="content">
                     <router-link to="/">
                       {{ $t("header.headerInner.home") }}
+                    </router-link>
+                  </div>
+                </li>
+                <li class="nav__mobile-item show-on-mobile">
+                  <div class="content">
+                    <router-link to="/contact-us">
+                      {{ $t("header.headerInner.contact") }}
+                    </router-link>
+                  </div>
+                </li>
+                <li class="nav__mobile-item show-on-mobile">
+                  <div class="content">
+                    <router-link to="/about-us">
+                      {{ $t("header.headerInner.about") }}
                     </router-link>
                   </div>
                 </li>
@@ -1286,6 +1300,10 @@ export default {
   }
 }
 
+.show-on-mobile {
+  display: none;
+}
+
 @media (max-width: 767px) {
   .middle-inner {
     .col-lg-2.col-md-2.col-12:nth-child(1) {
@@ -1300,6 +1318,9 @@ export default {
         border-top: 1px solid #e1e1e1;
       }
     }
+  }
+  .show-on-mobile {
+    display: block;
   }
 }
 
