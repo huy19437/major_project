@@ -79,7 +79,7 @@ export default {
         {
           id: 6,
           img: require("./khang1.jpg"),
-          name: "Trịnh Sử Trường Thi",
+          name: "Võ Văn Khang",
           major: "Mobile",
           slogan:
             '"Life is not about waitng for the storm to pass, it’s about learning to dance in the rain."',
