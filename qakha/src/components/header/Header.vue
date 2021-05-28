@@ -411,14 +411,18 @@
                             </router-link>
                           </li>
                           <li>
-                            <a @click="goto('bestseller')">{{
-                              $t("header.headerInner.bestSeller")
-                            }}</a>
+                            <a
+                              @click="goto('bestseller')"
+                              style="cursor: pointer"
+                              >{{ $t("header.headerInner.bestSeller") }}</a
+                            >
                           </li>
                           <li>
-                            <a @click="goto('service')">{{
-                              $t("header.headerInner.service")
-                            }}</a>
+                            <a
+                              @click="goto('service')"
+                              style="cursor: pointer"
+                              >{{ $t("header.headerInner.service") }}</a
+                            >
                           </li>
                           <li class="hasDropDown" style="cursor: default">
                             <a v-if="getShoppingStatus">
