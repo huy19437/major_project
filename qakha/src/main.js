@@ -44,7 +44,7 @@ Vue.use(ProgressBar)
 // Vue.use(VueToast);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyDO9TS5tBtRgqE2Fsv4tEGzNv8HbRrSCpI",
+    key: "AIzaSyAe1BkXoX8x0LuomskKH7DbC-HKimeioAg",
     libraries: "places"
   }
 });

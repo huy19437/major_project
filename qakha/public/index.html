@@ -29,8 +29,13 @@
   <!-- built files will be auto injected -->
   <script type="text/javascript">
     window.addEventListener('beforeunload', function (e) {
-      e.preventDefault();
-      e.returnValue = '';
+      // console.log(e);
+      const array = ['/login', '/register-driver', '/register-partner']
+
+      if (!array.includes(e.currentTarget.location.pathname)) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
     });
   </script>
 </body>

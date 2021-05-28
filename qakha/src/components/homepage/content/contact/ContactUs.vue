@@ -32,25 +32,59 @@
             </div>
           </div>
           <div class="col-md-6">
-            <form name="contact">
-              <input
-                id="input-name-form-2"
-                type="email"
-                :placeholder="`${$t('contactUs.email')}`"
-                class="form-control mb-3"
-              />
-              <input
-                type="text"
-                :placeholder="`${$t('contactUs.name')}`"
-                class="form-control mb-3"
-              />
-              <textarea
-                id="contact-message-2"
-                rows="5"
-                :placeholder="`${$t('contactUs.text')}`"
-                class="form-control mb-3"
-              ></textarea>
-              <button type="submit" class="btn btn-primary btn-block">
+            <form name="contact" @submit.prevent="handleSubmit">
+              <div class="input-area">
+                <input
+                  id="input-name-form-2"
+                  type="email"
+                  :placeholder="`${$t('contactUs.email')}`"
+                  class="form-control mb-3"
+                  v-model="contactUs.email"
+                  @blur="$v.contactUs.email.$touch()"
+                />
+
+                <div v-if="$v.contactUs.email.$error">
+                  <p class="errorMessage" v-if="!$v.contactUs.email.required">
+                    Email required
+                  </p>
+                  <p class="errorMessage" v-if="!$v.contactUs.email.email">
+                    Email is invalid
+                  </p>
+                </div>
+              </div>
+              <div class="input-area">
+                <input
+                  type="text"
+                  :placeholder="`${$t('contactUs.name')}`"
+                  class="form-control mb-3"
+                  v-model="contactUs.name"
+                  @blur="$v.contactUs.name.$touch()"
+                />
+                <div v-if="$v.contactUs.name.$error">
+                  <p class="errorMessage" v-if="!$v.contactUs.name.required">
+                    Name is required
+                  </p>
+                </div>
+              </div>
+              <div class="input-area">
+                <textarea
+                  id="contact-message-2"
+                  rows="3"
+                  :placeholder="`${$t('contactUs.text')}`"
+                  class="form-control mb-3"
+                  v-model="contactUs.content"
+                  @blur="$v.contactUs.content.$touch()"
+                ></textarea>
+                <div v-if="$v.contactUs.content.$error">
+                  <p class="errorMessage" v-if="!$v.contactUs.content.required">
+                    Please write something
+                  </p>
+                </div>
+              </div>
+              <button
+                class="btn btn-primary btn-block"
+                :disabled="$v.contactUs.$invalid"
+              >
                 {{ $t("contactUs.submit") }}
               </button>
             </form>
@@ -58,11 +92,81 @@
         </div>
       </div>
     </section>
+    <div
+      class="modal fade"
+      id="loadModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loadMeLabel"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loader"></div>
+            <div clas="loader-txt">Waiting...</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapActions, mapMutations } from "vuex";
+import { required, email } from "vuelidate/lib/validators";
+import { openToastMess } from "@/services/toastMessage";
+import $ from "jquery";
+export default {
+  data() {
+    return {
+      contactUs: {
+        email: "",
+        name: "",
+        content: "",
+      },
+    };
+  },
+  validations: {
+    contactUs: {
+      email: {
+        required,
+        email,
+      },
+      name: { required },
+      content: { required },
+    },
+  },
+  methods: {
+    ...mapActions({
+      contact: "feedback/contactUs",
+    }),
+    handleSubmit() {
+      this.$v.contactUs.$touch();
+      if (!this.$v.contactUs.$invalid) {
+        $("#loadModal").modal("show");
+        this.contact(this.$data.contactUs)
+          .then((res) => {
+            openToastMess(res, "success");
+            this.clearInput();
+          })
+          .catch((err) => {
+            openToastMess(err, "error");
+          })
+          .finally(() => {
+            $("#loadModal").modal("hide");
+          });
+      }
+    },
+    clearInput() {
+      this.$v.contactUs.$reset();
+      this.contactUs.email = "";
+      this.contactUs.name = "";
+      this.contactUs.content = "";
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -92,6 +196,13 @@ export default {};
   &:hover {
     background-color: #f7941d;
     border: 1px solid currentColor;
+  }
+}
+
+.input-area {
+  margin-bottom: 20px;
+  .form-control {
+    margin-bottom: 0 !important;
   }
 }
 </style>

@@ -70,12 +70,12 @@ const routes = [
         },
       },
       {
-        path: 'contact-us/',
+        path: 'contact-us',
         name: 'ContactUs',
         component: ContactUs,
       },
       {
-        path: 'about-us/',
+        path: 'about-us',
         name: 'AboutUs',
         component: AboutUs,
       }

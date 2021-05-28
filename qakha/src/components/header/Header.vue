@@ -411,12 +411,12 @@
                             </router-link>
                           </li>
                           <li>
-                            <a href="/#bestseller">{{
+                            <a @click="goto('bestseller')">{{
                               $t("header.headerInner.bestSeller")
                             }}</a>
                           </li>
                           <li>
-                            <a href="/#service">{{
+                            <a @click="goto('service')">{{
                               $t("header.headerInner.service")
                             }}</a>
                           </li>
@@ -582,7 +582,13 @@ export default {
     ...mapMutations({
       setSubTotal: "order/setSubTotal",
     }),
-
+    goto(section) {
+      if (window.location.pathname === "/list-partners") {
+        window.location.href = `#${section}`;
+      } else {
+        window.location.href = `/#${section}`;
+      }
+    },
     changeLocale(locale) {
       i18n.locale = locale;
     },

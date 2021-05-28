@@ -25,14 +25,14 @@
           :class="{ active: isLogin }"
           @click="(isLogin = !isLogin), toggleStyleDisplay()"
         >
-          <a href="#signup">{{ $t("login.way.signup") }}</a>
+          <a>{{ $t("login.way.signup") }}</a>
         </li>
         <li
           class="tab"
           :class="{ active: !isLogin }"
           @click="(isLogin = !isLogin), toggleStyleDisplay()"
         >
-          <a href="#login">{{ $t("login.way.signin") }}</a>
+          <a>{{ $t("login.way.signin") }}</a>
         </li>
       </ul>
       <div class="tab-content">
