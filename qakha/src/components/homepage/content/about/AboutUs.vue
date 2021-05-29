@@ -20,6 +20,7 @@
                 :src="person.img"
                 alt=""
                 class="img-fluid rounded-circle mb-3"
+                onload="this.style.opacity = 1"
               />
               <h5 class="name">{{ person.name }}</h5>
               <h4 class="major">{{ person.major }}</h4>
@@ -161,6 +162,8 @@ export default {
       -webkit-animation-duration: 1s;
       animation-duration: 1s;
       border: 3px solid #ccc;
+      opacity: 0;
+      transition-duration: 500ms;
       &:hover {
         border: 3px solid #f6931d;
       }
