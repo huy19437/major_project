@@ -23,10 +23,10 @@
                   {{ $t("footer.session1.desc") }}
                 </p>
                 <p class="call">
-                  {{ $t("footer.session1.contact")
-                  }}<span
-                    ><a href="tel:+84 589 273 382">+84 589 273 382</a></span
-                  >
+                  {{ $t("footer.session1.contact") }}
+                  <span>
+                    <a href="tel:+84 589 273 382">+84 589 273 382</a>
+                  </span>
                 </p>
               </div>
               <!-- End Single Widget -->
@@ -115,7 +115,11 @@
                 <!-- End Single Widget -->
                 <ul class="footer-list-social">
                   <li>
-                    <a title="facebook" href="javascript:void(0)"
+                    <a
+                      title="facebook"
+                      href="https://www.facebook.com/me/"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       ><i class="ti-facebook"></i
                     ></a>
                   </li>
@@ -149,7 +153,7 @@
               <div class="col-lg-6 col-12">
                 <div class="left">
                   <p>
-                    Copyright © 2020
+                    Copyright © 2021
                     <a href="https://www.facebook.com/me/" target="_blank"
                       >QakhaDelivery</a
                     >

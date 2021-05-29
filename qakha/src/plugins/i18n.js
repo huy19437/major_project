@@ -367,7 +367,7 @@ const messages = {
                     cart: 'Xem Giỏ hàng',
                 },
                 mart: {
-                    title: 'Cửa hàng',
+                    title: 'Quán ăn',
                     ourMart: 'Quán ăn của chúng tôi'
                 },
                 contact: 'Liên hệ',
@@ -661,7 +661,7 @@ const messages = {
             coin: 'Coins',
             address: 'Địa chỉ',
             email: 'Email',
-            phone: 'Điện thoại',
+            phone: 'Sđt',
             update: 'Cập nhật',
             historyOrder: 'Lịch sử đặt hàng',
             upload: 'Đang tải lên',

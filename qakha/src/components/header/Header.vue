@@ -260,7 +260,14 @@
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-12">
-              <div class="right-bar">
+              <div
+                :title="
+                  getShoppingStatus
+                    ? ''
+                    : 'Please go to food store to show Cart'
+                "
+                class="right-bar"
+              >
                 <div
                   v-if="userName"
                   class="sinlge-bar shopping"

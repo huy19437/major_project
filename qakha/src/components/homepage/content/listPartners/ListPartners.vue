@@ -302,12 +302,12 @@ export default {
       return str.toLowerCase();
     },
     getResult() {
+      this.setShoppingStatus(false);
       this.isLoading = true;
       this.getPartners()
         .then((res) => {
           // console.log("call here");
           this.setCartsNull();
-          this.setShoppingStatus(false);
           this.showFeedback(false);
           this.partnerData = this.getPartnersLocal;
           // console.log(this.partnerData);
