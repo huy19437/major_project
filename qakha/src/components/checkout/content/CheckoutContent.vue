@@ -149,25 +149,29 @@
                           class="option"
                           @click="() => (voucher = item)"
                           :class="{
-                            disabled:
-                              subTotal < item.condition ||
-                              item.usage_limit == 0 ||
-                              compare(item.expiry_date < dateNow) ||
-                              item.distance_condition === null
-                                ? false
-                                : distance > item.distance_condition,
+                            disabled: compareConditionOfVoucher(
+                              compareSubtotal(subTotal, item.condition),
+                              item.usage_limit == 0,
+                              compareDistance(
+                                distance,
+                                item.distance_condition
+                              ),
+                              compareDateExpired(item.expiry_date, dateNow)
+                            ),
                           }"
                         >
                           <span
                             class="voucher-code"
                             :class="{
-                              disabled:
-                                subTotal < item.condition ||
-                                item.usage_limit == 0 ||
-                                compare(item.expiry_date < dateNow) ||
-                                item.distance_condition === null
-                                  ? false
-                                  : distance > item.distance_condition,
+                              disabled: compareConditionOfVoucher(
+                                compareSubtotal(subTotal, item.condition),
+                                item.usage_limit == 0,
+                                compareDistance(
+                                  distance,
+                                  item.distance_condition
+                                ),
+                                compareDateExpired(item.expiry_date, dateNow)
+                              ),
                             }"
                             >{{ item.code }}</span
                           >
@@ -175,27 +179,32 @@
                             <div
                               class="description"
                               :class="{
-                                disabled:
-                                  subTotal < item.condition ||
-                                  item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow) ||
-                                  item.distance_condition === null
-                                    ? false
-                                    : distance > item.distance_condition,
+                                disabled: compareConditionOfVoucher(
+                                  compareSubtotal(subTotal, item.condition),
+                                  item.usage_limit == 0,
+                                  compareDistance(
+                                    distance,
+                                    item.distance_condition
+                                  ),
+                                  compareDateExpired(item.expiry_date, dateNow)
+                                ),
                               }"
                             >
                               {{ item.description ? item.description : "" }}
                             </div>
                             <div
+                              v-if="item.condition"
                               class="condition"
                               :class="{
-                                disabled:
-                                  subTotal < item.condition ||
-                                  item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow) ||
-                                  item.distance_condition === null
-                                    ? false
-                                    : distance > item.distance_condition,
+                                disabled: compareConditionOfVoucher(
+                                  compareSubtotal(subTotal, item.condition),
+                                  item.usage_limit == 0,
+                                  compareDistance(
+                                    distance,
+                                    item.distance_condition
+                                  ),
+                                  compareDateExpired(item.expiry_date, dateNow)
+                                ),
                               }"
                             >
                               For order from
@@ -204,13 +213,15 @@
                             <div
                               class="expiry-date"
                               :class="{
-                                disabled:
-                                  subTotal < item.condition ||
-                                  item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow) ||
-                                  item.distance_condition === null
-                                    ? false
-                                    : distance > item.distance_condition,
+                                disabled: compareConditionOfVoucher(
+                                  compareSubtotal(subTotal, item.condition),
+                                  item.usage_limit == 0,
+                                  compareDistance(
+                                    distance,
+                                    item.distance_condition
+                                  ),
+                                  compareDateExpired(item.expiry_date, dateNow)
+                                ),
                               }"
                             >
                               Expiration date:
@@ -219,16 +230,35 @@
                             <div
                               class="usage-limit"
                               :class="{
-                                disabled:
-                                  subTotal < item.condition ||
-                                  item.usage_limit == 0 ||
-                                  compare(item.expiry_date < dateNow) ||
-                                  item.distance_condition === null
-                                    ? false
-                                    : distance > item.distance_condition,
+                                disabled: compareConditionOfVoucher(
+                                  compareSubtotal(subTotal, item.condition),
+                                  item.usage_limit == 0,
+                                  compareDistance(
+                                    distance,
+                                    item.distance_condition
+                                  ),
+                                  compareDateExpired(item.expiry_date, dateNow)
+                                ),
                               }"
                             >
                               Usage limit:{{ item.usage_limit }}
+                            </div>
+                            <div
+                              v-if="item.distance_condition"
+                              class="distance-condition"
+                              :class="{
+                                disabled: compareConditionOfVoucher(
+                                  compareSubtotal(subTotal, item.condition),
+                                  item.usage_limit == 0,
+                                  compareDistance(
+                                    distance,
+                                    item.distance_condition
+                                  ),
+                                  compareDateExpired(item.expiry_date, dateNow)
+                                ),
+                              }"
+                            >
+                              Distance condition:{{ item.distance_condition }}
                             </div>
                           </div>
                         </li>
@@ -422,6 +452,9 @@ export default {
   data() {
     return {
       errMess: false,
+      cart: [],
+      products: [],
+      qtyOfProducts: [],
       isDisabled: false,
       errMessage: "",
       slug: this.$route.params.slug,
@@ -434,18 +467,74 @@ export default {
       distance: 0,
       discount: 0,
       partnerStatus: "",
+      subTotalTest: 5000,
+      testDate: [
+        // {
+        //   id: 1,
+        //   code: "FSDN",
+        //   discount: 15000.0,
+        //   condition: 60000.0,
+        //   distance_condition: null,
+        //   status: "effective",
+        //   expiry_date: "30-07-2021 00:00",
+        //   usage_limit: 10,
+        //   description: "Code 15k off, min order 60k",
+        //   partner_id: 1,
+        //   created_at: "2021-05-22T21:20:38.235+07:00",
+        //   updated_at: "2021-05-22T21:20:38.235+07:00",
+        // },
+        // {
+        //   id: 2,
+        //   code: "ALLFREE",
+        //   discount: 15000.0,
+        //   condition: 40000.0,
+        //   distance_condition: null,
+        //   status: "effective",
+        //   expiry_date: "30-08-2021 00:00",
+        //   usage_limit: 20,
+        //   description: "Code 15k off, min order 40k",
+        //   partner_id: 1,
+        //   created_at: "2021-05-22T21:20:38.249+07:00",
+        //   updated_at: "2021-05-22T21:20:38.249+07:00",
+        // },
+        {
+          id: 3,
+          code: "FREESHIP",
+          discount: 15000.0,
+          condition: null,
+          distance_condition: 3.0,
+          status: "effective",
+          expiry_date: "30-08-2021 00:00",
+          usage_limit: 20,
+          description: "Freeship within 3km",
+          partner_id: 1,
+          created_at: "2021-05-22T21:20:38.266+07:00",
+          updated_at: "2021-05-22T21:20:38.266+07:00",
+        },
+        // {
+        //   id: 4,
+        //   code: "DEAL20K",
+        //   discount: 20000.0,
+        //   condition: 80000.0,
+        //   distance_condition: 3.0,
+        //   status: "effective",
+        //   expiry_date: "30-07-2021 00:00",
+        //   usage_limit: 20,
+        //   description:
+        //     "Hóa đơn từ 80000 trong phạm vi 3km sẽ được giảm giá 20000 cho mọi hình thức thanh toán.",
+        //   partner_id: 1,
+        //   created_at: "2021-05-24T23:32:33.361+07:00",
+        //   updated_at: "2021-05-24T23:35:11.675+07:00",
+        // },
+      ],
       dateNow: moment(new Date()).format("DD-MM-YYYY HH:mm"),
       // partnerOpenTime: moment().format("HH:mm"),
       // partnerCloseTime: moment().format("HH:mm"),
       user: {
         name: "",
-        // email: "",
         phone_number: "",
         address: {},
-        // delivery_time: "",
         type_checkout: "",
-        // longitude: "",
-        // latitude: "",
       },
     };
   },
@@ -490,13 +579,13 @@ export default {
       getPartnersLocal: "partner/getPartnersLocal",
       getAddressLocal: "address/getAddressLocal",
       getCoinsUser: "order/getCoinsUser",
+      getCartLocal: "cart/getCartLocal",
     }),
     // deliveryTime() {
     //   return this.user.delivery_time;
     // },
-    isExpired() {
-      // console.log(this.voucher.expiry_date + "----" + this.dateNow);
-      return this.voucher.expiry_date - this.dateNow;
+    cartLocalChange() {
+      return this.getCartLocal;
     },
   },
   methods: {
@@ -534,6 +623,99 @@ export default {
           this.isDisabled = false;
           openToastMess(error, "error");
         });
+    },
+    compareSubtotal(a, b) {
+      if (b === null || b === undefined) return false;
+      if (a >= b) {
+        return false;
+      } else if (a < b) {
+        return true;
+      }
+      return false;
+    },
+    compareDistance(a, b) {
+      if (b === null || b === undefined) return false;
+      if (a >= b) {
+        return true;
+      } else if (a < b) {
+        return false;
+      }
+      return false;
+    },
+    compareDateExpired(a, b) {
+      let tmp = false;
+      var dateOfA = a.split(" ")[0];
+      var dateOfB = b.split(" ")[0];
+      var hourOfA = a.split(" ")[1];
+      var hourOfB = b.split(" ")[1];
+      var minuteOfA = hourOfA.slice(3, 5);
+      var minuteOfB = hourOfB.slice(3, 5);
+      var dayOfA = dateOfA.slice(0, dateOfA.indexOf("-"));
+      var dayOfB = dateOfB.slice(0, dateOfB.indexOf("-"));
+      var monthOfA = dateOfA.slice(3, 5);
+      var monthOfB = dateOfB.slice(3, 5);
+      var yearOfA = dateOfA.slice(6);
+      var yearOfB = dateOfB.slice(6);
+      var d1 = new Date(yearOfA, monthOfA.replace(/^0+/, ""), dayOfA);
+      var d2 = new Date(yearOfB, monthOfB.replace(/^0+/, ""), dayOfB);
+      if (d1.getTime() === d2.getTime()) {
+        if (hourOfA === hourOfB) {
+          if (minuteOfA === minuteOfB) {
+            tmp = false;
+          } else if (minuteOfA > minuteOfB) {
+            tmp = false;
+          } else {
+            tmp = true;
+          }
+        } else if (hourOfA > hourOfB) {
+          tmp = false;
+        } else {
+          tmp = true;
+        }
+      } else if (d1.getTime() > d2.getTime()) {
+        tmp = false;
+      } else {
+        tmp = true;
+      }
+      return tmp;
+    },
+    compareConditionOfVoucher(a, b, c, d) {
+      // a: sutt
+      // b: use limit
+      // c: distance
+      // d: date expired
+      console.log(a);
+      // console.log(b);
+      console.log(c);
+      // console.log(d);
+      //nếu ngày hết hạn bé hơn ngày hiện tại
+      if (d === true) {
+        return true;
+      } else {
+        //nếu lượt sử dụng bằng 0
+        if (b === true) {
+          return true;
+        } else {
+          if (a === false && c === false) {
+            console.log(3);
+            return false;
+          } else if (a === true && c === true) {
+            console.log(2);
+            return true;
+          } else if (a === false || c === false) {
+            console.log(1);
+            if (a === true) {
+              // console.log(1.1);
+              return true;
+            }
+            if (c === true) {
+              // console.log(1.2);
+              return true;
+            }
+          }
+        }
+      }
+      return false;
     },
     applyVoucher() {
       let params = {
@@ -699,6 +881,8 @@ export default {
         ? new Date(d)
         : typeof d === "object"
         ? new Date(d.year, d.month, d.date)
+        : typeof d === "string"
+        ? new Date(d)
         : NaN;
     },
     // validateDeliveryTime(delivery_time) {
@@ -774,9 +958,36 @@ export default {
       }
       this.getUserInfo();
     },
+    getProductsInCart() {
+      this.cart = this.getCartLocal;
+      let idOfProducts = this.cart.map((item) => item.product_id);
+      this.qtyOfProducts = this.cart.map((item) => item.quantity);
+      const prods = [];
+
+      for (let i = 0; i < idOfProducts.length; i++) {
+        this.getPartnersLocal.find((pl) =>
+          pl.categories.find((cat) => {
+            cat.products.find((obj) => {
+              if (obj.id == idOfProducts[i]) {
+                obj.quantity = this.qtyOfProducts[i];
+                // this.subTotal += obj.price * obj.quantity;
+                prods.push({ ...obj });
+              }
+            });
+          })
+        );
+      }
+      this.products = prods;
+      this.subTotal = this.getSubTotal(this.products);
+    },
+    getSubTotal(array) {
+      return array.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue.price * currentValue.quantity;
+      }, 0);
+    },
   },
   created() {
-    this.setShoppingStatus(false);
+    this.setShoppingStatus(true);
     this.getAddress().then((res) => {
       this.userObj();
       this.getVouchersFlPartner({ partner_id: this.slug });
@@ -791,7 +1002,11 @@ export default {
       this.coinsUsers();
     });
   },
-  watch: {},
+  watch: {
+    cartLocalChange() {
+      this.getProductsInCart();
+    },
+  },
 };
 </script>
 
@@ -1016,6 +1231,9 @@ export default {
     }
     .usage-limit {
       color: blue;
+    }
+    .distance-condition {
+      color: purple;
     }
   }
 

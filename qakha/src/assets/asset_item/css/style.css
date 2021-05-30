@@ -1039,7 +1039,6 @@ Version:1.0
   margin: 0;
   top: 20px;
   float: right;
-  position: relative;
 }
 .header.shop .right-bar .sinlge-bar.top-search a {
   transform: translateY(3px);

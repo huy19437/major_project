@@ -30,7 +30,8 @@ const messages = {
                 item: 'Items',
                 cart: 'Cart',
                 checkout: 'Checkout',
-                total: 'Total'
+                total: 'Total',
+                text: 'Choose restaurant to make an order'
             }
         },
         listPartners: {
@@ -377,8 +378,8 @@ const messages = {
                 item: 'Sản phẩm',
                 cart: 'Giỏ hàng',
                 checkout: 'Thanh toán',
-                total: 'Tổng'
-
+                total: 'Tổng',
+                text: 'Chọn quán ăn để đặt món'
             }
         },
         listPartners: {

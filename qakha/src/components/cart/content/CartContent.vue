@@ -183,7 +183,7 @@ export default {
       getPartnersLocal: "partner/getPartnersLocal",
     }),
     cartLocalChange() {
-      this.getCartLocal;
+      return this.getCartLocal;
     },
   },
   methods: {
@@ -343,7 +343,7 @@ export default {
     },
   },
   created() {
-    this.setShoppingStatus(false);
+    this.setShoppingStatus(true);
     this.getCartContent();
     // this.getResult();
   },

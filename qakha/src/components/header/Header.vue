@@ -84,7 +84,7 @@
       <div class="middle-inner">
         <div class="container">
           <div class="row">
-            <div class="col-lg-2 col-md-2 col-12">
+            <div class="col-lg-3 col-md-3 col-12">
               <div>
                 <label
                   for="nav__mobile-input"
@@ -185,7 +185,7 @@
               </ul>
             </nav>
 
-            <div class="col-lg-8 col-md-8 col-12">
+            <div class="col-lg-7 col-md-7 col-12 header-search-section">
               <div class="search-bar-top">
                 <div class="search-bar">
                   <div
@@ -259,15 +259,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-12">
-              <div
-                :title="
-                  getShoppingStatus
-                    ? ''
-                    : 'Please go to food store to show Cart'
-                "
-                class="right-bar"
-              >
+            <div class="col-lg-2 col-md-2 col-12 has-cart-icon">
+              <div v-if="!getShoppingStatus" class="header-right-text">
+                <marquee
+                  scrollamount="200"
+                  scrolldelay="2000"
+                  style="height: 25px; width: 100%"
+                >
+                  <span>{{ $t("header.middleInner.text") }}</span>
+                </marquee>
+              </div>
+              <div v-if="getShoppingStatus" class="right-bar">
                 <div
                   v-if="userName"
                   class="sinlge-bar shopping"
@@ -282,7 +284,7 @@
                     </span>
                   </a>
                   <!-- Shopping Item -->
-                  <div v-if="getShoppingStatus" class="shopping-item">
+                  <div class="shopping-item">
                     <div class="dropdown-cart-header">
                       <span
                         >{{ numberOfItem }}
@@ -1004,25 +1006,22 @@ export default {
     width: 206px;
   }
 
-  .search-bar-top {
-    margin-left: 15%;
-    .search-bar {
-      .search-products {
-        display: flex;
-        justify-content: space-evenly;
-        .search-input {
-          position: relative;
-        }
-        .search-icon {
-          height: 48px;
-          padding-top: 4px;
-        }
+  .has-cart-icon {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    .header-right-text {
+      span {
+        color: #f79621;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-family: Verdana, sans-serif;
       }
     }
   }
 
   .right-bar {
-    display: flex !important;
     align-items: center;
     top: 20px !important;
     .nice-select {
@@ -1107,6 +1106,37 @@ export default {
   }
   .middle-inner {
     padding: 13px 0 !important;
+    .header-search-section {
+      display: flex;
+      .search-bar-top {
+        margin-left: 15%;
+        width: 100%;
+        margin-top: 0;
+        margin-left: 0;
+        align-self: center;
+        .search-bar {
+          width: 100%;
+          .search-products {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            .search-input {
+              position: relative;
+            }
+            .btn-search {
+              margin-right: 19px;
+              font-size: 1.8rem;
+              position: absolute;
+              right: 0;
+            }
+            .search-icon {
+              height: 48px;
+              padding-top: 4px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -1339,6 +1369,10 @@ export default {
   .show-on-mobile {
     display: block;
   }
+
+  .header.shop .right-bar {
+    display: block !important;
+  }
 }
 
 @media (max-width: 487px) {
@@ -1387,12 +1421,12 @@ export default {
             display: flex;
             align-items: flex-end;
           }
-          .logo.hidden-on-tablet {
-            display: none !important;
-          }
         }
       }
     }
+  }
+  .logo.hidden-on-tablet {
+    display: none !important;
   }
 
   .nav__bars-btn {

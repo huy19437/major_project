@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -87,6 +88,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    ...mapActions({
+      setShoppingStatus: "cart/setShoppingStatus",
+    }),
+  },
+  created() {
+    this.setShoppingStatus(false);
   },
 };
 </script>

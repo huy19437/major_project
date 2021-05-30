@@ -141,6 +141,7 @@ export default {
   methods: {
     ...mapActions({
       contact: "feedback/contactUs",
+      setShoppingStatus: "cart/setShoppingStatus",
     }),
     handleSubmit() {
       this.$v.contactUs.$touch();
@@ -165,6 +166,9 @@ export default {
       this.contactUs.name = "";
       this.contactUs.content = "";
     },
+  },
+  created() {
+    this.setShoppingStatus(false);
   },
 };
 </script>

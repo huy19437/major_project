@@ -51,9 +51,9 @@ const actions = {
         return new Promise((res, rej) => {
             httpRequest.get('/orders/vouchers', { params })
                 .then((response) => {
+                    console.log(response.data);
                     res(response.data);
                     commit('setVoucher', response.data);
-                    // console.log(state.vouchers);
                 }).catch(err => {
                     rej(err.response ? err.response.data.message : err);
                 });
