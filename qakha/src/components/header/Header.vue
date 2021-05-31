@@ -1351,6 +1351,7 @@ export default {
   margin-right: 16px;
   border-radius: 50%;
   margin: 0;
+  object-fit: cover;
 }
 
 .nav__mobile-name {
