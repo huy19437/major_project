@@ -144,16 +144,16 @@
                       <span class="current">{{ voucher.code }}</span>
                       <ul class="list">
                         <li
-                          v-for="item in getVouchersLocal"
+                          v-for="item in testDate"
                           :key="item.id"
                           class="option"
                           @click="() => (voucher = item)"
                           :class="{
                             disabled: compareConditionOfVoucher(
-                              compareSubtotal(subTotal, item.condition),
+                              compareSubtotal(subTotalTest, item.condition),
                               item.usage_limit == 0,
                               compareDistance(
-                                distance,
+                                distanceTest,
                                 item.distance_condition
                               ),
                               compareDateExpired(item.expiry_date, dateNow)
@@ -164,10 +164,10 @@
                             class="voucher-code"
                             :class="{
                               disabled: compareConditionOfVoucher(
-                                compareSubtotal(subTotal, item.condition),
+                                compareSubtotal(subTotalTest, item.condition),
                                 item.usage_limit == 0,
                                 compareDistance(
-                                  distance,
+                                  distanceTest,
                                   item.distance_condition
                                 ),
                                 compareDateExpired(item.expiry_date, dateNow)
@@ -180,10 +180,10 @@
                               class="description"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotal, item.condition),
+                                  compareSubtotal(subTotalTest, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distance,
+                                    distanceTest,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -197,10 +197,10 @@
                               class="condition"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotal, item.condition),
+                                  compareSubtotal(subTotalTest, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distance,
+                                    distanceTest,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -214,10 +214,10 @@
                               class="expiry-date"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotal, item.condition),
+                                  compareSubtotal(subTotalTest, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distance,
+                                    distanceTest,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -231,10 +231,10 @@
                               class="usage-limit"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotal, item.condition),
+                                  compareSubtotal(subTotalTest, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distance,
+                                    distanceTest,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -248,10 +248,10 @@
                               class="distance-condition"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotal, item.condition),
+                                  compareSubtotal(subTotalTest, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distance,
+                                    distanceTest,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -465,38 +465,39 @@ export default {
       isOpen2: false,
       isOpen3: false,
       distance: 0,
+      distanceTest: 4,
       discount: 0,
       partnerStatus: "",
-      subTotalTest: 5000,
+      subTotalTest: 500000,
       testDate: [
-        // {
-        //   id: 1,
-        //   code: "FSDN",
-        //   discount: 15000.0,
-        //   condition: 60000.0,
-        //   distance_condition: null,
-        //   status: "effective",
-        //   expiry_date: "30-07-2021 00:00",
-        //   usage_limit: 10,
-        //   description: "Code 15k off, min order 60k",
-        //   partner_id: 1,
-        //   created_at: "2021-05-22T21:20:38.235+07:00",
-        //   updated_at: "2021-05-22T21:20:38.235+07:00",
-        // },
-        // {
-        //   id: 2,
-        //   code: "ALLFREE",
-        //   discount: 15000.0,
-        //   condition: 40000.0,
-        //   distance_condition: null,
-        //   status: "effective",
-        //   expiry_date: "30-08-2021 00:00",
-        //   usage_limit: 20,
-        //   description: "Code 15k off, min order 40k",
-        //   partner_id: 1,
-        //   created_at: "2021-05-22T21:20:38.249+07:00",
-        //   updated_at: "2021-05-22T21:20:38.249+07:00",
-        // },
+        {
+          id: 1,
+          code: "FSDN",
+          discount: 15000.0,
+          condition: 60000.0,
+          distance_condition: 3,
+          status: "effective",
+          expiry_date: "30-07-2021 00:00",
+          usage_limit: 10,
+          description: "Code 15k off, min order 60k",
+          partner_id: 1,
+          created_at: "2021-05-22T21:20:38.235+07:00",
+          updated_at: "2021-05-22T21:20:38.235+07:00",
+        },
+        {
+          id: 2,
+          code: "ALLFREE",
+          discount: 15000.0,
+          condition: 40000.0,
+          distance_condition: null,
+          status: "effective",
+          expiry_date: "30-08-2021 00:00",
+          usage_limit: 20,
+          description: "Code 15k off, min order 40k",
+          partner_id: 1,
+          created_at: "2021-05-22T21:20:38.249+07:00",
+          updated_at: "2021-05-22T21:20:38.249+07:00",
+        },
         {
           id: 3,
           code: "FREESHIP",
@@ -511,21 +512,21 @@ export default {
           created_at: "2021-05-22T21:20:38.266+07:00",
           updated_at: "2021-05-22T21:20:38.266+07:00",
         },
-        // {
-        //   id: 4,
-        //   code: "DEAL20K",
-        //   discount: 20000.0,
-        //   condition: 80000.0,
-        //   distance_condition: 3.0,
-        //   status: "effective",
-        //   expiry_date: "30-07-2021 00:00",
-        //   usage_limit: 20,
-        //   description:
-        //     "Hóa đơn từ 80000 trong phạm vi 3km sẽ được giảm giá 20000 cho mọi hình thức thanh toán.",
-        //   partner_id: 1,
-        //   created_at: "2021-05-24T23:32:33.361+07:00",
-        //   updated_at: "2021-05-24T23:35:11.675+07:00",
-        // },
+        {
+          id: 4,
+          code: "DEAL20K",
+          discount: 20000.0,
+          condition: 80000.0,
+          distance_condition: 3.0,
+          status: "effective",
+          expiry_date: "30-07-2021 00:00",
+          usage_limit: 20,
+          description:
+            "Hóa đơn từ 80000 trong phạm vi 3km sẽ được giảm giá 20000 cho mọi hình thức thanh toán.",
+          partner_id: 1,
+          created_at: "2021-05-24T23:32:33.361+07:00",
+          updated_at: "2021-05-24T23:35:11.675+07:00",
+        },
       ],
       dateNow: moment(new Date()).format("DD-MM-YYYY HH:mm"),
       // partnerOpenTime: moment().format("HH:mm"),
@@ -635,9 +636,9 @@ export default {
     },
     compareDistance(a, b) {
       if (b === null || b === undefined) return false;
-      if (a >= b) {
+      if (a > b) {
         return true;
-      } else if (a < b) {
+      } else if (a <= b) {
         return false;
       }
       return false;
@@ -684,38 +685,58 @@ export default {
       // b: use limit
       // c: distance
       // d: date expired
-      console.log(a);
-      // console.log(b);
-      console.log(c);
-      // console.log(d);
+      // console.log("a: " + a);
+      // console.log("b: " + b);
+      // console.log("c: " + c);
+      // console.log("d: " + d);
       //nếu ngày hết hạn bé hơn ngày hiện tại
-      if (d === true) {
-        return true;
-      } else {
-        //nếu lượt sử dụng bằng 0
-        if (b === true) {
-          return true;
-        } else {
-          if (a === false && c === false) {
-            console.log(3);
-            return false;
-          } else if (a === true && c === true) {
-            console.log(2);
-            return true;
-          } else if (a === false || c === false) {
-            console.log(1);
-            if (a === true) {
-              // console.log(1.1);
-              return true;
-            }
-            if (c === true) {
-              // console.log(1.2);
-              return true;
-            }
-          }
-        }
-      }
-      return false;
+
+      // if (d === true) {
+      //   console.log(0);
+      //   return true;
+      // } else {
+      //   //nếu lượt sử dụng bằng 0
+      //   if (b === true) {
+      //     return true;
+      //   } else {
+      //     if (a === false && c === false) {
+      //       console.log(3);
+      //       return false;
+      //     } else if (a === true && c === true) {
+      //       console.log(2);
+      //       return true;
+      //     } else if (a === false || c === false) {
+      //       console.log(1);
+      //       if (a === true) {
+      //         console.log(1.1);
+      //         return true;
+      //       }
+      //       if (c === true) {
+      //         console.log(1.2);
+      //         return true;
+      //       }
+      //     }
+
+      //   }
+      // }
+      // return false;
+      // return d === true ? true : false;
+
+      return d === true
+        ? true
+        : b === true
+        ? true
+        : a === false && c === false
+        ? false
+        : a === true && c === true
+        ? true
+        : a === false || c === false
+        ? a === true
+          ? true
+          : c === true
+          ? true
+          : false
+        : false;
     },
     applyVoucher() {
       let params = {
