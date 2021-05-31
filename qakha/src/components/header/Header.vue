@@ -50,12 +50,14 @@
                       />
                     </a> -->
                   </li>
-                  <li v-if="userName">
-                    <i class="ti-user"></i>
-                    <!-- <a href="profile">{{ userName }}</a> -->
-                    <router-link to="/profile">
-                      {{ nameOfUser || userName }}
-                    </router-link>
+                  <li v-if="getShoppingStatus">
+                    <div v-if="userName">
+                      <i class="ti-user"></i>
+                      <!-- <a href="profile">{{ userName }}</a> -->
+                      <router-link to="/profile">
+                        {{ nameOfUser || userName }}
+                      </router-link>
+                    </div>
                   </li>
                   <li v-if="!userName">
                     <i class="ti-power-off"></i>
@@ -260,7 +262,7 @@
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-12 has-cart-icon">
-              <div v-if="!getShoppingStatus" class="header-right-text">
+              <!-- <div v-if="!getShoppingStatus" class="header-right-text">
                 <marquee
                   scrollamount="200"
                   scrolldelay="2000"
@@ -268,6 +270,20 @@
                 >
                   <span>{{ $t("header.middleInner.text") }}</span>
                 </marquee>
+              </div> -->
+              <div v-if="!getShoppingStatus" class="header-middle-user-info">
+                <router-link to="/profile" class="user-link">
+                  <h3 class="user-link__name" v-if="userName">
+                    {{ nameOfUser || userName }}
+                  </h3>
+                  <img
+                    v-if="userObj.image"
+                    :src="`${userObj.image.url}`"
+                    alt=""
+                    class="user-link__img"
+                    onload="this.style.opacity = 1"
+                  />
+                </router-link>
               </div>
               <div v-if="getShoppingStatus" class="right-bar">
                 <div
@@ -864,6 +880,7 @@ export default {
     },
     userChange() {
       this.getNameFromUserObj(this.getUser);
+      this.userObj.image = this.getUser.image;
     },
     getPartnersLocalChange() {
       this.gePartnerDataFromPartner();
@@ -1017,6 +1034,50 @@ export default {
         text-transform: uppercase;
         font-weight: 700;
         font-family: Verdana, sans-serif;
+      }
+    }
+    .header-middle-user-info {
+      width: 100%;
+      .user-link {
+        display: flex;
+        justify-content: flex-end;
+        text-decoration: none;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        border-radius: 10px;
+        &:hover {
+          -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+            rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+          .user-link__img {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+          }
+        }
+        transition: all 200ms ease;
+        position: relative;
+        &:active {
+          -webkit-box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+          box-shadow: 0px 2px 0px #878787, 0px 2px 8px #000000;
+          top: 7px;
+        }
+        .user-link__img {
+          margin: 0;
+          width: 59px;
+          height: 59px;
+          border-radius: 50%;
+          object-fit: cover;
+          transition-duration: 200ms;
+        }
+        .user-link__name {
+          color: #000;
+          font-size: 1.8rem;
+          font-weight: 700;
+          margin: 20px;
+          flex: 1;
+        }
       }
     }
   }
@@ -1370,8 +1431,13 @@ export default {
     display: block;
   }
 
-  .header.shop .right-bar {
-    display: block !important;
+  .header.shop {
+    .right-bar {
+      display: block !important;
+    }
+    .header-middle-user-info {
+      display: none;
+    }
   }
 }
 

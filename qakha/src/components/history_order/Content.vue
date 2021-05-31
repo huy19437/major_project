@@ -172,7 +172,7 @@ export default {
     },
   },
   created() {
-    // this.getResult();
+    this.getResult();
   },
 };
 </script>

@@ -144,16 +144,16 @@
                       <span class="current">{{ voucher.code }}</span>
                       <ul class="list">
                         <li
-                          v-for="item in testDate"
+                          v-for="item in getVouchersLocal"
                           :key="item.id"
                           class="option"
                           @click="() => (voucher = item)"
                           :class="{
                             disabled: compareConditionOfVoucher(
-                              compareSubtotal(subTotalTest, item.condition),
+                              compareSubtotal(subTotal, item.condition),
                               item.usage_limit == 0,
                               compareDistance(
-                                distanceTest,
+                                distance,
                                 item.distance_condition
                               ),
                               compareDateExpired(item.expiry_date, dateNow)
@@ -164,10 +164,10 @@
                             class="voucher-code"
                             :class="{
                               disabled: compareConditionOfVoucher(
-                                compareSubtotal(subTotalTest, item.condition),
+                                compareSubtotal(subTotal, item.condition),
                                 item.usage_limit == 0,
                                 compareDistance(
-                                  distanceTest,
+                                  distance,
                                   item.distance_condition
                                 ),
                                 compareDateExpired(item.expiry_date, dateNow)
@@ -180,10 +180,10 @@
                               class="description"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotalTest, item.condition),
+                                  compareSubtotal(subTotal, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distanceTest,
+                                    distance,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -197,10 +197,10 @@
                               class="condition"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotalTest, item.condition),
+                                  compareSubtotal(subTotal, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distanceTest,
+                                    distance,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -214,10 +214,10 @@
                               class="expiry-date"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotalTest, item.condition),
+                                  compareSubtotal(subTotal, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distanceTest,
+                                    distance,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -231,10 +231,10 @@
                               class="usage-limit"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotalTest, item.condition),
+                                  compareSubtotal(subTotal, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distanceTest,
+                                    distance,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
@@ -248,10 +248,10 @@
                               class="distance-condition"
                               :class="{
                                 disabled: compareConditionOfVoucher(
-                                  compareSubtotal(subTotalTest, item.condition),
+                                  compareSubtotal(subTotal, item.condition),
                                   item.usage_limit == 0,
                                   compareDistance(
-                                    distanceTest,
+                                    distance,
                                     item.distance_condition
                                   ),
                                   compareDateExpired(item.expiry_date, dateNow)
