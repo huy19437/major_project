@@ -456,9 +456,6 @@ export default {
   }
 }
 
-.tab-content {
-}
-
 .nav-tabs {
   border-bottom: 0 !important;
 }

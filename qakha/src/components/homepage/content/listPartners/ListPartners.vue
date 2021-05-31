@@ -349,6 +349,9 @@ $border-radius: 7px;
     justify-content: center;
     padding-top: 33px;
   }
+  .form-inline {
+    text-align: left;
+  }
 }
 .sidebar {
   padding-top: 28%;

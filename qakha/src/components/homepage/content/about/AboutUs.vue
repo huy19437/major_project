@@ -172,9 +172,10 @@ export default {
       animation-duration: 1s;
       border: 3px solid #ccc;
       opacity: 0;
-      transition-duration: 500ms;
+      transition-duration: 200ms;
       &:hover {
         border: 3px solid #f6931d;
+        border-radius: 0 !important;
       }
     }
   }

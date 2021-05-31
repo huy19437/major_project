@@ -11,12 +11,7 @@
                 <p>
                   {{ $t("newsletter.desc") }}
                 </p>
-                <form
-                  action="mail/mail.php"
-                  method="get"
-                  target="_blank"
-                  class="newsletter-inner"
-                >
+                <form @submit.prevent="handleSubmit" class="newsletter-inner">
                   <input
                     name="EMAIL"
                     :placeholder="`${$t('newsletter.email')}`"
@@ -38,16 +33,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    handleSubmit() {},
+  },
+};
 </script>
 
-<style>
+<style scoped lang="scss">
 .section {
   padding: 100px 0;
 }
 
-.shop-newsletter .newsletter-inner input {
-  font-size: 16px;
+.shop-newsletter .newsletter-inner {
+  input {
+    font-size: 16px;
+  }
+}
+input {
+  &:focus-visible {
+    outline-offset: none !important;
+    outline: none !important;
+  }
 }
 
 @media only screen and (min-width: 991px) and (max-width: 1199px) {
