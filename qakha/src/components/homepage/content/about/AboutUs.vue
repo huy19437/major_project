@@ -48,7 +48,7 @@ export default {
         },
         {
           id: 2,
-          img: require("./huy.jpeg"),
+          img: require("./huy2.jpg"),
           name: "Nguyễn Đức Huy",
           major: "Front-End",
           slogan:
