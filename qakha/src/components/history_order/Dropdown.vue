@@ -159,6 +159,7 @@ export default {
     padding: 4px 12px;
     a {
       color: #000;
+      display: block;
       &:hover {
         color: #f7941d;
       }
