@@ -194,5 +194,6 @@ export default {
   flex: 1;
   color: #ccc;
   font-weight: 700;
+  cursor: default;
 }
 </style>
