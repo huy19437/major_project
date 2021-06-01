@@ -116,31 +116,27 @@ export default {
       }
     },
     addToCart(product) {
-      if (product.qty !== 0) {
-        console.log("2");
-        let token = localStorage.getItem("token");
-        if (token) {
-          let params = {
-            product_id: product.id,
-            partner_id: this.slug,
-            quantity: this.numberOfProductToAdd,
-          };
-          // console.log(params);
-          this.addProductToCart(params)
-            .then((res) => {
-              if (res) {
-                openToastMess("Product have been added to Cart", "success");
-              }
-            })
-            .catch((error) => {
-              openToastMess(error, "error");
-            });
-        } else {
-          this.nowRoute(this.$route.path);
-          this.$router.push({ path: "/login" });
-        }
+      console.log("2");
+      let token = localStorage.getItem("token");
+      if (token) {
+        let params = {
+          product_id: product.id,
+          partner_id: this.slug,
+          quantity: this.numberOfProductToAdd,
+        };
+        // console.log(params);
+        this.addProductToCart(params)
+          .then((res) => {
+            if (res) {
+              openToastMess("Product have been added to Cart", "success");
+            }
+          })
+          .catch((error) => {
+            openToastMess(error, "error");
+          });
       } else {
-        openToastMess("out of stock, please choose another one", "warning");
+        this.nowRoute(this.$route.path);
+        this.$router.push({ path: "/login" });
       }
     },
   },
