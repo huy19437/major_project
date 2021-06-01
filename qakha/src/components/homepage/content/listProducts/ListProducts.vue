@@ -222,6 +222,7 @@ export default {
       tmp = this.categories.find((category) => {
         return category.id === this.cateId;
       });
+      console.log(tmp.products);
       if (tmp) return tmp.products;
     },
     visibleProducts() {

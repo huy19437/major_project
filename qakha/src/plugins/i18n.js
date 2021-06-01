@@ -50,7 +50,7 @@ const messages = {
         },
         listProducts: {
             categoriesList: 'CATEGORIES',
-            productsList: 'PRODUCTS',
+            productsList: 'FOODS LIST',
             quantity_sold: "Sold",
             addToCart: "Add to Cart",
         },
@@ -397,7 +397,7 @@ const messages = {
         },
         listProducts: {
             categoriesList: 'DANH MỤC',
-            productsList: 'DANH SÁCH SẢN PHẨM',
+            productsList: 'DANH SÁCH MÓN ĂN',
             quantity_sold: "Đã bán",
             addToCart: "Thêm vào Giỏ",
         },

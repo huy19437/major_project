@@ -100,7 +100,7 @@
               <div class="logo hidden-on-tablet">
                 <a href="/">
                   <img
-                    src="@/assets/images/logo_qakha2.png"
+                    src="@/assets/images/logo_qakha.png"
                     alt="logo"
                     class="header-logo"
                   />
@@ -1082,6 +1082,12 @@ export default {
     }
   }
 
+  .nice-select {
+    .list {
+      border-radius: 7px !important;
+    }
+  }
+
   .right-bar {
     align-items: center;
     top: 20px !important;
@@ -1132,7 +1138,7 @@ export default {
         text-transform: capitalize;
         font-size: 15px;
         padding: 20px 15px;
-        font-weight: 500;
+        font-weight: 700 !important;
         display: block;
         position: relative;
         transition: all 0.4s ease;

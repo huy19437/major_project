@@ -144,15 +144,15 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <PaginationCustom
+            :paginationData="filteredList"
+            @page:update="updatePage"
+            :currentPage="currentPage"
+            :pageSize="pageSize"
+          />
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <PaginationCustom
-        :paginationData="filteredList"
-        @page:update="updatePage"
-        :currentPage="currentPage"
-        :pageSize="pageSize"
-      />
     </div>
   </div>
 </template>
@@ -392,6 +392,11 @@ select.form-control:not([size]):not([multiple]) {
       -webkit-box-shadow: -1px 4px 10px 1px rgba(24, 111, 201, 0.1);
       box-shadow: -1px 4px 10px 1px rgba(24, 111, 201, 0.1);
     }
+    .partner-list-image {
+      .time-tag {
+        opacity: 0;
+      }
+    }
   }
   .partner-list-image {
     margin-right: 25px;
@@ -399,8 +404,6 @@ select.form-control:not([size]):not([multiple]) {
     -ms-flex: 0 0 80px;
     flex: 0 0 80px;
     border: none;
-  }
-  .partner-list-image {
     img {
       width: 80px;
       height: 80px;
@@ -425,6 +428,7 @@ select.form-control:not([size]):not([multiple]) {
       border-radius: 30px;
       height: 26px;
       line-height: 24px;
+      transition: all 0.3s ease-in-out;
       &.open {
         background-color: #1fbb3c;
       }

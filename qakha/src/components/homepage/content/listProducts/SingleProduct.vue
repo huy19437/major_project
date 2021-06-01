@@ -33,7 +33,7 @@
         <div class="product-action-2">
           <a
             :class="{
-              diabledPointer: partnerStatus === 'open' ? false : true,
+              diabledPointer: checkCondition(partnerStatus, product.qty),
             }"
             title="Add to cart"
             @click="addToCart(product)"
@@ -62,7 +62,7 @@
             params: { slug: product.id },
           }"
         >
-          {{ product.name }}
+          {{ product.name }} ({{ product.qty }})
         </router-link>
         <!-- <a href="product-details">{{ product.name }}</a> -->
       </h3>
@@ -106,28 +106,41 @@ export default {
     //     currency: "VND",
     //   });
     // },
-    addToCart(product) {
-      console.log("2");
-      let token = localStorage.getItem("token");
-      if (token) {
-        let params = {
-          product_id: product.id,
-          partner_id: this.slug,
-          quantity: this.numberOfProductToAdd,
-        };
-        // console.log(params);
-        this.addProductToCart(params)
-          .then((res) => {
-            if (res) {
-              openToastMess("Product have been added to Cart", "success");
-            }
-          })
-          .catch((error) => {
-            openToastMess(error, "error");
-          });
+    checkCondition(partnerStatus, productQty) {
+      if (partnerStatus !== "open") {
+        return true;
+      } else if (productQty === 0) {
+        return true;
       } else {
-        this.nowRoute(this.$route.path);
-        this.$router.push({ path: "/login" });
+        return false;
+      }
+    },
+    addToCart(product) {
+      if (product.qty !== 0) {
+        console.log("2");
+        let token = localStorage.getItem("token");
+        if (token) {
+          let params = {
+            product_id: product.id,
+            partner_id: this.slug,
+            quantity: this.numberOfProductToAdd,
+          };
+          // console.log(params);
+          this.addProductToCart(params)
+            .then((res) => {
+              if (res) {
+                openToastMess("Product have been added to Cart", "success");
+              }
+            })
+            .catch((error) => {
+              openToastMess(error, "error");
+            });
+        } else {
+          this.nowRoute(this.$route.path);
+          this.$router.push({ path: "/login" });
+        }
+      } else {
+        openToastMess("out of stock, please choose another one", "warning");
       }
     },
   },
