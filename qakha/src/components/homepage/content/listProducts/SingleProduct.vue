@@ -33,7 +33,7 @@
         <div class="product-action-2">
           <a
             :class="{
-              diabledPointer: checkCondition(partnerStatus, product.qty),
+              diabledPointer: checkCondition(partnerStatus, product.quantity),
             }"
             title="Add to cart"
             @click="addToCart(product)"
@@ -62,7 +62,7 @@
             params: { slug: product.id },
           }"
         >
-          {{ product.name }} ({{ product.qty }})
+          {{ product.name }} ({{ product.quantity }})
         </router-link>
         <!-- <a href="product-details">{{ product.name }}</a> -->
       </h3>
