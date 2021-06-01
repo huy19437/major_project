@@ -14,7 +14,7 @@
           {{ product.quantity_sold }}</span
         > -->
       </router-link>
-      <div class="button-head">
+      <div v-if="!checkOutOfStock(product)" class="button-head">
         <div class="product-action">
           <InputOrderHover
             @inc="
@@ -44,6 +44,9 @@
             </div>
           </a>
         </div>
+      </div>
+      <div v-if="checkOutOfStock(product)" class="button-head">
+        <div class="out-of-stock">Out of Stock</div>
       </div>
     </div>
     <div class="home-product-item__favourite">
@@ -95,11 +98,15 @@ export default {
   components: {
     InputOrderHover,
   },
+  computed: {},
   methods: {
     ...mapActions({
       addProductToCart: "cart/addProductToCart",
       nowRoute: "auth/nowRoute",
     }),
+    checkOutOfStock(product) {
+      return product.status.includes("out_of_stock");
+    },
     // formatVND(number) {
     //   return number.toLocaleString("vi-VN", {
     //     style: "currency",
@@ -180,5 +187,12 @@ export default {
     font-weight: 600;
     color: #000;
   }
+}
+
+.out-of-stock {
+  text-align: center;
+  flex: 1;
+  color: #ccc;
+  font-weight: 700;
 }
 </style>
