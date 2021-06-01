@@ -33,7 +33,7 @@
         <div class="product-action-2">
           <a
             :class="{
-              diabledPointer: checkCondition(partnerStatus, product.quantity),
+              diabledPointer: checkCondition(partnerStatus, product.status),
             }"
             title="Add to cart"
             @click="addToCart(product)"
@@ -62,7 +62,7 @@
             params: { slug: product.id },
           }"
         >
-          {{ product.name }} ({{ product.quantity }})
+          {{ product.name }}
         </router-link>
         <!-- <a href="product-details">{{ product.name }}</a> -->
       </h3>
@@ -106,10 +106,10 @@ export default {
     //     currency: "VND",
     //   });
     // },
-    checkCondition(partnerStatus, productQty) {
+    checkCondition(partnerStatus, productStt) {
       if (partnerStatus !== "open") {
         return true;
-      } else if (productQty === 0) {
+      } else if (productStt.includes("out_of_stock")) {
         return true;
       } else {
         return false;
