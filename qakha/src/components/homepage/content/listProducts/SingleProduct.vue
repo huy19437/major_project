@@ -33,7 +33,7 @@
         <div class="product-action-2">
           <a
             :class="{
-              diabledPointer: checkCondition(partnerStatus, product.status),
+              diabledPointer: partnerStatus === 'open' ? false : true,
             }"
             title="Add to cart"
             @click="addToCart(product)"

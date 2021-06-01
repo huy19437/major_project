@@ -68,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <div class="action">
+            <div v-if="!checkOutOfStock(products)" class="action">
               <a
                 class="add-to-cart btn"
                 type="button"
@@ -79,6 +79,19 @@
                 }"
               >
                 {{ $t("productDetails.addToCart") }}
+              </a>
+            </div>
+            <div v-if="checkOutOfStock(products)" class="action">
+              <a
+                class="add-to-cart btn"
+                type="button"
+                style="margin-right: 5px"
+                @click="addToCart"
+                :class="{
+                  diabledPointer: true,
+                }"
+              >
+                Out of Stock
               </a>
             </div>
           </div>
@@ -118,6 +131,9 @@ export default {
       nowRoute: "auth/nowRoute",
       getCart: "cart/getCart",
     }),
+    checkOutOfStock(product) {
+      return product.status.includes("out_of_stock");
+    },
     inc() {
       this.numberProductInCart++;
     },
