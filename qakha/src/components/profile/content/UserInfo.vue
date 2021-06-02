@@ -646,7 +646,7 @@ img {
     .coins-icon {
       margin: 0 4px;
       svg {
-        color:#F6931D
+        color: #f6931d;
       }
     }
     p.email-user {

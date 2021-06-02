@@ -1083,8 +1083,14 @@ export default {
   }
 
   .nice-select {
+    padding-left: 18px !important;
+    padding-right: 30px !important;
+    .current {
+      text-align: center;
+    }
     .list {
       border-radius: 7px !important;
+      width: 100% !important;
     }
   }
 

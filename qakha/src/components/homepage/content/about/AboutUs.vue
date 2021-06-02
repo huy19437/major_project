@@ -51,40 +51,35 @@ export default {
           img: require("./huy2.jpg"),
           name: "Nguyễn Đức Huy",
           major: "Front-End",
-          slogan:
-            '"Enjoy the little things in life for one day you’ll look back and realize they were the big things!"',
+          slogan: '"On The Way To Success, There Is No Trace Of Lazy Men."',
         },
         {
           id: 3,
           img: require("./anh.jpg"),
           name: "Phan Tuấn Anh",
           major: "Back-End",
-          slogan:
-            '"The closer you let people get to you,the easier it gets for them to hurt you."',
+          slogan: '"Study, Study more, Study forever."',
         },
         {
           id: 4,
           img: require("./quynh.jpg"),
           name: "Lê Thị Diễm Quỳnh",
           major: "Tester",
-          slogan:
-            '"Learn from yesterday, live for today, hope for tomorrow. The important is to not stop questioning."',
+          slogan: '"If I Fail, I Try Again And Again, And Again."',
         },
         {
           id: 5,
           img: require("./an.jpg"),
           name: "Võ Văn An",
           major: "Mobile",
-          slogan:
-            '"It’s better to cross the line and suffer the consequences than to just stare at the line for the rest of your life."',
+          slogan: '"Studying Is Not About Time. It’s About Effort."',
         },
         {
           id: 6,
           img: require("./khang1.jpg"),
           name: "Võ Văn Khang",
           major: "Mobile",
-          slogan:
-            '"Life is not about waitng for the storm to pass, it’s about learning to dance in the rain."',
+          slogan: '"Once You Stop Learning, You Will Start Dying."',
         },
       ],
     };
@@ -146,6 +141,7 @@ export default {
     font-family: Garamond, serif;
     font-weight: 700 !important;
     font-size: 1.6rem !important;
+    text-transform: capitalize;
   }
   .row .mt-5 {
   }

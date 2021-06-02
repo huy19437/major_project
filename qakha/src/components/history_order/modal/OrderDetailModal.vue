@@ -39,49 +39,53 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-12">
-              <!-- Shopping Summery -->
-              <table class="table shopping-summery">
-                <thead>
-                  <tr class="main-hading">
-                    <th>
-                      {{ $t("historyOrders.orderDetailsModal.table.member") }}
-                    </th>
-                    <th>
-                      {{ $t("historyOrders.orderDetailsModal.table.dish") }}
-                    </th>
-                    <th>
-                      {{ $t("historyOrders.orderDetailsModal.table.quantity") }}
-                    </th>
-                    <th>
-                      {{ $t("historyOrders.orderDetailsModal.table.price") }}
-                    </th>
-                    <!-- <th>Fee</th> -->
-                    <!-- <th>Discount</th> -->
-                    <th>
-                      {{ $t("historyOrders.orderDetailsModal.table.total") }}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody v-if="getOrderDetailsHistory">
-                  <tr
-                    v-for="order in getOrderDetailsHistory.order_details"
-                    :key="order.id"
-                  >
-                    <td>{{ getOrderDetailsHistory.order.name }}</td>
-                    <td>{{ order.product.name }}</td>
-                    <td>{{ order.quantity }}</td>
-                    <td>{{ order.price | formatVND }}</td>
-                    <!-- <td>
+              <div class="table-responsive">
+                <!-- Shopping Summery -->
+                <table class="table shopping-summery">
+                  <thead>
+                    <tr>
+                      <th>
+                        {{ $t("historyOrders.orderDetailsModal.table.member") }}
+                      </th>
+                      <th>
+                        {{ $t("historyOrders.orderDetailsModal.table.dish") }}
+                      </th>
+                      <th>
+                        {{
+                          $t("historyOrders.orderDetailsModal.table.quantity")
+                        }}
+                      </th>
+                      <th>
+                        {{ $t("historyOrders.orderDetailsModal.table.price") }}
+                      </th>
+                      <!-- <th>Fee</th> -->
+                      <!-- <th>Discount</th> -->
+                      <th>
+                        {{ $t("historyOrders.orderDetailsModal.table.total") }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody v-if="getOrderDetailsHistory">
+                    <tr
+                      v-for="order in getOrderDetailsHistory.order_details"
+                      :key="order.id"
+                    >
+                      <td>{{ getOrderDetailsHistory.order.name }}</td>
+                      <td>{{ order.product.name }}</td>
+                      <td>{{ order.quantity }}</td>
+                      <td>{{ order.price | formatVND }}</td>
+                      <!-- <td>
                       {{ Math.ceil(getOrderDetailsHistory.order.shipping_fee) }}
                     </td> -->
-                    <!-- <td>{{ getOrderDetailsHistory.order.discount }}</td> -->
-                    <td>
-                      {{ (order.quantity * order.price) | formatVND }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!--/ End Shopping Summery -->
+                      <!-- <td>{{ getOrderDetailsHistory.order.discount }}</td> -->
+                      <td>
+                        {{ (order.quantity * order.price) | formatVND }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!--/ End Shopping Summery -->
+              </div>
             </div>
           </div>
         </div>
@@ -135,8 +139,12 @@ export default {
 
 <style scoped lang="scss">
 .modal-dialog {
-  width: 1140px !important;
+  width: 100% !important;
   max-width: 1140px !important;
+}
+
+.modal-header {
+  flex-wrap: wrap;
 }
 
 .modal-footer {
@@ -161,5 +169,9 @@ export default {
 
 .modal-title {
   text-align: left;
+}
+
+.shopping-summery thead {
+  display: table-header-group !important;
 }
 </style>

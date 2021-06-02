@@ -151,7 +151,7 @@ export default {
         this.addProductToCart(params)
           .then((res) => {
             if (res) {
-              openToastMess("Product have been added to Cart", "success");
+              openToastMess("Added to Cart", "success");
             }
           })
           .catch((error) => {

@@ -172,7 +172,11 @@ export default {
                 this.image = "";
                 // console.log(res);
                 openToastMess("Add feedback partner successfully!", "success");
-                openToastMess("You have recieved 500 coins!", "info");
+                openToastMess(
+                  "You have recieved 500 coins!",
+                  "info",
+                  "bottom-left"
+                );
                 $("#feedBackPartnerModal").modal("hide");
 
                 // window.location.reload();
