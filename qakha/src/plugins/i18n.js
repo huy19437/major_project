@@ -42,6 +42,8 @@ const messages = {
                 name: 'Name',
                 location: 'Address'
             },
+            timeClose: 'Close Before',
+            ratingStars: 'Rating Stars',
             open: 'open',
             close: 'close',
             locked: 'locked',
@@ -390,6 +392,8 @@ const messages = {
                 name: 'Tên',
                 location: 'Địa điểm'
             },
+            timeClose: 'Đóng cửa trước',
+            ratingStars: 'Số Sao',
             open: 'mở',
             close: 'đóng',
             locked: 'khoá',

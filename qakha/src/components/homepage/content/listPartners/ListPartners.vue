@@ -14,9 +14,9 @@
     <div class="row">
       <div class="col-lg-3">
         <div class="sidebar">
-          <label class="justify-content-start mr-2"
-            >{{ $t("listPartners.searchBy.title") }}:</label
-          >
+          <label class="justify-content-start mr-2">
+            {{ $t("listPartners.searchBy.title") }}:
+          </label>
           <div class="widget border-0">
             <div class="search">
               <input
@@ -35,6 +35,102 @@
                 :placeholder="`${$t('listPartners.searchBy.location')}`"
                 v-model="searchByAddress"
               />
+            </div>
+          </div>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title widget-collapse">
+            <h6>{{ $t("listPartners.timeClose") }}:</h6>
+          </div>
+          <div class="collapse show" id="dateposted">
+            <div class="widget-content time-close">
+              <input
+                type="time"
+                id="timeClose"
+                class="form-control"
+                v-model="time_close"
+                @input="showTime()"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-title widget-collapse">
+            <h6>{{ $t("listPartners.ratingStars") }}:</h6>
+          </div>
+          <div class="collapse show" id="dateposted">
+            <div class="widget-content">
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted1"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="1"
+                />
+                <label for="dateposted1">
+                  <span class="fa fa-star checked avg-point"></span>
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted2"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="2"
+                />
+                <label for="dateposted2">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted3"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="3"
+                />
+                <label for="dateposted3">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted4"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="4"
+                />
+                <label for="dateposted4">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted5"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="5"
+                />
+                <label for="dateposted5">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -135,7 +231,20 @@
                   <div class="partner-list-option">
                     <ul class="list-unstyled">
                       <li>
-                        <span>{{ partner.address }}</span>
+                        <span>
+                          <span class="icon icon-location">
+                            <font-awesome-icon
+                              :icon="['fas', 'map-marker-alt']"
+                            />
+                          </span>
+                          {{ partner.address }}
+                        </span>
+                      </li>
+                      <li>
+                        <span>
+                          <font-awesome-icon :icon="['fas', 'clock']" />
+                          time close: {{ partner.time_close.slice(0, 5) }}
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -190,7 +299,8 @@ export default {
             : (partner.type_id || "")
                 .toString()
                 .toLowerCase()
-                .includes(this.typePartner.toLowerCase()))
+                .includes(this.typePartner.toLowerCase())) &&
+          this.checkTimeCondition(partner.time_close || "", this.time_close)
         );
       });
     },
@@ -219,6 +329,8 @@ export default {
       searchByName: "",
       searchByAddress: "",
       isLoading: false,
+      ratingStars: "",
+      time_close: "",
     };
   },
   methods: {
@@ -301,6 +413,23 @@ export default {
       str = str.replace(/Đ/g, "D");
       return str.toLowerCase();
     },
+    showTime() {
+      console.log(this.time_close);
+    },
+    checkTimeCondition(a, b) {
+      if (a === "" || b === "") return true;
+      var hourA = a.slice(0, 5).slice(0, 2);
+      var hourB = b.slice(0, 2);
+      var minuteA = a.slice(0, 5).slice(3);
+      var minuteB = b.slice(3);
+      if (hourA === hourB) {
+        if (minuteA <= minuteB) return true;
+        else return false;
+      } else {
+        if (hourA < hourB) return true;
+        else return false;
+      }
+    },
     getResult() {
       this.setShoppingStatus(false);
       this.isLoading = true;
@@ -310,7 +439,7 @@ export default {
           this.setCartsNull();
           this.showFeedback(false);
           this.partnerData = this.getPartnersLocal;
-          // console.log(this.partnerData);
+          console.log(this.partnerData);
         })
         .catch((error) => {
           // console.log(error);
@@ -362,6 +491,60 @@ $border-radius: 7px;
       height: 43px;
     }
   }
+}
+
+.widget {
+  .widget-title.widget-collapse {
+    border-top: 1px solid #eeeeee;
+    padding: 14px 20px 14px 0;
+    text-align: left;
+  }
+  h6 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  .widget-content {
+    padding: 14px 20px 14px 0;
+    margin-bottom: 10px;
+    .custom-checkbox {
+      margin-bottom: 8px;
+      text-align: left;
+      input {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        width: 1.6rem;
+        height: 1.6rem;
+        opacity: 1;
+        box-sizing: border-box;
+        padding: 0;
+      }
+      label {
+        position: relative;
+        margin-bottom: 0;
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        cursor: pointer;
+        font-size: 1.8rem;
+        .avg-point {
+          color: #f7941d;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  .time-close {
+    padding: 14px 0;
+  }
+}
+
+.custom-control {
+  position: relative !important;
+  display: block !important;
+  min-height: 1.5rem !important;
+  padding-left: 1.8rem !important;
 }
 
 select.form-control:not([size]):not([multiple]) {
@@ -646,5 +829,17 @@ h3.title-comm:before {
 
 .row.spinner-loading {
   display: block;
+}
+
+.partner-list-option {
+  .list-unstyled {
+    justify-content: flex-start !important;
+    li {
+      margin-bottom: 2px;
+      .icon-location {
+        margin: 0 2px;
+      }
+    }
+  }
 }
 </style>
