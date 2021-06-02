@@ -243,7 +243,8 @@
                       <li>
                         <span>
                           <font-awesome-icon :icon="['fas', 'clock']" />
-                          time close: {{ partner.time_close.slice(0, 5) }}
+                          {{ $t("listPartners.time_close") }}:
+                          {{ partner.time_close.slice(0, 5) }}
                         </span>
                       </li>
                     </ul>
@@ -423,10 +424,10 @@ export default {
       var minuteA = a.slice(0, 5).slice(3);
       var minuteB = b.slice(3);
       if (hourA === hourB) {
-        if (minuteA <= minuteB) return true;
+        if (minuteA >= minuteB) return true;
         else return false;
       } else {
-        if (hourA < hourB) return true;
+        if (hourA > hourB) return true;
         else return false;
       }
     },
