@@ -91,7 +91,7 @@
                   diabledPointer: true,
                 }"
               >
-                Out of Stock
+                {{ $t("productDetails.outOfStock") }}
               </a>
             </div>
           </div>

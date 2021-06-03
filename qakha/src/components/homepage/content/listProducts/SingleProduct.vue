@@ -46,7 +46,7 @@
         </div>
       </div>
       <div v-if="checkOutOfStock(product)" class="button-head">
-        <div class="out-of-stock">Out of Stock</div>
+        <div class="out-of-stock">{{ $t("listProducts.outOfStock") }}</div>
       </div>
     </div>
     <div class="home-product-item__favourite">

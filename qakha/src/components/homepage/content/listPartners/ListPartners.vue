@@ -251,7 +251,7 @@
                         </span>
                       </li>
                       <li>
-                        <span>
+                        <span class="icon icon-time">
                           <font-awesome-icon :icon="['fas', 'clock']" />
                           {{ $t("listPartners.time_close") }}:
                           {{ partner.time_close.slice(0, 5) }}
@@ -885,6 +885,12 @@ h3.title-comm:before {
       margin-bottom: 2px;
       .icon-location {
         margin: 0 2px;
+        color: #f7941d;
+      }
+      .icon-time {
+        svg {
+          color: red;
+        }
       }
     }
   }

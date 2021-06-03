@@ -62,7 +62,8 @@ const messages = {
                 priceUp: 'Low price',
                 priceDown: 'High price',
                 qtySold: 'Quantity sold'
-            }
+            },
+            outOfStock: 'Out of Stock',
         },
         carousel: {
             bestSeller: 'BEST SELLER',
@@ -316,7 +317,8 @@ const messages = {
         productDetails: {
             currentPrice: 'current price',
             sold: 'sold',
-            addToCart: 'Add to cart'
+            addToCart: 'Add to cart',
+            outOfStock: 'Out of Stock',
         },
         userProfile: {
             aboutMe: 'Personal Information',
@@ -419,7 +421,8 @@ const messages = {
                 priceUp: 'Giá tiền thấp',
                 priceDown: 'Giá tiền cao',
                 qtySold: 'Số lượng đã bán'
-            }
+            },
+            outOfStock: 'Hết hàng',
         },
         carousel: {
             bestSeller: 'SẢN PHẨM',
@@ -673,7 +676,8 @@ const messages = {
         productDetails: {
             currentPrice: 'Giá hiện tại',
             sold: 'đá bán',
-            addToCart: 'Thêm vào giỏ hàng'
+            addToCart: 'Thêm vào giỏ hàng',
+            outOfStock: 'Hết hàng',
         },
         userProfile: {
             aboutMe: 'Thông tin cá nhân',

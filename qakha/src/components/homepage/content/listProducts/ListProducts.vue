@@ -292,6 +292,7 @@ export default {
         return category.id === this.cateId;
       });
       const typeSort = this.typeOfSort;
+      console.log(tmp.products);
       if (typeSort === "" || typeSort === null || typeSort === undefined) {
         if (tmp) return tmp.products;
       } else if (typeSort === "1") {
@@ -435,17 +436,21 @@ export default {
   border: 1px solid #eeeeee;
   border-radius: 7px;
   .product-img {
+    // padding: 12px 12px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     img {
       display: block;
       max-height: 161px;
       height: auto;
       object-fit: cover;
     }
-    padding: 12px 12px;
     .button-head {
       display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
       .product-action {
         margin-right: 12px !important;
         position: relative;
@@ -557,7 +562,7 @@ export default {
 /* Partner Title */
 .vi-header {
   border-bottom: solid 1px #c35355;
-  padding-top: 10%;
+  padding-top: 5%;
 }
 .vi-left-title {
   width: auto;
