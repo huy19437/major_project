@@ -52,6 +52,16 @@
                 v-model="time_close"
                 @input="showTime()"
               />
+              <button
+                type="button"
+                class="btn btn-primary"
+                :title="`${$t('listPartners.timeCloseBtn')}`"
+                @click="resetTimeCLose()"
+              >
+                <span
+                  ><span><font-awesome-icon :icon="['fas', 'undo']" /></span
+                ></span>
+              </button>
             </div>
           </div>
         </div>
@@ -349,6 +359,9 @@ export default {
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
+    resetTimeCLose() {
+      this.time_close = "";
+    },
     getTypePartner(event) {
       console.log(event.target.value.toString());
       if (event.target.value.toString() == "6") {
@@ -538,6 +551,10 @@ $border-radius: 7px;
   }
   .time-close {
     padding: 14px 0;
+    display: flex;
+    button {
+      background-color: #000;
+    }
   }
 }
 

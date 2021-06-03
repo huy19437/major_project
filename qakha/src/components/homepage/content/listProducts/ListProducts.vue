@@ -66,6 +66,40 @@
               role="tabpanel"
             >
               <div class="tab-single">
+                <div class="job-filter mb-4 d-sm-flex align-items-center">
+                  <div class="job-shortby ml-sm-auto d-flex align-items-center">
+                    <form class="form-inline">
+                      <div class="form-group mb-0">
+                        <label class="justify-content-start mr-2"
+                          >{{ $t("listPartners.sortBy") }}:</label
+                        >
+                        <div class="short-by">
+                          <select
+                            class="form-control basic-select select2-hidden-accessible"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            style="height: calc(2.25rem + 12px)"
+                            v-model="typeOfSort"
+                            @change="getSortCondition()"
+                          >
+                            <option value="">
+                              {{ $t("listProducts.sortBy.all") }}
+                            </option>
+                            <option value="1">
+                              {{ $t("listProducts.sortBy.priceUp") }}
+                            </option>
+                            <option value="2">
+                              {{ $t("listProducts.sortBy.priceDown") }}
+                            </option>
+                            <option value="3">
+                              {{ $t("listProducts.sortBy.qtySold") }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
                 <div class="row">
                   <div
                     v-for="product in visibleProducts"
@@ -188,6 +222,7 @@ import { openToastMess } from "@/services/toastMessage";
 import InputOrderHover from "./InputOrderHover";
 import SingleProduct from "./SingleProduct";
 import NotifyCloseModal from "@/components/notify_modal/NotifyCloseModal";
+import _, { map } from "underscore";
 import $ from "jquery";
 export default {
   name: "ListProducts",
@@ -207,6 +242,7 @@ export default {
       activeItem: "",
       partner: {},
       partnerStatus: "",
+      typeOfSort: "",
     };
   },
   computed: {
@@ -218,12 +254,13 @@ export default {
       getFeedbacksStatus: "feedback/getFeedbacksStatus",
     }),
     listProducts() {
-      let tmp = [];
-      tmp = this.categories.find((category) => {
-        return category.id === this.cateId;
-      });
-      console.log(tmp.products);
-      if (tmp) return tmp.products;
+      // let tmp = [];
+      // tmp = this.categories.find((category) => {
+      //   return category.id === this.cateId;
+      // });
+      // console.log(tmp.products);
+      // if (tmp) return tmp.products;
+      return this.getSortCondition();
     },
     visibleProducts() {
       return this.listProducts.slice(
@@ -248,6 +285,25 @@ export default {
     }),
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
+    },
+    getSortCondition() {
+      let tmp = [];
+      tmp = this.categories.find((category) => {
+        return category.id === this.cateId;
+      });
+      const typeSort = this.typeOfSort;
+      if (typeSort === "" || typeSort === null || typeSort === undefined) {
+        if (tmp) return tmp.products;
+      } else if (typeSort === "1") {
+        let sortedObjs = _.sortBy(tmp.products, "price");
+        return sortedObjs;
+      } else if (typeSort === "2") {
+        let sortedObjs2 = _.sortBy(tmp.products, "price");
+        return sortedObjs2.reverse();
+      } else if (typeSort === "3") {
+        let sortedObjs3 = _.sortBy(tmp.products, "quantity_sold");
+        return sortedObjs3.reverse();
+      }
     },
     isActive(menuItem) {
       return this.activeItem === menuItem;

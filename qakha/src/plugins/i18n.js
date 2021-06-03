@@ -44,6 +44,7 @@ const messages = {
             },
             timeClose: 'Close After',
             time_close: 'Time close',
+            timeCloseBtn: "Reset time",
             ratingStars: 'Rating Stars',
             open: 'open',
             close: 'close',
@@ -56,6 +57,12 @@ const messages = {
             productsList: 'FOODS LIST',
             quantity_sold: "Sold",
             addToCart: "Add to Cart",
+            sortBy: {
+                all: 'All',
+                priceUp: 'Low price',
+                priceDown: 'High price',
+                qtySold: 'Quantity sold'
+            }
         },
         carousel: {
             bestSeller: 'BEST SELLER',
@@ -395,6 +402,7 @@ const messages = {
             },
             timeClose: 'Đóng cửa sau',
             time_close: 'Thời gian đóng cửa',
+            timeCloseBtn: "Đặt lại thời gian",
             ratingStars: 'Số Sao',
             open: 'mở',
             close: 'đóng',
@@ -406,6 +414,12 @@ const messages = {
             productsList: 'DANH SÁCH MÓN ĂN',
             quantity_sold: "Đã bán",
             addToCart: "Thêm vào Giỏ",
+            sortBy: {
+                all: 'Tất cả',
+                priceUp: 'Giá tiền thấp',
+                priceDown: 'Giá tiền cao',
+                qtySold: 'Số lượng đã bán'
+            }
         },
         carousel: {
             bestSeller: 'SẢN PHẨM',
