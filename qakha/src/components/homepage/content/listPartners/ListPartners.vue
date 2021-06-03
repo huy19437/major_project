@@ -552,8 +552,37 @@ $border-radius: 7px;
   .time-close {
     padding: 14px 0;
     display: flex;
+    input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
     button {
       background-color: #000;
+      border-top-left-radius: 0;
+      border: none;
+      border-bottom-left-radius: 0;
+      transition: all 200ms ease;
+      position: relative;
+      &:hover {
+        background-color: #f7941d;
+      }
+      &:active {
+        color: #fff !important;
+        background-color: f7941d !important;
+        border: none !important;
+        top: 2px;
+      }
+      &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      &:focus-visible {
+        background-color: #000;
+        border-top-left-radius: 0 !important;
+        border: none;
+        border-bottom-left-radius: 0 !important;
+        outline: none !important;
+      }
     }
   }
 }
