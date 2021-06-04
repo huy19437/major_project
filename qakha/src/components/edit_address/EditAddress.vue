@@ -128,7 +128,7 @@ export default {
       $("#loadMe").modal("show");
       this.addAddress(params)
         .then((response) => {
-          openToastMess("Add address successfully!", "success");
+          openToastMess("Add address successfully!", "success", "top-right");
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -142,7 +142,7 @@ export default {
       this.deleteAddress(id)
         .then((res) => {
           this.getResult();
-          openToastMess("Delete address successfully!", "success");
+          openToastMess("Delete address successfully!", "success", "top-right");
         })
         .catch((error) => {
           openToastMess(error, "error");
@@ -160,7 +160,7 @@ export default {
       this.updateAddress(params)
         .then((response) => {
           this.getResult();
-          openToastMess("Update address successfully!", "success");
+          openToastMess("Update address successfully!", "success", "top-right");
         })
         .catch((error) => {
           openToastMess(error, "error");

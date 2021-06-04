@@ -423,7 +423,7 @@ const messages = {
                 priceDown: 'Giá tiền cao',
                 qtySold: 'Số lượng đã bán'
             },
-            outOfStock: 'Hết hàng',
+            outOfStock: 'Hết món',
         },
         carousel: {
             bestSeller: 'SẢN PHẨM',
@@ -678,7 +678,7 @@ const messages = {
             currentPrice: 'Giá hiện tại',
             sold: 'đá bán',
             addToCart: 'Thêm vào giỏ hàng',
-            outOfStock: 'Hết hàng',
+            outOfStock: 'Hết món',
         },
         userProfile: {
             aboutMe: 'Thông tin cá nhân',
