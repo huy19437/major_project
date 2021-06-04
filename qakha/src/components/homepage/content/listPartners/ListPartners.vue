@@ -81,6 +81,11 @@
                 />
                 <label for="dateposted1">
                   <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  {{ $t("listPartners.up") }}
                 </label>
               </div>
               <div class="custom-control custom-checkbox">
@@ -94,6 +99,11 @@
                 <label for="dateposted2">
                   <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+
+                  {{ $t("listPartners.up") }}
                 </label>
               </div>
               <div class="custom-control custom-checkbox">
@@ -108,6 +118,9 @@
                   <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  {{ $t("listPartners.up") }}
                 </label>
               </div>
               <div class="custom-control custom-checkbox">
@@ -123,6 +136,8 @@
                   <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  {{ $t("listPartners.up") }}
                 </label>
               </div>
               <div class="custom-control custom-checkbox">

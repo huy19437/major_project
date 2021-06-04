@@ -49,8 +49,8 @@ const messages = {
             open: 'open',
             close: 'close',
             locked: 'locked',
-            not_activated: 'not activated'
-
+            not_activated: 'not activated',
+            up: 'up',
         },
         listProducts: {
             categoriesList: 'CATEGORIES',
@@ -409,7 +409,8 @@ const messages = {
             open: 'mở',
             close: 'đóng',
             locked: 'khoá',
-            not_activated: 'chưa kích hoạt'
+            not_activated: 'chưa kích hoạt',
+            up: 'trở lên',
         },
         listProducts: {
             categoriesList: 'DANH MỤC',
