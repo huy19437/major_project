@@ -13,7 +13,7 @@ const messages = {
             listOfProducts: 'List of products',
             headerInner: {
                 home: 'Home',
-                bestSeller: 'Best seller',
+                bestSeller: 'Top seller',
                 service: 'Service',
                 store: {
                     title: 'Cart',
