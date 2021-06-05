@@ -51,11 +51,14 @@
       <div class="col-12">
         <div class="product-info">
           <div class="tab-content" id="myTabContent">
-            <div id="nz-div-4">
+            <!-- <div id="nz-div-4">
               <h3 class="product-list-title">
                 <span>{{ $t("listProducts.productsList") }}</span>
               </h3>
-            </div>
+            </div> -->
+            <h3 class="product-list-title">
+              {{ $t("listProducts.productsList") }}
+            </h3>
             <!-- Start Single Tab -->
             <div
               v-for="category in categories"
@@ -75,7 +78,11 @@
                         >
                         <div class="short-by">
                           <select
-                            class="form-control basic-select select2-hidden-accessible"
+                            class="
+                              form-control
+                              basic-select
+                              select2-hidden-accessible
+                            "
                             tabindex="-1"
                             aria-hidden="true"
                             style="height: calc(2.25rem + 12px)"
@@ -661,51 +668,69 @@ export default {
   border: 2px solid #eff1f5;
 }
 /* Product list title */
-
-#nz-div-4 h3.product-list-title :after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 40px solid transparent;
-  border-left: 20px solid #ea3a3c;
-  border-bottom: 0px solid transparent;
-  border-right: 0 solid transparent;
-  position: absolute;
-  top: 0px;
-  right: -20px;
-}
-
-#nz-div-4 h3.product-list-title :before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-width: 40px 20px 0px 0px;
-  border-style: solid;
-  border-color: transparent;
-  border-right-color: #ea3a3c;
-  position: absolute;
-  top: 0px;
-  left: -20px;
-}
-
-#nz-div-4 h3.product-list-title span {
-  background: #ea3a3c;
-  padding: 10px 20px 8px 20px;
-  color: white;
-  position: relative;
-  display: inline-block;
-  margin: 0;
-  letter-spacing: 2px;
-}
-
-#nz-div-4 h3.product-list-title {
+.product-list-title {
   text-align: center;
-  margin: 45px 0;
-  border-bottom: 2px solid #ea3a3c;
-  font-size: 16px;
-  line-height: 20px;
-  text-transform: uppercase;
+  padding-bottom: 0.5em;
+  position: relative;
+  font-size: 1.9em;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  &:after {
+    content: "";
+    background: #3399cc;
+    height: 2px;
+    width: 10%;
+    position: absolute;
+    bottom: 0%;
+    left: 45%;
+  }
 }
+
+// #nz-div-4 h3.product-list-title :after {
+//   content: "";
+//   width: 0;
+//   height: 0;
+//   border-top: 40px solid transparent;
+//   border-left: 20px solid #ea3a3c;
+//   border-bottom: 0px solid transparent;
+//   border-right: 0 solid transparent;
+//   position: absolute;
+//   top: 0px;
+//   right: -20px;
+// }
+
+// #nz-div-4 h3.product-list-title :before {
+//   content: "";
+//   width: 0;
+//   height: 0;
+//   border-width: 40px 20px 0px 0px;
+//   border-style: solid;
+//   border-color: transparent;
+//   border-right-color: #ea3a3c;
+//   position: absolute;
+//   top: 0px;
+//   left: -20px;
+// }
+
+// #nz-div-4 h3.product-list-title span {
+//   background: #ea3a3c;
+//   padding: 10px 20px 8px 20px;
+//   color: white;
+//   position: relative;
+//   display: inline-block;
+//   margin: 0;
+//   letter-spacing: 2px;
+// }
+
+// #nz-div-4 h3.product-list-title {
+//   text-align: center;
+//   margin: 45px 0;
+//   border-bottom: 2px solid #ea3a3c;
+//   font-size: 16px;
+//   line-height: 20px;
+//   text-transform: uppercase;
+// }
 .avg-point {
   color: yellow;
 }

@@ -9,7 +9,7 @@
           id="myCarousel"
           class="carousel slide"
           data-ride="carousel"
-          data-interval="0"
+          data-interval="3000"
         >
           <!-- Carousel indicators -->
           <ol class="carousel-indicators">

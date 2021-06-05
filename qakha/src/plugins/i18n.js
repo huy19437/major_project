@@ -66,8 +66,8 @@ const messages = {
             outOfStock: 'Out of Stock',
         },
         carousel: {
-            bestSeller: 'BEST SELLER',
-            products: 'PRODUCTS'
+            bestSeller: 'TOP SELLER',
+            products: 'FOODS'
         },
         feedback: {
             title: 'Feedback of',
@@ -426,8 +426,8 @@ const messages = {
             outOfStock: 'Hết món',
         },
         carousel: {
-            bestSeller: 'SẢN PHẨM',
-            products: 'BÁN CHẠY NHẤT'
+            bestSeller: 'TOP NHỮNG MÓN',
+            products: 'BÁN CHẠY'
         },
         feedback: {
             title: 'Đánh giá của',
