@@ -74,15 +74,48 @@
               <div class="custom-control custom-checkbox">
                 <input
                   type="radio"
-                  id="dateposted1"
+                  id="dateposted5"
                   v-model="ratingStars"
                   name="avg-point"
-                  value="1"
+                  value="5"
                 />
-                <label for="dateposted1">
+                <label for="dateposted5">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted4"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="4"
+                />
+                <label for="dateposted4">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star-o checked avg-point"></span>
-                  <span class="fa fa-star-o checked avg-point"></span>
+                  {{ $t("listPartners.up") }}
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="dateposted3"
+                  v-model="ratingStars"
+                  name="avg-point"
+                  value="3"
+                />
+                <label for="dateposted3">
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star checked avg-point"></span>
                   <span class="fa fa-star-o checked avg-point"></span>
                   <span class="fa fa-star-o checked avg-point"></span>
                   {{ $t("listPartners.up") }}
@@ -109,51 +142,18 @@
               <div class="custom-control custom-checkbox">
                 <input
                   type="radio"
-                  id="dateposted3"
+                  id="dateposted1"
                   v-model="ratingStars"
                   name="avg-point"
-                  value="3"
+                  value="1"
                 />
-                <label for="dateposted3">
+                <label for="dateposted1">
                   <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
+                  <span class="fa fa-star-o checked avg-point"></span>
                   <span class="fa fa-star-o checked avg-point"></span>
                   <span class="fa fa-star-o checked avg-point"></span>
                   {{ $t("listPartners.up") }}
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input
-                  type="radio"
-                  id="dateposted4"
-                  v-model="ratingStars"
-                  name="avg-point"
-                  value="4"
-                />
-                <label for="dateposted4">
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star-o checked avg-point"></span>
-                  {{ $t("listPartners.up") }}
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input
-                  type="radio"
-                  id="dateposted5"
-                  v-model="ratingStars"
-                  name="avg-point"
-                  value="5"
-                />
-                <label for="dateposted5">
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
-                  <span class="fa fa-star checked avg-point"></span>
                 </label>
               </div>
             </div>
