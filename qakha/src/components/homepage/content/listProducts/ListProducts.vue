@@ -423,6 +423,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/style/_mixins.scss";
+
 .container {
   .row {
     &.list-products {
@@ -468,6 +470,7 @@ export default {
         }
       }
       .product-action-2 {
+        @include buttonStyle();
         margin-left: 12px !important;
         position: relative;
         a {

@@ -14,21 +14,14 @@
                     Download Qakha delivery App
                     <div class="header__qr">
                       <img
-                        src="./qr_code2.png"
+                        src="./qakha_qr.png"
                         alt="QR code"
                         class="header__qr-img"
                       />
                       <div class="header__qr-apps">
                         <a href="" class="header__qr-link">
                           <img
-                            src="./google_play.png"
-                            alt="Googleplay image"
-                            class="header__qr-download-img"
-                          />
-                        </a>
-                        <a href="" class="header__qr-link">
-                          <img
-                            src="./app_store.png"
+                            src="./logo_qakha.png"
                             alt="Appstore image"
                             class="header__qr-download-img"
                           />
@@ -1159,6 +1152,12 @@ export default {
           .btn-right {
             @include buttonStyle();
           }
+          .total {
+            .total-amount {
+              color: red;
+              font-size: 1.6rem;
+            }
+          }
         }
       }
     }
@@ -1482,10 +1481,16 @@ export default {
 }
 
 .header__qr-link {
+  height: 3.125em;
   img {
     margin: 0;
     width: 100%;
+    height: 100%;
   }
+}
+
+.header__navbar-item--has-qr {
+  cursor: default;
 }
 
 .header__qr-link:first-child {
