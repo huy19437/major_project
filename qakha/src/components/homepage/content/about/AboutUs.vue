@@ -41,7 +41,7 @@ export default {
       member: [
         {
           id: 1,
-          img: require("./thay_thi.jpg"),
+          img: require("./thay2.jpg"),
           name: "Trịnh Sử Trường Thi",
           major: "Mentor",
           slogan: '"Be all you can be."',
