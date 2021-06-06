@@ -9,7 +9,34 @@
               <!-- Top Left -->
               <div class="top-left">
                 <ul class="list-main">
-                  <li><i class="ti-headphone-alt"></i>+84 589 273 382</li>
+                  <li class="header__navbar-item--has-qr">
+                    <i class="ti-download"></i>
+                    Download Qakha delivery App
+                    <div class="header__qr">
+                      <img
+                        src="./qr_code2.png"
+                        alt="QR code"
+                        class="header__qr-img"
+                      />
+                      <div class="header__qr-apps">
+                        <a href="" class="header__qr-link">
+                          <img
+                            src="./google_play.png"
+                            alt="Googleplay image"
+                            class="header__qr-download-img"
+                          />
+                        </a>
+                        <a href="" class="header__qr-link">
+                          <img
+                            src="./app_store.png"
+                            alt="Appstore image"
+                            class="header__qr-download-img"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- <li><i class="ti-headphone-alt"></i>+84 589 273 382</li> -->
                   <li><i class="ti-email"></i>qakhadelivery@gmail.com</li>
                 </ul>
               </div>
@@ -1390,13 +1417,14 @@ export default {
 
 .nav__mobile-item {
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   text-overflow: ellipsis;
   font-weight: 700;
+  font-size: 2.5rem !important;
   .content {
     a,
     span {
@@ -1415,6 +1443,59 @@ export default {
   font-weight: 500;
   padding: 16px 0;
   text-transform: uppercase;
+}
+
+.header__qr {
+  width: 190px;
+  background-color: #fff;
+  position: absolute;
+  top: 120%;
+  padding: 8px;
+  border-radius: 2px;
+  display: none;
+  animation: fadeIn ease-in 0.2s;
+  z-index: 1;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.header__qr::before {
+  content: "";
+  width: 100%;
+  top: -16px;
+  left: 0;
+  height: 20px;
+  display: block;
+  position: absolute;
+}
+
+.header__qr-img {
+  width: 100%;
+}
+
+.header__qr-apps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__qr-download-img {
+  height: 15px;
+}
+
+.header__qr-link {
+  img {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.header__qr-link:first-child {
+  margin-left: 11px;
+}
+.header__qr-link:nth-child(2) {
+  margin-right: 11px;
+}
+.header__navbar-item--has-qr:hover .header__qr {
+  display: block;
 }
 
 @keyframes fadeIn {
