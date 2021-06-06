@@ -65,6 +65,53 @@
             </div>
           </div>
         </div>
+
+        <div class="widget">
+          <div class="widget-title widget-collapse">
+            <h6>{{ $t("listPartners.statusPartner.title") }}</h6>
+          </div>
+          <div class="collapse show" id="jobtype">
+            <div class="widget-content partner-type">
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="alltype"
+                  v-model="statusType"
+                  name="statusPartner"
+                  value="all"
+                />
+                <label for="alltype">
+                  {{ $t("listPartners.statusPartner.all") }}
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="opentype"
+                  v-model="statusType"
+                  name="statusPartner"
+                  value="open"
+                />
+                <label for="opentype">
+                  {{ $t("listPartners.statusPartner.open") }}
+                </label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="radio"
+                  id="closetype"
+                  v-model="statusType"
+                  name="statusPartner"
+                  value="close"
+                />
+                <label for="closetype">
+                  {{ $t("listPartners.statusPartner.close") }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="widget">
           <div class="widget-title widget-collapse">
             <h6>{{ $t("listPartners.ratingStars") }}:</h6>
@@ -326,7 +373,8 @@ export default {
                 .toString()
                 .toLowerCase()
                 .includes(this.typePartner.toLowerCase())) &&
-          this.checkTimeCondition(partner.time_close || "", this.time_close)
+          this.checkTimeCondition(partner.time_close || "", this.time_close) &&
+          this.checkStatusPartner(partner.status || "", this.statusType)
         );
       });
     },
@@ -356,6 +404,7 @@ export default {
       searchByAddress: "",
       isLoading: false,
       ratingStars: "",
+      statusType: "",
       time_close: "",
     };
   },
@@ -459,6 +508,12 @@ export default {
         else return false;
       }
     },
+    checkStatusPartner(a, b) {
+      if (a === "" || b === "") return true;
+      if (b === "all") return true;
+      if (a === b) return true;
+      else return false;
+    },
     getResult() {
       this.setShoppingStatus(false);
       this.isLoading = true;
@@ -561,6 +616,14 @@ $border-radius: 7px;
           color: #f7941d;
           margin-left: 4px;
         }
+      }
+    }
+    &.partner-type {
+      display: flex;
+      padding: 14px 0;
+      justify-content: space-between;
+      .custom-control {
+        margin-right: 0;
       }
     }
   }

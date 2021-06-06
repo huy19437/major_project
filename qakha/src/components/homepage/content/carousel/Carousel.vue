@@ -134,6 +134,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import _, { map } from "underscore";
+import { openToastMess } from "@/services/toastMessage";
 export default {
   name: "Carousel",
   data() {
@@ -221,6 +222,7 @@ export default {
         })
         .catch((err) => {
           // console.log(err);
+          openToastMess(err, "error");
         });
     },
   },

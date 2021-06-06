@@ -278,9 +278,13 @@ export default {
     categoriesDataOnChange() {
       return this.categories;
     },
+    partnersLocalOnChange() {
+      return this.getPartnersLocal;
+    },
   },
   methods: {
     ...mapActions({
+      getPartners: "partner/getPartners",
       setShoppingStatus: "cart/setShoppingStatus",
       getCart: "cart/getCart",
       setCartsNull: "cart/setCartsNull",
@@ -417,6 +421,10 @@ export default {
   watch: {
     categoriesDataOnChange() {
       this.currentPage = 0;
+    },
+    partnersLocalOnChange() {
+      this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
+      this.setCategoriesFromPartnerData(this.partner);
     },
   },
 };
