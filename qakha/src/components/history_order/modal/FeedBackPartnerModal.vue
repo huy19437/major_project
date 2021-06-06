@@ -31,7 +31,9 @@
               class="comment-text"
               name=""
               id=""
-              placeholder="Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh."
+              :placeholder="`${$t(
+                'historyOrders.feedbackModal.feedbackPartner.title'
+              )}`"
               maxlength="300"
               v-model="feedBackPartnerObj.content"
             ></textarea>
@@ -81,7 +83,9 @@
           >
             {{ $t("historyOrders.feedbackModal.submit") }}
           </button>
-          <p class="notice-feedback">completed feedback to get 500 coins</p>
+          <p class="notice-feedback">
+            {{ $t("historyOrders.feedbackModal.feedbackPartner.getCoins") }}
+          </p>
         </div>
       </div>
     </div>
@@ -173,7 +177,7 @@ export default {
                 // console.log(res);
                 openToastMess("Add feedback partner successfully!", "success");
                 openToastMess(
-                  "You have recieved 500 coins!",
+                  "You have recieved 1000 coins!",
                   "info",
                   "bottom-left"
                 );

@@ -191,7 +191,13 @@
             </div>
             <div v-if="userDataFromSer.image || image" class="about-avatar">
               <img
-                :src="image || `${userDataFromSer.image.url}`"
+                :src="
+                  image
+                    ? image
+                    : userDataFromSer.image.url
+                    ? `${userDataFromSer.image.url}`
+                    : userImgAlt
+                "
                 title="User Avatar"
                 alt="User Avatar"
                 class="user-avatar"
@@ -316,6 +322,7 @@ export default {
       },
     };
     return {
+      userImgAlt: require("./ava_alt.png"),
       isLoadingSpinner: false,
       coinOfUser: "",
       image: "",

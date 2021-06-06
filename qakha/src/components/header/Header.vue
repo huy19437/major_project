@@ -298,7 +298,11 @@
                   </h3>
                   <img
                     v-if="userObj.image"
-                    :src="`${userObj.image.url}`"
+                    :src="
+                      userObj.image.url !== null
+                        ? `${userObj.image.url}`
+                        : userImgAlt
+                    "
                     alt=""
                     class="user-link__img"
                     onload="this.style.opacity = 1"
@@ -535,6 +539,7 @@ export default {
         { flag: "vn", language: "vi", title: "VN" },
       ],
       isOpen: false,
+      userImgAlt: require("./ava_alt.png"),
       isOpen2: false,
       isChanged: false,
       cart: [],
@@ -884,7 +889,7 @@ export default {
       this.showUser()
         .then((res) => {
           this.userObj = res;
-          console.log(this.userObj.image);
+          console.log(this.userObj.image.url);
         })
         .catch((error) => {
           openToastMess(error, "error");

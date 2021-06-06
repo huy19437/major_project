@@ -32,7 +32,9 @@
                 class="comment-text"
                 name=""
                 id=""
-                placeholder="Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh."
+                :placeholder="`${$t(
+                  'historyOrders.feedbackModal.feedbackPartner.title'
+                )}`"
                 maxlength="300"
                 v-model="feedBackDriverObj.content"
               ></textarea>

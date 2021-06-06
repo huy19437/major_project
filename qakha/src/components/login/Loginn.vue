@@ -79,6 +79,7 @@ export default {
     },
     showLoginForm() {
       this.status = !this.status;
+      this.isLogin = !this.isLogin;
     },
   },
 };

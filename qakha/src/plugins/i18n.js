@@ -230,7 +230,11 @@ const messages = {
             },
             feedbackModal: {
                 close: 'Close',
-                submit: 'Submit'
+                submit: 'Submit',
+                feedbackPartner: {
+                    title: 'Share your review. Your ratings and comments will be kept anonymous.',
+                    getCoins: 'Completed feedback to get 1000 coins'
+                }
             },
             orderDetailsModal: {
                 title: 'Your order at',
@@ -590,7 +594,11 @@ const messages = {
             },
             feedbackModal: {
                 close: 'Đóng',
-                submit: 'Gửi'
+                submit: 'Gửi',
+                feedbackPartner: {
+                    title: 'Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh.',
+                    getCoins: 'Hoàn thành đánh giá để nhận 1000 coins'
+                }
             },
             orderDetailsModal: {
                 title: 'Bạn đặt hàng tại',

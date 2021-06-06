@@ -592,6 +592,7 @@ export default {
   methods: {
     ...mapActions({
       userObj: "auth/user",
+      showUser: "auth/showUser",
       getPartners: "partner/getPartners",
       getDistance: "order/getDistanceForShip",
       createOrder: "order/createOrder",
@@ -821,7 +822,7 @@ export default {
                 this.createOrder(params)
                   .then((res) => {
                     $("#loadMe").modal("hide");
-                    openToastMess("Order created", "success");
+                    openToastMess("Order created", "success", "bottom-left");
                     this.$router.push({
                       name: "OrderConfirm",
                       params: { slug: this.slug },
@@ -830,20 +831,24 @@ export default {
                   })
                   .catch((error) => {
                     $("#loadMe").modal("hide");
-                    openToastMess(error, "error");
+                    openToastMess(error, "error", "bottom-left");
                   });
               } else {
                 $("#loadMe").modal("hide");
-                openToastMess("Food store is Close", "warning");
+                openToastMess("Food store is Close", "warning", "bottom-left");
               }
             })
             .catch((error) => {
               $("#loadMe").modal("hide");
-              openToastMess(error, "error");
+              openToastMess(error, "error", "bottom-left");
             });
         } else {
           this.isDisabled = true;
-          openToastMess("Your location is so far from food store", "error");
+          openToastMess(
+            "Your location is so far from food store",
+            "error",
+            "bottom-left"
+          );
         }
       }
       // }
@@ -1010,7 +1015,8 @@ export default {
   created() {
     this.setShoppingStatus(true);
     this.getAddress().then((res) => {
-      this.userObj();
+      // this.userObj();
+      this.showUser();
       this.getVouchersFlPartner({ partner_id: this.slug });
       if (
         this.getSubtotal === 0 ||

@@ -19,7 +19,11 @@
           >
             <img
               class="user-img"
-              :src="`${feedback.user.image.url}`"
+              :src="
+                feedback.user.image.url
+                  ? `${feedback.user.image.url}`
+                  : userImgAlt
+              "
               alt=""
               width="50"
             />
@@ -73,6 +77,7 @@ export default {
   components: { PaginationCustom, ShowFeedBackModal },
   data() {
     return {
+      userImgAlt: require("./ava_alt.png"),
       currentPage: 0,
       pageSize: 3,
       feedBackData: [],
