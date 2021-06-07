@@ -11,7 +11,7 @@
                 <ul class="list-main">
                   <li class="header__navbar-item--has-qr">
                     <i class="ti-download"></i>
-                    Download Qakha delivery App
+                    Qakha delivery
                     <div class="header__qr">
                       <img
                         src="./qakha_qr.png"
@@ -22,7 +22,27 @@
                         <a href="" class="header__qr-link">
                           <img
                             src="./logo_qakha.png"
-                            alt="Appstore image"
+                            alt=""
+                            class="header__qr-download-img"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="header__navbar-item--has-qr">
+                    <i class="ti-download"></i>
+                    Qakha driver
+                    <div class="header__qr">
+                      <img
+                        src="./qakha_driver_qr.png"
+                        alt="QR code"
+                        class="header__qr-img"
+                      />
+                      <div class="header__qr-apps">
+                        <a href="" class="header__qr-link">
+                          <img
+                            src="./qakha_driver.png"
+                            alt=""
                             class="header__qr-download-img"
                           />
                         </a>
@@ -1478,7 +1498,7 @@ export default {
 
 .header__qr-apps {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .header__qr-download-img {
