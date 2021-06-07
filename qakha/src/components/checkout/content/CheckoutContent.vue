@@ -778,6 +778,7 @@ export default {
           this.subTotal = res.subtotal;
           this.discount = 0;
           this.voucherObjFromSer = {};
+          this.voucher = {};
         })
         .catch((error) => {
           openToastMess(error, "error");

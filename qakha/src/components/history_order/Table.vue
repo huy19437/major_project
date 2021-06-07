@@ -41,12 +41,7 @@
             <a
               class="rate-driver"
               :class="{
-                diabledPointer:
-                  item.status === 'shipping'
-                    ? true
-                    : false || item.rate_status === 'rated'
-                    ? true
-                    : false,
+                diabledPointer: checkRateCondition(item),
               }"
               @click="getDataForFeedback(item)"
               >{{ item.rate_status }}</a
@@ -206,6 +201,15 @@ export default {
         .finally(() => {
           $("#loadMe").modal("hide");
         });
+    },
+    checkRateCondition(item) {
+      return item.status === "shipping"
+        ? true
+        : item.status === "canceled"
+        ? true
+        : item.rate_status === "rated"
+        ? true
+        : false;
     },
   },
   watch: {
