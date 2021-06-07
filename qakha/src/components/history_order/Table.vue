@@ -268,6 +268,13 @@ export default {
   color: #fff;
   font-size: 11px;
 }
+.order-status-canceled {
+  background: red;
+  padding: 4px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 11px;
+}
 .order-detail {
   color: #428bca !important;
   cursor: pointer;
