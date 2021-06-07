@@ -50,7 +50,13 @@
                     </div>
                   </li>
                   <!-- <li><i class="ti-headphone-alt"></i>+84 589 273 382</li> -->
-                  <li><i class="ti-email"></i>qakhadelivery@gmail.com</li>
+                  <!-- <li><i class="ti-email"></i>qakhadelivery@gmail.com</li> -->
+                  <li>
+                    <font-awesome-icon :icon="['fas', 'store-alt']" />
+                    <a href="https://qakha-delivery.ngrok.io/" target="_blank">
+                      {{ $t("header.seller") }}
+                    </a>
+                  </li>
                 </ul>
               </div>
               <!--/ End Top Left -->
@@ -1566,6 +1572,14 @@ export default {
     }
     .header-middle-user-info {
       display: none;
+    }
+  }
+}
+
+.list-main {
+  li {
+    svg {
+      color: #f7941d;
     }
   }
 }

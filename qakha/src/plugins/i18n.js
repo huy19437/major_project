@@ -9,6 +9,7 @@ const messages = {
         header: {
             login: 'Login',
             logout: 'Logout',
+            seller: 'Seller channel',
             searchProducts: 'Search by Products Name',
             listOfProducts: 'List of products',
             headerInner: {
@@ -379,6 +380,7 @@ const messages = {
         header: {
             login: 'Đăng nhập',
             logout: 'Đăng xuất',
+            seller: 'Kênh người bán',
             searchProducts: 'Tìm kiếm theo tên Sản phẩm',
             listOfProducts: 'Danh sách sản phẩm',
             headerInner: {
