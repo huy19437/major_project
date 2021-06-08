@@ -5,7 +5,7 @@
       <div class="topbar hide-on-mobile-tablet">
         <div class="container">
           <div class="row">
-            <div class="col-lg-5 col-md-12 col-12">
+            <div class="col-lg-12 col-md-12 col-12">
               <!-- Top Left -->
               <div class="top-left">
                 <ul class="list-main">
@@ -57,14 +57,18 @@
                       {{ $t("header.seller") }}
                     </a>
                   </li>
-                </ul>
-              </div>
-              <!--/ End Top Left -->
-            </div>
-            <div class="col-lg-7 col-md-12 col-12">
-              <!-- Top Right -->
-              <div class="right-content">
-                <ul class="list-main">
+                  <li>
+                    <font-awesome-icon :icon="['fas', 'store-alt']" />
+                    <a href="/register-partner" target="_blank">
+                      {{ $t("header.partner") }}
+                    </a>
+                  </li>
+                  <li>
+                    <font-awesome-icon :icon="['fas', 'motorcycle']" />
+                    <a href="/register-driver" target="_blank">
+                      {{ $t("header.driver") }}
+                    </a>
+                  </li>
                   <li>
                     <i class="ti-location-pin"></i>
                     <span>
@@ -123,8 +127,14 @@
                   </li>
                 </ul>
               </div>
-              <!-- End Top Right -->
+              <!--/ End Top Left -->
             </div>
+            <!-- <div class="col-lg-6 col-md-12 col-12">
+              <div class="right-content">
+                <ul class="list-main">
+                </ul>
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -201,6 +211,13 @@
                     <router-link to="/about-us">
                       {{ $t("header.headerInner.about") }}
                     </router-link>
+                  </div>
+                </li>
+                <li class="nav__mobile-item">
+                  <div class="content">
+                    <a href="https://qakha-delivery.ngrok.io/" target="_blank">
+                      {{ $t("header.seller") }}
+                    </a>
                   </div>
                 </li>
                 <li class="nav__mobile-item">
@@ -954,7 +971,9 @@ export default {
 }
 .top-left .list-main {
   padding-left: 0;
-  float: left;
+  // float: left;
+  display: flex;
+  justify-content: space-between;
 }
 
 .topbar .list-main {
