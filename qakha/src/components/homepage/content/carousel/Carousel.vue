@@ -197,6 +197,9 @@ export default {
         .reverse()
         .slice(0, 40);
       // var sortedObjs = productsHasTrend.slice(0, 20);
+      sortedObjs = sortedObjs.filter(
+        (item) => !item.status.includes("disabled")
+      );
 
       for (let j = 0; j < Math.ceil(sortedObjs.length / 4); j++) {
         for (let i = 0; i < 4; i++) {

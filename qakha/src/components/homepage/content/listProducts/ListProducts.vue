@@ -294,6 +294,9 @@ export default {
       showFeedback: "feedback/showFeedback",
       Feedbacks: "feedback/Feedbacks",
     }),
+    checkIsNotDisable(product) {
+      return product.status.includes("disabled");
+    },
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
@@ -303,7 +306,10 @@ export default {
         return category.id === this.cateId;
       });
       const typeSort = this.typeOfSort;
-      console.log(tmp.products);
+      // console.log(tmp.products);
+      tmp.products = tmp.products.filter(
+        (item) => !item.status.includes("disabled")
+      );
       if (typeSort === "" || typeSort === null || typeSort === undefined) {
         if (tmp) return tmp.products;
       } else if (typeSort === "1") {
@@ -408,7 +414,7 @@ export default {
     },
     checkPartnerIsClose() {
       var partnerObj = this.getPartnersLocal.find((obj) => obj.id == this.slug);
-      console.log(partnerObj);
+      // console.log(partnerObj);
       if (partnerObj.status === "close") {
         openToastMess("Food store is close, Please come back later", "warning");
       }
