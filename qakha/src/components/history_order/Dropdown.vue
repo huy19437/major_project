@@ -129,7 +129,7 @@ export default {
 }
 
 .isClick {
-  transform: rotate(180deg) !important;
+  transform: rotate(-135deg) !important;
   transition: 0.5s all ease-in-out;
 }
 
@@ -190,20 +190,22 @@ export default {
 }
 
 .caret {
-  width: 0;
+  border-bottom: 2px solid #999;
+  border-right: 2px solid #999;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  content: "";
+  display: block;
+  height: 8px;
+  margin-top: -4px;
+  pointer-events: none;
   position: absolute;
-  top: 19px;
-  height: 0;
-  // margin-left: -24px;
-  margin: 0;
-  vertical-align: middle;
-  border-top: 8px dashed;
-  border-top: 8px solid \9;
-  border-right: 8px solid transparent;
-  border-left: 8px solid transparent;
-  right: 10px;
-  transform: rotate(0deg);
-  transition: 0.5s all ease-in-out;
+  right: 12px;
+  top: 50%;
+  transform-origin: 66% 66%;
+  transform: rotate(45deg);
+  transition: all 0.15s ease-in-out;
+  width: 8px;
 }
 
 li {
