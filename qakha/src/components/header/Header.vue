@@ -679,12 +679,9 @@ export default {
       setSubTotal: "order/setSubTotal",
     }),
     goto(section) {
-      if (
-        window.location.pathname.includes("/list-products") &&
-        section === "bestseller"
-      ) {
+      if (window.location.pathname.includes("/list-partners")) {
         window.location.href = `#${section}`;
-      } else if (window.location.pathname === "/list-partners") {
+      } else if (window.location.pathname.includes("/list-products")) {
         window.location.href = `#${section}`;
       } else {
         window.location.href = `/#${section}`;
