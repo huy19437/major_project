@@ -69,6 +69,7 @@
         </router-link>
         <!-- <a href="product-details">{{ product.name }}</a> -->
       </h3>
+      <h5 class="product-desc">{{ product.description }}</h5>
       <div class="product-price">
         <span>{{ product.price | formatVND }}</span>
       </div>

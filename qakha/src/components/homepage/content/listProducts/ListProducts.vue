@@ -501,6 +501,7 @@ export default {
   .product-content {
     padding: 0 20px 20px;
     margin-top: -13px !important;
+    text-align: left;
     h3 {
       margin-top: 20px;
       a {
@@ -518,8 +519,21 @@ export default {
         }
       }
     }
+    .product-desc {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      font-weight: 700;
+      color: #989898;
+    }
     .product-price {
-      color: #86bd57;
+      // color: #86bd57;
+      span {
+        font-weight: 700 !important;
+        font-size: 20px !important;
+        color: #f50000;
+      }
     }
   }
   &:hover {

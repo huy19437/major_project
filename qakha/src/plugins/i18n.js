@@ -9,7 +9,7 @@ const messages = {
         header: {
             login: 'Login',
             logout: 'Logout',
-            seller: 'Seller channel',
+            seller: 'Seller',
             driver: 'Driver register',
             partner: 'Partner register',
             searchProducts: 'Search by Products Name',
@@ -382,7 +382,7 @@ const messages = {
         header: {
             login: 'Đăng nhập',
             logout: 'Đăng xuất',
-            seller: 'Kênh người bán',
+            seller: 'Người bán',
             driver: 'Đăng ký tài xế',
             partner: 'Đăng ký đối tác',
             searchProducts: 'Tìm kiếm theo tên Sản phẩm',
