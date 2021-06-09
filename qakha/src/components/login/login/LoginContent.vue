@@ -120,7 +120,10 @@
                     </p>
                   </div>
                 </div>
-                <button class="btn btn-primary btn-block btn-forgot">
+                <button
+                  class="btn btn-primary btn-block btn-forgot"
+                  :disabled="$v.activeCode.$invalid || isDisabled2"
+                >
                   Submit
                 </button>
                 <Spinner :loading="isLoading2" />
@@ -165,6 +168,7 @@ export default {
       isLoading: false,
       isLoading2: false,
       isDisabled: false,
+      isDisabled2: false,
       userLogin: {
         email: "",
         password: "",
@@ -252,6 +256,8 @@ export default {
       // $("#enterActiveCodeModal").modal("hide");
 
       this.isLoading2 = true;
+      this.isDisabled2 = true;
+
       this.$v.activeCode.$touch();
       if (!this.$v.activeCode.$invalid) {
         let params = {
@@ -270,6 +276,7 @@ export default {
           })
           .finally(() => {
             this.isLoading2 = false;
+            this.isDisabled2 = false;
           });
       }
     },
