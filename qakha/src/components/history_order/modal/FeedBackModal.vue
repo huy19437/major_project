@@ -71,11 +71,12 @@
       aria-labelledby="loadMeLabel"
     >
       <div
-        style="height: 100vh; width: 100vh !important; margin-top: 23vh"
+        style="margin-top: 50vh"
         class="modal-dialog modal-sm"
         role="document"
       >
-        <div id="loader"></div>
+        <!-- <div id="loader"></div> -->
+        <div class="spinner-3"></div>
       </div>
     </div>
   </div>
@@ -244,6 +245,31 @@ export default {
   border-top: 16px solid #000;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
+}
+
+.spinner-3 {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #ff8b00);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: s3 1s infinite linear;
+}
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @-webkit-keyframes spin {

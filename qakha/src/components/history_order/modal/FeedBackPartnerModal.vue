@@ -198,13 +198,18 @@ export default {
             openToastMess(err, "error");
           });
       } else {
+        this.isDisabled = true;
         this.feedBackPartnerObj.point = this.rating;
         // console.log(this.feedBackPartnerObj);
         this.addFeedbackPartner(this.feedBackPartnerObj)
           .then((res) => {
             // console.log(res);
             openToastMess("Add feedback partner successfully!", "success");
-            openToastMess("You have recieved 500 coins!", "info");
+            openToastMess(
+              "You have recieved 1000 coins!",
+              "info",
+              "bottom-left"
+            );
             $("#feedBackPartnerModal").modal("hide");
 
             // window.location.reload();

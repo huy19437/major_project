@@ -37,9 +37,9 @@
                 <h4>{{ $t("footer.session2.title") }}</h4>
                 <ul class="footer-list-info">
                   <li>
-                    <a href="javascript:void(0)">
+                    <router-link to="/about-us">
                       {{ $t("footer.session2.aboutUs") }}
-                    </a>
+                    </router-link>
                   </li>
                   <li>
                     <a href="javascript:void(0)">
@@ -52,9 +52,9 @@
                     </a>
                   </li>
                   <li>
-                    <a href="javascript:void(0)">
+                    <router-link to="/contact-us">
                       {{ $t("footer.session2.ContactUs") }}
-                    </a>
+                    </router-link>
                   </li>
                   <li>
                     <a href="javascript:void(0)">

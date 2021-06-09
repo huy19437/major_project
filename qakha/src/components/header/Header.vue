@@ -70,11 +70,10 @@
                     </a>
                   </li>
                   <li>
-                    <i class="ti-location-pin"></i>
+                    <i class="ti-location-arrow"></i>
                     <span>
                       {{ userCurrentAddress.locality }},
-                      {{ userCurrentAddress.city }},
-                      {{ userCurrentAddress.countryName }}
+                      {{ userCurrentAddress.city }}
                     </span>
                   </li>
                   <li>
@@ -843,10 +842,15 @@ export default {
           this.partnerStatus = partnerObj.status;
           if (this.partnerStatus === "open") {
             this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-            this.$router.push({
-              name: "Cart",
-              params: { slug: this.partnerIdForSlug || 0 },
-            });
+            if (
+              !window.location.pathname.includes("cart") &&
+              this.$route.params.slug == this.partnerIdForSlug
+            ) {
+              this.$router.push({
+                name: "Cart",
+                params: { slug: this.partnerIdForSlug || 0 },
+              });
+            }
           } else {
             openToastMess("Food store is close", "warning");
           }
@@ -864,10 +868,15 @@ export default {
       this.partnerStatus = partnerObj.status;
       if (this.partnerStatus === "open") {
         this.partnerIdForSlug = this.getCartLocal[0].partner_id;
-        this.$router.push({
-          name: "Checkout",
-          params: { slug: this.partnerIdForSlug || 0 },
-        });
+        if (
+          !window.location.pathname.includes("checkout") &&
+          this.$route.params.slug == this.partnerIdForSlug
+        ) {
+          this.$router.push({
+            name: "Checkout",
+            params: { slug: this.partnerIdForSlug || 0 },
+          });
+        }
       } else {
         openToastMess("Food store is close", "warning");
       }

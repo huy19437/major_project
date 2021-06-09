@@ -9,7 +9,7 @@ const messages = {
         header: {
             login: 'Login',
             logout: 'Logout',
-            seller: 'Seller',
+            seller: 'Seller channel',
             driver: 'Driver register',
             partner: 'Partner register',
             searchProducts: 'Search by Products Name',
@@ -67,7 +67,7 @@ const messages = {
             quantity_sold: "Sold",
             addToCart: "Add to Cart",
             sortBy: {
-                all: 'All',
+                all: 'Default',
                 priceUp: 'Low price',
                 priceDown: 'High price',
                 qtySold: 'Quantity sold'
@@ -382,7 +382,7 @@ const messages = {
         header: {
             login: 'Đăng nhập',
             logout: 'Đăng xuất',
-            seller: 'Người bán',
+            seller: 'Kênh người bán',
             driver: 'Đăng ký tài xế',
             partner: 'Đăng ký đối tác',
             searchProducts: 'Tìm kiếm theo tên Sản phẩm',
@@ -440,7 +440,7 @@ const messages = {
             quantity_sold: "Đã bán",
             addToCart: "Thêm vào Giỏ",
             sortBy: {
-                all: 'Tất cả',
+                all: 'Mặc định',
                 priceUp: 'Giá tiền thấp',
                 priceDown: 'Giá tiền cao',
                 qtySold: 'Số lượng đã bán'
