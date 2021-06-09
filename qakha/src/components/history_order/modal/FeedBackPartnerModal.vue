@@ -41,13 +41,23 @@
           <div class="upload-image">
             <div class="item-upload btn-up">
               <div v-if="!image">
-                <span class="icon icon-upload">
-                  <font-awesome-icon :icon="['fas', 'camera']" />
-                </span>
+                <label
+                  :title="`${$t(
+                    'historyOrders.feedbackModal.feedbackPartner.img'
+                  )}`"
+                  for="partner-img"
+                  class="img-user-upload"
+                >
+                  <span class="icon icon-upload">
+                    <font-awesome-icon :icon="['fas', 'camera']" />
+                  </span>
+                </label>
                 <input
+                  id="partner-img"
                   type="file"
                   accept=".png,.jpg,.jpeg"
                   @change="handleFileChange($event)"
+                  hidden
                 />
               </div>
               <div v-else class="image-to-upload">
@@ -478,5 +488,11 @@ export default {
 .icon-upload {
   font-size: 20px;
   background-position: -337px -335px;
+}
+.img-user-upload {
+  cursor: pointer;
+  svg {
+    font-size: 3rem;
+  }
 }
 </style>

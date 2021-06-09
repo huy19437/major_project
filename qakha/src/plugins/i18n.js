@@ -242,7 +242,8 @@ const messages = {
                 submit: 'Submit',
                 feedbackPartner: {
                     title: 'Share your review. Your ratings and comments will be kept anonymous.',
-                    getCoins: 'Completed feedback to get 1000 coins'
+                    getCoins: 'Completed feedback to get 1000 coins',
+                    img: 'Upload feedback picture'
                 }
             },
             orderDetailsModal: {
@@ -615,7 +616,8 @@ const messages = {
                 submit: 'Gửi',
                 feedbackPartner: {
                     title: 'Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh.',
-                    getCoins: 'Hoàn thành đánh giá để nhận 1000 coins'
+                    getCoins: 'Hoàn thành đánh giá để nhận 1000 coins',
+                    img: 'Upload ảnh đánh giá'
                 }
             },
             orderDetailsModal: {
