@@ -354,6 +354,24 @@
                   </div>
                 </div>
                 <button
+                  type="button"
+                  class="btn-fetch-code"
+                  :disabled="counting"
+                  @click="startCountdown"
+                >
+                  <vue-countdown
+                    v-if="counting"
+                    :time="30 * 1000"
+                    @end="onCountdownEnd"
+                    v-slot="{ totalSeconds }"
+                  >
+                    Fetch again
+                    {{ totalSeconds }}
+                    later</vue-countdown
+                  >
+                  <span v-else>Fetch Active Code</span>
+                </button>
+                <button
                   class="btn btn-primary btn-block btn-forgot"
                   :disabled="$v.activeCode.$invalid"
                 >
@@ -427,6 +445,7 @@ export default {
       },
     };
     return {
+      counting: false,
       image: "",
       showPassword: false,
       registerErr: false,
@@ -456,6 +475,7 @@ export default {
         type_user: 2,
         image: "",
       },
+      emailOfDriver: "",
     };
   },
   validations: {
@@ -505,10 +525,27 @@ export default {
     ...mapActions({
       registerDriver: "auth/registerDriver",
       activeAccountDriver: "auth/activeAccountDriver",
+      resendActiveCodeDriver: "auth/resendActiveCodeDriver",
     }),
     ...mapMutations({
       setRegisterError: "auth/setRegisterError",
     }),
+    startCountdown: function () {
+      this.counting = true;
+      let params = {
+        email: this.emailOfDriver,
+      };
+      this.resendActiveCodeDriver(params)
+        .then((res) => {
+          openToastMess(res, "success");
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    onCountdownEnd: function () {
+      this.counting = false;
+    },
     async handleSubmit(event) {
       // console.log(this.registerErr);
       await this.upload()
@@ -522,6 +559,8 @@ export default {
               this.registerDriver(this.$data.form)
                 .then((response) => {
                   $("#activeDriverModal").modal("show");
+                  this.counting = true;
+                  this.emailOfDriver = this.form.email;
                   if (response) {
                     this.image = "";
                     openToastMess("Sign up successfully", "success");
@@ -821,6 +860,13 @@ $button-color: #f7941d;
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+}
+
+.btn-fetch-code {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  margin-bottom: 7px;
 }
 
 /* Customize container */

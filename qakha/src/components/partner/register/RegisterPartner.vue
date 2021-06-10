@@ -171,6 +171,34 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-12 formgroup show-password">
+                  <label>{{ $t("partner.passwordConfirmation") }}</label>
+                  <input
+                    type="password"
+                    :placeholder="`${$t(
+                      'partner.placeholder.password_confirmation'
+                    )}`"
+                    class="form-control"
+                    v-model="form.password_confirmation"
+                    @blur="$v.form.password_confirmation.$touch()"
+                  />
+                  <div v-if="$v.form.password_confirmation.$error">
+                    <p
+                      class="errorMessage"
+                      v-if="!$v.form.password_confirmation.required"
+                    >
+                      Password Confirm is required
+                    </p>
+                    <p
+                      class="errorMessage"
+                      v-else-if="!$v.form.password.sameAsPassword"
+                    >
+                      Password confirmation not match
+                    </p>
+                  </div>
+                </div>
+              </div>
               <!-- <div class="row">
                 <div class="col-12 formgroup">
                   <div v-show="showProgress">
@@ -250,7 +278,11 @@
                   }}</label>
                   <div class="short-by">
                     <select
-                      class="form-control basic-select select2-hidden-accessible"
+                      class="
+                        form-control
+                        basic-select
+                        select2-hidden-accessible
+                      "
                       data-select2-id="1"
                       tabindex="-1"
                       aria-hidden="true"
@@ -341,6 +373,24 @@
                   </div>
                 </div>
                 <button
+                  type="button"
+                  class="btn-fetch-code"
+                  :disabled="counting"
+                  @click="startCountdown"
+                >
+                  <vue-countdown
+                    v-if="counting"
+                    :time="30 * 1000"
+                    @end="onCountdownEnd"
+                    v-slot="{ totalSeconds }"
+                  >
+                    Fetch again
+                    {{ totalSeconds }}
+                    later</vue-countdown
+                  >
+                  <span v-else>Fetch Active Code</span>
+                </button>
+                <button
                   class="btn btn-primary btn-block btn-forgot"
                   :disabled="$v.activeCode.$invalid"
                 >
@@ -382,6 +432,7 @@ import {
   minLength,
   maxLength,
   numeric,
+  sameAs,
 } from "vuelidate/lib/validators";
 import Spinner from "@/components/spinner/Spinner";
 import GoogleMap from "@/components/googlemap/GoogleMap";
@@ -413,6 +464,7 @@ export default {
       },
     };
     return {
+      counting: false,
       image: "",
       showPassword: false,
       errMess: false,
@@ -436,6 +488,7 @@ export default {
         email: "",
         phone_number: "",
         password: "",
+        password_confirmation: "",
         address: "",
         time_open: "",
         time_close: "",
@@ -446,6 +499,7 @@ export default {
         image: "",
         type_id: 1,
       },
+      emailOfPartner: "",
     };
   },
   validations: {
@@ -471,6 +525,10 @@ export default {
         minLength: minLength(6),
         maxLength: maxLength(128),
         validPassword,
+      },
+      password_confirmation: {
+        required,
+        sameAsPassword: sameAs("password"),
       },
       time_open: {
         required,
@@ -498,10 +556,27 @@ export default {
     ...mapActions({
       registerPartner: "auth/registerPartner",
       activeAccountPartner: "auth/activeAccountPartner",
+      resendActiveCodePartner: "auth/resendActiveCodePartner",
     }),
     ...mapMutations({
       setRegisterPartnerError: "auth/setRegisterPartnerError",
     }),
+    startCountdown: function () {
+      this.counting = true;
+      let params = {
+        email: this.emailOfPartner,
+      };
+      this.resendActiveCodePartner(params)
+        .then((res) => {
+          openToastMess(res, "success");
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    onCountdownEnd: function () {
+      this.counting = false;
+    },
     async handleSubmit(event) {
       await this.upload()
         .then((res) => {
@@ -516,7 +591,9 @@ export default {
               this.registerPartner(this.$data.form)
                 .then((response) => {
                   this.image = "";
+                  this.emailOfPartner = this.form.email;
                   $("#activePartnerModal").modal("show");
+                  this.counting = true;
                   if (response) {
                     // console.log(response);
                     this.registerSucess = true;
@@ -665,6 +742,7 @@ export default {
       this.form.email = "";
       this.form.phone_number = "";
       this.form.password = "";
+      this.form.password_confirmation = "";
       this.form.address = "";
       this.form.image = "";
       this.activeCode = "";
@@ -861,5 +939,11 @@ $button-color: #f7941d;
 .image-upload {
   display: flex;
   flex-direction: column;
+}
+.btn-fetch-code {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  margin-bottom: 7px;
 }
 </style>

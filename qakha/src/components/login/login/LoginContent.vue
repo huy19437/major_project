@@ -121,6 +121,24 @@
                   </div>
                 </div>
                 <button
+                  type="button"
+                  class="btn-fetch-code"
+                  :disabled="counting"
+                  @click="startCountdown"
+                >
+                  <vue-countdown
+                    v-if="counting"
+                    :time="30 * 1000"
+                    @end="onCountdownEnd"
+                    v-slot="{ totalSeconds }"
+                  >
+                    Fetch again
+                    {{ totalSeconds }}
+                    later</vue-countdown
+                  >
+                  <span v-else>Fetch Active Code</span>
+                </button>
+                <button
                   class="btn btn-primary btn-block btn-forgot"
                   :disabled="$v.activeCode.$invalid || isDisabled2"
                 >
@@ -158,6 +176,7 @@ export default {
   components: { Spinner },
   data() {
     return {
+      counting: false,
       active_account: true,
       activeCode: "",
       showPassword: false,
@@ -202,12 +221,30 @@ export default {
     ...mapActions({
       loginFuction: "auth/login",
       activeAccount: "auth/activeAccount",
+      resendActiveCode: "auth/resendActiveCode",
     }),
     ...mapMutations({
       setLoginError: "auth/setLoginError",
     }),
     toggleStyleDisplay: function () {
       this.status = !this.status;
+    },
+
+    startCountdown: function () {
+      this.counting = true;
+      let params = {
+        email: this.userLogin.email,
+      };
+      this.resendActiveCode(params)
+        .then((res) => {
+          openToastMess(res, "success");
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    onCountdownEnd: function () {
+      this.counting = false;
     },
     authenticate(event) {
       this.isLoading = true;
@@ -236,6 +273,7 @@ export default {
               setTimeout(() => {
                 this.toggleErrMessage();
               }, 3000);
+              this.counting = true;
             })
             .finally(() => {
               this.isLoading = false;
@@ -565,5 +603,12 @@ textarea {
   display: inline-block;
   width: auto;
   margin-right: 4px;
+}
+
+.btn-fetch-code {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  margin-bottom: 7px;
 }
 </style>

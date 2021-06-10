@@ -217,6 +217,24 @@
                   </div>
                 </div>
                 <button
+                  type="button"
+                  class="btn-fetch-code"
+                  :disabled="counting"
+                  @click="startCountdown"
+                >
+                  <vue-countdown
+                    v-if="counting"
+                    :time="30 * 1000"
+                    @end="onCountdownEnd"
+                    v-slot="{ totalSeconds }"
+                  >
+                    Fetch again
+                    {{ totalSeconds }}
+                    later</vue-countdown
+                  >
+                  <span v-else>Fetch Active Code</span>
+                </button>
+                <button
                   class="btn btn-primary btn-block btn-forgot"
                   :disabled="$v.activeCode.$invalid || isDisabled"
                 >
@@ -255,6 +273,7 @@ export default {
   components: { Spinner },
   data() {
     return {
+      counting: false,
       showPassword: false,
       isLogin: false,
       registerSucess: "",
@@ -270,6 +289,7 @@ export default {
         password_confirmation: "",
         type_user: 1,
       },
+      emailOfUser: "",
     };
   },
   validations: {
@@ -313,9 +333,26 @@ export default {
     toggleStyleDisplay: function () {
       this.status = !this.status;
     },
+    startCountdown: function () {
+      this.counting = true;
+      let params = {
+        email: this.emailOfUser,
+      };
+      this.resendActiveCode(params)
+        .then((res) => {
+          openToastMess(res, "success");
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    onCountdownEnd: function () {
+      this.counting = false;
+    },
     ...mapActions({
       registerFuction: "auth/register",
       activeAccount: "auth/activeAccount",
+      resendActiveCode: "auth/resendActiveCode",
     }),
     ...mapMutations({
       setRegisterError: "auth/setRegisterError",
@@ -323,6 +360,7 @@ export default {
     register() {
       this.isLoading = true;
       this.isDisabled = true;
+      this.emailOfUser = this.userSignup.email;
       if (this.registerError == null) {
         this.$v.userSignup.$touch();
         if (!this.$v.userSignup.$invalid) {
@@ -332,6 +370,7 @@ export default {
               openToastMess(response, "success");
               // if (response) {
               $("#enterActiveCodeRegisterModal").modal("show");
+              this.counting = true;
               this.registerSucess = "Sign up success!";
               this.clearInput();
               this.$emit("register-success", this.registerSucess);
@@ -608,5 +647,12 @@ textarea {
 
 .register-orther {
   font-size: 2rem;
+}
+
+.btn-fetch-code {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  margin-bottom: 7px;
 }
 </style>

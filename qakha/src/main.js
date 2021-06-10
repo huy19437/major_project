@@ -32,6 +32,8 @@ import ProgressBar from 'vuejs-progress-bar'
 import VueGeolocation from 'vue-browser-geolocation';
 import i18n from '@/plugins/i18n';
 import FlagIcon from 'vue-flag-icon';
+import VueCountdown from '@chenfengyuan/vue-countdown';
+
 
 Vue.use(FlagIcon);
 Vue.use(VueGeolocation);
@@ -54,6 +56,7 @@ library.add(faEnvelope, faPhoneAlt, faCaretLeft, faCaretRight, faCoffee, faAncho
 Vue.use(Vuelidate)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('vue-countdown', VueCountdown);
 
 Vue.config.productionTip = false
 

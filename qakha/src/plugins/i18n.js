@@ -309,6 +309,7 @@ const messages = {
             phone: 'Phone Number',
             email: 'Email',
             password: 'Password',
+            passwordConfirmation: 'Password Confirmation',
             image: 'Image',
             imageUpload: 'Image Uploaded',
             timeOpen: 'Time open',
@@ -326,6 +327,7 @@ const messages = {
                 phone: "Enter Phone Number Here...",
                 email: 'Enter Email Address Here...',
                 password: 'Enter Password Here...',
+                password_confirmation: 'Enter Password Confirm Here...',
             }
         },
         productDetails: {
@@ -683,6 +685,7 @@ const messages = {
             phone: 'Số điện thoại',
             email: 'Email',
             password: 'Mật khẩu',
+            passwordConfirmation: 'Xác nhận Mật khẩu',
             image: 'Hình ảnh',
             imageUpload: 'Ảnh đã tải lên',
             timeOpen: 'Thời gian mở cửa',
@@ -700,6 +703,7 @@ const messages = {
                 phone: "Nhập số điện thoại ở đây...",
                 email: 'Nhập email ở đây...',
                 password: 'Nhập mật khẩu ở đây...',
+                password_confirmation: 'Xác nhận mật khẩu ở đây...',
             }
         },
         productDetails: {

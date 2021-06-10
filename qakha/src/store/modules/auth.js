@@ -216,6 +216,36 @@ const actions = {
                     rej(err.response ? err.response.data.message : err);
                 })
         })
+    },
+    resendActiveCode({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/user/confirmation', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                })
+        })
+    },
+    resendActiveCodePartner({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/partner/confirmation', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                })
+        })
+    },
+    resendActiveCodeDriver({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/driver/confirmation', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                })
+        })
     }
 }
 
