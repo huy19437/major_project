@@ -319,6 +319,10 @@
                           {{ partner.time_close.slice(0, 5) }}
                         </span>
                       </li>
+                      <li v-if="partner.average_point">
+                        <span class="fa fa-star checked average_point"></span>
+                        {{ roundNumber(parseFloat(partner.average_point)) }}
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -374,7 +378,8 @@ export default {
                 .toLowerCase()
                 .includes(this.typePartner.toLowerCase())) &&
           this.checkTimeCondition(partner.time_close || "", this.time_close) &&
-          this.checkStatusPartner(partner.status || "", this.statusType)
+          this.checkStatusPartner(partner.status || "", this.statusType) &&
+          this.checkRatingStars(partner.average_point || "", this.ratingStars)
         );
       });
     },
@@ -443,6 +448,7 @@ export default {
         .then((res) => {
           this.partnerData = res;
           this.typePartner = typePartner;
+          console.log(res);
         })
         .finally(() => {
           this.isLoading = false;
@@ -513,6 +519,38 @@ export default {
       if (b === "all") return true;
       if (a === b) return true;
       else return false;
+    },
+    checkRatingStars(a, b) {
+      if (a === "" || b === "") return true;
+      if (a >= b) return true;
+    },
+    roundToTwo(x) {
+      return (x = Math.round(parseFloat(x) * 1000) / 1000);
+      // return +(Math.round(num + "e+2") + "e-2");
+    },
+    isRound(n, p) {
+      let l = n.toString().split(".")[1].length;
+      return p >= l;
+    },
+    roundNumber(n, p = 1) {
+      if (Number.EPSILON === undefined) {
+        Number.EPSILON = Math.pow(2, -52);
+      }
+      if (Number.isInteger === undefined) {
+        Number.isInteger = function (value) {
+          return (
+            typeof value === "number" &&
+            isFinite(value) &&
+            Math.floor(value) === value
+          );
+        };
+      }
+      if (Number.isInteger(n) || this.isRound(n, p)) return n;
+      let r = 0.5 * Number.EPSILON * n;
+      let o = 1;
+      while (p-- > 0) o *= 10;
+      if (n < 0) o *= -1;
+      return Math.round((n + r) * o) / o;
     },
     getResult() {
       this.setShoppingStatus(false);
@@ -959,8 +997,12 @@ h3.title-comm:before {
 .partner-list-option {
   .list-unstyled {
     justify-content: flex-start !important;
+    flex-direction: column;
     li {
       margin-bottom: 2px;
+      .average_point {
+        color: #f7941d;
+      }
       .icon-location {
         margin: 0 2px;
         color: #f7941d;
