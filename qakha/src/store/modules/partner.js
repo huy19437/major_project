@@ -17,6 +17,7 @@ const state = {
         // this.partners2 = data;
     },
     partnerId: 0,
+    isLoading: 0
 }
 
 const getters = {
@@ -25,6 +26,9 @@ const getters = {
     },
     getPartnerId(state) {
         return state.partnerId;
+    },
+    getIsLoading(state) {
+        return state.isLoading
     }
 }
 
@@ -34,6 +38,9 @@ const mutations = {
     },
     setPartnerId(state, data) {
         state.partnerId = data
+    },
+    setIsLoading(state, data) {
+        state.isLoading = data
     }
 }
 

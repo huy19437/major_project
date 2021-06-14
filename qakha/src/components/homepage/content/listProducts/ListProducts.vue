@@ -68,7 +68,7 @@
               :id="`${category.name}`"
               role="tabpanel"
             >
-              <div class="tab-single">
+              <div v-if="isRendered" class="tab-single">
                 <div class="job-filter mb-4 d-sm-flex align-items-center">
                   <div class="job-shortby ml-sm-auto d-flex align-items-center">
                     <form class="form-inline">
@@ -201,6 +201,9 @@
                   </div>
                 </div>
               </div>
+              <div v-if="!isRendered" class="row spinner-loading">
+                <Spinner :loading="!isRendered" />
+              </div>
             </div>
             <!--/ End Single Tab -->
           </div>
@@ -223,12 +226,13 @@
 
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import PaginationCustom from "@/components/pagination/PaginationCustom";
 import { openToastMess } from "@/services/toastMessage";
 import InputOrderHover from "./InputOrderHover";
 import SingleProduct from "./SingleProduct";
 import NotifyCloseModal from "@/components/notify_modal/NotifyCloseModal";
+import Spinner from "@/components/spinner/Spinner";
 import _, { map } from "underscore";
 import $ from "jquery";
 export default {
@@ -238,6 +242,7 @@ export default {
     InputOrderHover,
     SingleProduct,
     NotifyCloseModal,
+    Spinner,
   },
   data() {
     return {
@@ -250,11 +255,13 @@ export default {
       partner: {},
       partnerStatus: "",
       typeOfSort: "",
+      isRendered: false,
     };
   },
   computed: {
     ...mapGetters({
       getPartnersLocal: "partner/getPartnersLocal",
+      getIsLoading: "partner/getIsLoading",
       getNowRoute: "auth/getNowRoute",
       getAveragePoint: "feedback/getAveragePoint",
       getNumberOfReviews: "feedback/getNumberOfReviews",
@@ -281,6 +288,9 @@ export default {
     partnersLocalOnChange() {
       return this.getPartnersLocal;
     },
+    getIsLoadingOnChange() {
+      return this.getIsLoading;
+    },
   },
   methods: {
     ...mapActions({
@@ -294,6 +304,9 @@ export default {
       showFeedback: "feedback/showFeedback",
       Feedbacks: "feedback/Feedbacks",
     }),
+    ...mapMutations({
+      setIsLoading: "partner/setIsLoading",
+    }),
     checkIsNotDisable(product) {
       return product.status.includes("disabled");
     },
@@ -306,10 +319,10 @@ export default {
         return category.id === this.cateId;
       });
       const typeSort = this.typeOfSort;
-      // console.log(tmp.products);
-      tmp.products = tmp.products.filter(
-        (item) => !item.status.includes("disabled")
-      );
+      tmp.products = tmp.products.filter((item) => {
+        return !item.status.includes("disabled");
+      });
+
       if (typeSort === "" || typeSort === null || typeSort === undefined) {
         if (tmp) return tmp.products;
       } else if (typeSort === "1") {
@@ -421,6 +434,9 @@ export default {
     },
   },
   created() {
+    this.getPartners().then((res) => {
+      this.setIsLoading(Math.random());
+    });
     this.checkPartnerIsClose();
     this.getResult();
   },
@@ -431,6 +447,9 @@ export default {
     partnersLocalOnChange() {
       this.partner = this.getPartnersLocal.find((obj) => obj.id == this.slug);
       this.setCategoriesFromPartnerData(this.partner);
+    },
+    getIsLoadingOnChange() {
+      this.isRendered = true;
     },
   },
 };
