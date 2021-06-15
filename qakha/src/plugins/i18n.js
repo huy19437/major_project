@@ -241,7 +241,7 @@ const messages = {
                 close: 'Close',
                 submit: 'Submit',
                 feedbackPartner: {
-                    title: 'Share your review. Your ratings and comments will be kept anonymous.',
+                    title: 'Share your review.',
                     getCoins: 'Completed feedback to get 1000 coins',
                     img: 'Upload feedback picture'
                 }
@@ -617,7 +617,7 @@ const messages = {
                 close: 'Đóng',
                 submit: 'Gửi',
                 feedbackPartner: {
-                    title: 'Chia sẻ đánh giá của bạn. Đánh giá và bình luận của bạn sẽ được giữ dưới chế độ ẩn danh.',
+                    title: 'Chia sẻ đánh giá của bạn.',
                     getCoins: 'Hoàn thành đánh giá để nhận 1000 coins',
                     img: 'Upload ảnh đánh giá'
                 }

@@ -116,7 +116,10 @@ const routes = [
   {
     path: '/edit-address',
     name: 'EditAddress',
-    component: EditAddress
+    component: EditAddress,
+    meta: {
+      auth: true
+    },
   },
 ]
 

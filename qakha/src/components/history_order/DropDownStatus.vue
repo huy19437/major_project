@@ -26,6 +26,9 @@ export default {
         {
           status: "Shipping",
         },
+        {
+          status: "Canceled",
+        },
       ],
       object: {
         status: "All",
@@ -34,7 +37,8 @@ export default {
   },
   methods: {
     methodToRunOnSelect(payload) {
-      let orderStt = payload.status === "completed" ? "completed" : "shipping";
+      // let orderStt = payload.status === "completed" ? "completed" : "shipping";
+      let orderStt = "";
       if (payload.status === "All") {
         orderStt = "";
       }
@@ -43,6 +47,9 @@ export default {
       }
       if (payload.status === "Shipping") {
         orderStt = "shipping";
+      }
+      if (payload.status === "Canceled") {
+        orderStt = "canceled";
       }
       this.$emit("selet-option", orderStt);
     },

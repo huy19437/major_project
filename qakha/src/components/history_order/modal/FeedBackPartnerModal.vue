@@ -97,6 +97,7 @@
             {{ $t("historyOrders.feedbackModal.feedbackPartner.getCoins") }}
           </p>
         </div>
+        <div v-if="submitted" class="spinner-3"></div>
       </div>
     </div>
   </div>
@@ -138,6 +139,7 @@ export default {
       },
     };
     return {
+      submitted: false,
       image: "",
       isDisabled: false,
       rating: 0,
@@ -181,6 +183,7 @@ export default {
           .then((res) => {
             this.feedBackPartnerObj.point = this.rating;
             // console.log(this.feedBackPartnerObj);
+            this.submitted = true;
             this.addFeedbackPartner(this.feedBackPartnerObj)
               .then((res) => {
                 this.image = "";
@@ -202,6 +205,7 @@ export default {
               .finally(() => {
                 this.rating = 0;
                 this.isDisabled = false;
+                this.submitted = false;
               });
           })
           .catch((err) => {
@@ -211,6 +215,7 @@ export default {
         this.isDisabled = true;
         this.feedBackPartnerObj.point = this.rating;
         // console.log(this.feedBackPartnerObj);
+        this.submitted = true;
         this.addFeedbackPartner(this.feedBackPartnerObj)
           .then((res) => {
             // console.log(res);
@@ -231,6 +236,7 @@ export default {
           .finally(() => {
             this.rating = 0;
             this.isDisabled = false;
+            this.submitted = false;
           });
       }
       this.feedBackPartnerObj.content = "";
@@ -493,6 +499,22 @@ export default {
   cursor: pointer;
   svg {
     font-size: 3rem;
+  }
+}
+
+.spinner-3 {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #ff8b00);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: s3 1s infinite linear;
+}
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
   }
 }
 </style>

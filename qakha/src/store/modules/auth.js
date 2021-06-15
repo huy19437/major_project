@@ -246,7 +246,17 @@ const actions = {
                     rej(err.response ? err.response.data.message : err);
                 })
         })
-    }
+    },
+    resendActiveCodeChangeEmail({ commit }, params) {
+        return new Promise((res, rej) => {
+            httpRequest.post('/user/resend_change_email', params)
+                .then(response => {
+                    res(response.data.message);
+                }).catch(err => {
+                    rej(err.response ? err.response.data.message : err);
+                })
+        })
+    },
 }
 
 export default {

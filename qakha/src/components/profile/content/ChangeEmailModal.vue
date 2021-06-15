@@ -64,6 +64,27 @@
                   </div>
                 </div>
 
+                <div v-if="codeActive" class="form-group">
+                  <button
+                    type="button"
+                    class="btn-fetch-code"
+                    :disabled="counting"
+                    @click="startCountdown"
+                  >
+                    <vue-countdown
+                      v-if="counting"
+                      :time="30 * 1000"
+                      @end="onCountdownEnd"
+                      v-slot="{ totalSeconds }"
+                    >
+                      Fetch again
+                      {{ totalSeconds }}
+                      later</vue-countdown
+                    >
+                    <span v-else>Fetch Active Code</span>
+                  </button>
+                </div>
+
                 <button
                   v-if="!codeActive"
                   class="btn btn-primary btn-block btn-forgot"
@@ -116,6 +137,7 @@ export default {
   components: { Spinner },
   data() {
     return {
+      counting: false,
       errMess: "",
       showPassword: false,
       showPassword2: false,
@@ -148,7 +170,24 @@ export default {
       updateUser: "auth/updateUser",
       changeEmail: "user/changeEmail",
       showUser: "auth/showUser",
+      resendActiveCodeChangeEmail: "auth/resendActiveCodeChangeEmail",
     }),
+    startCountdown: function () {
+      this.counting = true;
+      let params = {
+        new_email: this.new_email,
+      };
+      this.resendActiveCodeChangeEmail(params)
+        .then((res) => {
+          openToastMess(res, "success");
+        })
+        .catch((error) => {
+          openToastMess(error, "error");
+        });
+    },
+    onCountdownEnd: function () {
+      this.counting = false;
+    },
     handleSubmit() {
       this.isLoading = true;
       this.isDisabled = true;
@@ -160,6 +199,7 @@ export default {
         this.updateUser(params)
           .then((res) => {
             this.codeActive = !this.codeActive;
+            this.counting = true;
             // console.log(res);
             openToastMess("Get verification code in your Email!", "success");
           })
@@ -279,5 +319,12 @@ export default {
   color: red;
   margin-bottom: 0;
   position: absolute;
+}
+
+.btn-fetch-code {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  margin-bottom: 7px;
 }
 </style>
