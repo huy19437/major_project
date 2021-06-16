@@ -153,7 +153,7 @@
               <div class="col-lg-6 col-12">
                 <div class="left">
                   <p>
-                    Copyright © 2021
+                    Copyright © {{ year }}
                     <a href="https://www.facebook.com/me/" target="_blank"
                       >QakhaDelivery</a
                     >
@@ -188,6 +188,11 @@ export default {
   name: "Footer",
   components: {
     // ScrollUp,
+  },
+  data() {
+    return {
+      year: new Date().getFullYear(),
+    };
   },
 };
 </script>
